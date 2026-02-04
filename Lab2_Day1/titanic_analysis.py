@@ -31,7 +31,54 @@ df['AgeGroup'] = df['Age'].apply(age_group)
 print("="*70)
 print("STEPS 1-5 COMPLETE")
 print("="*70)
+"""
+STEP 4: MISSING VALUES
+- Age: 177 missing (19.86%) - can use with caution
+- Cabin: 687 missing (77.10%) - cannot use
+- All other columns: complete data
 
+STEP 5: FEATURES CREATED
+1. FamilySize = SibSp + Parch + 1
+   Range: 1 (alone) to 8 (large family)
+
+2. IsAlone = 1 if FamilySize == 1, else 0
+   537 traveled alone, 354 traveled with family
+
+3. AgeGroup = Child, Young Adult, Middle Age, Senior, Unknown
+
+ANALYSIS: SURVIVED vs NOT SURVIVED
+
+FamilySize:
+- Survived mean: 1.94
+- Not Survived mean: 1.88
+- Survivors had slightly larger families
+
+IsAlone:
+- Survived: 47.66% traveled alone
+- Not Survived: 68.12% traveled alone
+- Traveling alone increased death risk significantly
+
+AgeGroup Distribution:
+Survived (342 total):
+- Middle Age: 107 (31.3%)
+- Young Adult: 95 (27.8%)
+- Child: 61 (17.8%)
+- Unknown: 52 (15.2%)
+- Senior: 27 (7.9%)
+
+Not Survived (549 total):
+- Young Adult: 176 (32.1%)
+- Middle Age: 149 (27.1%)
+- Unknown: 125 (22.8%)
+- Child: 52 (9.5%)
+- Senior: 47 (8.6%)
+
+KEY FINDINGS:
+- Family size helps survival: survivors had mean 1.94 vs 1.88
+- Being alone hurts survival: 68% of non-survivors were alone
+- Middle-aged people survived more than other age groups
+- Young adults had the highest death rate
+"""
 class Passenger:
     def __init__(self, passenger_id, name, age, sex, survived, pclass, fare, embarked=None, family_size=None, is_alone=None, age_group=None):
         self.passenger_id = int(passenger_id) if pd.notna(passenger_id) else None
