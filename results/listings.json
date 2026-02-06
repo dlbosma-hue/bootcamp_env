@@ -1,0 +1,55 @@
+[
+  {
+    "product_id": 1,
+    "name": "Turtle Check Men Navy Blue Shirt",
+    "listing": {
+      "title": "Stylish Navy Blue Checkered Men's Shirt",
+      "description": "Elevate your wardrobe with the Turtle Check Men Navy Blue Shirt, a perfect blend of modern style and timeless comfort. Crafted from premium quality fabric, this shirt ensures both durability and softness, making it suitable for any occasion. Its striking navy blue check pattern adds a sophisticated touch, while the tailored fit enhances your silhouette for a polished look. Whether you're heading to the office or out for a casual weekend, this versatile shirt is your go-to choice. Pair it with jeans for a laid-back look or slacks for a more formal ensemble. Easy to care for, it\u2019s designed for the man who values both fashion and function.",
+      "features": [
+        "Premium quality fabric",
+        "Stylish navy blue check pattern",
+        "Comfortable tailored fit",
+        "Versatile for any occasion",
+        "Easy to care and maintain",
+        "Button-down collar and cuffs",
+        "Suitable for formal and casual settings"
+      ],
+      "keywords": "men's shirt, navy blue, checkered, stylish, casual, formal, tailored, comfortable, premium quality, versatile, office wear, weekend wear, easy care, button-down, fashion"
+    }
+  },
+  {
+    "product_id": 2,
+    "name": "Peter England Men Party Blue Jeans",
+    "listing": {
+      "title": "Stylish Peter England Party Blue Jeans for Men",
+      "description": "Upgrade your wardrobe with the Peter England Men Party Blue Jeans, designed for style and comfort. Perfect for any party or casual outing, these jeans offer a balance between modern aesthetics and premium quality. Made from durable denim fabric, they provide excellent flexibility and a relaxed fit. The rich blue hue and subtle fade accents ensure you stand out, whether you're heading to a gathering or hitting the town. Pair them with your favorite shirt or t-shirt to create effortlessly cool looks that never go out of style.",
+      "features": [
+        "Premium quality denim material",
+        "Comfortable and flexible fit",
+        "Trendy blue color with subtle fade",
+        "Ideal for parties and casual outings",
+        "Easy to pair with shirts and t-shirts",
+        "Durable construction for long-lasting wear"
+      ],
+      "keywords": "Peter England, men, party jeans, blue jeans, stylish jeans, denim, casual wear, durable, comfortable, flexible, fashionable, trendy, premium quality, relaxed fit"
+    }
+  },
+  {
+    "product_id": 3,
+    "name": "Titan Women Silver Watch",
+    "listing": {
+      "title": "Elegant Titan Silver Watch for Women",
+      "description": "Discover timeless elegance with the Titan Women Silver Watch, a perfect blend of sophistication and style. This exquisite timepiece is crafted for the modern woman who values both functionality and fashion. Its sleek silver design, combined with impeccable craftsmanship, makes it an ideal accessory for any occasion. Whether you're attending a formal event or heading to the office, this watch adds a touch of elegance to your ensemble. With its reliable quartz movement and durable construction, it's designed to stand the test of time. Elevate your accessory collection with this stunning Titan watch, a symbol of grace and precision.",
+      "features": [
+        "Sleek silver stainless steel band",
+        "Durable and scratch-resistant mineral glass",
+        "Reliable quartz movement",
+        "Water-resistant up to 30 meters",
+        "Classic analog display",
+        "Secure fold-over clasp closure",
+        "Suitable for both casual and formal occasions"
+      ],
+      "keywords": "Titan, women, silver, watch, elegant, stylish, quartz, analog, durable, fashionable, accessory, timepiece, water-resistant, stainless steel, classic"
+    }
+  }
+]
