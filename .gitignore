@@ -3,3 +3,6 @@
 .env
 .env.rtf
 
+.conda/
+*.csv
+.DS_Store
