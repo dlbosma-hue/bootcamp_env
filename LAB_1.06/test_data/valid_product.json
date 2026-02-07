@@ -1,0 +1,15 @@
+{
+  "name": "Premium Wireless Headphones",
+  "price": 149.99,
+  "category": "Electronics",
+  "description": "High-quality wireless headphones with active noise cancellation, 30-hour battery life, and premium sound quality. Perfect for music lovers and frequent travelers.",
+  "brand": "AudioTech Pro",
+  "features": [
+    "Active Noise Cancellation",
+    "30-hour battery life",
+    "Bluetooth 5.0",
+    "Premium sound quality"
+  ],
+  "image_url": "https://example.com/headphones.jpg",
+  "in_stock": true
+}

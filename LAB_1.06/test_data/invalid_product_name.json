@@ -1,0 +1,6 @@
+{
+  "name": "AB",
+  "price": 20.0,
+  "category": "Toys",
+  "description": "This product has a name that's too short (only 2 characters)."
+}
