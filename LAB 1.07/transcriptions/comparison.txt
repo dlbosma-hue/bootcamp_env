@@ -1,0 +1,18 @@
+============================================================
+COMPARISON: PROMPTED VS UNPROMPTED
+============================================================
+
+Unprompted length: 1095 characters
+Prompted length:   1055 characters
+
+------------------------------------------------------------
+UNPROMPTED:
+------------------------------------------------------------
+It was rather interesting just to watch them gathering their materials and bouncing around their, what they call it, kangaroo walk or something like that. Who named it that? I don't know. I bet those men are going to get quite a reception when they get back to Maine. Oh, yes. I'll be so glad when they land back now. But I think that's pretty well a fact, because they've landed so many safely now that I feel relieved. Just getting off of the moon was the thing that was. Have they met with the one that was circling? Yes, they've rendezvoused. So I understand. That wasn't shown either, but they say they have rendezvoused. So that's a matter of making the circles and then coming down. What do you sort of imagine for the future? Do you imagine them sending up ships? I think they will. I think they will do some more exploring up there. Very positive. Because that was such a very small area, when you think of it, that they just gathered rocks and samples of soil and all. And they did probe for some samples. And just what was going to come of that, I don't know. I'll be glad to read it.
+
+============================================================
+
+------------------------------------------------------------
+PROMPTED:
+------------------------------------------------------------
+It was rather interesting just to watch them gathering their materials and bouncing around. What did they call it? Kangaroo walk? Something like that. I don't know. I bet those men are going to get quite a reception when they get back to Earth. Oh yes, I'll be so glad when they land back now. I think that's pretty well a fact, because they've landed so many safely now that I feel relieved. Just getting off of the moon was the thing that was... Have they met with the one that was circling? Yes, they've rendezvoused, so I understand. That wasn't shown either, but they say they have rendezvoused. That's a matter of making the circles and then coming down. What do you sort of imagine for the future? Do you imagine them standing up? I think they will. I think they will do some more exploring up there. Very positive. Because that was such a very small area, when you think of it, they just gathered rocks and samples of soil and all, and they did probe for some samples. And just what was going to come of that, I don't know. I'd be glad to read it.
