@@ -6,3 +6,21 @@
 .conda/
 *.csv
 .DS_Store
+
+# Large files
+*.csv
+*.xlsx
+*.pkl
+*.h5
+*.model
+*.wav
+*.mp3
+*.mp4
+*.pdf
+*.zip
+
+# Data folders
+data/
+datasets/
+models/
+checkpoints/
