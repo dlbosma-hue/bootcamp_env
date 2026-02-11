@@ -1,0 +1,25 @@
+{
+  "products": [
+    {
+      "id": "P001",
+      "name": "Wireless Bluetooth Headphones",
+      "category": "Electronics",
+      "price": 99.99,
+      "features": ["Bluetooth 5.0", "Noise Cancelling", "30hr Battery", "Comfortable Fit"]
+    },
+    {
+      "id": "P002",
+      "name": "Smart Watch",
+      "category": "Wearables",
+      "price": 249.99,
+      "features": ["Heart Rate Monitor", "GPS", "Water Resistant", "Sleep Tracking"]
+    },
+    {
+      "id": "P003",
+      "name": "Laptop Stand",
+      "category": "Accessories",
+      "price": 49.99,
+      "features": ["Adjustable Height", "Aluminum Construction", "Cable Management"]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "products": [
+    {
+      "id": "P001",
+      "name": "Broken Product"
+      "category": "Electronics",
+      "price": 99.99
+    }
+  ]
+}

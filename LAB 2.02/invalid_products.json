@@ -1,0 +1,37 @@
+{
+  "products": [
+    {
+      "id": "BAD001",
+      "name": "Negative Price Item",
+      "category": "Electronics",
+      "price": -29.99,
+      "features": ["Feature A"]
+    },
+    {
+      "id": "BAD002",
+      "name": "Missing Category Product",
+      "price": 19.99,
+      "features": ["Feature B"]
+    },
+    {
+      "id": "BAD003",
+      "name": "Zero Price Item",
+      "category": "Accessories",
+      "price": 0,
+      "features": []
+    },
+    {
+      "name": "Missing ID Product",
+      "category": "Wearables",
+      "price": 59.99,
+      "features": ["Feature C"]
+    },
+    {
+      "id": "GOOD001",
+      "name": "Valid Product Among Bad Ones",
+      "category": "Electronics",
+      "price": 39.99,
+      "features": ["Reliable", "Affordable"]
+    }
+  ]
+}
