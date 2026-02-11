@@ -1,0 +1,1005 @@
+{
+  "name": "John Smith",
+  "client_id": "JS001",
+  "start_date": "2025-12-30T11:52:31.124842",
+  "email": "john.smith@example.com",
+  "phone": "555-0101",
+  "notes": "",
+  "target_workouts_per_week": 4,
+  "target_calories": 2200,
+  "target_protein": 160,
+  "workout_logs": [
+    {
+      "date": "2025-12-30T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2025-12-30T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2025-12-30T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2025-12-30T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-01T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-01T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-01T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-01T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-03T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-03T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-03T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-03T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-05T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-05T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-05T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-05T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 135,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-06T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-06T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-06T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-06T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-08T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-08T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-08T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-08T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-10T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-10T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-10T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-10T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-12T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-12T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-12T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-12T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 145,
+      "form_notes": "Good form",
+      "completed": true
+    },
+    {
+      "date": "2026-01-13T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-13T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-13T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-13T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-15T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-15T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-15T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-15T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-17T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-17T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-17T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-17T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-19T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-19T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-19T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-19T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 155,
+      "form_notes": "Form breaking down slightly",
+      "completed": true
+    },
+    {
+      "date": "2026-01-20T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-20T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-20T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-20T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-24T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-24T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-24T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-24T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-27T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-27T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-27T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-27T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-31T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-31T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-31T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-01-31T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Struggling with weight",
+      "completed": true
+    },
+    {
+      "date": "2026-02-03T11:52:31.124842",
+      "exercise": "Squat",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Low energy",
+      "completed": true
+    },
+    {
+      "date": "2026-02-03T11:52:31.124842",
+      "exercise": "Bench Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Low energy",
+      "completed": true
+    },
+    {
+      "date": "2026-02-03T11:52:31.124842",
+      "exercise": "Deadlift",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Low energy",
+      "completed": true
+    },
+    {
+      "date": "2026-02-03T11:52:31.124842",
+      "exercise": "Overhead Press",
+      "sets": 3,
+      "reps": 8,
+      "weight": 165,
+      "form_notes": "Low energy",
+      "completed": true
+    }
+  ],
+  "nutrition_logs": [
+    {
+      "date": "2025-12-30T11:52:31.124842",
+      "calories": 2200,
+      "protein": 160,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 5,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2025-12-31T11:52:31.124842",
+      "calories": 2200,
+      "protein": 160,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 5,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-01T11:52:31.124842",
+      "calories": 2200,
+      "protein": 160,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 5,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-02T11:52:31.124842",
+      "calories": 2200,
+      "protein": 160,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 5,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-03T11:52:31.124842",
+      "calories": 2200,
+      "protein": 160,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 5,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-04T11:52:31.124842",
+      "calories": 2200,
+      "protein": 160,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 5,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-05T11:52:31.124842",
+      "calories": 2200,
+      "protein": 160,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 5,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-06T11:52:31.124842",
+      "calories": 1980,
+      "protein": 144,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 4,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-07T11:52:31.124842",
+      "calories": 1980,
+      "protein": 144,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 4,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-08T11:52:31.124842",
+      "calories": 1980,
+      "protein": 144,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 4,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-09T11:52:31.124842",
+      "calories": 1980,
+      "protein": 144,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 4,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-10T11:52:31.124842",
+      "calories": 1980,
+      "protein": 144,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 4,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-11T11:52:31.124842",
+      "calories": 1980,
+      "protein": 144,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 4,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-12T11:52:31.124842",
+      "calories": 1980,
+      "protein": 144,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 4,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-13T11:52:31.124842",
+      "calories": 1760,
+      "protein": 128,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-14T11:52:31.124842",
+      "calories": 1760,
+      "protein": 128,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-15T11:52:31.124842",
+      "calories": 1760,
+      "protein": 128,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-16T11:52:31.124842",
+      "calories": 1760,
+      "protein": 128,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-17T11:52:31.124842",
+      "calories": 1760,
+      "protein": 128,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-18T11:52:31.124842",
+      "calories": 1760,
+      "protein": 128,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-19T11:52:31.124842",
+      "calories": 1760,
+      "protein": 128,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "On track"
+    },
+    {
+      "date": "2026-01-20T11:52:31.124842",
+      "calories": 1540,
+      "protein": 112,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-01-21T11:52:31.124842",
+      "calories": 1540,
+      "protein": 112,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-01-22T11:52:31.124842",
+      "calories": 1540,
+      "protein": 112,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-01-23T11:52:31.124842",
+      "calories": 1540,
+      "protein": 112,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-01-24T11:52:31.124842",
+      "calories": 1540,
+      "protein": 112,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-01-25T11:52:31.124842",
+      "calories": 1540,
+      "protein": 112,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-01-26T11:52:31.124842",
+      "calories": 1540,
+      "protein": 112,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-01-27T11:52:31.124842",
+      "calories": 1320,
+      "protein": 96,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-01-28T11:52:31.124842",
+      "calories": 1320,
+      "protein": 96,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-01-29T11:52:31.124842",
+      "calories": 1320,
+      "protein": 96,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-01-30T11:52:31.124842",
+      "calories": 1320,
+      "protein": 96,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-01-31T11:52:31.124842",
+      "calories": 1320,
+      "protein": 96,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-02-01T11:52:31.124842",
+      "calories": 1320,
+      "protein": 96,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-02-02T11:52:31.124842",
+      "calories": 1320,
+      "protein": 96,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-02-03T11:52:31.124842",
+      "calories": 1100,
+      "protein": 80,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-02-04T11:52:31.124842",
+      "calories": 1100,
+      "protein": 80,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-02-05T11:52:31.124842",
+      "calories": 1100,
+      "protein": 80,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-02-06T11:52:31.124842",
+      "calories": 1100,
+      "protein": 80,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-02-07T11:52:31.124842",
+      "calories": 1100,
+      "protein": 80,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-02-08T11:52:31.124842",
+      "calories": 1100,
+      "protein": 80,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    },
+    {
+      "date": "2026-02-09T11:52:31.124842",
+      "calories": 1100,
+      "protein": 80,
+      "carbs": 250,
+      "fats": 70,
+      "meals_logged": 3,
+      "compliance_note": "Missing meals"
+    }
+  ]
+}
