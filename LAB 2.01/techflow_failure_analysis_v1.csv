@@ -1,0 +1,10 @@
+Task,Runs,Unique Responses,Consistency %
+Sentiment Analysis,5,5,0.0
+Sentiment Analysis,10,10,0.0
+Sentiment Analysis,15,15,0.0
+Product Description,5,5,0.0
+Product Description,10,10,0.0
+Product Description,15,15,0.0
+Data Extraction,5,2,60.0
+Data Extraction,10,6,40.0
+Data Extraction,15,7,53.3

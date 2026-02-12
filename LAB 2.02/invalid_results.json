@@ -1,0 +1,7 @@
+[
+  {
+    "product_id": "GOOD001",
+    "name": "Valid Product Among Bad Ones",
+    "description": "Fallback description."
+  }
+]

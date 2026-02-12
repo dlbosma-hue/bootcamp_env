@@ -1,0 +1,357 @@
+{
+  "name": "Mike Davis",
+  "client_id": "MD003",
+  "start_date": "2026-01-27T11:52:31.134842",
+  "email": "mike.davis@example.com",
+  "phone": "555-0103",
+  "notes": "",
+  "target_workouts_per_week": 3,
+  "target_calories": 2400,
+  "target_protein": 180,
+  "workout_logs": [
+    {
+      "date": "2026-01-28T11:52:31.134842",
+      "exercise": "Squat",
+      "sets": 4,
+      "reps": 6,
+      "weight": 185,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-01-28T11:52:31.134842",
+      "exercise": "Bench Press",
+      "sets": 4,
+      "reps": 6,
+      "weight": 185,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-01-28T11:52:31.134842",
+      "exercise": "Barbell Row",
+      "sets": 4,
+      "reps": 6,
+      "weight": 185,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-01-28T11:52:31.134842",
+      "exercise": "Overhead Press",
+      "sets": 4,
+      "reps": 6,
+      "weight": 185,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-01-30T11:52:31.134842",
+      "exercise": "Squat",
+      "sets": 4,
+      "reps": 6,
+      "weight": 185,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-01-30T11:52:31.134842",
+      "exercise": "Bench Press",
+      "sets": 4,
+      "reps": 6,
+      "weight": 185,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-01-30T11:52:31.134842",
+      "exercise": "Barbell Row",
+      "sets": 4,
+      "reps": 6,
+      "weight": 185,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-01-30T11:52:31.134842",
+      "exercise": "Overhead Press",
+      "sets": 4,
+      "reps": 6,
+      "weight": 185,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-01T11:52:31.134842",
+      "exercise": "Squat",
+      "sets": 4,
+      "reps": 6,
+      "weight": 185,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-01T11:52:31.134842",
+      "exercise": "Bench Press",
+      "sets": 4,
+      "reps": 6,
+      "weight": 185,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-01T11:52:31.134842",
+      "exercise": "Barbell Row",
+      "sets": 4,
+      "reps": 6,
+      "weight": 185,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-01T11:52:31.134842",
+      "exercise": "Overhead Press",
+      "sets": 4,
+      "reps": 6,
+      "weight": 185,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-04T11:52:31.134842",
+      "exercise": "Squat",
+      "sets": 4,
+      "reps": 6,
+      "weight": 190,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-04T11:52:31.134842",
+      "exercise": "Bench Press",
+      "sets": 4,
+      "reps": 6,
+      "weight": 190,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-04T11:52:31.134842",
+      "exercise": "Barbell Row",
+      "sets": 4,
+      "reps": 6,
+      "weight": 190,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-04T11:52:31.134842",
+      "exercise": "Overhead Press",
+      "sets": 4,
+      "reps": 6,
+      "weight": 190,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-06T11:52:31.134842",
+      "exercise": "Squat",
+      "sets": 4,
+      "reps": 6,
+      "weight": 190,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-06T11:52:31.134842",
+      "exercise": "Bench Press",
+      "sets": 4,
+      "reps": 6,
+      "weight": 190,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-06T11:52:31.134842",
+      "exercise": "Barbell Row",
+      "sets": 4,
+      "reps": 6,
+      "weight": 190,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-06T11:52:31.134842",
+      "exercise": "Overhead Press",
+      "sets": 4,
+      "reps": 6,
+      "weight": 190,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-08T11:52:31.134842",
+      "exercise": "Squat",
+      "sets": 4,
+      "reps": 6,
+      "weight": 190,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-08T11:52:31.134842",
+      "exercise": "Bench Press",
+      "sets": 4,
+      "reps": 6,
+      "weight": 190,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-08T11:52:31.134842",
+      "exercise": "Barbell Row",
+      "sets": 4,
+      "reps": 6,
+      "weight": 190,
+      "form_notes": "Good",
+      "completed": true
+    },
+    {
+      "date": "2026-02-08T11:52:31.134842",
+      "exercise": "Overhead Press",
+      "sets": 4,
+      "reps": 6,
+      "weight": 190,
+      "form_notes": "Good",
+      "completed": true
+    }
+  ],
+  "nutrition_logs": [
+    {
+      "date": "2026-01-27T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    },
+    {
+      "date": "2026-01-28T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    },
+    {
+      "date": "2026-01-29T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    },
+    {
+      "date": "2026-01-30T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    },
+    {
+      "date": "2026-01-31T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    },
+    {
+      "date": "2026-02-01T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    },
+    {
+      "date": "2026-02-02T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    },
+    {
+      "date": "2026-02-03T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    },
+    {
+      "date": "2026-02-04T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    },
+    {
+      "date": "2026-02-05T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    },
+    {
+      "date": "2026-02-06T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    },
+    {
+      "date": "2026-02-07T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    },
+    {
+      "date": "2026-02-08T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    },
+    {
+      "date": "2026-02-09T11:52:31.134842",
+      "calories": 2500,
+      "protein": 190,
+      "carbs": 300,
+      "fats": 80,
+      "meals_logged": 5,
+      "compliance_note": "Great start"
+    }
+  ]
+}
