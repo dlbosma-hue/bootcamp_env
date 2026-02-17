@@ -1,0 +1,44 @@
+{
+  "agent_name": "AI Content Creator",
+  "version": "1.0.0",
+  "description": "AI-powered content creation with knowledge base integration",
+  "configuration": {
+    "llm": {
+      "provider": "openai",
+      "model": "gpt-4o",
+      "max_tokens": 4000,
+      "temperature": 0.7
+    },
+    "knowledge_base": {
+      "primary_path": "knowledge_base/primary",
+      "secondary_path": "knowledge_base/secondary",
+      "auto_refresh": true,
+      "refresh_interval_hours": 24
+    },
+    "content_pipeline": {
+      "stages": [
+        "document",
+        "monitor",
+        "brief",
+        "publish",
+        "iterate"
+      ],
+      "default_workflow": "full",
+      "enable_human_review": true
+    },
+    "output": {
+      "format": "markdown",
+      "include_metadata": true,
+      "save_drafts": true
+    }
+  },
+  "prompts": {
+    "content_brief": "templates/content_brief.txt",
+    "content_generation": "templates/content_generation.txt",
+    "content_review": "templates/content_review.txt"
+  },
+  "logging": {
+    "level": "INFO",
+    "log_file": "logs/content_creator.log"
+  }
+}
