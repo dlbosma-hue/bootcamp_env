@@ -1,0 +1,6 @@
+{
+  "name": "Broken Product",
+  "price": -25.00,
+  "category": "Electronics",
+  "description": "This product has an invalid negative price and should be rejected by validation."
+}
