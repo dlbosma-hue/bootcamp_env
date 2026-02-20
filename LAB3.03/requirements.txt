@@ -1,0 +1,21 @@
+# LAB3.03 — Using MCP in LangChain
+# Python >= 3.11 required (uses except* and dict | None syntax)
+#
+# Install with:
+#   pip install -r requirements.txt
+
+# MCP protocol — server + client
+mcp==1.26.0
+langchain-mcp-adapters==0.2.1
+
+# LangChain / LangGraph agent stack
+langchain==1.2.10
+langchain-openai==1.1.10
+langgraph==1.0.8
+
+# Async runtime (required by mcp internals)
+anyio==4.12.1
+sniffio==1.3.1
+
+# Environment variable loading (.env file)
+python-dotenv==1.2.1
