@@ -1,0 +1,135 @@
+{
+  "project_name": "Autonomous Media Inclusivity Research Agent",
+  "industry": "Media, Journalism and Publishing",
+  "focus": "Intersectional inclusivity in media coverage and newsroom representation",
+  "communities_tracked": [
+    "women",
+    "lgbtq",
+    "race",
+    "disability"
+  ],
+  "evaluation_angles": [
+    "bylines_and_story_selection",
+    "portrayal_in_content",
+    "sourcing_diversity",
+    "language_and_framing"
+  ],
+  "sample_companies": [
+    "BBC",
+    "The Guardian",
+    "CNN",
+    "New York Times",
+    "Reuters"
+  ],
+  "research_dimensions": {
+    "bylines_and_story_selection": {
+      "women": [
+        "women journalists bylines percentage",
+        "female reporters front page stories",
+        "women editors story selection media"
+      ],
+      "lgbtq": [
+        "LGBTQ journalists newsroom bylines",
+        "queer reporters story assignment media",
+        "LGBTQ voices editorial decisions"
+      ],
+      "race": [
+        "journalists of color bylines coverage",
+        "Black Latino Asian reporters story selection",
+        "racial diversity newsroom bylines"
+      ],
+      "disability": [
+        "disabled journalists bylines media",
+        "reporters with disabilities story coverage",
+        "disability representation newsroom staff"
+      ]
+    },
+    "portrayal_in_content": {
+      "women": [
+        "women portrayed experts leaders media coverage",
+        "female sources authority roles journalism",
+        "victim framing women news coverage"
+      ],
+      "lgbtq": [
+        "LGBTQ people portrayed beyond victims media",
+        "transgender coverage roles representation",
+        "queer community full portrayal journalism"
+      ],
+      "race": [
+        "minorities portrayed criminals media coverage",
+        "racial stereotyping news framing",
+        "Black Latino community leaders coverage media"
+      ],
+      "disability": [
+        "disability inspiration narrative media",
+        "disabled people portrayed beyond victims journalism",
+        "disability coverage framing stereotypes"
+      ]
+    },
+    "sourcing_diversity": {
+      "women": [
+        "women experts quoted news sources",
+        "female authority sources journalism",
+        "gender balance expert sources media"
+      ],
+      "lgbtq": [
+        "LGBTQ experts sources quoted journalism",
+        "queer voices authority media coverage",
+        "LGBTQ community sources vs outside perspectives"
+      ],
+      "race": [
+        "journalists of color expert sources quoted",
+        "racial minority voices authority journalism",
+        "diverse sourcing practices newsroom"
+      ],
+      "disability": [
+        "disabled experts sources quoted media",
+        "disability community voices journalism",
+        "nothing about us without us media sourcing"
+      ]
+    },
+    "language_and_framing": {
+      "women": [
+        "gender neutral language media style guide",
+        "sexist language journalism coverage",
+        "inclusive language women reporting"
+      ],
+      "lgbtq": [
+        "trans inclusive language media guidelines",
+        "LGBTQ terminology accuracy journalism",
+        "non-binary language news coverage"
+      ],
+      "race": [
+        "racial language guidelines media",
+        "dehumanizing language migrants refugees media",
+        "race framing news coverage harmful language"
+      ],
+      "disability": [
+        "disability language guidelines journalism",
+        "ableist language media coverage",
+        "person first identity first language news"
+      ]
+    }
+  },
+  "report_structure": {
+    "sections": [
+      "1. Company Overview",
+      "2. Angle 1: Representation in Bylines and Story Selection",
+      "3. Angle 2: Portrayal Within Content",
+      "4. Angle 3: Sourcing Diversity",
+      "5. Angle 4: Language and Framing",
+      "6. Community-by-Community Findings",
+      "7. Key Strengths",
+      "8. Areas of Concern and Harm Flags",
+      "9. Inclusivity Score (1-10 per community, overall average)",
+      "10. Recommendations",
+      "11. Sources and Evidence"
+    ]
+  },
+  "scoring_method": "equal_weight_with_harm_flags",
+  "pinecone_index_name": "media-inclusivity-index",
+  "embedding_model": "text-embedding-ada-002",
+  "llm_model": "gpt-4o-mini",
+  "chunk_size": 500,
+  "chunk_overlap": 50
+}

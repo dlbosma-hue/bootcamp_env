@@ -1,0 +1,352 @@
+{
+  "name": "Document Upload RAG Chatbot with Cohere Reranking",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Upload Documents for RAG",
+        "formDescription": "Upload PDF, CSV, or JSON files to add to the knowledge base",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Upload Files",
+              "fieldType": "file",
+              "fieldName": "documents",
+              "acceptFileTypes": ".pdf, .csv, .json"
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "63f877fd-9610-4215-a2a3-7a133e723061",
+      "name": "Upload Documents Form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -144,
+        736
+      ],
+      "webhookId": "a238b3f4-09ac-4c2d-875a-2ba8f5f06252",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "n8n",
+          "mode": "list",
+          "cachedResultName": "n8n"
+        },
+        "options": {}
+      },
+      "id": "2fa2978b-0f54-42b6-a889-2a5ff3b0f011",
+      "name": "Store in Pinecone",
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        112,
+        528
+      ],
+      "credentials": {
+        "pineconeApi": {
+          "id": "fPAMT9Bp7LSfdE3i",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 512
+        }
+      },
+      "id": "896638fa-4b40-460e-a38c-c5d03b2174a5",
+      "name": "OpenAI Embeddings",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        80,
+        752
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "naH7NFd6PXbqPgvb",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "textSplittingMode": "custom",
+        "options": {}
+      },
+      "id": "37c448e7-e829-401e-9521-9d94d1568d72",
+      "name": "Document Loader",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        752
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "dd3d8342-353d-4724-99a8-65ffaf3181fb",
+      "name": "Text Splitter",
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        288,
+        960
+      ]
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hello! I can answer questions about your uploaded documents. What would you like to know?",
+        "options": {}
+      },
+      "id": "f5ed8885-68af-4ace-a4de-47a8d2fffee5",
+      "name": "Chat Interface",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -144,
+        1376
+      ],
+      "webhookId": "85f5fc89-a7a7-479b-8297-d0d902ea5c93"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant that answers questions based ONLY on the retrieved document context. If the context does not contain enough information to answer the question confidently, respond with: \"I couldn't find that in the uploaded documents.\" Always cite which documents you used to answer."
+        }
+      },
+      "id": "1be0b4da-4938-449e-97d5-c9386b8c93bd",
+      "name": "RAG Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        112,
+        1376
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "gpt-4.1-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "id": "886d512d-698b-4e95-8686-c29d08353dab",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        1600
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "b64FDZaQ6oae40fD",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Retrieve relevant documents from the Pinecone vector store based on the user's query to answer questions about uploaded documents",
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "n8n",
+          "mode": "list",
+          "cachedResultName": "n8n"
+        },
+        "topK": 5,
+        "useReranker": true,
+        "options": {}
+      },
+      "id": "14ac59ba-672a-4343-94ee-f51f8a1d284b",
+      "name": "Retrieve from Pinecone",
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        1600
+      ],
+      "credentials": {
+        "pineconeApi": {
+          "id": "fPAMT9Bp7LSfdE3i",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "dimensions": 512
+        }
+      },
+      "id": "8675aba9-4b5b-48c4-a979-694d146cd178",
+      "name": "Query Embeddings",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        1808
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "b64FDZaQ6oae40fD",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "51080539-ed4e-4dc8-98c5-83795170c408",
+      "name": "Cohere Reranker",
+      "type": "@n8n/n8n-nodes-langchain.rerankerCohere",
+      "typeVersion": 1,
+      "position": [
+        352,
+        1808
+      ],
+      "credentials": {
+        "cohereApi": {
+          "id": "LByNZhxTO51mjwgG",
+          "name": "CohereApi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Upload Documents Form": {
+      "main": [
+        [
+          {
+            "node": "Store in Pinecone",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Embeddings": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Store in Pinecone",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Document Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Store in Pinecone",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Document Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat Interface": {
+      "main": [
+        [
+          {
+            "node": "RAG Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "RAG Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Embeddings": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Retrieve from Pinecone",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cohere Reranker": {
+      "ai_reranker": [
+        [
+          {
+            "node": "Retrieve from Pinecone",
+            "type": "ai_reranker",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAG Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Retrieve from Pinecone": {
+      "ai_tool": [
+        [
+          {
+            "node": "RAG Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "750f046f-fbb8-4c92-9854-a715e91ed1c4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c201bd2eca470459071329f8380b617019e32828db1bdf5dd2132778a1f71141"
+  },
+  "id": "fX31PhvFadNdykex",
+  "tags": []
+}

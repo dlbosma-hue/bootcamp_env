@@ -1,0 +1,125 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        -144
+      ],
+      "id": "e1f47e5e-45aa-494e-91f6-42da3835e479",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-5-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "write me a haiku about AI and n8n "
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        -288,
+        -144
+      ],
+      "id": "37952ae6-b594-4cde-8117-0c51a1ce76fd",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "4yJEr0HL9RiXhSJF",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-5-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "={{ $json.output[0].content[0].text }}"
+            },
+            {
+              "content": "you are a teacher, evaluate the following haiku in terms of creatvity and structure"
+            }
+          ]
+        },
+        "simplify": false,
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        -144
+      ],
+      "id": "a3d248a6-c842-45d1-ae0b-596232e7f44c",
+      "name": "Evaluate the model",
+      "credentials": {
+        "openAiApi": {
+          "id": "4yJEr0HL9RiXhSJF",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Evaluate the model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "188f490f-8b0e-4750-b92f-dfb6005156e8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "75d764fd58df4d133b8604d6d8e5b6b984a531d180635a1d40f14378725d6d76"
+  },
+  "id": "PNwDJzZrNZZpf9Oh",
+  "tags": []
+}
