@@ -1,0 +1,219 @@
+{
+  "name": "Media Inclusivity Research Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [{ "field": "cronExpression", "expression": "0 6 * * 1-5" }] }
+      },
+      "id": "schedule-trigger-001",
+      "name": "Schedule Trigger 6am Weekdays",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [1800, 880]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const companies = ['BBC','The Guardian','CNN','New York Times','Reuters'];\nreturn companies.map(c => ({ json: { company: c, focus: 'all', triggered_by: 'schedule' } }));"
+      },
+      "id": "split-companies-001",
+      "name": "Split Into 5 Companies",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2040, 880]
+    },
+    {
+      "parameters": {
+        "path": "8c09c9fd-f52a-4ed0-ab67-996e3cab0855",
+        "formTitle": "Media Diversity Watch",
+        "formDescription": "Run an on-demand inclusivity analysis on any major news outlet. The agent searches live news, RSS feeds, and our research knowledge base to produce a scored, evidence-based report.",
+        "formFields": {
+          "values": [
+            { "fieldLabel": "Company Name", "placeholder": "e.g. BBC, The Guardian, CNN, New York Times, Reuters", "requiredField": true },
+            { "fieldLabel": "Focus Community", "fieldType": "dropdown", "fieldOptions": { "values": [
+              {"option": "All Communities"}, {"option": "Women and Gender Equality"},
+              {"option": "LGBTQ+ Communities"}, {"option": "Racial and Ethnic Minorities"},
+              {"option": "People with Disabilities"}
+            ]}, "requiredField": true }
+          ]
+        },
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "72594a51-6a0e-46af-abd9-f9c351b6ae85",
+      "name": "Form Trigger On-Demand",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2,
+      "position": [1800, 1160],
+      "webhookId": "8c09c9fd-f52a-4ed0-ab67-996e3cab0855"
+    },
+    {
+      "parameters": { "httpMethod": "POST", "path": "media-agent", "responseMode": "responseNode", "options": {} },
+      "id": "a475d2fd-a6bb-45d3-8936-5f21d98b1b05",
+      "name": "Webhook Trigger API",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [1800, 1340],
+      "webhookId": "media-agent-webhook"
+    },
+    {
+      "parameters": {},
+      "id": "c65b296c-c25a-47eb-afdf-8046881f8d3c",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [1800, 1500]
+    },
+    {
+      "parameters": {
+        "fields": { "values": [
+          { "name": "company", "stringValue": "={{ $json.company ?? $json['Company Name'] ?? $json.body?.company ?? 'BBC' }}" },
+          { "name": "focus", "stringValue": "={{ $json.focus ?? ({'All Communities':'all','Women and Gender Equality':'women','LGBTQ+ Communities':'lgbtq','Racial and Ethnic Minorities':'race','People with Disabilities':'disability'})[$json['Focus Community']] ?? $json.body?.focus ?? 'all' }}" },
+          { "name": "triggered_by", "stringValue": "={{ $json.triggered_by ?? ($json['Company Name'] ? 'form' : ($json.body ? 'webhook' : 'manual')) }}" }
+        ]},
+        "options": {}
+      },
+      "id": "126cf17c-4b7d-4880-aa98-b236ebeff5b8",
+      "name": "Prepare Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [2280, 1200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8000/research",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ company: $json.company, focus: $json.focus }) }}",
+        "options": { "timeout": 300000, "retry": { "enabled": true, "maxTries": 2, "waitBetweenTries": 15000 }, "response": { "response": { "fullResponse": false } } }
+      },
+      "id": "d951fd4d-e29e-400b-bd10-7ea4fdb09dca",
+      "name": "HTTP Request to FastAPI",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [2520, 1200]
+    },
+    {
+      "parameters": {
+        "conditions": { "options": { "caseSensitive": false, "typeValidation": "strict" },
+          "conditions": [{ "id": "condition_status", "leftValue": "={{ $json.status }}", "rightValue": "success", "operator": { "type": "string", "operation": "equals" } }],
+          "combinator": "and" },
+        "options": {}
+      },
+      "id": "e6a78a4e-d983-4f66-81f5-b3e8d52eefa2",
+      "name": "Check If Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2760, 1200]
+    },
+    {
+      "parameters": {
+        "fields": { "values": [
+          { "name": "status", "stringValue": "success" },
+          { "name": "company", "stringValue": "={{ $('HTTP Request to FastAPI').first().json.company }}" },
+          { "name": "overall_score", "numberValue": "={{ $('HTTP Request to FastAPI').first().json.overall_score }}" },
+          { "name": "summary", "stringValue": "={{ $('HTTP Request to FastAPI').first().json.summary }}" },
+          { "name": "report_path", "stringValue": "={{ $('HTTP Request to FastAPI').first().json.report_path }}" },
+          { "name": "report_text", "stringValue": "={{ $('HTTP Request to FastAPI').first().json.report_text }}" },
+          { "name": "harm_flags", "stringValue": "={{ $('HTTP Request to FastAPI').first().json.harm_flags?.join(', ') ?? 'None' }}" },
+          { "name": "community_scores", "stringValue": "={{ JSON.stringify($('HTTP Request to FastAPI').first().json.community_scores ?? {}) }}" },
+          { "name": "triggered_by", "stringValue": "={{ $('Prepare Input').first().json.triggered_by }}" }
+        ]},
+        "options": {}
+      },
+      "id": "475300f8-2490-46d1-b68f-4edadbea98b3",
+      "name": "Success Output",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [3000, 1060]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": { "__rl": true, "value": "https://www.notion.so/312e754b0cde8060a11ced9ef95064b5?v=312e754b0cde80b9b5f3000cb68f33bc", "mode": "url" },
+        "title": "={{ $json.company }} | Week {{ $now.format('W') }} {{ $now.format('YYYY') }}",
+        "propertiesUi": { "propertyValues": [
+          { "key": "Score|number", "numberValue": "={{ $json.overall_score }}" },
+          { "key": "Date|date", "dateValue": "={{ $now.toISO() }}" },
+          { "key": "Summary|rich_text", "textContent": "={{ $json.summary }}" },
+          { "key": "Harm Flags|rich_text", "textContent": "={{ $json.harm_flags }}" },
+          { "key": "Community Scores|rich_text", "textContent": "={{ $json.community_scores }}" },
+          { "key": "Triggered By|select", "selectValue": "={{ $json.triggered_by }}" }
+        ]},
+        "blockUi": { "blockValues": [{ "textContent": "={{ $json.report_text }}" }] },
+        "options": {}
+      },
+      "id": "9c1125a0-0726-40af-9191-34a996ff9f54",
+      "name": "Save to Notion",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [3240, 1060],
+      "credentials": { "notionApi": { "id": "c91BcnJz3fVjfbRL", "name": "Notion account" } }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: $json.status, company: $json.company, overall_score: $json.overall_score, report_path: $json.report_path, notion_saved: true }) }}",
+        "options": { "responseCode": 200, "responseHeaders": { "entries": [{ "name": "Content-Type", "value": "application/json" }] } }
+      },
+      "id": "a9dde7bd-5feb-4c53-95e0-1f8d00869e74",
+      "name": "Respond Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [3480, 1060]
+    },
+    {
+      "parameters": {
+        "fields": { "values": [
+          { "name": "status", "stringValue": "error" },
+          { "name": "error", "stringValue": "={{ $('HTTP Request to FastAPI').first().json.error ?? 'Unknown error' }}" },
+          { "name": "suggestion", "stringValue": "Check FastAPI server is running and ngrok URL is correct" }
+        ]},
+        "options": {}
+      },
+      "id": "5a4097fd-69ad-425b-aec7-9e02a8ddbfb8",
+      "name": "Error Output",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [3000, 1340]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'error', error: $json.error, suggestion: $json.suggestion }) }}",
+        "options": { "responseCode": 500, "responseHeaders": { "entries": [{ "name": "Content-Type", "value": "application/json" }] } }
+      },
+      "id": "f0adc523-7565-4502-b0f6-7537b748c3f8",
+      "name": "Respond Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [3240, 1340]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger 6am Weekdays": { "main": [[{ "node": "Split Into 5 Companies", "type": "main", "index": 0 }]] },
+    "Split Into 5 Companies": { "main": [[{ "node": "Prepare Input", "type": "main", "index": 0 }]] },
+    "Form Trigger On-Demand": { "main": [[{ "node": "Prepare Input", "type": "main", "index": 0 }]] },
+    "Webhook Trigger API": { "main": [[{ "node": "Prepare Input", "type": "main", "index": 0 }]] },
+    "Manual Trigger": { "main": [[{ "node": "Prepare Input", "type": "main", "index": 0 }]] },
+    "Prepare Input": { "main": [[{ "node": "HTTP Request to FastAPI", "type": "main", "index": 0 }]] },
+    "HTTP Request to FastAPI": { "main": [[{ "node": "Check If Success", "type": "main", "index": 0 }]] },
+    "Check If Success": { "main": [
+      [{ "node": "Success Output", "type": "main", "index": 0 }],
+      [{ "node": "Error Output", "type": "main", "index": 0 }]
+    ]},
+    "Success Output": { "main": [[{ "node": "Save to Notion", "type": "main", "index": 0 }]] },
+    "Save to Notion": { "main": [[{ "node": "Respond Success", "type": "main", "index": 0 }]] },
+    "Error Output": { "main": [[{ "node": "Respond Error", "type": "main", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1", "saveManualExecutions": true, "binaryMode": "separate", "availableInMCP": false },
+  "versionId": "33158fe6-7152-402b-9788-83ca7c66abc3",
+  "meta": { "templateCredsSetupCompleted": true, "instanceId": "75d764fd58df4d133b8604d6d8e5b6b984a531d180635a1d40f14378725d6d76" },
+  "id": "mrmXRs741488ymBj",
+  "tags": [
+    { "updatedAt": "2026-02-27T11:00:36.320Z", "createdAt": "2026-02-27T11:00:36.320Z", "id": "8oyt1SGERcQLqpmv", "name": "project-3" },
+    { "updatedAt": "2026-02-27T11:00:36.283Z", "createdAt": "2026-02-27T11:00:36.283Z", "id": "XkcEoUSTp00I0JtA", "name": "media-agent" }
+  ]
+}
