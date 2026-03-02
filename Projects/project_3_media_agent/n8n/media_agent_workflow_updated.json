@@ -3,10 +3,10 @@
   "nodes": [
     {
       "parameters": {
-        "rule": { "interval": [{ "field": "cronExpression", "expression": "0 6 * * 1-5" }] }
+        "rule": { "interval": [{ "field": "cronExpression", "expression": "0 6 * * 1" }] }
       },
       "id": "schedule-trigger-001",
-      "name": "Schedule Trigger 6am Weekdays",
+      "name": "Schedule Trigger Monday 6am",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
       "position": [1800, 880]
@@ -130,12 +130,39 @@
     },
     {
       "parameters": {
+        "conditions": { "options": { "caseSensitive": false, "typeValidation": "strict" },
+          "conditions": [{ "id": "condition_score_high", "leftValue": "={{ $json.overall_score }}", "rightValue": 7, "operator": { "type": "number", "operation": "gte" } }],
+          "combinator": "and" },
+        "options": {}
+      },
+      "id": "score-check-high-001",
+      "name": "Score >= 7?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [3240, 1060]
+    },
+    {
+      "parameters": {
+        "conditions": { "options": { "caseSensitive": false, "typeValidation": "strict" },
+          "conditions": [{ "id": "condition_score_mid", "leftValue": "={{ $json.overall_score }}", "rightValue": 4, "operator": { "type": "number", "operation": "gte" } }],
+          "combinator": "and" },
+        "options": {}
+      },
+      "id": "score-check-low-001",
+      "name": "Score >= 4?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [3480, 1200]
+    },
+    {
+      "parameters": {
         "resource": "databasePage",
         "databaseId": { "__rl": true, "value": "https://www.notion.so/312e754b0cde8060a11ced9ef95064b5?v=312e754b0cde80b9b5f3000cb68f33bc", "mode": "url" },
         "title": "={{ $json.company }} | Week {{ $now.format('W') }} {{ $now.format('YYYY') }}",
         "propertiesUi": { "propertyValues": [
           { "key": "Score|number", "numberValue": "={{ $json.overall_score }}" },
           { "key": "Date|date", "dateValue": "={{ $now.toISO() }}" },
+          { "key": "Status|select", "selectValue": "Good Standing" },
           { "key": "Summary|rich_text", "textContent": "={{ $json.summary }}" },
           { "key": "Harm Flags|rich_text", "textContent": "={{ $json.harm_flags }}" },
           { "key": "Community Scores|rich_text", "textContent": "={{ $json.community_scores }}" },
@@ -145,11 +172,80 @@
         "options": {}
       },
       "id": "9c1125a0-0726-40af-9191-34a996ff9f54",
-      "name": "Save to Notion",
+      "name": "Notion — Good Standing",
       "type": "n8n-nodes-base.notion",
       "typeVersion": 2,
-      "position": [3240, 1060],
+      "position": [3720, 860],
       "credentials": { "notionApi": { "id": "c91BcnJz3fVjfbRL", "name": "Notion account" } }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": { "__rl": true, "value": "https://www.notion.so/312e754b0cde8060a11ced9ef95064b5?v=312e754b0cde80b9b5f3000cb68f33bc", "mode": "url" },
+        "title": "={{ $json.company }} | Week {{ $now.format('W') }} {{ $now.format('YYYY') }}",
+        "propertiesUi": { "propertyValues": [
+          { "key": "Score|number", "numberValue": "={{ $json.overall_score }}" },
+          { "key": "Date|date", "dateValue": "={{ $now.toISO() }}" },
+          { "key": "Status|select", "selectValue": "Needs Review" },
+          { "key": "Summary|rich_text", "textContent": "={{ $json.summary }}" },
+          { "key": "Harm Flags|rich_text", "textContent": "={{ $json.harm_flags }}" },
+          { "key": "Community Scores|rich_text", "textContent": "={{ $json.community_scores }}" },
+          { "key": "Triggered By|select", "selectValue": "={{ $json.triggered_by }}" }
+        ]},
+        "blockUi": { "blockValues": [{ "textContent": "={{ $json.report_text }}" }] },
+        "options": {}
+      },
+      "id": "notion-review-001",
+      "name": "Notion — Needs Review",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [3720, 1200],
+      "credentials": { "notionApi": { "id": "c91BcnJz3fVjfbRL", "name": "Notion account" } }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": { "__rl": true, "value": "https://www.notion.so/312e754b0cde8060a11ced9ef95064b5?v=312e754b0cde80b9b5f3000cb68f33bc", "mode": "url" },
+        "title": "={{ $json.company }} | Week {{ $now.format('W') }} {{ $now.format('YYYY') }} ⚠️",
+        "propertiesUi": { "propertyValues": [
+          { "key": "Score|number", "numberValue": "={{ $json.overall_score }}" },
+          { "key": "Date|date", "dateValue": "={{ $now.toISO() }}" },
+          { "key": "Status|select", "selectValue": "Flagged for Action" },
+          { "key": "Summary|rich_text", "textContent": "={{ $json.summary }}" },
+          { "key": "Harm Flags|rich_text", "textContent": "={{ $json.harm_flags }}" },
+          { "key": "Community Scores|rich_text", "textContent": "={{ $json.community_scores }}" },
+          { "key": "Triggered By|select", "selectValue": "={{ $json.triggered_by }}" }
+        ]},
+        "blockUi": { "blockValues": [{ "textContent": "={{ $json.report_text }}" }] },
+        "options": {}
+      },
+      "id": "notion-flagged-001",
+      "name": "Notion — Flagged for Action",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [3720, 1480],
+      "credentials": { "notionApi": { "id": "c91BcnJz3fVjfbRL", "name": "Notion account" } }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": { "__rl": true, "value": "YOUR_SLACK_MEMBER_ID", "mode": "id" },
+        "messageType": "block",
+        "blocksUi": { "blocksValues": [
+          {
+            "type": "section",
+            "textType": "mrkdwn",
+            "text": "=*⚠️ Low Score Alert — Action Required*\n\n*{{ $json.company }}* scored *{{ $json.overall_score }}/10* this week.\n\n{{ $json.summary }}\n\n*Harm flags:* {{ $json.harm_flags }}\n\n_Report saved to Notion — review recommended._"
+          }
+        ]},
+        "otherOptions": {}
+      },
+      "id": "slack-dm-001",
+      "name": "Slack DM — Low Score Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [3960, 1480],
+      "credentials": { "slackApi": { "id": "ADD_SLACK_CREDENTIAL_ID", "name": "Slack account" } }
     },
     {
       "parameters": {
@@ -161,14 +257,14 @@
       "name": "Respond Success",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [3480, 1060]
+      "position": [3960, 860]
     },
     {
       "parameters": {
         "fields": { "values": [
           { "name": "status", "stringValue": "error" },
           { "name": "error", "stringValue": "={{ $('HTTP Request to FastAPI').first().json.error ?? 'Unknown error' }}" },
-          { "name": "suggestion", "stringValue": "Check FastAPI server is running and ngrok URL is correct" }
+          { "name": "suggestion", "stringValue": "Check that run.py is running (python run.py) and N8N URL is set to http://localhost:8000/research" }
         ]},
         "options": {}
       },
@@ -192,7 +288,7 @@
     }
   ],
   "connections": {
-    "Schedule Trigger 6am Weekdays": { "main": [[{ "node": "Split Into 5 Companies", "type": "main", "index": 0 }]] },
+    "Schedule Trigger Monday 6am": { "main": [[{ "node": "Split Into 5 Companies", "type": "main", "index": 0 }]] },
     "Split Into 5 Companies": { "main": [[{ "node": "Prepare Input", "type": "main", "index": 0 }]] },
     "Form Trigger On-Demand": { "main": [[{ "node": "Prepare Input", "type": "main", "index": 0 }]] },
     "Webhook Trigger API": { "main": [[{ "node": "Prepare Input", "type": "main", "index": 0 }]] },
@@ -203,8 +299,19 @@
       [{ "node": "Success Output", "type": "main", "index": 0 }],
       [{ "node": "Error Output", "type": "main", "index": 0 }]
     ]},
-    "Success Output": { "main": [[{ "node": "Save to Notion", "type": "main", "index": 0 }]] },
-    "Save to Notion": { "main": [[{ "node": "Respond Success", "type": "main", "index": 0 }]] },
+    "Success Output": { "main": [[{ "node": "Score >= 7?", "type": "main", "index": 0 }]] },
+    "Score >= 7?": { "main": [
+      [{ "node": "Notion — Good Standing", "type": "main", "index": 0 }],
+      [{ "node": "Score >= 4?", "type": "main", "index": 0 }]
+    ]},
+    "Score >= 4?": { "main": [
+      [{ "node": "Notion — Needs Review", "type": "main", "index": 0 }],
+      [{ "node": "Notion — Flagged for Action", "type": "main", "index": 0 }]
+    ]},
+    "Notion — Good Standing": { "main": [[{ "node": "Respond Success", "type": "main", "index": 0 }]] },
+    "Notion — Needs Review": { "main": [[{ "node": "Respond Success", "type": "main", "index": 0 }]] },
+    "Notion — Flagged for Action": { "main": [[{ "node": "Slack DM — Low Score Alert", "type": "main", "index": 0 }]] },
+    "Slack DM — Low Score Alert": { "main": [[{ "node": "Respond Success", "type": "main", "index": 0 }]] },
     "Error Output": { "main": [[{ "node": "Respond Error", "type": "main", "index": 0 }]] }
   },
   "active": false,
@@ -214,6 +321,6 @@
   "id": "mrmXRs741488ymBj",
   "tags": [
     { "updatedAt": "2026-02-27T11:00:36.320Z", "createdAt": "2026-02-27T11:00:36.320Z", "id": "8oyt1SGERcQLqpmv", "name": "project-3" },
-    { "updatedAt": "2026-02-27T11:00:36.283Z", "createdAt": "2026-02-27T11:00:36.283Z", "id": "XkcEoUSTp00I0JtA", "name": "media-agent" }
+    { "updatedAt": "2026-02-27T11:00:36.283Z", "createdAt": "2026-02-27T11:00:36.320Z", "id": "XkcEoUSTp00I0JtA", "name": "media-agent" }
   ]
 }

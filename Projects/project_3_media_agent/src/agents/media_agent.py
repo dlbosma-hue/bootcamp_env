@@ -169,7 +169,7 @@ def run_research(company: str) -> dict:
             1 for m in result["messages"]
             if getattr(m, "tool_calls", None)
         )
-        print(f"\n[AGENT] Research complete.")
+        print("\n[AGENT] Research complete.")
         print(f"[AGENT] Total messages: {total_messages} | Tool calls: {tool_calls}")
 
         return {

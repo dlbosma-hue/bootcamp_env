@@ -11,8 +11,9 @@
 #
 # Target outlets: BBC, The Guardian, CNN, New York Times, Reuters
 
-import feedparser
 import time
+
+import feedparser
 from langchain.tools import tool
 
 # RSS feed URLs for our 5 monitored outlets

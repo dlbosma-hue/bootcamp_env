@@ -1,0 +1,22 @@
+# ruff.toml — linter config for Media Diversity Watch agent
+# https://docs.astral.sh/ruff/
+
+line-length = 100
+
+[lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes (unused imports, undefined names)
+    "I",   # isort (import ordering)
+    "W",   # pycodestyle warnings
+]
+ignore = [
+    "E501",  # line too long — handled by formatter, not enforced in source
+]
+
+[lint.per-file-ignores]
+"notebooks/*" = ["E402"]  # imports not at top — expected in notebooks
+
+[format]
+quote-style = "double"
+indent-style = "space"
