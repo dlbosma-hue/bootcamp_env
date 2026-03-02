@@ -1,5 +1,11 @@
 {
   "project_name": "Autonomous Media Inclusivity Research Agent",
+  "organisation": "Media Diversity Watch",
+  "user_persona": "Nova Track, media diversity researcher",
+  "use_case": "Weekly automated monitoring of 4 major outlets with Notion delivery",
+  "schedule": "Monday 6am automatic, or on-demand via form trigger",
+  "notion_integration": true,
+  "rss_tool_enabled": true,
   "industry": "Media, Journalism and Publishing",
   "focus": "Intersectional inclusivity in media coverage and newsroom representation",
   "communities_tracked": [

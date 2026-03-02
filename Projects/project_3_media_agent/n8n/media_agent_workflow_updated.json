@@ -82,7 +82,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://localhost:8000/research",
+        "url": "https://sparsely-apiaceous-aretha.ngrok-free.dev/research",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify({ company: $json.company, focus: $json.focus }) }}",
