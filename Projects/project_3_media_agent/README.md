@@ -129,9 +129,9 @@ python -c "
 from src.agents.media_agent import run_research
 from src.report_generator import generate_report, save_report
 
-result = run_research('BBC')
-report = generate_report('BBC', result['final_analysis'])
-path = save_report('BBC', report)
+result = run_research('The Guardian')
+report = generate_report('The Guardian', result['final_analysis'])
+path = save_report('The Guardian', report)
 print(f'Report saved to: {path}')
 "
 ```
@@ -147,7 +147,7 @@ Then trigger a report:
 ```bash
 curl -X POST http://localhost:8000/analyse \
      -H "Content-Type: application/json" \
-     -d '{"company": "BBC"}'
+     -d '{"company": "The Guardian"}'
 ```
 
 Or visit `http://localhost:8000/docs` for the interactive Swagger UI.
@@ -163,13 +163,12 @@ Or visit `http://localhost:8000/docs` for the interactive Swagger UI.
 
 ## Monitored Outlets
 
-| Outlet | RSS Feed |
-|---|---|
-| BBC | `feeds.bbci.co.uk/news/rss.xml` |
-| The Guardian | `theguardian.com/world/rss` |
-| CNN | `rss.cnn.com/rss/edition.rss` |
-| New York Times | `rss.nytimes.com/.../HomePage.xml` |
-| Reuters | `feeds.reuters.com/reuters/topNews` |
+| Outlet | Data Source | Notes |
+|---|---|---|
+| Al Jazeera English | RSS | ~25 articles, no named bylines |
+| The Guardian | Guardian Open Platform API | Full article body + 30 named bylines |
+| NPR | RSS (5 topic feeds combined) | ~30 articles, named bylines |
+| New York Times | RSS | ~25 articles, named bylines |
 
 ---
 

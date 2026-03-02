@@ -58,7 +58,7 @@ def _analyse_guardian_api(n: int = 30) -> str:
         )
         resp.raise_for_status()
         results = resp.json().get("response", {}).get("results", [])
-    except Exception as e:
+    except Exception:
         return None
 
     if not results:
@@ -106,7 +106,7 @@ def _analyse_guardian_api(n: int = 30) -> str:
 
     lines = [
         "PRIMARY SOURCE ANALYSIS: The Guardian (Guardian Open Platform API)",
-        f"Source: content.guardianapis.com — full article body text",
+        "Source: content.guardianapis.com — full article body text",
         f"Articles analysed: {len(articles)}",
         "",
         "=== BYLINE ANALYSIS ===",
@@ -149,10 +149,48 @@ RSS_FEEDS = {
     "al jazeera english": "https://www.aljazeera.com/xml/rss/all.xml",
     "the guardian":       "https://www.theguardian.com/world/rss",
     "guardian":           "https://www.theguardian.com/world/rss",
-    "npr":                "https://feeds.npr.org/1001/rss.xml",
+    "npr":                "https://feeds.npr.org/1001/rss.xml",  # fallback if multi-feed fails
     "new york times":     "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
     "nyt":                "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
 }
+
+# NPR publishes multiple limited-article feeds (~10 each).
+# Combine topic feeds to reach a sample size comparable to other outlets.
+_NPR_FEEDS = [
+    "https://feeds.npr.org/1001/rss.xml",    # News / Top Stories
+    "https://feeds.npr.org/1003/rss.xml",    # Politics
+    "https://feeds.npr.org/1008/rss.xml",    # Business
+    "https://feeds.npr.org/1025/rss.xml",    # Race
+    "https://feeds.npr.org/2101254/rss.xml", # Health
+]
+
+
+def _fetch_npr_combined(n: int = 30) -> list:
+    """
+    Fetch from multiple NPR topic feeds and return up to n unique entries.
+    Deduplicates by article URL so no story appears twice.
+    Returns raw feedparser entry objects — identical interface to feed.entries.
+    """
+    seen_urls: set = set()
+    combined: list = []
+    for feed_url in _NPR_FEEDS:
+        if len(combined) >= n:
+            break
+        try:
+            print(f"[RSS/NPR] Fetching: {feed_url}")
+            feed = feedparser.parse(feed_url)
+            for entry in feed.entries:
+                entry_url = getattr(entry, "link", "")
+                if entry_url and entry_url not in seen_urls:
+                    seen_urls.add(entry_url)
+                    combined.append(entry)
+                    if len(combined) >= n:
+                        break
+        except Exception as e:
+            print(f"[RSS/NPR] Failed {feed_url}: {e}")
+            continue
+    print(f"[RSS/NPR] Combined: {len(combined)} unique articles from {len(_NPR_FEEDS)} feeds")
+    return combined[:n]
 
 # Keywords organised by community for coverage scanning
 INCLUSIVITY_KEYWORDS = {
@@ -201,42 +239,51 @@ def analyse_rss_feed(company: str) -> str:
             return guardian_result
         # fall through to RSS if API key missing or call fails
 
-    # Find the feed URL for this company
-    feed_url = None
-    for key, url in RSS_FEEDS.items():
-        if key in company_key or company_key in key:
-            feed_url = url
-            break
-
-    if not feed_url:
-        return (
-            f"No RSS feed configured for '{company}'. "
-            f"Monitored outlets: {list(RSS_FEEDS.keys())}"
-        )
-
-    # Fetch with retry logic (up to 3 attempts)
-    feed = None
-    MAX_RETRIES = 3
-    for attempt in range(1, MAX_RETRIES + 1):
-        try:
-            print(f"[RSS] Attempt {attempt}: fetching {feed_url}")
-            feed = feedparser.parse(feed_url)
-            if feed.entries:
-                print(f"[RSS] Success: {len(feed.entries)} articles retrieved")
+    # Route NPR through multi-feed combiner (individual feeds return ~10 articles each)
+    if "npr" in company_key:
+        raw_entries = _fetch_npr_combined(n=30)
+        if not raw_entries:
+            return "Could not retrieve any NPR RSS feeds after trying all configured sources."
+        feed_url = f"NPR combined ({len(_NPR_FEEDS)} topic feeds)"
+    else:
+        # Find the feed URL for this company
+        feed_url = None
+        for key, url in RSS_FEEDS.items():
+            if key in company_key or company_key in key:
+                feed_url = url
                 break
-            else:
-                print(f"[RSS] Empty feed on attempt {attempt}")
-        except Exception as e:
-            print(f"[RSS] Error on attempt {attempt}: {e}")
-        if attempt < MAX_RETRIES:
-            time.sleep(2 ** attempt)
 
-    if not feed or not feed.entries:
-        return f"Could not retrieve RSS feed for '{company}' after {MAX_RETRIES} attempts."
+        if not feed_url:
+            return (
+                f"No RSS feed configured for '{company}'. "
+                f"Monitored outlets: {list(RSS_FEEDS.keys())}"
+            )
 
-    # Parse articles (last 30)
+        # Fetch with retry logic (up to 3 attempts)
+        feed = None
+        MAX_RETRIES = 3
+        for attempt in range(1, MAX_RETRIES + 1):
+            try:
+                print(f"[RSS] Attempt {attempt}: fetching {feed_url}")
+                feed = feedparser.parse(feed_url)
+                if feed.entries:
+                    print(f"[RSS] Success: {len(feed.entries)} articles retrieved")
+                    break
+                else:
+                    print(f"[RSS] Empty feed on attempt {attempt}")
+            except Exception as e:
+                print(f"[RSS] Error on attempt {attempt}: {e}")
+            if attempt < MAX_RETRIES:
+                time.sleep(2 ** attempt)
+
+        if not feed or not feed.entries:
+            return f"Could not retrieve RSS feed for '{company}' after {MAX_RETRIES} attempts."
+
+        raw_entries = feed.entries[:30]
+
+    # Parse articles (up to 30 from whatever source was used above)
     articles = []
-    for entry in feed.entries[:30]:
+    for entry in raw_entries:
         author = getattr(entry, "author", getattr(entry, "dc_creator", "Unknown"))
         # Prefer content:encoded (full article) over summary (teaser)
         if hasattr(entry, "content") and entry.content:

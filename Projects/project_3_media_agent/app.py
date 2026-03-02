@@ -139,7 +139,7 @@ def research_company(request: AnalyseRequest):
 
     Called by N8N HTTP Request node:
         POST http://localhost:8000/research
-        {"company": "BBC", "focus": "all"}
+        {"company": "The Guardian", "focus": "all"}
     """
     company = request.company.strip()
     if not company:

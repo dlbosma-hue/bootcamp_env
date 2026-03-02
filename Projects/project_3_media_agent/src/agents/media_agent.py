@@ -11,7 +11,7 @@ ReAct loop: Thought → Action (tool call) → Observation → Thought → ...
 until the agent has enough evidence to produce a full research summary.
 
 Usage (from project root):
-    python -c "from src.agents.media_agent import run_research; result = run_research('BBC'); print(result['final_analysis'])"
+    python -c "from src.agents.media_agent import run_research; result = run_research('NPR'); print(result['final_analysis'])"
 """
 
 from datetime import date
@@ -77,40 +77,51 @@ erasure of community voices) with clear evidence."""
 # Research prompt builder
 # ---------------------------------------------------------------------------
 def _build_research_prompt(company: str) -> str:
-    return f"""Research {company} comprehensively for a Media Diversity Watch inclusivity audit.
-
+    return f"""You are researching {company} for a Media Diversity Watch inclusivity audit.
 Today's date: {date.today().isoformat()}
 
-Follow this research sequence:
+IMPORTANT: Call tools ONE AT A TIME. After each tool result, stop and reason about
+what you found before deciding your next action. Do not plan all your tool calls
+upfront — let each finding shape the next query.
 
-STEP 1 — Primary source evidence:
-  analyse_rss_feed("{company}")
+--- START HERE ---
 
-STEP 2 — Knowledge base benchmarks (call rag_query_tool at least 4 times):
-  rag_query_tool("bylines diversity women journalists", "bylines_and_story_selection")
-  rag_query_tool("how marginalised communities should be portrayed news", "portrayal_in_content")
-  rag_query_tool("expert sourcing diversity standards journalism", "sourcing_diversity")
-  rag_query_tool("inclusive language guidelines harmful terms media", "language_and_framing")
+Call analyse_rss_feed("{company}") now and read the results carefully.
 
-STEP 3 — Critic and journalist perspectives:
-  search_newsapi("{company} newsroom diversity inclusion representation")
+After you receive the RSS data, ask yourself:
+  - Which of the 4 communities (women, LGBTQ+, race, disability) had coverage? Which were absent?
+  - Were bylines named or anonymous? How many unique authors appeared?
+  - Were any problematic language patterns flagged?
+  - What specific gaps, patterns, or concerns need deeper investigation?
 
-STEP 4 — Company background:
-  search_wikipedia("{company} media company")
+Then use rag_query_tool to pull benchmarks that speak directly to what you found.
+Your queries must reflect the actual data — do not use generic queries. Examples:
+  - RSS showed no disability coverage → "disability representation erasure journalism standards"
+  - RSS showed Latino community framed as political variable → "portrayal minority communities beyond political utility news"
+  - RSS showed zero byline names → "newsroom byline transparency accountability standards"
+  - RSS flagged a harmful term → "inclusive language [term] guidelines journalism"
+Call rag_query_tool at least 4 times, each time with a query shaped by your findings.
 
-After gathering all evidence, write a comprehensive research summary that covers:
-  • Bylines and Story Selection findings (with specific numbers from RSS analysis)
-  • Portrayal Within Content findings (examples from articles)
-  • Sourcing Diversity findings
-  • Language and Framing findings (note any flagged terms)
+Then call search_newsapi with a query that reflects the specific gaps you identified
+in {company}'s coverage — not a generic diversity query.
+
+Then call search_wikipedia to get {company}'s background: ownership, reach, editorial
+history, and any documented diversity controversies.
+
+After all tool calls, write your comprehensive research summary:
+  • Bylines and Story Selection — specific numbers from RSS
+  • Portrayal Within Content — examples from the articles you read
+  • Sourcing Diversity — who gets quoted, based on what evidence you found
+  • Language and Framing — flag any problematic terms found
   • Community-by-Community observations (Women / LGBTQ+ / Race / Disability)
-  • Any harm flags or serious concerns
-  • Preliminary scores for each community on a 1-10 scale with justification
-    Scoring guide: 9-10 = industry leader; 7-8 = above average;
-    5-6 = meets minimum standards; 3-4 = below average; 1-2 = serious concerns
+  • Harm flags — note any serious concerns with clear evidence
+  • Preliminary scores 1–10 per community with one-line justification
+    Scoring guide: 9–10 = industry leader; 7–8 = above average;
+    5–6 = meets minimum standards; 3–4 = below average; 1–2 = serious concerns
   • Key strengths and actionable recommendations
 
-Be thorough. A senior analyst will use your summary to write the final report."""
+Cite your tool results directly. Never fabricate data. Where evidence is thin, say so.
+A senior analyst will use your summary to write the final report."""
 
 
 # ---------------------------------------------------------------------------
@@ -125,7 +136,7 @@ def run_research(company: str) -> dict:
     produce a full research summary.
 
     Args:
-        company: Name of the media outlet (e.g. 'BBC', 'Guardian', 'CNN')
+        company: Name of the media outlet (e.g. 'NPR', 'The Guardian', 'Al Jazeera English')
 
     Returns:
         dict with keys:

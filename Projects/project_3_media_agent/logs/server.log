@@ -1,0 +1,128 @@
+
+============================================================
+  Media Diversity Watch Agent
+============================================================
+
+  API:       http://localhost:8000/research
+  Docs:      http://localhost:8000/docs
+  Health:    http://localhost:8000/
+
+  N8N HTTP Request node is already pointed at:
+  http://localhost:8000/research
+
+  Press Ctrl+C to stop.
+
+============================================================
+
+INFO:     127.0.0.1:53676 - "GET / HTTP/1.1" 200 OK
+
+============================================================
+  Media Diversity Watch Agent
+============================================================
+
+  API:       http://localhost:8000/research
+  Docs:      http://localhost:8000/docs
+  Health:    http://localhost:8000/
+
+  N8N HTTP Request node is already pointed at:
+  http://localhost:8000/research
+
+  Press Ctrl+C to stop.
+
+============================================================
+
+INFO:     127.0.0.1:54705 - "GET / HTTP/1.1" 200 OK
+
+============================================================
+[AGENT] Starting research: Reuters
+[AGENT] Tools: ['analyse_rss_feed', 'rag_query_tool', 'search_newsapi', 'search_wikipedia']
+============================================================
+
+[RSS] Attempt 1: fetching https://feeds.reuters.com/reuters/topNews
+[RSS] Empty feed on attempt 1
+[RSS] Attempt 2: fetching https://feeds.reuters.com/reuters/topNews
+[RSS] Empty feed on attempt 2
+[RSS] Attempt 3: fetching https://feeds.reuters.com/reuters/topNews
+[RSS] Empty feed on attempt 3
+[RSS] Attempt 1: fetching https://feeds.reuters.com/reuters/topNews
+[RSS] Empty feed on attempt 1
+[RSS] Attempt 2: fetching https://feeds.reuters.com/reuters/topNews
+[RSS] Empty feed on attempt 2
+[RSS] Attempt 3: fetching https://feeds.reuters.com/reuters/topNews
+[RSS] Empty feed on attempt 3
+[RSS] Attempt 1: fetching https://feeds.reuters.com/reuters/topNews
+[RSS] Empty feed on attempt 1
+[RSS] Attempt 2: fetching https://feeds.reuters.com/reuters/topNews
+[RSS] Empty feed on attempt 2
+[RSS] Attempt 3: fetching https://feeds.reuters.com/reuters/topNews
+[RSS] Empty feed on attempt 3
+
+[AGENT] Research complete.
+[AGENT] Total messages: 19 | Tool calls: 3
+[REPORT] Formatting structured report for: Reuters
+[REPORT] Saved to: /Users/dinabosmabuczynska/Desktop/bootcamp_env/Projects/project_3_media_agent/reports/reuters_2026-03-02.md
+INFO:     127.0.0.1:54707 - "POST /research HTTP/1.1" 200 OK
+
+============================================================
+[AGENT] Starting research: Reuters
+[AGENT] Tools: ['analyse_rss_feed', 'rag_query_tool', 'search_newsapi', 'search_wikipedia']
+============================================================
+
+[RSS] Attempt 1: fetching https://news.google.com/rss/search?q=reuters+news&hl=en-US&gl=US&ceid=US:en
+[RSS] Success: 100 articles retrieved
+
+[AGENT] Research complete.
+[AGENT] Total messages: 11 | Tool calls: 1
+[REPORT] Formatting structured report for: Reuters
+[REPORT] Saved to: /Users/dinabosmabuczynska/Desktop/bootcamp_env/Projects/project_3_media_agent/reports/reuters_2026-03-02.md
+INFO:     127.0.0.1:54837 - "POST /research HTTP/1.1" 200 OK
+
+============================================================
+[AGENT] Starting research: BBC
+[AGENT] Tools: ['analyse_rss_feed', 'rag_query_tool', 'search_newsapi', 'search_wikipedia']
+============================================================
+
+[RSS] Attempt 1: fetching http://feeds.bbci.co.uk/news/rss.xml
+[RSS] Success: 37 articles retrieved
+
+[AGENT] Research complete.
+[AGENT] Total messages: 11 | Tool calls: 1
+[REPORT] Formatting structured report for: BBC
+[REPORT] Saved to: /Users/dinabosmabuczynska/Desktop/bootcamp_env/Projects/project_3_media_agent/reports/bbc_2026-03-02.md
+INFO:     127.0.0.1:54948 - "POST /research HTTP/1.1" 200 OK
+
+============================================================
+[AGENT] Starting research: The Guardian
+[AGENT] Tools: ['analyse_rss_feed', 'rag_query_tool', 'search_newsapi', 'search_wikipedia']
+============================================================
+
+[RSS] Attempt 1: fetching https://www.theguardian.com/world/rss
+[RSS] Success: 45 articles retrieved
+
+[AGENT] Research complete.
+[AGENT] Total messages: 11 | Tool calls: 1
+[REPORT] Formatting structured report for: The Guardian
+[REPORT] Saved to: /Users/dinabosmabuczynska/Desktop/bootcamp_env/Projects/project_3_media_agent/reports/the_guardian_2026-03-02.md
+INFO:     127.0.0.1:54999 - "POST /research HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56666 - "GET / HTTP/1.1" 200 OK
+
+============================================================
+[AGENT] Starting research: NPR
+[AGENT] Tools: ['analyse_rss_feed', 'rag_query_tool', 'search_newsapi', 'search_wikipedia']
+============================================================
+
+[RSS/NPR] Fetching: https://feeds.npr.org/1001/rss.xml
+[RSS/NPR] Fetching: https://feeds.npr.org/1003/rss.xml
+[RSS/NPR] Fetching: https://feeds.npr.org/1008/rss.xml
+[RSS/NPR] Fetching: https://feeds.npr.org/1025/rss.xml
+[RSS/NPR] Combined: 30 unique articles from 5 feeds
+
+[AGENT] Research complete.
+[AGENT] Total messages: 13 | Tool calls: 5
+[REPORT] Formatting structured report for: NPR
+[REPORT] Saved to: /Users/dinabosmabuczynska/Desktop/bootcamp_env/Projects/project_3_media_agent/reports/npr_2026-03-02.md
+INFO:     127.0.0.1:56849 - "POST /research HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56960 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56960 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57104 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57104 - "GET /openapi.json HTTP/1.1" 200 OK

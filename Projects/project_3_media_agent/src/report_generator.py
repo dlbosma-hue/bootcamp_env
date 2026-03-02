@@ -9,8 +9,8 @@ inclusivity audit report.
 Usage:
     from src.report_generator import generate_report, save_report
 
-    report_md = generate_report("BBC", agent_result["final_analysis"])
-    path = save_report("BBC", report_md)
+    report_md = generate_report("The Guardian", agent_result["final_analysis"])
+    path = save_report("The Guardian", report_md)
 """
 
 from datetime import date
