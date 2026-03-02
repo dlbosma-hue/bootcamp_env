@@ -9,22 +9,39 @@
 # actually publishes today, not what others say about them.
 # No API key required. Completely free and legal.
 #
-# Target outlets: BBC, The Guardian, CNN, New York Times, Reuters
+# Target outlets: Al Jazeera English, The Guardian, CNN, New York Times
 
+import re
 import time
 
 import feedparser
+import requests
 from langchain.tools import tool
 
-# RSS feed URLs for our 5 monitored outlets
+_HEADERS = {"User-Agent": "MediaDiversityWatch/1.0 (research agent; contact@mediadiversitywatch.org)"}
+
+
+def _fetch_article_text(url: str, max_chars: int = 600) -> str:
+    """Fetch plain text from an article URL. Returns empty string on any failure."""
+    try:
+        resp = requests.get(url, headers=_HEADERS, timeout=5)
+        resp.raise_for_status()
+        # Strip HTML tags and collapse whitespace
+        text = re.sub(r"<[^>]+>", " ", resp.text)
+        text = re.sub(r"\s+", " ", text).strip()
+        return text[:max_chars]
+    except Exception:
+        return ""
+
+# RSS feed URLs for our 4 monitored outlets
 RSS_FEEDS = {
-    "bbc":            "http://feeds.bbci.co.uk/news/rss.xml",
-    "the guardian":   "https://www.theguardian.com/world/rss",
-    "guardian":       "https://www.theguardian.com/world/rss",
-    "cnn":            "http://rss.cnn.com/rss/edition.rss",
-    "new york times": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
-    "nyt":            "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
-    "reuters":        "https://news.google.com/rss/search?q=reuters+news&hl=en-US&gl=US&ceid=US:en"
+    "al jazeera":         "https://www.aljazeera.com/xml/rss/all.xml",
+    "al jazeera english": "https://www.aljazeera.com/xml/rss/all.xml",
+    "the guardian":       "https://www.theguardian.com/world/rss",
+    "guardian":           "https://www.theguardian.com/world/rss",
+    "cnn":                "http://rss.cnn.com/rss/edition.rss",
+    "new york times":     "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+    "nyt":                "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
 }
 
 # Keywords organised by community for coverage scanning
@@ -105,6 +122,14 @@ def analyse_rss_feed(company: str) -> str:
     for entry in feed.entries[:30]:
         author = getattr(entry, "author", getattr(entry, "dc_creator", "Unknown"))
         description = getattr(entry, "summary", getattr(entry, "description", ""))
+        url = getattr(entry, "link", "")
+
+        # If RSS summary is thin (<150 chars), fetch full article text
+        if len(description) < 150 and url:
+            fetched = _fetch_article_text(url)
+            if fetched:
+                description = fetched
+
         category = "Uncategorised"
         if hasattr(entry, "tags") and entry.tags:
             category = entry.tags[0].get("term", "Uncategorised")
@@ -113,7 +138,7 @@ def analyse_rss_feed(company: str) -> str:
             "author":      author,
             "description": description,
             "category":    category,
-            "url":         getattr(entry, "link", ""),
+            "url":         url,
             "published":   getattr(entry, "published", "Unknown date")
         })
 

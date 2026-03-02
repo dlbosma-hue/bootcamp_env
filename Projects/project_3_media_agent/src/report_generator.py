@@ -32,6 +32,14 @@ Based on the research findings provided, write a structured Markdown report \
 following the exact section headers below. Be specific — cite numbers and \
 named examples from the research. Do not invent data not present in the findings.
 
+IMPORTANT — data source constraints you must respect:
+- RSS analysis covers headlines and short teasers only (not full article text). \
+Community keyword hits reflect surface-level signal. Do not over-claim.
+- RAG knowledge base provides industry benchmarks and research standards, \
+not evidence specific to this outlet. Use it to contextualise scores, not as proof.
+- NewsAPI returns article descriptions (1-2 sentences), not full coverage.
+- Where evidence is thin, say so explicitly rather than filling gaps with assumptions.
+
 Use this EXACT structure:
 
 # {company}: Media Inclusivity Report

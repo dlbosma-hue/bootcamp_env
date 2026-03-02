@@ -14,10 +14,10 @@
     {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const companies = ['BBC','The Guardian','CNN','New York Times','Reuters'];\nreturn companies.map(c => ({ json: { company: c, focus: 'all', triggered_by: 'schedule' } }));"
+        "jsCode": "const companies = ['Al Jazeera English','The Guardian','CNN','New York Times'];\nreturn companies.map(c => ({ json: { company: c, focus: 'all', triggered_by: 'schedule' } }));"
       },
       "id": "split-companies-001",
-      "name": "Split Into 5 Companies",
+      "name": "Split Into 4 Companies",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [2040, 880]
@@ -29,7 +29,7 @@
         "formDescription": "Run an on-demand inclusivity analysis on any major news outlet. The agent searches live news, RSS feeds, and our research knowledge base to produce a scored, evidence-based report.",
         "formFields": {
           "values": [
-            { "fieldLabel": "Company Name", "placeholder": "e.g. BBC, The Guardian, CNN, New York Times, Reuters", "requiredField": true },
+            { "fieldLabel": "Company Name", "placeholder": "e.g. Al Jazeera English, The Guardian, CNN, New York Times", "requiredField": true },
             { "fieldLabel": "Focus Community", "fieldType": "dropdown", "fieldOptions": { "values": [
               {"option": "All Communities"}, {"option": "Women and Gender Equality"},
               {"option": "LGBTQ+ Communities"}, {"option": "Racial and Ethnic Minorities"},
@@ -67,7 +67,7 @@
     {
       "parameters": {
         "fields": { "values": [
-          { "name": "company", "stringValue": "={{ $json.company ?? $json['Company Name'] ?? $json.body?.company ?? 'BBC' }}" },
+          { "name": "company", "stringValue": "={{ $json.company ?? $json['Company Name'] ?? $json.body?.company ?? 'Al Jazeera English' }}" },
           { "name": "focus", "stringValue": "={{ $json.focus ?? ({'All Communities':'all','Women and Gender Equality':'women','LGBTQ+ Communities':'lgbtq','Racial and Ethnic Minorities':'race','People with Disabilities':'disability'})[$json['Focus Community']] ?? $json.body?.focus ?? 'all' }}" },
           { "name": "triggered_by", "stringValue": "={{ $json.triggered_by ?? ($json['Company Name'] ? 'form' : ($json.body ? 'webhook' : 'manual')) }}" }
         ]},
@@ -288,8 +288,8 @@
     }
   ],
   "connections": {
-    "Schedule Trigger Monday 6am": { "main": [[{ "node": "Split Into 5 Companies", "type": "main", "index": 0 }]] },
-    "Split Into 5 Companies": { "main": [[{ "node": "Prepare Input", "type": "main", "index": 0 }]] },
+    "Schedule Trigger Monday 6am": { "main": [[{ "node": "Split Into 4 Companies", "type": "main", "index": 0 }]] },
+    "Split Into 4 Companies": { "main": [[{ "node": "Prepare Input", "type": "main", "index": 0 }]] },
     "Form Trigger On-Demand": { "main": [[{ "node": "Prepare Input", "type": "main", "index": 0 }]] },
     "Webhook Trigger API": { "main": [[{ "node": "Prepare Input", "type": "main", "index": 0 }]] },
     "Manual Trigger": { "main": [[{ "node": "Prepare Input", "type": "main", "index": 0 }]] },
