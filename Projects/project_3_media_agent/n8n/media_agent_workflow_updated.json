@@ -14,7 +14,7 @@
     {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const companies = ['Al Jazeera English','The Guardian','CNN','New York Times'];\nreturn companies.map(c => ({ json: { company: c, focus: 'all', triggered_by: 'schedule' } }));"
+        "jsCode": "const companies = ['Al Jazeera English','The Guardian','NPR','New York Times'];\nreturn companies.map(c => ({ json: { company: c, focus: 'all', triggered_by: 'schedule' } }));"
       },
       "id": "split-companies-001",
       "name": "Split Into 4 Companies",
@@ -29,7 +29,7 @@
         "formDescription": "Run an on-demand inclusivity analysis on any major news outlet. The agent searches live news, RSS feeds, and our research knowledge base to produce a scored, evidence-based report.",
         "formFields": {
           "values": [
-            { "fieldLabel": "Company Name", "placeholder": "e.g. Al Jazeera English, The Guardian, CNN, New York Times", "requiredField": true },
+            { "fieldLabel": "Company Name", "placeholder": "e.g. Al Jazeera English, The Guardian, NPR, New York Times", "requiredField": true },
             { "fieldLabel": "Focus Community", "fieldType": "dropdown", "fieldOptions": { "values": [
               {"option": "All Communities"}, {"option": "Women and Gender Equality"},
               {"option": "LGBTQ+ Communities"}, {"option": "Racial and Ethnic Minorities"},
