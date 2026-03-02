@@ -24,7 +24,7 @@ RSS_FEEDS = {
     "cnn":            "http://rss.cnn.com/rss/edition.rss",
     "new york times": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
     "nyt":            "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
-    "reuters":        "https://feeds.reuters.com/reuters/topNews"
+    "reuters":        "https://news.google.com/rss/search?q=reuters+news&hl=en-US&gl=US&ceid=US:en"
 }
 
 # Keywords organised by community for coverage scanning

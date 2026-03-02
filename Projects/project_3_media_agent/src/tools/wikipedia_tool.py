@@ -10,6 +10,9 @@
 import requests
 from langchain.tools import tool
 
+# Wikipedia blocks requests without a descriptive User-Agent
+_HEADERS = {"User-Agent": "MediaDiversityWatch/1.0 (research agent; contact@mediadiversitywatch.org)"}
+
 
 @tool
 def search_wikipedia(query: str) -> str:
@@ -31,6 +34,7 @@ def search_wikipedia(query: str) -> str:
                 "format": "json",
                 "srlimit": 1,
             },
+            headers=_HEADERS,
             timeout=10,
         )
         search_resp.raise_for_status()
@@ -44,6 +48,7 @@ def search_wikipedia(query: str) -> str:
         # Step 2: Fetch the plain-English summary of that page
         summary_resp = requests.get(
             f"https://en.wikipedia.org/api/rest_v1/page/summary/{requests.utils.quote(page_title)}",
+            headers=_HEADERS,
             timeout=10,
         )
         summary_resp.raise_for_status()
