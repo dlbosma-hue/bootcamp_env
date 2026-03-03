@@ -103,8 +103,23 @@ flagged by the RSS analysis. Reference knowledge base benchmarks on best practic
 | Disability | X/10 | [one-line evidence-based justification] |
 | **Overall Average** | **X/10** | |
 
-Scoring guide: 9–10 = industry leader; 7–8 = above average; \
-5–6 = meets minimum standards; 3–4 = below average; 1–2 = serious concerns.
+Scoring guide — apply strictly:
+- 9–10 = Industry leader: strong positive evidence across multiple angles and sources
+- 7–8 = Above average: clear positive evidence present, minor gaps only
+- 5–6 = Meets minimum standards OR insufficient data: evidence shows typical industry \
+performance, OR data was too thin (RSS teasers only, no bylines, no article body) \
+to assess higher or lower — score 5 when data is genuinely inconclusive
+- 3–4 = Below average: specific failures or gaps identified in the evidence
+- 1–2 = Active harm ONLY: dehumanising language, deliberate exclusion, or documented \
+harm patterns found in the evidence. Do NOT use 1–2 simply because community coverage \
+was absent from the sample.
+
+CRITICAL RULE — absence of evidence is not evidence of harm:
+If the RSS feed provides only headlines or short teasers and no community coverage \
+was detected, that reflects a data limitation, not confirmed harm. In that case score \
+4–5 and note the data constraint in the justification column. \
+Reserve scores of 1–2 for cases where harmful content, biased framing, or active \
+exclusion was explicitly found in what the tools returned.
 
 ## 10. Recommendations
 1. [Specific, actionable recommendation with a clear owner and timeline]

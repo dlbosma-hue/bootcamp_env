@@ -211,11 +211,13 @@ Reports are saved to `reports/{company}_{date}.md`.
 ## Scoring System
 
 Equal weight across all four communities. Scores based on:
-- **9–10**: Industry leader — demonstrably above sector benchmarks
-- **7–8**: Above average — solid practices with room for growth
-- **5–6**: Meets minimum standards — typical for the industry
-- **3–4**: Below average — systemic gaps identified
-- **1–2**: Serious concerns — active harm patterns flagged
+- **9–10**: Industry leader — strong positive evidence across multiple angles
+- **7–8**: Above average — clear positive evidence, minor gaps only
+- **5–6**: Meets minimum standards — typical industry performance, OR data too thin to score higher or lower
+- **3–4**: Below average — specific failures or gaps identified in the evidence
+- **1–2**: Active harm only — dehumanising language, deliberate exclusion, or documented harm found
+
+> **Note on data limitations:** RSS feeds provide headlines and short teasers, not full article text. When community coverage is simply absent from a thin sample, the score reflects insufficient data (4–5), not confirmed harm. Scores of 1–2 are reserved for cases where harmful content was explicitly found.
 
 Companies are additionally flagged (`⚠️`) if they cause active harm — for example, consistent dehumanising language or crime-framing of minority groups.
 
