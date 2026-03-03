@@ -61,13 +61,19 @@ def _parse_report_metrics(report: str) -> dict:
         "community_scores": {},
     }
 
-    # Parse score table rows: | Women | 7/10 | justification |
-    score_pattern = r"\|\s*(Women|LGBTQ\+|Race|Disability|Overall Average)\s*\|\s*\**(\d+(?:\.\d+)?)/10\**"
+    # Parse score table rows — handles optional **bold** markers around community names and scores
+    # e.g. | Women | 4/10 | ...  OR  | **Overall Average** | **3.25/10** | ...
+    score_pattern = r"\|\s*\**\s*(Women|LGBTQ\+|Race|Disability|Overall Average)\s*\**\s*\|\s*\**(\d+(?:\.\d+)?)/10"
     for community, score in re.findall(score_pattern, report, re.IGNORECASE):
         if "overall" in community.lower():
             metrics["overall_score"] = float(score)
         else:
             metrics["community_scores"][community] = float(score)
+
+    # Fallback: if Overall Average row wasn't found, compute from community scores
+    if metrics["overall_score"] == 5.0 and metrics["community_scores"]:
+        scores = list(metrics["community_scores"].values())
+        metrics["overall_score"] = round(sum(scores) / len(scores), 2)
 
     # Parse harm flags: any bullet line containing ⚠️
     harm_lines = [

@@ -8,99 +8,132 @@
 
 ## 1. Company Overview
 
-The Guardian is a British daily newspaper and news website founded in 1821, owned by the Scott Trust Limited — a structure designed to safeguard editorial independence in perpetuity. It maintains a substantial global readership across its UK, US, and Australia editions, making it one of the most widely read English-language news outlets in the world. Editorially, The Guardian is broadly considered centre-left in orientation, with a longstanding reputation for investigative journalism and progressive advocacy on issues including climate, civil liberties, and social justice.
+The Guardian is a British daily newspaper and digital news outlet founded in 1821, owned by the Scott Trust Limited — a structure designed to preserve editorial independence and prevent commercial sale. It reaches a global audience of tens of millions of monthly readers across its UK, US, and Australian editions. The Guardian positions itself editorially as a progressive, liberal-leaning outlet with an explicit commitment to public interest journalism and social justice coverage.
+
+---
 
 ## 2. Bylines and Story Selection
 
-Across the 30 articles reviewed from The Guardian's RSS feed on 02 March 2026, 29 unique authors were identified. Every article carried a named byline, indicating a strong and consistent culture of byline transparency — a basic but important marker of editorial accountability.
+The RSS feed analysis reviewed 30 articles published on or around 02 March 2026. All 30 articles carried named author bylines, representing 28 unique authors — indicating a near 1:1 ratio of articles to individual writers and suggesting strong byline transparency with minimal content being recycled across reporters.
 
-However, story selection reveals a significant imbalance in community coverage within this sample. Of the 30 articles reviewed, only 2 addressed issues relating to women, 1 touched on racial and ethnic minorities, and 0 articles covered either LGBTQ+ communities or people with disabilities. This means that three of the four marginalised communities assessed received either token or zero coverage in this snapshot.
+However, the research did not capture demographic data on the authors themselves (gender, ethnicity, or other characteristics), as RSS analysis covers headlines and short teasers only. It is therefore not possible to draw conclusions about the gender or ethnic diversity of the authorship pool from this data alone. This is a notable evidence gap. To conduct a meaningful byline diversity audit, full masthead and contributor demographic data would need to be sourced directly from The Guardian's editorial team or third-party diversity audits.
 
-It is important to note that RSS analysis covers headlines and short teasers only. These figures reflect surface-level signal from a single day's feed and should not be read as a definitive long-term measure of The Guardian's editorial priorities. Nonetheless, the pattern warrants attention.
+Story selection across the 30 articles skewed toward coverage of women (4 articles) and, to a lesser extent, racial and ethnic minorities (2 articles), with no articles surfacing LGBTQ+ or disability community coverage at the headline and teaser level.
+
+---
 
 ## 3. Portrayal Within Content
 
-Based on the available RSS teasers, the two articles relating to women engaged with substantive structural issues — specifically the gender pay gap and the use of strip-searches in women's prisons. This suggests that, where women's issues are covered, The Guardian's framing engages with systemic concerns rather than reducing women purely to victims or statistics. This is a positive, if limited, signal.
+Because RSS analysis covers headlines and short teasers only — not full article text — it is not possible to make definitive claims about how marginalised groups are portrayed within The Guardian's articles. Any assessment here reflects surface-level signal only.
 
-The single article touching on racial and ethnic minorities was framed around Donald Trump, which the research notes "lacks depth in representation." This suggests that race was addressed as a political or contextual backdrop rather than through the perspectives or lived experiences of affected communities themselves.
+Within the available headline and teaser data:
 
-No content relating to LGBTQ+ people or people with disabilities was identified in the sample, making it impossible to assess portrayal for these communities from this dataset. The absence itself, however, is a finding of note.
+- **Women** appeared in 4 articles, with identified themes including notable figures in sports and gender pay gap issues. The framing of women as subjects of systemic issues (pay gap) alongside individual achievement (sports figures) suggests a mixed portrayal, but this cannot be confirmed without full article text.
+- **Racial and ethnic minorities** appeared in 2 articles, though the research notes the context was limited. It is not possible to determine from teaser-level data whether community members were portrayed as experts, as subjects of policy, or as victims of events.
+- **LGBTQ+ people** and **people with disabilities** did not appear in any reviewed headlines or teasers, meaning no portrayal data is available for these communities in this sample.
+
+The evidence base for this section is thin. Deeper content analysis of full article text would be required to assess portrayal with confidence.
+
+---
 
 ## 4. Sourcing Diversity
 
-The RSS and NewsAPI data reviewed for this audit did not yield specific information about who was quoted as an authority within individual articles, as these sources return headlines and short descriptions rather than full article text. Sourcing diversity therefore cannot be directly evidenced from this dataset.
+No sourcing or quotation data was extractable from the RSS feed analysis, which is limited to headlines and short teasers. NewsAPI descriptions (1–2 sentences) similarly do not contain sufficient attribution detail to assess who is quoted as an authority figure versus who is spoken about.
 
-What can be observed is structural: the complete absence of LGBTQ+ and disability coverage in the sample leaves no basis on which community members from these groups could have been centred as sources or experts. The Media Diversity Watch knowledge base notes that LGBTQ+ experts are frequently excluded from mainstream media discussions even when their communities are the subject of coverage — a benchmark concern that is relevant here, though it cannot be confirmed as specific to The Guardian from the data available.
+This represents a significant evidence gap in the current audit. Industry best practice, as reflected in Media Diversity Watch benchmarks, holds that inclusive outlets should centre community members as expert voices rather than solely as subjects of external commentary. Whether The Guardian meets this standard in the articles reviewed cannot be determined from the available data.
 
-The limited racial minority coverage, framed around Trump, raises a reasonable question about whether community voices were centred in that article — but given the constraints of the data source, this cannot be confirmed or refuted.
+A full sourcing audit would require manual coding of complete article text, tracking the institutional affiliation and community identity of all quoted sources.
+
+---
 
 ## 5. Language and Framing
 
-No problematic or non-inclusive language was flagged across the 30 articles analysed via RSS. This is a meaningful positive finding: The Guardian's headlines and teasers did not produce keyword hits associated with harmful terminology, deficit framing, or stereotyping of marginalised communities.
+The RSS analysis returned **no flagged problematic language** across the 30 article headlines and teasers reviewed. No harmful or non-inclusive terminology was detected at the surface level.
 
-According to Media Diversity Watch benchmarks, inclusive language at the headline level is considered a minimum standard for responsible outlets (score threshold: 5–6/10). The absence of flagged language suggests The Guardian meets or exceeds this baseline in its surface-level framing. That said, RSS analysis captures only headlines and short teasers — a fuller language audit would require analysis of complete article text, which was not available in this research cycle.
+This is a cautiously positive finding, though it must be qualified: RSS analysis covers headlines and short teasers only. Harmful language, stereotyping, or reductive framing is more likely to appear within article body text, subheadings, pull quotes, and captions — none of which were within scope of this analysis. The absence of flags at headline level should not be interpreted as a clean bill of health for language across all published content.
+
+Media Diversity Watch benchmarks (RAG knowledge base) indicate that best-practice outlets adopt style guides that avoid identity-based othering language, use community-preferred terminology (e.g., "disabled people" in line with social model preferences in the UK, or identity-first language where communities specify), and apply consistent framing standards across all communities rather than treating marginalised groups as exceptional or monolithic. Whether The Guardian's full content meets these standards is not evidenced in this dataset.
+
+---
 
 ## 6. Community-by-Community Findings
 
 ### Women and Gender Equality
 
-Two of the 30 articles in the sample related to women's issues — a coverage rate of approximately 7%. The topics identified (gender pay gap and prison strip-searches) reflect engagement with structural and institutional harms facing women, which aligns with better-practice framing standards. No harmful language relating to women was flagged in headlines or teasers. Coverage is limited in volume but qualitatively oriented toward systemic issues rather than sensationalism. Evidence in this sample is thin; a longitudinal review would provide a more reliable picture.
+Women were the most represented marginalised community in the reviewed sample, appearing in 4 of 30 articles (13.3% of the sample). Coverage themes identified at headline and teaser level included notable women in sports and gender pay gap issues. This suggests some engagement with both individual achievement and structural gender inequality.
+
+However, the research notes that the focus may not fully encompass the diversity of women's experiences — for example, there was no surface-level evidence in this sample of coverage relating to reproductive rights, violence against women, women in politics or leadership (outside of sports), or the intersecting experiences of women from racialised or disabled communities. Evidence for these gaps is limited to what is visible at headline level and should not be treated as conclusive.
 
 ### LGBTQ+ Communities
 
-Zero articles in the 30-article sample addressed LGBTQ+ communities, topics, or perspectives. This is a notable absence for an outlet with The Guardian's editorial profile and one that has historically positioned itself as supportive of LGBTQ+ rights. No language — inclusive or harmful — could be assessed. The research notes this as a serious representation gap. As above, this reflects a single-day RSS snapshot and should be interpreted with appropriate caution, but it warrants flagging.
+Zero articles in the 30-article sample mentioned LGBTQ+ communities at headline or teaser level. This is a notable absence, particularly given that The Guardian has historically published substantial LGBTQ+ coverage. It may reflect the specific timeframe and article selection of this snapshot rather than a structural editorial gap, but it cannot be dismissed without a larger longitudinal sample.
+
+Media Diversity Watch benchmarks indicate that outlets meeting minimum standards of LGBTQ+ representation should provide regular, non-crisis-driven coverage that includes LGBTQ+ voices as sources and experts, not solely as subjects of policy debate or legal proceedings. No evidence is available in this dataset to assess whether The Guardian meets this standard.
 
 ### Racial and Ethnic Minorities
 
-One article in the sample engaged with racial or ethnic minority issues, representing approximately 3% of coverage. The framing was described as lacking depth, with race addressed primarily as context within a story about Trump rather than through the experiences of affected communities. This suggests a pattern — where race does appear — of instrumentalisation rather than centred representation. The evidence base here is very limited (one article), and stronger conclusions require a larger sample.
+Racial and ethnic minority communities were referenced in 2 of 30 articles (6.7% of the sample). The research characterises this context as limited, and no further detail is available from headline and teaser data about which communities were covered, in what context, or how they were framed.
+
+This represents the thinnest evidence base of the communities reviewed. Two surface-level mentions across 30 articles is a low frequency, though again, a single-day RSS snapshot is not sufficient to draw structural conclusions about editorial policy.
 
 ### People with Disabilities
 
-No articles relating to disability were identified in the 30-article sample. This represents a complete absence of coverage for one of the largest marginalised communities globally. No language, framing, or sourcing relating to disability could therefore be assessed. This is the most significant representation gap identified in this audit.
+Zero articles in the 30-article sample mentioned disability or people with disabilities at headline or teaser level. Like the LGBTQ+ finding, this is a notable gap within this sample. Disability is consistently one of the most under-represented identity categories in mainstream UK news media, according to industry research cited in the Media Diversity Watch knowledge base. Whether this sample reflects a broader pattern at The Guardian cannot be confirmed from this dataset alone.
+
+---
 
 ## 7. Key Strengths
 
-- **Full byline transparency:** All 30 articles carried named authors, demonstrating a consistent editorial standard of accountability and attribution.
-- **No harmful language detected:** RSS analysis returned zero flags for problematic, stigmatising, or non-inclusive terminology across all headlines and teasers reviewed — meeting the baseline standard identified in Media Diversity Watch benchmarks.
-- **Substantive framing of women's issues:** Where women's issues were covered (gender pay gap, prison strip-searches), the framing engaged with structural and institutional dimensions rather than reducing women to passive subjects or statistics.
+- **Full byline transparency:** All 30 reviewed articles carried named author bylines, with 28 unique authors across 30 pieces — indicating strong accountability and authorial transparency, which is a baseline requirement for inclusive journalism practice.
+- **No harmful language flagged at headline level:** The RSS analysis detected no problematic or non-inclusive terminology across all 30 headlines and teasers, suggesting surface-level language discipline in how stories are titled and introduced to readers.
+- **Structural gender issue coverage:** Women's coverage in this sample included the gender pay gap — a structural and policy-level topic — alongside individual profiling, suggesting some capacity to frame gender as a systemic issue rather than solely a human interest story.
+
+---
 
 ## 8. Areas of Concern and Harm Flags
 
-- **Severe underrepresentation of LGBTQ+ communities:** Zero articles in the 30-article sample addressed LGBTQ+ topics, representing a complete absence of this community from the coverage snapshot reviewed.
-- **Complete absence of disability coverage:** No articles relating to people with disabilities were identified. Disability is statistically one of the most underrepresented communities in mainstream media; this finding is consistent with that broader pattern but is nonetheless a significant gap for an outlet of The Guardian's reach and stated values.
-- **Racial minority coverage lacks depth and community centring:** The single article touching on race framed the topic through a political lens (Trump) rather than through the perspectives of affected communities, raising questions about whose voices are authoritative in race-related coverage.
-- ⚠️ **Risk of community erasure:** The combined absence of LGBTQ+ and disability coverage — two communities that depend on quality journalism to counter stigma, advocate for rights, and access information — constitutes a structural representation failure in this sample. While based on a single-day RSS snapshot and not confirmed as a systemic pattern, the concentration of gaps across multiple communities in the same sample is a meaningful harm signal that warrants editorial investigation.
+- **Zero LGBTQ+ coverage in the reviewed sample:** No articles referencing LGBTQ+ communities were detected across 30 articles at headline or teaser level. While this may reflect snapshot timing, it warrants monitoring across a larger sample.
+- **Zero disability coverage in the reviewed sample:** Disability communities were entirely absent from the 30-article sample at surface level. Given that disability is already among the most under-covered identity categories in UK news, this absence — even in a small sample — aligns with a known sector-wide gap.
+- **Thin racial and ethnic minority coverage:** Only 2 of 30 articles referenced racial or ethnic minority communities, and the research notes the context was limited. This is insufficient to assess quality of representation.
+- ⚠️ **Evidence gaps limit the depth of this audit:** The reliance on RSS headline and teaser data, combined with the absence of full article text, sourcing data, or author demographic data, means this report cannot verify whether The Guardian's full content meets inclusivity standards. Conclusions drawn here are necessarily provisional. Media Diversity Watch flags this as a methodological limitation that could mask harms not visible at surface level.
+- **Women's coverage may be range-limited:** Within a small sample, women's coverage clustered around sports and pay gap topics. The diversity of women's experiences — across race, disability, class, and geography — is not evidenced in this snapshot, though the sample size is too small to confirm this as a structural pattern.
+
+---
 
 ## 9. Inclusivity Score
 
 | Community | Score (1–10) | Justification |
 |---|---|---|
-| Women | 6/10 | Two articles engage with structural women's issues (pay gap, strip-searches); coverage is limited in volume but qualitatively appropriate. |
-| LGBTQ+ | 2/10 | Complete absence of LGBTQ+ coverage in the 30-article sample; no language or sourcing can be assessed. |
-| Race | 4/10 | One article references race but frames it as political context rather than centring community perspectives; limited depth. |
-| Disability | 1/10 | Zero articles covering disability identified; total absence of representation, language assessment, or sourcing. |
-| **Overall Average** | **3.25/10** | |
+| Women | 5/10 | Present in 4 of 30 articles with some structural framing (pay gap), but coverage appears range-limited at headline level and deeper representation cannot be assessed from available data. |
+| LGBTQ+ | 3/10 | Zero articles referencing LGBTQ+ communities in the reviewed sample; absence at headline level across 30 articles is a significant gap regardless of snapshot limitations. |
+| Race | 4/10 | Only 2 of 30 articles reference racial or ethnic minorities; context described as limited; insufficient evidence of quality representation at the surface level reviewed. |
+| Disability | 3/10 | Zero articles referencing disability or disabled people in the reviewed sample; consistent with sector-wide under-representation patterns noted in MDW benchmarks. |
+| **Overall Average** | **3.75/10** | |
 
-*Scoring guide: 9–10 = industry leader; 7–8 = above average; 5–6 = meets minimum standards; 3–4 = below average; 1–2 = serious concerns.*
+*Note: Scores reflect evidence available from RSS headline/teaser analysis and NewsAPI descriptions only. They should be treated as provisional indicators rather than definitive assessments. A full content audit would be required to score with confidence.*
 
-*Note: These scores are derived from a single-day RSS snapshot of 30 articles and should be treated as indicative rather than definitive. A sustained audit across a larger sample and full article text would be required to assign reliable longitudinal scores.*
+Scoring guide: 9–10 = industry leader; 7–8 = above average; 5–6 = meets minimum standards; 3–4 = below average; 1–2 = serious concerns.
+
+---
 
 ## 10. Recommendations
 
-1. **Establish a diversity coverage tracker (Editorial team — within 3 months):** Implement a systematic weekly or monthly audit of story selection by community, tracking what proportion of published articles centre women, LGBTQ+ people, racial and ethnic minorities, and people with disabilities. Results should be reviewed by editors and published in an annual transparency report. Responsibility: Editor-in-Chief and Head of Diversity.
+1. **Commission a longitudinal byline diversity audit** *(Owner: Guardian Editorial Standards team; Timeline: within 6 months)*: Collect and publish demographic data on byline authorship — including gender, ethnicity, and disability status — across a minimum 90-day article sample. RSS snapshot data is insufficient to assess authorial diversity; a structured audit would provide an evidence base for targeted hiring and commissioning decisions.
 
-2. **Commission dedicated disability and LGBTQ+ coverage (Commissioning editors — within 6 months):** Given the complete absence of disability and LGBTQ+ coverage in this sample, commissioning editors should set explicit targets for stories that centre these communities — not merely as subjects of policy stories, but as experts, leaders, and protagonists. This should include proactive outreach to specialist writers and community organisations.
+2. **Expand LGBTQ+ and disability coverage through proactive commissioning** *(Owner: Commissioning Editors, relevant desks; Timeline: immediate, reviewed at 3 months)*: Set measurable targets for LGBTQ+ and disability community coverage that is not solely pegged to legislative events or crisis moments. Best practice, per Media Diversity Watch benchmarks, includes regular features, expert sourcing, and community-led story selection. Progress should be reviewed at 3-month intervals against a defined baseline.
 
-3. **Develop community-centred sourcing guidelines for race coverage (Editorial standards team — within 6 months):** The single race-related article in this sample appeared to treat race as political context rather than centring affected community voices. The Guardian should develop or reinforce sourcing guidelines that require race-related stories to include named community members, advocates, or experts from affected groups rather than relying solely on political or institutional framings.
+3. **Conduct a full sourcing audit across a representative article sample** *(Owner: Research and Standards team; Timeline: within 4 months)*: Manually code quoted sources across a minimum of 100 articles, recording institutional affiliation and, where publicly identifiable, the community identity of sources. This will establish whether community members are being centred as experts or whether outside voices are being used to speak about them — a dimension this audit could not assess from available data.
 
-4. **Commission a full-text language and sourcing audit (Media Diversity Watch or equivalent — within 12 months):** The current audit is constrained by RSS/headline-level data. A meaningful assessment of language quality, sourcing diversity, and portrayal depth requires full article text analysis across a sustained time period (minimum 90 days). The Guardian should commission or cooperate with such an audit to move beyond surface-level signal to substantive accountability.
+4. **Broaden the range of women's coverage beyond sports and pay gap topics** *(Owner: Features and News commissioning; Timeline: ongoing, with quarterly review)*: Analyse the thematic spread of women-focused coverage over a 60-day period to identify whether stories consistently cluster around a narrow set of topics. Where clustering is confirmed, develop a commissioning brief that reflects the intersectional diversity of women's experiences — including race, disability, class, and geography — drawing on community organisations as story sources and pitching partners.
+
+---
 
 ## 11. Sources and Evidence
 
 - **RSS Feed analysis:** The Guardian, 02 March 2026, 30 articles reviewed
 - **Knowledge base:** Media Diversity Watch internal benchmarks (Pinecone RAG)
 - **NewsAPI:** Live article search, last 30 days
-- **Wikipedia:** *The Guardian* (Wikipedia article on ownership, reach, and editorial stance)
+- **Wikipedia:** *The Guardian* (article used for company overview and ownership information)
 
 ---
 
