@@ -228,7 +228,7 @@ def analyse_rss_feed(company: str) -> str:
     Use this to get primary source evidence of what the company
     is actually publishing today. Returns byline analysis,
     community coverage counts, language flags, and article samples.
-    Always call this tool when researching any of our 5 monitored outlets.
+    Always call this tool when researching any of our 4 monitored outlets.
     """
 
     # Route Guardian requests through the Open Platform API for full article text
