@@ -74,7 +74,9 @@ project_3_media_agent/
 │
 ├── notebooks/
 │   ├── day1_planning.ipynb       # Architecture planning and API setup
-│   └── day2_rag.ipynb            # RAG pipeline and Pinecone ingestion
+│   ├── day2_rag.ipynb            # RAG pipeline and Pinecone ingestion
+│   ├── day3_agent.ipynb          # LangGraph agent build and tool testing
+│   └── day4_integration.ipynb   # FastAPI, N8N integration, end-to-end testing
 │
 ├── n8n/
 │   ├── media_agent_workflow_updated.json  # N8N workflow (import this)
@@ -100,10 +102,11 @@ pip install -r requirements.txt
 Create a `.env` file in the project root (never commit this):
 
 ```env
-OPENAI_API_KEY=sk-...
-PINECONE_API_KEY=pcsk_...
-NEWSAPI_KEY=...
-ANTHROPIC_API_KEY=sk-ant-...   # optional, not used by default
+OPENAI_API_KEY=sk-...           # used by LangGraph agent (gpt-4o-mini)
+PINECONE_API_KEY=pcsk_...       # used by RAG pipeline (media-inclusivity-index)
+NEWSAPI_KEY=...                  # used by newsapi_tool.py
+ANTHROPIC_API_KEY=sk-ant-...    # required — used by report_generator.py (claude-sonnet-4-6)
+GUARDIAN_API_KEY=...             # used by rss_tool.py for Guardian full article body
 ```
 
 ### 3. Ensure the Pinecone index is populated
@@ -154,10 +157,23 @@ Or visit `http://localhost:8000/docs` for the interactive Swagger UI.
 
 ### Option C: N8N automation
 
+**Prerequisites:** N8N Cloud requires a publicly reachable URL. Use ngrok to expose your local FastAPI server:
+
+```bash
+# Terminal 1 — start FastAPI
+cd project_3_media_agent
+uvicorn app:app --port 8000
+
+# Terminal 2 — expose via ngrok
+ngrok http 8000
+# Copy the https://xxxxx.ngrok-free.app URL
+```
+
 1. Import `n8n/media_agent_workflow_updated.json` into your N8N instance
-2. Replace the placeholder ngrok URL in the HTTP Request node with your server URL
+2. In the **HTTP Request** node, replace the placeholder URL with your ngrok URL + `/analyse`
 3. Connect your Notion account and create the required database (see `n8n/README.md`)
-4. Activate the workflow
+4. Connect your Slack account in the Slack DM node (recipient: your Slack user ID)
+5. Activate the workflow
 
 ---
 
@@ -202,3 +218,30 @@ Equal weight across all four communities. Scores based on:
 - **1–2**: Serious concerns — active harm patterns flagged
 
 Companies are additionally flagged (`⚠️`) if they cause active harm — for example, consistent dehumanising language or crime-framing of minority groups.
+
+---
+
+## Design Decisions
+
+### HTTP Request node + FastAPI instead of Execute Command node
+
+The N8N workflow uses an **HTTP Request node** calling a local FastAPI server (`POST /analyse`) rather than an Execute Command node running Python directly. This was a deliberate architectural choice for three reasons:
+
+1. **Separation of concerns** — the agent logic lives entirely in Python, independently testable with `curl` or the Swagger UI at `/docs`, without touching N8N.
+2. **N8N Cloud compatibility** — Execute Command node is only available in self-hosted N8N. HTTP Request works in both cloud and self-hosted instances.
+3. **Production readiness** — a FastAPI server can be deployed to any cloud provider or container platform and called by any orchestration tool, not just N8N.
+
+The trade-off is that a locally running FastAPI server requires ngrok (or equivalent) to be reachable from N8N Cloud. This is documented in the setup steps above.
+
+### Dual-LLM pipeline
+
+The agent uses two models at different stages:
+- **gpt-4o-mini** (OpenAI) — drives the LangGraph ReAct tool-calling loop. Cost-efficient for iterative reasoning across up to 15 steps.
+- **claude-sonnet-4-6** (Anthropic) — generates the final structured report. Superior at long-form structured writing and consistent section formatting.
+
+### N8N workflow error handling
+
+The workflow includes three layers of error handling:
+- HTTP Request node has an **error output wire** routed to an Error Output node (catches network/timeout failures)
+- Notion and Slack nodes have `continueOnFail: true` (third-party API errors don't abort the run)
+- The Code node uses a **try/catch** block so a malformed report doesn't crash the entire batch
