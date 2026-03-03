@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Media Diversity Watch — Technical Architecture v4</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0D1F2D; font-family: 'Segoe UI', Arial, sans-serif; color: #F0F7F7; padding: 24px; min-height: 100vh; }
+
+  h1 { font-size: 20px; color: #1A9E8F; margin-bottom: 4px; }
+  .subtitle { font-size: 12px; color: #5A7A82; margin-bottom: 24px; }
+
+  /* --- MAIN FLOW --- */
+  .flow { display: flex; flex-direction: column; gap: 0; align-items: center; }
+
+  /* --- ZONE WRAPPERS --- */
+  .zone { width: 100%; max-width: 860px; border-radius: 10px; padding: 16px 20px; margin: 4px 0; }
+  .zone-n8n    { background: #0A3A3A; border: 1.5px solid #0A6E6E; }
+  .zone-bridge { background: #1A1A0D; border: 1.5px solid #6E6E0A; }
+  .zone-python { background: #0D1A2D; border: 1.5px solid #0A406E; }
+  .zone-tools  { background: #1A0D2D; border: 1.5px solid #4A0A6E; }
+  .zone-rag    { background: #0D2D1A; border: 1.5px solid #0A6E3A; }
+  .zone-back   { background: #0A3A3A; border: 1.5px solid #0A6E6E; }
+
+  .zone-label { font-size: 10px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .lbl-n8n    { color: #1A9E8F; }
+  .lbl-bridge { color: #9E9E1A; }
+  .lbl-python { color: #1A6E9E; }
+  .lbl-tools  { color: #9E1A9E; }
+  .lbl-rag    { color: #1A9E6E; }
+  .lbl-back   { color: #1A9E8F; }
+
+  /* --- ROWS INSIDE ZONES --- */
+  .row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .row + .row { margin-top: 10px; }
+
+  /* --- INDIVIDUAL BOXES --- */
+  .box { border-radius: 7px; padding: 10px 14px; flex: 1; min-width: 150px; max-width: 260px; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; position: relative; }
+  .box:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+
+  .box-title { font-size: 13px; font-weight: bold; margin-bottom: 4px; }
+  .box-sub   { font-size: 11px; color: #8AA8B0; line-height: 1.5; }
+  .box-tag   { display: inline-block; font-size: 9px; font-weight: bold; padding: 2px 6px; border-radius: 3px; margin-bottom: 6px; letter-spacing: 0.8px; text-transform: uppercase; }
+
+  /* Box colour variants */
+  .b-teal   { background: #0A4A4A; border: 1px solid #1A9E8F; }
+  .b-teal .box-title   { color: #1A9E8F; }
+  .b-amber  { background: #2D2A0D; border: 1px solid #9E8F1A; }
+  .b-amber .box-title  { color: #D4C040; }
+  .b-blue   { background: #0D1E30; border: 1px solid #1A6E9E; }
+  .b-blue .box-title   { color: #4AA8D4; }
+  .b-purple { background: #1E0D30; border: 1px solid #6E1A9E; }
+  .b-purple .box-title { color: #C060D4; }
+  .b-green  { background: #0D2E1A; border: 1px solid #1A9E6E; }
+  .b-green .box-title  { color: #40D490; }
+  .b-red    { background: #2E0D0D; border: 1px solid #9E1A1A; }
+  .b-red .box-title    { color: #D46060; }
+
+  /* --- ARROWS --- */
+  .arrow { display: flex; flex-direction: column; align-items: center; margin: 2px 0; gap: 0; }
+  .arrow-line  { width: 2px; height: 22px; background: #1A9E8F; }
+  .arrow-head  { width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 8px solid #1A9E8F; }
+  .arrow-label { font-size: 10px; color: #1A9E8F; margin-top: 2px; letter-spacing: 0.5px; }
+  .arrow.amber .arrow-line { background: #9E8F1A; }
+  .arrow.amber .arrow-head { border-top-color: #9E8F1A; }
+  .arrow.amber .arrow-label { color: #D4C040; }
+
+  /* --- DETAIL PANEL --- */
+  .detail-panel {
+    position: fixed; top: 20px; right: 20px; width: 320px;
+    background: #0A2030; border: 1.5px solid #1A9E8F;
+    border-radius: 10px; padding: 18px; z-index: 100;
+    display: none; max-height: 80vh; overflow-y: auto;
+  }
+  .detail-panel.show { display: block; }
+  .detail-panel h3   { font-size: 14px; color: #1A9E8F; margin-bottom: 10px; }
+  .detail-panel .close { float: right; cursor: pointer; color: #5A7A82; font-size: 16px; }
+  .detail-row { margin-bottom: 10px; }
+  .detail-key { font-size: 10px; color: #5A7A82; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+  .detail-val { font-size: 12px; color: #D0E8E8; line-height: 1.5; }
+  .detail-code { font-family: 'Courier New', monospace; font-size: 11px; background: #050F18; padding: 8px 10px; border-radius: 5px; color: #88D4B8; margin-top: 4px; white-space: pre-wrap; word-break: break-all; }
+
+  /* --- SECTION CONNECTOR LINE --- */
+  .section-sep { width: 2px; height: 12px; background: #1A4A4A; margin: 0 auto; }
+
+  /* --- WIDE BOXES --- */
+  .box-wide { min-width: 300px; max-width: 520px; }
+
+  /* --- TRIGGER ROW SPECIAL --- */
+  .trigger-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .trigger-box { border-radius: 7px; padding: 8px 14px; min-width: 120px; text-align: center; cursor: pointer; transition: transform 0.15s; }
+  .trigger-box:hover { transform: translateY(-2px); }
+  .trigger-box .t-label { font-size: 11px; font-weight: bold; }
+  .trigger-box .t-sub   { font-size: 10px; color: #8AA8B0; margin-top: 2px; }
+  .t-schedule { background: #0A3A2A; border: 1px solid #1A9E6E; }
+  .t-schedule .t-label  { color: #40D490; }
+  .t-form     { background: #0A2A3A; border: 1px solid #1A6E9E; }
+  .t-form .t-label      { color: #4AA8D4; }
+  .t-webhook  { background: #2A0A3A; border: 1px solid #6E1A9E; }
+  .t-webhook .t-label   { color: #C060D4; }
+  .t-manual   { background: #2A2A0A; border: 1px solid #9E9E1A; }
+  .t-manual .t-label    { color: #D4C040; }
+
+  .hint { font-size: 10px; color: #3A5A62; text-align: center; margin-top: 20px; }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; } 
+  ::-webkit-scrollbar-track { background: #0D1F2D; }
+  ::-webkit-scrollbar-thumb { background: #1A4A4A; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<h1>Media Diversity Watch — Technical Architecture v4</h1>
+<p class="subtitle">Click any box for details. Every arrow is a real data transfer. | Outlets: Al Jazeera English · The Guardian · NPR · New York Times | N8N: cloud (ngrok required)</p>
+
+<div class="flow">
+
+  <!-- ═══ N8N ZONE ═════════════════════════════════════ -->
+  <div class="zone zone-n8n">
+    <div class="zone-label lbl-n8n">N8N Cloud (app.n8n.cloud) — Entry Point</div>
+
+    <div class="trigger-row">
+      <div class="trigger-box t-schedule" onclick="show('schedule')">
+        <div class="t-label">Schedule Trigger</div>
+        <div class="t-sub">Mon-Fri 6am auto</div>
+      </div>
+      <div class="trigger-box t-form" onclick="show('form')">
+        <div class="t-label">Form Trigger</div>
+        <div class="t-sub">On-demand web form</div>
+      </div>
+      <div class="trigger-box t-webhook" onclick="show('webhook')">
+        <div class="t-label">Webhook Trigger</div>
+        <div class="t-sub">API call from code</div>
+      </div>
+      <div class="trigger-box t-manual" onclick="show('manual')">
+        <div class="t-label">Manual Trigger</div>
+        <div class="t-sub">Testing in canvas</div>
+      </div>
+    </div>
+
+    <div style="margin-top:10px;">
+      <div class="row">
+        <div class="box b-teal" onclick="show('prepare')">
+          <div class="box-tag" style="background:#0A6E6E;color:#fff;">SET NODE</div>
+          <div class="box-title">Prepare Input</div>
+          <div class="box-sub">Normalises input from all 4 triggers into company + focus fields</div>
+        </div>
+        <div class="box b-teal" onclick="show('split')">
+          <div class="box-tag" style="background:#0A6E6E;color:#fff;">CODE NODE</div>
+          <div class="box-title">Split Into 4 Companies</div>
+          <div class="box-sub">Schedule only: generates one item per outlet (Al Jazeera English, The Guardian, NPR, New York Times)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARROW DOWN -->
+  <div class="arrow" onclick="show('http_request')">
+    <div class="arrow-line"></div>
+    <div class="arrow-head"></div>
+    <div class="arrow-label">POST /research  {company, focus}</div>
+  </div>
+
+  <!-- ═══ LOCAL SERVER ZONE ════════════════════════════════ -->
+  <div class="zone zone-bridge">
+    <div class="zone-label lbl-bridge">Local Server — FastAPI on localhost:8000 | Exposed via ngrok tunnel</div>
+    <div class="row">
+      <div class="box b-amber" onclick="show('runpy')">
+        <div class="box-tag" style="background:#6E6E0A;color:#fff;">STARTUP</div>
+        <div class="box-title">python run.py</div>
+        <div class="box-sub">One command starts the server. N8N runs in the cloud (app.n8n.cloud). FastAPI runs locally. Ngrok creates a secure HTTPS tunnel so cloud N8N can reach localhost:8000.</div>
+      </div>
+      
+        <div class="box b-amber" onclick="show('ngrok')" style="border-color:#9E6E0A;">
+          <div class="box-tag" style="background:#8B6000;color:#fff;">TUNNEL</div>
+          <div class="box-title" style="color:#D4A030;">ngrok http 8000</div>
+          <div class="box-sub">Creates HTTPS tunnel from N8N cloud → localhost:8000. Required because N8N cloud cannot reach localhost directly. URL changes on restart — update N8N each session.</div>
+        </div>
+        <div class="box b-amber" onclick="show('fastapi')">
+        <div class="box-tag" style="background:#6E6E0A;color:#fff;">HTTP SERVER</div>
+        <div class="box-title">FastAPI /research</div>
+        <div class="box-sub">Receives POST from N8N at https://{ngrok-id}.ngrok.io/research. Validates input. Calls LangGraph agent. Returns JSON result.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARROW DOWN -->
+  <div class="arrow" onclick="show('invoke')">
+    <div class="arrow-line"></div>
+    <div class="arrow-head"></div>
+    <div class="arrow-label">agent_graph.invoke({company, focus})</div>
+  </div>
+
+  <!-- ═══ PYTHON / LANGGRAPH ZONE ═════════════════════════════ -->
+  <div class="zone zone-python">
+    <div class="zone-label lbl-python">Python — LangGraph ReAct Agent (5 Nodes) | gpt-4o-mini reasoning + claude-sonnet-4-6 report</div>
+    <div class="row">
+      <div class="box b-blue" onclick="show('plan')">
+        <div class="box-tag" style="background:#0A406E;color:#fff;">NODE 1</div>
+        <div class="box-title">PLAN</div>
+        <div class="box-sub">gpt-4o-mini reads company + focus. Decides what to research. Sets research agenda in state.</div>
+      </div>
+      <div class="box b-blue" onclick="show('research')">
+        <div class="box-tag" style="background:#0A406E;color:#fff;">NODE 2</div>
+        <div class="box-title">RESEARCH</div>
+        <div class="box-sub">ReAct loop. Agent calls all 4 MCP tools autonomously. Stores results in state.</div>
+      </div>
+      <div class="box b-blue" onclick="show('analyse')">
+        <div class="box-tag" style="background:#0A406E;color:#fff;">NODE 3</div>
+        <div class="box-title">ANALYSE</div>
+        <div class="box-sub">gpt-4o-mini structures tool results by 4 angles x 4 communities. Pydantic enforces output format.</div>
+      </div>
+      <div class="box b-blue" onclick="show('synthesise')">
+        <div class="box-tag" style="background:#0A406E;color:#fff;">NODE 4</div>
+        <div class="box-title">SYNTHESISE</div>
+        <div class="box-sub">gpt-4o-mini scores each community 1-10. Identifies harm flags and strengths. Calculates overall score.</div>
+      </div>
+      <div class="box b-blue" onclick="show('report')">
+        <div class="box-tag" style="background:#0A406E;color:#fff;">NODE 5</div>
+        <div class="box-title">REPORT</div>
+        <div class="box-sub">4 claude-sonnet-4-6 calls build the full 11-section prose report. Saves to /reports/ folder. Returns report_text.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTE: MCP tools and RAG are called FROM INSIDE the RESEARCH node.
+       They are nested sub-systems, not downstream steps. The REPORT node
+       finishes and then the entire LangGraph result returns to FastAPI. -->
+
+  <!-- ═══ MCP TOOLS ZONE -- called from within RESEARCH node ═══════ -->
+  <div class="zone zone-tools" style="max-width:860px;">
+    <div class="zone-label lbl-tools" onclick="show('mcp')" style="cursor:pointer;">
+      4 MCP Tools -- LangChain @tool &nbsp;<span style="font-size:9px;color:#9E1A9E;">called from inside RESEARCH node ↑</span>
+    </div>
+    <div class="row">
+      <div class="box b-purple" onclick="show('newsapi')">
+        <div class="box-tag" style="background:#4A0A6E;color:#fff;">TOOL 1</div>
+        <div class="box-title">NewsAPI</div>
+        <div class="box-sub">search_news(query). NEWSAPI_KEY in header. Returns up to 10 articles. 3 retries with backoff.</div>
+      </div>
+      <div class="box b-purple" onclick="show('guardian')">
+        <div class="box-tag" style="background:#4A0A6E;color:#fff;">TOOL 2</div>
+        <div class="box-title">Guardian API</div>
+        <div class="box-sub">search_guardian(query). No API key needed -- public content API. Returns articles + byline data from The Guardian.</div>
+      </div>
+      <div class="box b-purple" onclick="show('wikipedia')">
+        <div class="box-tag" style="background:#4A0A6E;color:#fff;">TOOL 3</div>
+        <div class="box-title">Wikipedia API</div>
+        <div class="box-sub">get_wikipedia(company). No key needed. Returns company background, ownership, history.</div>
+      </div>
+      <div class="box b-purple" onclick="show('rss')">
+        <div class="box-tag" style="background:#D4891A;color:#fff;">TOOL 4 PRIMARY</div>
+        <div class="box-title">RSS Feed Analyser</div>
+        <div class="box-sub">analyse_rss_feed(company). No key needed. Reads the outlet's own feed directly. Bylines, topics, language flags.</div>
+      </div>
+    </div>
+    <!-- RAG nested here -- also a sub-call from RESEARCH node -->
+    <div style="margin-top:10px; padding:10px; background:#0D2D1A; border:1px dashed #0A6E3A; border-radius:8px;">
+      <div style="font-size:10px; font-weight:bold; letter-spacing:1px; color:#1A9E6E; margin-bottom:8px;">
+        RAG SYSTEM -- Pinecone + OpenAI &nbsp;<span style="font-size:9px;color:#1A9E6E;">rag_query() also called from RESEARCH node ↑</span>
+      </div>
+      <div class="row">
+        <div class="box b-green" onclick="show('openai_embed')">
+          <div class="box-tag" style="background:#0A6E3A;color:#fff;">STEP 1</div>
+          <div class="box-title">OpenAI Embedding</div>
+          <div class="box-sub">text-embedding-ada-002 turns the query into a 1536-dimension vector. OPENAI_API_KEY required.</div>
+        </div>
+        <div class="box b-green" onclick="show('pinecone')">
+          <div class="box-tag" style="background:#0A6E3A;color:#fff;">STEP 2</div>
+          <div class="box-title">Pinecone Search</div>
+          <div class="box-sub">media-inclusivity-index. 19 vectors. Returns the 3 most similar chunks. PINECONE_API_KEY required.</div>
+        </div>
+        <div class="box b-green" onclick="show('rag_result')">
+          <div class="box-tag" style="background:#0A6E3A;color:#fff;">STEP 3</div>
+          <div class="box-title">Benchmark Context</div>
+          <div class="box-sub">Retrieved chunks (score &gt;0.70 only) added to state. RESEARCH node continues with benchmarks in hand.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARROW: LangGraph (REPORT node) returns result to FastAPI -->
+  <div class="arrow amber" onclick="show('return')">
+    <div class="arrow-line" style="background:#9E8F1A;"></div>
+    <div class="arrow-head" style="border-top-color:#9E8F1A;"></div>
+    <div class="arrow-label" style="color:#D4C040;">REPORT node complete → FastAPI returns JSON: {status, overall_score, summary, report_text, harm_flags, community_scores}</div>
+  </div>
+
+  <!-- N8N RESULT HANDLING -->
+  <div class="zone zone-back">
+    <div class="zone-label lbl-back">N8N -- Result Handling + Smart Routing</div>
+    <div class="row">
+      <div class="box b-teal" onclick="show('check')">
+        <div class="box-tag" style="background:#0A6E6E;color:#fff;">IF NODE</div>
+        <div class="box-title">Check If Success</div>
+        <div class="box-sub">Reads status field from JSON. Routes to Success path or Error path.</div>
+      </div>
+      <div class="box b-teal" onclick="show('success_out')">
+        <div class="box-tag" style="background:#0A6E6E;color:#fff;">SET NODE</div>
+        <div class="box-title">Success Output</div>
+        <div class="box-sub">Formats the result: company, overall_score, report_text, harm_flags, community_scores, triggered_by.</div>
+      </div>
+      <div class="box b-red" onclick="show('error')">
+        <div class="box-tag" style="background:#6E0A0A;color:#fff;">ERROR PATH</div>
+        <div class="box-title">Error Output</div>
+        <div class="box-sub">If status != success. Logs error + suggestion. Returns 500 to caller.</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="box b-teal" onclick="show('switch')">
+        <div class="box-tag" style="background:#0A6E6E;color:#fff;">SWITCH NODE</div>
+        <div class="box-title">Route by Score</div>
+        <div class="box-sub">Single dynamic Notion node. Status = overall_score >= 7 ? 'Good Standing' : >= 4 ? 'Needs Review' : 'Flagged for Action'. 9 blocks support reports up to ~18k chars.</div>
+      </div>
+      <div class="box b-teal" onclick="show('notion')">
+        <div class="box-tag" style="background:#0A9E6E;color:#fff;">NOTION</div>
+        <div class="box-title">Save to Notion</div>
+        <div class="box-sub">Creates page titled "[Company] | Week N YYYY". Routes to correct database based on score band.</div>
+      </div>
+      <div class="box b-red" onclick="show('notion_flagged')">
+        <div class="box-tag" style="background:#9E1A1A;color:#fff;">NOTION FLAGGED</div>
+        <div class="box-title">Flagged Database</div>
+        <div class="box-sub">Separate Notion DB for scores below 4. Live watchlist of outlets with serious inclusivity concerns.</div>
+      </div>
+      <div class="box b-teal" onclick="show('slack')">
+        <div class="box-tag" style="background:#4A0A6E;color:#fff;">SLACK</div>
+        <div class="box-title">Slack Alert</div>
+        <div class="box-sub">Score below 4 only. Auto-sends DM: company name, score, and top harm flags to editorial team.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="hint">Click any box or arrow to see what data is being passed.</p>
+
+<!-- ═══ DETAIL PANEL ═════════════════════════════════════ -->
+<div class="detail-panel" id="panel">
+  <span class="close" onclick="closePanel()">x</span>
+  <h3 id="panel-title"></h3>
+  <div id="panel-body"></div>
+</div>
+
+<script>
+const details = {
+
+
+  ngrok: {
+    title: "ngrok — Local Tunnel",
+    what: "N8N runs in the cloud at app.n8n.cloud. FastAPI runs on your Mac at localhost:8000. The cloud cannot reach localhost. Ngrok solves this: it creates a secure public HTTPS URL that forwards traffic to your local port 8000. Every N8N session: (1) python run.py, (2) ngrok http 8000, (3) paste new ngrok URL into HTTP Request node.",
+    config: "Install: brew install ngrok\nRun: ngrok http 8000\nOutput: https://abc123.ngrok.io -> localhost:8000\nURL changes on every ngrok restart — update N8N each time.\nFree plan: 1 tunnel, URL changes on restart.\nPaid plan: fixed subdomain.",
+    passes: "Bridges N8N cloud → local FastAPI",
+    data: "Without ngrok: N8N POST times out (server unreachable from cloud)\nWith ngrok: N8N → ngrok.io → localhost:8000 → agent runs and returns JSON"
+  },
+  ruff: {
+    title: "Ruff Linter (ruff.toml)",
+    what: "Ruff is a fast Python linter that runs before every commit. It checks PEP8 style (E), catches unused imports (F), enforces import ordering (I), and flags warnings (W). Configured via ruff.toml. Run: ruff check src/ --fix. Notebooks are excluded from E402 (import order not enforced in Jupyter cells).",
+    config: "ruff.toml:\nline-length = 100\nselect: E, F, I, W\nignore: E501 (line too long, handled by formatter)\nper-file-ignores: notebooks/* ignore E402",
+    passes: "Clean, linted code committed to git",
+    data: "Fixed in this project:\n- Unused exception variable in rss_tool.py\n- Stray f-string prefix in rss_tool.py\nRun: ruff check src/ --fix && ruff format src/"
+  },
+  schedule: {
+    title: "Schedule Trigger",
+    what: "N8N fires this automatically. No human involved.",
+    config: "Cron: 0 6 * * 1-5\nMeaning: every weekday at 6am",
+    passes: "Triggers the Split Into 4 Companies node",
+    data: "No input data. Just a time signal."
+  },
+
+  form: {
+    title: "Form Trigger (On-Demand)",
+    what: "Researcher opens the N8N form URL in a browser and submits.",
+    config: "Fields: Company Name (text), Focus Community (dropdown)\nURL: app.n8n.cloud/form/...",
+    passes: "Passes to Prepare Input",
+    data: '{ "Company Name": "Al Jazeera English", "Focus Community": "All Communities" }'
+  },
+
+  webhook: {
+    title: "Webhook Trigger",
+    what: "Any external script or tool can POST to this URL to trigger a research run.",
+    config: "POST https://YOUR_N8N_URL/webhook/media-agent\nContent-Type: application/json",
+    passes: "Passes to Prepare Input",
+    data: '{ "company": "Al Jazeera English", "focus": "all" }'
+  },
+
+  manual: {
+    title: "Manual Trigger",
+    what: "Click the Execute button in the N8N canvas. Used for testing.",
+    config: "No configuration needed.",
+    passes: "Passes to Prepare Input",
+    data: "No data. Passes empty object to Prepare Input which defaults company to Al Jazeera English."
+  },
+
+  prepare: {
+    title: "Prepare Input (Set Node)",
+    what: "Normalises the input regardless of which trigger fired. All four triggers produce different field names -- this node resolves them all into the same two fields.",
+    config: 'company = $json.company ?? $json["Company Name"] ?? $json.body?.company ?? "Al Jazeera English"\nfocus = lookup[$json["Focus Community"]] ?? $json.body?.focus ?? "all"\ntriggered_by = inferred from which fields exist',
+    passes: "Passes to HTTP Request to FastAPI",
+    data: '{ "company": "Al Jazeera English", "focus": "all", "triggered_by": "form" }'
+  },
+
+  split: {
+    title: "Split Into 4 Companies (Code Node)",
+    what: "Only used on the Schedule path. Takes the trigger signal and outputs 5 separate items -- one per outlet. The rest of the workflow then runs once per item.",
+    config: "JavaScript:\nconst companies = ['Al Jazeera English','The Guardian','NPR','New York Times'];\nreturn companies.map(c => ({ json: { company: c, focus: 'all', triggered_by: 'schedule' } }));",
+    passes: "Passes 5 items to Prepare Input (one per outlet)",
+    data: "4 separate objects: {company: 'Al Jazeera English', focus: 'all'}, {company: 'The Guardian'...} etc"
+  },
+
+  http_request: {
+    title: "HTTP Request to FastAPI",
+    what: "N8N sends an HTTP POST directly to your FastAPI server. Because N8N and Python are both running on the same Mac, they communicate via localhost -- no tunnel needed.",
+    config: "Method: POST\nURL: http://https://{ngrok-id}.ngrok.io/research\nTimeout: 300,000ms (5 minutes)\nRetry: 2 attempts, 15s wait between\nBody: JSON",
+    passes: "Passes to Check If Success",
+    data: '{ "company": "Al Jazeera English", "focus": "all" }'
+  },
+
+  runpy: {
+    title: "python run.py",
+    what: "The only command you need to run before starting a research session. It launches the FastAPI server at https://{ngrok-id}.ngrok.io. N8N calls that URL directly. N8N is cloud-hosted. Ngrok bridges cloud N8N to your local FastAPI server.",
+    config: "Command: python run.py\nServer starts at: https://{ngrok-id}.ngrok.io\nEndpoint: POST /research",
+    passes: "FastAPI is now reachable by N8N at localhost:8000",
+    data: "No input. Just starts the server."
+  },
+
+  fastapi: {
+    title: "FastAPI /research Endpoint",
+    what: "A Python web server that receives the POST from N8N at https://{ngrok-id}.ngrok.io/research, validates the input, calls the LangGraph agent, and returns the result as JSON. Started by running python run.py -- no other setup needed.",
+    config: "@app.post('/research')\ndef research(request: ResearchRequest):\n    result = agent_graph.invoke({\n        'company': request.company,\n        'focus': request.focus\n    })\n    return result",
+    passes: "Calls LangGraph agent via agent_graph.invoke()",
+    data: 'Input: { "company": "Al Jazeera English", "focus": "all" }\nOutput: { "status": "success", "company": "Al Jazeera English", "overall_score": 5.2, "report_text": "...", "report_path": "...", "harm_flags": [...], "community_scores": {...} }'
+  },
+
+  invoke: {
+    title: "agent_graph.invoke()",
+    what: "This is the Python call that starts the LangGraph workflow. It passes the state dictionary into the graph and runs all 5 nodes in sequence.",
+    config: "agent_graph = StateGraph(ResearchState)\nagent_graph.add_node('plan', plan_node)\nagent_graph.add_node('research', research_node)\n...\nagent_graph.compile()",
+    passes: "Enters the LangGraph graph at the PLAN node",
+    data: '{ "company": "Al Jazeera English", "focus": "all", "triggered_by": "form" }'
+  },
+
+  plan: {
+    title: "Node 1: PLAN",
+    what: "The LLM reads the company name and focus community and decides what to research. It writes a research plan that guides the RESEARCH node.",
+    config: "Model: gpt-4o-mini\nLLM call with: company, focus, list of available tools\nReturns: research_plan string stored in state",
+    passes: "Passes updated state to RESEARCH node",
+    data: 'state["research_plan"] = "Research Al Jazeera English across all 4 communities. Start with Wikipedia background, then RSS for live content, then NewsAPI for external coverage..."'
+  },
+
+  research: {
+    title: "Node 2: RESEARCH (ReAct Loop)",
+    what: "The agent's core loop. It reasons about what it knows, decides which tool to call, reads the result, and loops again. This is what makes it autonomous -- it is not following a fixed script. Uses gpt-4o-mini for the reasoning loop.",
+    config: "Model: gpt-4o-mini (OpenAI) -- reasoning and tool use\nPattern: Reason -> Act -> Observe -> Repeat\nTools available: search_news, search_guardian, get_wikipedia, analyse_rss_feed, rag_query\nLoop continues until agent decides it has enough evidence",
+    passes: "Passes state with tool_results filled to ANALYSE node",
+    data: 'state["tool_results"] = [\n  {"tool": "get_wikipedia", "output": "Al Jazeera English is a Qatari-funded..."},\n  {"tool": "analyse_rss_feed", "output": "28 articles, 4 mention women..."},\n  {"tool": "search_news", "output": "7 articles about BBC diversity..."},\n  {"tool": "rag_query", "output": "Industry benchmark: 37% female bylines..."}\n]'
+  },
+
+  analyse: {
+    title: "Node 3: ANALYSE",
+    what: "The LLM takes all tool results and structures them by the 4 evaluation angles and 4 communities. Pydantic schema enforces the output format -- if the LLM tries to skip a field, it throws an error.",
+    config: "Model: gpt-4o-mini\nLLM call with: all tool results, 4-angle schema\nOutput validated by Pydantic model\nIf validation fails: retry once with stricter prompt",
+    passes: "Passes structured angle_findings to SYNTHESISE node",
+    data: 'state["angle_findings"] = {\n  "bylines": {"women": "4/28 articles (14%)...", "lgbtq": "1 article..."},\n  "portrayal": {"race": "3 articles, all crime context..."},\n  ...\n}'
+  },
+
+  synthesise: {
+    title: "Node 4: SYNTHESISE",
+    what: "The LLM scores each community 1-10 based on the structured findings. It identifies harm flags (specific non-inclusive language) and strengths. Calculates the weighted average overall score.",
+    config: "Model: gpt-4o-mini\nLLM call with: angle_findings, RAG benchmarks\nScoring: 1-3 significant concerns, 4-6 mixed, 7-9 good, 10 exemplary\nAll scores must cite evidence",
+    passes: "Passes scores, flags, strengths to REPORT node",
+    data: 'state["community_scores"] = {"women": 5, "lgbtq": 3, "race": 4, "disability": 2}\nstate["overall_score"] = 3.5\nstate["harm_flags"] = ["illegal immigrant used in headline: \'...\'"]'
+  },
+
+  report: {
+    title: "Node 5: REPORT",
+    what: "4 sequential claude-sonnet-4-6 calls build the complete 11-section report in prose. Each call feeds the next. The report writing uses Claude (Anthropic) specifically because it produces higher quality prose than the reasoning model. The full markdown report is saved locally and returned to FastAPI.",
+    config: "Model: claude-sonnet-4-6 (Anthropic) -- report writing only\n4 calls:\n1. ANGLE_PROMPT -- writes 4 angle sections\n2. COMMUNITY_PROMPT -- writes 4 community paragraphs\n3. SYNTHESIS_PROMPT -- writes scores with reasoning\n4. REPORT_PROMPT -- assembles full report\nNote: PLAN/RESEARCH/ANALYSE/SYNTHESISE nodes use gpt-4o-mini for the reasoning loop",
+    passes: "Returns report_text and overall_score to FastAPI",
+    data: 'state["report_text"] = "# Al Jazeera English Inclusivity Report\\n**Media Diversity Watch | Week 9, 2026**\\n\\n## 1. Company Overview\\nAl Jazeera English is a Qatari-funded public broadcaster..."\nstate["report_path"] = "reports/al_jazeera_week10_2026.md"'
+  },
+
+  mcp: {
+    title: "MCP -- @tool Decorator",
+    what: "MCP (Model Context Protocol) is the pattern that makes tools discoverable by the agent. Each function is wrapped with @tool from LangChain. The decorator registers the function's name, description, and input/output types. The agent reads these descriptions and decides which tool to call.",
+    config: "@tool\ndef search_news(query: str) -> str:\n    '''Search for recent news articles about a topic.\n    Use this to find current coverage about a media company.'''\n    # API call here",
+    passes: "Tool results returned as strings to the RESEARCH node's state",
+    data: "The agent reads the docstring to decide when to call each tool. This is why docstrings matter."
+  },
+
+  newsapi: {
+    title: "Tool 1: NewsAPI",
+    what: "Searches hundreds of news sources for recent articles about the outlet. Captures what the world is saying about their inclusivity practices.",
+    config: "Endpoint: https://newsapi.org/v2/everything\nHeader: X-Api-Key: NEWSAPI_KEY\nParams: q=query, language=en, sortBy=publishedAt, pageSize=10",
+    passes: "Returns up to 10 article titles, descriptions, authors, URLs",
+    data: '"Al Jazeera English diversity newsroom" -> 7 articles about BBC gender pay gap, editorial appointments, etc.'
+  },
+
+  guardian: {
+    title: "Tool 2: Guardian API",
+    what: "Searches The Guardian's own content. Used as a cross-reference and to analyse Guardian's own byline and framing patterns.",
+    config: "Endpoint: https://content.guardianapis.com/search\nNo API key required -- uses public content API\nParam: q=query, show-fields=byline,body",
+    passes: "Returns articles with byline and content fields",
+    data: '"Al Jazeera English race coverage" -> Guardian articles about BBC racial diversity reporting'
+  },
+
+  wikipedia: {
+    title: "Tool 3: Wikipedia API",
+    what: "Retrieves background on any company. Completely free, no API key. Returns the first few paragraphs of the Wikipedia page.",
+    config: "Endpoint: https://en.wikipedia.org/api/rest_v1/page/summary/{title}\nNo authentication required",
+    passes: "Returns summary text with founding date, ownership, size, stated values",
+    data: '"Al Jazeera English" -> "The Al Jazeera English is a Qatari-funded public service broadcaster headquartered at Broadcasting House in London..."'
+  },
+
+  rss: {
+    title: "Tool 4: RSS Feed Analyser (Primary Source)",
+    what: "The only tool that reads what the outlet actually publishes. Fetches their RSS feed directly -- no API key needed. Analyses bylines, community mentions in headlines, and flags non-inclusive language.",
+    config: "Uses feedparser Python library\nFeed URLs hardcoded for 5 monitored outlets\nAnalyses last 30 articles\n3 retries with exponential backoff",
+    passes: "Returns byline counts, community mention counts, language flags, 5 most recent article samples",
+    data: 'Al Jazeera RSS -> "28 articles. Known authors: 12. Women mentioned: 4. LGBTQ: 1. Race: 3. Disability: 0. No language flags."'
+  },
+
+  rag_call: {
+    title: "RAG Query",
+    what: "After gathering live data, the agent queries the Pinecone knowledge base. It searches for research that is relevant to what it found. The results become the benchmark that turns raw numbers into evidence-based judgements.",
+    config: "1. Query text embedded with OpenAI (text-embedding-ada-002)\n2. Pinecone similarity search against media-inclusivity-index\n3. Only returns chunks scoring > 0.70 similarity\n4. Top 3 chunks returned",
+    passes: "Benchmark text added to tool_results in state",
+    data: 'rag_query("female byline percentage newsroom") -> "Industry average for female bylines is 37% (Nieman Lab 2023). Al Jazeera\'s average is estimated at 32%..."'
+  },
+
+  openai_embed: {
+    title: "OpenAI Embedding",
+    what: "Text cannot be searched in a vector database directly -- it must be converted to a vector (a list of 1536 numbers) first. OpenAI's text-embedding-ada-002 does this conversion. Similar meaning = similar numbers = close in vector space.",
+    config: "Model: text-embedding-ada-002\nAPI: https://api.openai.com/v1/embeddings\nKey: OPENAI_API_KEY\nOutput: list of 1536 floats",
+    passes: "Vector passed to Pinecone for similarity search",
+    data: '"female byline percentage newsroom" -> [0.023, -0.041, 0.117, ... 1536 numbers total]'
+  },
+
+  pinecone: {
+    title: "Pinecone Vector Search",
+    what: "Stores 19 pre-embedded chunks from 18 inclusivity research documents. When queried, it finds the chunks whose vectors are closest to the query vector. Closest = most semantically similar.",
+    config: "Index: media-inclusivity-index\nDimensions: 1536\nMetric: cosine similarity\nKey: PINECONE_API_KEY\nTop-k: 3",
+    passes: "Returns top 3 matching chunks with similarity scores",
+    data: 'Score 0.8981: "Industry average for female bylines across major UK outlets is 37%..."\nScore 0.8920: "Portrayals of women as victims rather than experts are documented..."\nScore 0.7841: "Language guidelines recommend avoiding the term..."'
+  },
+
+  rag_result: {
+    title: "RAG Benchmark Context",
+    what: "Only chunks scoring above 0.70 are used. These chunks are added to the state as verified research. When the agent later scores an outlet, it compares its findings against these benchmarks -- which is what makes the scores meaningful rather than arbitrary.",
+    config: "Threshold: 0.70 similarity score\nChunks below threshold: discarded\nChunks above: formatted as context and added to tool_results",
+    passes: "Returns to RESEARCH node state as additional evidence",
+    data: 'Added to state: "[Pinecone RAG] Industry benchmark: 37% female bylines (Nieman Lab 2023). Current observed: 14% for BBC. Gap: 23 percentage points."'
+  },
+
+  return: {
+    title: "JSON Return: Python to N8N",
+    what: "FastAPI packages the final state into a JSON response and sends it back to N8N's HTTP Request node. This is the return journey -- research complete, now deliver it.",
+    config: "HTTP 200 response\nContent-Type: application/json",
+    passes: "Received by N8N's HTTP Request node, passed to Check If Success",
+    data: '{\n  "status": "success",\n  "company": "Al Jazeera English",\n  "overall_score": 3.5,\n  "report_text": "# Al Jazeera English Inclusivity Report...",\n  "report_path": "reports/al_jazeera_week10_2026.md",\n  "harm_flags": ["illegal immigrant used in..."],\n  "community_scores": {"women": 5, "lgbtq": 3, "race": 4, "disability": 2}\n}'
+  },
+
+  check: {
+    title: "Check If Success (IF Node)",
+    what: "N8N reads the status field from the JSON. If status == 'success', routes to Success Output. If anything else (error, timeout, server down), routes to Error Output.",
+    config: 'Condition: $json.status == "success"\nTrue path -> Success Output\nFalse path -> Error Output',
+    passes: "Routes to Success Output or Error Output",
+    data: "This is how N8N handles failures without crashing the whole workflow."
+  },
+
+  success_out: {
+    title: "Success Output (Set Node)",
+    what: "Formats the result cleanly before passing it to Notion. Extracts the specific fields Notion needs and gives them clean names.",
+    config: "Extracts: company, overall_score, summary, report_path, report_text, harm_flags, community_scores, triggered_by",
+    passes: "Passes to Save to Notion",
+    data: 'Cleaned and labelled version of the FastAPI JSON response'
+  },
+
+  notion: {
+    title: "Save to Notion",
+    what: "Creates a new page in the Media Diversity Watch Notion database. The page title includes the week number so reports stack up over time for trend tracking.",
+    config: "Database: 312e754b0cde8060a11ced9ef95064b5\nCredentials: notionApi (c91BcnJz3fVjfbRL)\nTitle: [Company] | Week [N] [YYYY]\nProperties: Score, Date, Summary, Harm Flags, Community Scores, Triggered By\nBody: full report_text as page content",
+    passes: "Passes to Respond Success (returns 200 to original caller)",
+    data: 'New Notion page: "Al Jazeera English | Week 10 2026"\nScore: 3.5\nDate: 2026-02-27\nBody: full 11-section markdown report'
+  },
+
+  error: {
+    title: "Error Output + Respond Error",
+    what: "If the research run failed (FastAPI down, agent error, timeout), N8N logs the error and returns a 500 response. The error includes a suggestion so you know what to check.",
+    config: "Returns: status, message, error details, suggestion\nHTTP 500",
+    passes: "End of flow",
+    data: '{ "status": "error", "error": "Connection refused", "suggestion": "Check that run.py is running. Server should be at http://https://{ngrok-id}.ngrok.io/research" }'
+  },
+
+  switch: {
+    title: 'Switch Node -- Route by Score',
+    what: 'After the agent finishes, the Switch node reads the overall_score from the JSON result and routes to one of three paths. This is pure N8N logic -- no Python is touched. The research and tool calling are already complete at this point.',
+    config: 'Condition 1: overall_score >= 7 -> Good Standing\nCondition 2: overall_score >= 4 -> Needs Review\nCondition 3: overall_score < 4 -> Flagged + Slack alert',
+    passes: 'Routes to the correct Notion node and optionally to Slack',
+    data: 'overall_score: 3.5 -> Flagged path\noverall_score: 6.2 -> Needs Review\noverall_score: 7.8 -> Good Standing'
+  },
+
+  notion_flagged: {
+    title: 'Flagged Notion Database',
+    what: 'A separate Notion database that only receives companies scoring below 4. This is a live watchlist -- every week, any outlet with serious concerns is automatically added here, making it easy to track whether scores improve over time.',
+    config: 'Database: Media Inclusivity -- Flagged Outlets\nTriggered only when score < 4\nSame fields: score, date, harm flags, community scores, report',
+    passes: 'Creates Notion page, then passes to Slack alert node',
+    data: 'Flagged page created: Al Jazeera English | Week 10 2026 | FLAGGED\nHarm flags and scores saved as Notion properties'
+  },
+
+  slack: {
+    title: 'Slack Alert (every run)',
+    what: 'Fires on every research run — not just scores below 4. Sends company name, score, and status (Good Standing / Needs Review / Flagged) to the editorial team.',
+    config: 'Field refs fixed: $(\'Success Output\').first().json.company etc\nFires: every run\nIncludes: company, score, status',
+    passes: 'End of flow',
+    data: 'Message: The Guardian scored 6.5/10 — Needs Review.\nAl Jazeera scored 3.2/10 — Flagged for Action.'
+  }
+};
+
+function show(key) {
+  const d = details[key];
+  if (!d) return;
+  const panel = document.getElementById('panel');
+  document.getElementById('panel-title').textContent = d.title;
+  document.getElementById('panel-body').innerHTML = `
+    <div class="detail-row">
+      <div class="detail-key">What it does</div>
+      <div class="detail-val">${d.what}</div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-key">Configuration</div>
+      <div class="detail-code">${d.config}</div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-key">Data passing through</div>
+      <div class="detail-code">${d.data}</div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-key">Connects to</div>
+      <div class="detail-val">${d.passes}</div>
+    </div>
+  `;
+  panel.classList.add('show');
+}
+
+function closePanel() {
+  document.getElementById('panel').classList.remove('show');
+}
+</script>
+</body>
+</html>

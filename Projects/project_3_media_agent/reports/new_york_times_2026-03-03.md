@@ -1,4 +1,4 @@
-# new york times: Media Inclusivity Report
+# New York Times: Media Inclusivity Report
 
 **Date:** 03 March 2026
 **Organisation:** Media Diversity Watch
@@ -8,45 +8,43 @@
 
 ## 1. Company Overview
 
-The New York Times (NYT) is one of the world's most influential English-language newspapers, founded in 1851 and headquartered in New York City. It is owned by The New York Times Company, a publicly traded corporation in which the Sulzberger family retains significant editorial control through a dual-class share structure. With a global digital subscriber base exceeding 10 million and a broad international readership, the NYT positions itself editorially as a paper of record committed to independent, rigorous journalism.
+The New York Times (NYT) is one of the most widely read English-language newspapers in the world, published by The New York Times Company, which is majority-controlled by the Ochs-Sulzberger family. With a digital subscriber base exceeding 10 million and a global readership, it is considered a newspaper of record in the United States. Its editorial stance is broadly liberal-centrist, and it holds significant influence over national and international news agendas.
 
 ---
 
 ## 2. Bylines and Story Selection
 
-The RSS feed analysis reviewed **27 articles**, all of which carried named bylines — yielding a **0% anonymous authorship rate**, which reflects a strong norm of editorial transparency. There were **27 unique authors** across the 27 articles, suggesting that no single contributor dominated the sample window and that a broad range of staff writers contributed to the day's output.
+The RSS feed analysis reviewed **26 articles**, identifying **26 unique authors** — a one-to-one ratio suggesting no single author dominated the sample and that no anonymous bylines were present. This breadth of contributors is a surface-level positive signal.
 
-However, the RSS data available covers **headlines and short teasers only**, meaning no deeper analysis of author demographics — such as gender, ethnicity, or background — could be conducted from this dataset. Byline diversity cannot therefore be assessed with confidence from this snapshot. The pool of 27 unique authors is noted as a surface-level signal only; further investigation using full masthead data or author-profile analysis would be required to draw meaningful conclusions about the diversity of who is writing for the NYT.
+However, the research did not yield author-level demographic data (e.g., gender, ethnicity) for those 26 bylines. As such, no claims can be made about the demographic composition of the authorship pool from this dataset alone. What the story selection data does reveal is a near-total absence of articles touching on marginalised communities: **0 articles** were flagged as covering women, LGBTQ+ topics, or racial and ethnic minorities, and only **1 article** referenced disability. It is important to note that this analysis is based on RSS headlines and short teasers only, and community keyword hits reflect surface-level signal; the true volume of relevant coverage in full article text may differ. Nevertheless, the absence of keyword hits across 26 headlines is itself a meaningful signal about editorial prioritisation.
 
 ---
 
 ## 3. Portrayal Within Content
 
-Evidence on how marginalised groups are portrayed within NYT content is **very limited in this dataset**. The RSS analysis captures headlines and short teasers only, and only **one article** in the 27-article sample directly referenced a marginalised community in its headline or teaser.
+Given the constraints of the data — RSS headlines and 1–2 sentence NewsAPI article descriptions — a substantive analysis of portrayal tone and depth is not possible for the majority of communities in this sample.
 
-That article — *"Colleges See Spike in Students With Disabilities, Including Elite Schools"* — frames people with disabilities primarily through an institutional and statistical lens (a "spike" at "elite schools"), which foregrounds data and institutional response rather than the lived experiences or voices of disabled students themselves. Whether the full article gives disabled people an expert or first-person platform cannot be determined from the teaser alone, and this report does not claim otherwise.
+The **single article on disability** presents a positive narrative, described as covering increasing representation of disabled students in elite colleges. Within this limited example, disabled people appear to be framed in the context of achievement and access — a constructive framing — rather than as victims or burdens. This is consistent with best-practice guidance on disability reporting.
 
-For women, LGBTQ+ communities, and racial and ethnic minorities, **no surface-level signals of coverage were detected** in this sample. No portrayal analysis can therefore be offered for those communities from this dataset.
+For **women, LGBTQ+ communities, and racial and ethnic minorities**, no articles were identified in the sample, meaning portrayal cannot be assessed. The evidence is too thin to draw conclusions about how these groups are depicted when they do appear in NYT content; this gap should itself be treated as a finding rather than a neutral absence.
 
 ---
 
 ## 4. Sourcing Diversity
 
-No sourcing data — such as who is quoted, in what capacity, or with what framing — is available from the RSS feed analysis, which covers headlines and teasers only. Similarly, the NewsAPI descriptions reviewed are one to two sentences in length and do not contain quotation or attribution data.
+The research findings do not include direct evidence of who was quoted or cited within individual articles, as the analysis was limited to headlines and short teasers. No sourcing-level data — such as expert quote attribution, community member citations, or institutional voice breakdown — was extractable from this dataset.
 
-This represents a **significant evidential gap** in this audit. Sourcing diversity is one of the most important indicators of inclusive journalism — specifically, whether community members are treated as experts and authorities in their own right, or whether outside voices (academics, officials, advocacy organisations) are used to speak *about* communities rather than *with* them. This question cannot be answered responsibly from the available data.
-
-Media Diversity Watch recommends that a full-text content analysis be commissioned to assess sourcing patterns at the NYT, particularly across stories touching on race, disability, gender, and LGBTQ+ issues.
+Contextualising against RAG knowledge base benchmarks: best practice in inclusive journalism requires newsrooms to proactively seek experts from underrepresented communities, using tools such as the **Diverse Sources Database**, which provides directories of women and minority experts across fields. Outlets that systematically use such resources demonstrate measurable improvements in sourcing diversity metrics. The near-complete absence of coverage touching on marginalised communities in this sample raises legitimate questions about whether such sourcing practices are embedded in NYT editorial workflows, though the evidence base here is insufficient to make a direct accusation. Further full-text analysis would be required to substantiate sourcing claims.
 
 ---
 
 ## 5. Language and Framing
 
-The RSS headline analysis flagged **no problematic or non-inclusive language** across the 27 articles reviewed. This is a positive surface-level signal, though it is important to note that harmful framing frequently occurs in article body text, in the construction of narratives, and in sourcing choices — none of which are visible at the headline/teaser level.
+The RSS headline analysis did **not flag any explicitly harmful or non-inclusive language** across the 26 articles reviewed. This is a limited but meaningful finding: no overtly problematic terminology appeared at the headline level.
 
-Industry benchmarks held in the Media Diversity Watch RAG knowledge base indicate that best-practice inclusive journalism standards (as set out by organisations including the Conscious Style Guide, the National Center on Disability and Journalism, and GLAAD's Media Reference Guide) require not only the absence of slurs and stigmatising terms but also active attention to framing: avoiding deficit narratives, centring community voices, and using identity-first or person-first language according to community preference. Whether the NYT meets these standards in its full article text is **not determinable from this dataset**.
+However, the knowledge base benchmarks maintained by Media Diversity Watch note that harmful framing is rarely confined to single words in isolation — it also manifests in story selection, the communities centred or absent, and the contexts in which groups appear. By this broader standard, the **systematic absence of coverage** for three of the four communities under review is itself a framing concern: it signals that the perspectives, experiences, and expertise of women, LGBTQ+ people, and racial minorities were not considered newsworthy across this sample period. This pattern — erasure through omission — is recognised in media diversity research as a form of structural bias, even when no individual headline contains flagged language.
 
-The headline *"Colleges See Spike in Students With Disabilities"* uses neutral, non-stigmatising language, though the framing positions disabled students as a phenomenon to be observed and measured rather than as agents in higher education — a subtle but common framing pattern flagged in disability journalism benchmarks.
+No positive inclusive language patterns (e.g., use of preferred community terminology, identity-affirming framing) could be confirmed or denied from the available data.
 
 ---
 
@@ -54,35 +52,36 @@ The headline *"Colleges See Spike in Students With Disabilities"* uses neutral, 
 
 ### Women and Gender Equality
 
-The RSS analysis returned **zero articles** mentioning women as a named community in headlines or teasers across the 27-article sample. This is a notable absence, though it is important to acknowledge the methodological constraint: the keyword-based community detection operates on surface-level signals only. Women and gender themes may be present in full article text, or may be implicit in stories not flagged by keyword matching. Nevertheless, the absence of any surface-level signal across 27 articles is worth recording as a concern, and warrants further investigation using full-text analysis methods.
+No articles referencing women or gender equality were identified in the 26-article RSS sample. No byline demographic data was available to assess female authorship rates. No language patterns — positive or negative — relating to gender could be assessed. The evidence base for this community is critically thin within this dataset, and the absence of any keyword signal at the headline level across 26 articles is a concern. Industry benchmarks suggest that leading outlets achieve gender parity in both authorship and subject coverage; this sample provides no evidence that NYT meets that standard in the period reviewed.
 
 ### LGBTQ+ Communities
 
-Similarly, the RSS analysis returned **zero articles** referencing LGBTQ+ communities in headlines or teasers. Given the active policy and legislative environment affecting LGBTQ+ people as of early 2026, this absence — even at the headline level — is notable. As above, this finding reflects a surface-level snapshot only and should not be treated as definitive evidence of editorial neglect; however, it does indicate that LGBTQ+ topics were not prominently surfaced in the NYT's output on the date of analysis.
+No articles referencing LGBTQ+ communities, identities, or issues were identified in the sample. As with women, no portrayal, sourcing, or language analysis is possible from the available data. The complete absence of LGBTQ+ keyword hits in headlines and teasers across a 26-article sample is notable, though it must be acknowledged that this represents a snapshot rather than a longitudinal audit. A broader full-text review over a longer time period would be required to determine whether this reflects a structural editorial gap or a coincidence of the sample window.
 
 ### Racial and Ethnic Minorities
 
-The RSS analysis returned **zero articles** mentioning racial or ethnic minority communities in headlines or teasers. This is the most significant gap identified in the dataset, given that race and ethnicity represent one of the most widely studied dimensions of media inclusivity. Again, the evidential constraint applies: this is a keyword-based headline scan of a single day's output, not a longitudinal content audit. No strong claims about the NYT's overall race coverage can be made on this basis. The finding is recorded as a gap requiring further scrutiny.
+No articles referencing racial or ethnic minorities were identified across the 26-article sample. This is particularly striking given the NYT's US-focused readership and the prominence of race-related news in the current national discourse. Again, the RSS-only methodology limits the depth of this finding, but the absence of any headline-level signal across the full sample is a meaningful data point. RAG benchmarks indicate that inclusive outlets treat racial and ethnic community members as primary sources and experts, not merely as subjects of coverage; no evidence in either direction could be gathered here.
 
 ### People with Disabilities
 
-One article was identified: **"Colleges See Spike in Students With Disabilities, Including Elite Schools"** ([link](https://www.nytimes.com/2026/03/02/us/colleges-see-spike-in-students-with-disabilities-including-elite-schools.html)). This represents the only community from the four under review to receive any surface-level coverage in the sample. The headline uses aggregated, statistical framing ("spike"), which is common in institutional reporting on disability but risks reducing a heterogeneous community to a data point. Whether the article's full text includes disabled students' own voices, expert commentary from disability advocates, or discussion of systemic barriers cannot be assessed from the teaser alone.
+One article was identified covering disability — specifically, increasing representation of disabled students in elite colleges. This is a positive framing, presenting disabled people in the context of access, achievement, and systemic change rather than through a deficit or tragedy lens. This single data point is insufficient to characterise the NYT's broader disability coverage, and caution should be exercised in generalising from one article. The evidence base is thin. That said, the existence of at least one positively framed disability article distinguishes this community from the three others, where no data points exist at all.
 
 ---
 
 ## 7. Key Strengths
 
-- **Full named authorship across all 27 articles:** A 0% anonymous byline rate is a genuine marker of editorial accountability and transparency, and meets best-practice standards for author attribution.
-- **No harmful language detected at headline level:** Across all 27 articles reviewed, no slurs, stigmatising terminology, or flagged non-inclusive language appeared in headlines or teasers — a baseline standard that not all outlets consistently meet.
-- **Disability coverage present in sample:** The NYT was the only outlet in this audit cycle to surface a disability-focused story at the headline level within the sample window, covering an institutional trend with relevance to a broad readership.
+- **Breadth of authorship in sample:** All 26 articles carried distinct bylines, with no anonymous contributions and no single author dominating the sample, suggesting a range of voices contributing to the publication in this period.
+- **No harmful language flagged at headline level:** Across all 26 headlines and teasers reviewed, no overtly problematic or non-inclusive terminology was identified, indicating a baseline level of editorial language awareness.
+- **Positive disability framing in identified article:** The one disability-related article in the sample used constructive, achievement-oriented framing, consistent with best-practice disability reporting guidelines.
 
 ---
 
 ## 8. Areas of Concern and Harm Flags
 
-- **Zero surface-level coverage of women, LGBTQ+ communities, and racial and ethnic minorities** across 27 articles on the date of analysis. While methodological constraints prevent strong causal claims, the complete absence of keyword hits across three of four communities under review is a pattern that warrants sustained monitoring and full-text follow-up.
-- **Single-article disability coverage relies on statistical framing:** The one disability-related article identified frames disabled students as a measurable institutional phenomenon ("spike"), which risks a deficit or othering narrative. Best-practice disability journalism, per NCDJ guidelines, centres the perspectives and agency of disabled people themselves.
-- ⚠️ **Evidential gaps are sufficiently large that this audit cannot confirm or rule out systemic underrepresentation:** The RSS-only, single-day methodology means that this report cannot offer a reliable verdict on the NYT's overall inclusivity performance. Commissioning a full-text, longitudinal audit is strongly advised before any public conclusions are drawn about the outlet's editorial practices. Publishing incomplete findings without this caveat would itself risk unfair reputational harm.
+- **Near-total absence of marginalised community coverage in sample:** 0 of 26 articles were flagged as covering women, LGBTQ+, or racial and ethnic minority topics — a pattern that warrants serious editorial scrutiny, even accounting for the RSS-only methodology.
+- **No demographic data available on authorship:** The research could not determine the gender, race, or other demographic characteristics of the 26 authors identified, leaving a significant gap in the authorship diversity assessment.
+- **Sourcing diversity unverifiable from available data:** No quote-level or source-attribution data was accessible, meaning it is impossible to confirm whether community members are treated as experts within articles that do touch on these topics.
+- ⚠️ **Systemic erasure risk through omission:** The complete absence of coverage for women, LGBTQ+ communities, and racial and ethnic minorities across an entire 26-article RSS sample — however limited the window — is consistent with what media diversity research identifies as structural erasure. If representative of broader editorial patterns, this would constitute a serious inclusivity failure for a publication of the NYT's scale and influence. This finding requires follow-up with a full-text, longitudinal audit before definitive conclusions are drawn.
 
 ---
 
@@ -90,34 +89,36 @@ One article was identified: **"Colleges See Spike in Students With Disabilities,
 
 | Community | Score (1–10) | Justification |
 |---|---|---|
-| Women | 3/10 | Zero surface-level coverage detected across 27 articles; insufficient data for deeper assessment, but absence of signal at headline level is a measurable concern. |
-| LGBTQ+ | 3/10 | Zero surface-level coverage detected; no evidence of representation in the sample window despite active policy context affecting LGBTQ+ communities. |
-| Race | 3/10 | Zero surface-level coverage of racial or ethnic minority communities across all 27 articles reviewed in this snapshot. |
-| Disability | 5/10 | One article identified with neutral language, but framing is statistical and institutional rather than community-centred; only one data point available. |
-| **Overall Average** | **3.5/10** | Scores reflect a single-day, headline-level snapshot only and should not be treated as a definitive verdict on the outlet's inclusivity record. |
+| Women | 2/10 | Zero articles identified in the 26-article RSS sample; no authorship demographic data available; no positive signal to score against. |
+| LGBTQ+ | 2/10 | Zero articles identified across the full sample; no language, portrayal, or sourcing data available for assessment. |
+| Race | 2/10 | Zero articles referencing racial or ethnic minorities identified; absence of coverage in a US-focused outlet is a significant concern. |
+| Disability | 5/10 | One article with positive, achievement-oriented framing identified; insufficient data to score higher, but the framing quality meets minimum best-practice standards. |
+| **Overall Average** | **2.75/10** | |
 
-> **Important scoring caveat:** These scores are based on a 27-article RSS headline-and-teaser scan of a single day's output. They reflect the evidence available to this audit and are not equivalent to scores derived from a full longitudinal content analysis. A score in the 3–4 range here indicates *insufficient surface-level evidence of inclusive coverage in this sample*, not necessarily a finding of active harm or systemic failure. Readers and stakeholders should interpret these scores accordingly.
+> **Methodological caveat:** These scores reflect findings from a single RSS snapshot of 26 articles (headlines and teasers only) and should not be treated as a definitive assessment of the NYT's full output. They indicate areas requiring urgent further investigation rather than a final verdict. A full-text, multi-week audit is strongly recommended before these scores are published externally.
+
+*Scoring guide: 9–10 = industry leader; 7–8 = above average; 5–6 = meets minimum standards; 3–4 = below average; 1–2 = serious concerns.*
 
 ---
 
 ## 10. Recommendations
 
-1. **Commission a full-text, longitudinal content audit (Owner: NYT Editorial Standards team / External research partner; Timeline: Within 6 months).** The RSS snapshot methodology used in this report is insufficient to draw firm conclusions. A minimum 3-month full-text audit examining sourcing, framing, and byline demographics across all four community categories would provide the evidence base necessary for meaningful accountability.
+1. **Commission a full-text longitudinal audit (Owner: NYT Editorial Standards team; Timeline: within 3 months):** The RSS-only snapshot methodology used here is insufficient to reach firm conclusions about a publication of the NYT's scale. The NYT should commission or cooperate with a 90-day full-text analysis covering byline demographics, sourcing attribution, and framing patterns across all four community categories, using a methodology consistent with Media Diversity Watch standards.
 
-2. **Implement regular internal byline diversity reporting (Owner: NYT Masthead / People & Culture; Timeline: Quarterly, beginning Q2 2026).** With 27 unique authors across 27 articles, the authorship pool appears broad, but gender, ethnicity, and background data on contributors is not publicly available. The NYT should publish anonymised workforce and byline diversity data annually, in line with emerging best practice among major news organisations.
+2. **Adopt structured use of diverse source databases (Owner: NYT Newsroom Leadership / Editors; Timeline: within 6 months):** Editorial leadership should formalise the use of resources such as the Diverse Sources Database to ensure that women, LGBTQ+ people, people of colour, and disabled people are routinely approached as expert sources — not as afterthoughts. Implementation should be tracked through quarterly sourcing audits with results reported internally.
 
-3. **Apply community-centred framing standards to disability and minority coverage (Owner: Standards and Practices Editor; Timeline: Immediate, with training rollout within 3 months).** Where stories about marginalised communities are published, editorial guidelines should explicitly require that community members are sought as primary sources and experts, not only as data points or subjects. This applies directly to the disability coverage identified in this sample.
+3. **Introduce community coverage targets and editorial accountability mechanisms (Owner: Managing Editor; Timeline: within 6 months):** Editorial planning processes should include explicit consideration of coverage equity across the four community categories assessed in this report. Targets need not be prescriptive quotas, but editors should be required to account for systematic absences in coverage at regular editorial reviews.
 
-4. **Establish keyword and coverage monitoring across all four community categories on a rolling basis (Owner: Audience and Analytics team in partnership with Editorial; Timeline: Within 3 months).** The complete absence of race, LGBTQ+, and women-focused keywords at headline level on a given news day may reflect a genuine editorial gap or a limitation of keyword methodology — only systematic monitoring over time can distinguish between the two. An internal coverage-tracking dashboard would enable editors to identify and respond to representation gaps in near real-time.
+4. **Establish transparent authorship diversity reporting (Owner: NYT Diversity & Inclusion Office; Timeline: annual, beginning within 12 months):** The NYT should publish annual data on the demographic composition of its bylines, consistent with the transparency standards increasingly adopted by peer publications. This would allow external researchers and the public to assess authorship diversity over time, and would provide the NYT itself with accountability data to drive improvement.
 
 ---
 
 ## 11. Sources and Evidence
 
-- **RSS Feed analysis:** The New York Times, 03 March 2026, 27 articles reviewed
-- **Knowledge base:** Media Diversity Watch internal benchmarks (Pinecone RAG), including references to NCDJ Disability Language Style Guide, GLAAD Media Reference Guide, and Conscious Style Guide standards
+- **RSS Feed analysis:** The New York Times, 03 March 2026, 26 articles reviewed
+- **Knowledge base:** Media Diversity Watch internal benchmarks (Pinecone RAG), including guidance on the Diverse Sources Database and inclusive sourcing best practices
 - **NewsAPI:** Live article search, last 30 days
-- **Wikipedia:** *The New York Times* (Wikipedia article)
+- **Wikipedia:** *The New York Times* (article used for company overview context)
 
 ---
 
