@@ -44,7 +44,7 @@ Update the HTTP Request node URL each session.
 
 | Node | Type | Purpose |
 |------|------|---------|
-| Schedule Trigger 6am Monday | scheduleTrigger | Fires every Monday at 6am |
+| Schedule Trigger Monday 6am | scheduleTrigger | Fires every Monday at 6am |
 | Split Into 4 Companies | code | Generates one item per outlet |
 | Form Trigger On-Demand | formTrigger | Web form for on-demand research |
 | Webhook Trigger API | webhook | Programmatic access |
@@ -52,13 +52,10 @@ Update the HTTP Request node URL each session.
 | Prepare Input | set | Normalises input from all 4 triggers |
 | HTTP Request to FastAPI | httpRequest | Calls POST {ngrok_url}/research |
 | Check If Success | if | Routes success vs error |
+| Code in JavaScript | code | Parses overall_score from report text; chunks report into 1900-char blocks |
 | Success Output | set | Formats successful result |
-| Score >= 7? | if | Routes to Good Standing or lower |
-| Score >= 4? | if | Routes to Needs Review or Flagged |
-| Notion — Good Standing | notion | Saves report, status = Good Standing |
-| Notion — Needs Review | notion | Saves report, status = Needs Review |
-| Notion — Flagged for Action | notion | Saves report, status = Flagged for Action |
-| Slack DM — Low Score Alert | slack | DM alert when score < 4 |
+| Notion — Save Report | notion | Saves report; Status set inline (Good Standing / Needs Review / Flagged for Action) |
+| Slack DM — Low Score Alert | slack | Sends Slack DM summary for every completed report (status emoji reflects score) |
 | Respond Success | respondToWebhook | Returns 200 with result |
 | Error Output | set | Formats error details |
 | Respond Error | respondToWebhook | Returns 500 with error |
@@ -69,7 +66,7 @@ Update the HTTP Request node URL each session.
 2. Start FastAPI locally: `python run.py`
 3. Start ngrok: `ngrok http 8000` — copy the public URL
 4. Update the HTTP Request node URL to your ngrok URL + `/research`
-5. Connect your Notion account credential in all 3 Notion nodes
+5. Connect your Notion account credential in the Notion node
 6. Set up your Notion database with these properties:
    - Score (number)
    - Date (date)
@@ -112,7 +109,10 @@ This naming convention enables trend tracking — filter by outlet to see score 
 
 ## Score Routing
 
-The workflow routes completed reports based on overall score:
+The Status property in Notion is set via an inline expression in the single `Notion — Save Report` node:
 - **≥ 7.0** → Good Standing (green Notion status)
 - **4.0 – 6.9** → Needs Review (yellow Notion status)
-- **< 4.0** → Flagged for Action (red Notion status + Slack DM alert)
+- **< 4.0** → Flagged for Action (red Notion status)
+
+A Slack DM summary is sent for **every** completed report regardless of score.
+The message includes the company name, score, status emoji (✅ / ⚠️ / 🚨), and summary.
