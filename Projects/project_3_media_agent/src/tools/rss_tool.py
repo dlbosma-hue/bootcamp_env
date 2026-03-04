@@ -143,6 +143,149 @@ def _analyse_guardian_api(n: int = 30) -> str:
     return "\n".join(lines)
 
 
+def _analyse_nyt_api(n: int = 30) -> str:
+    """
+    Fetch NYT articles via the Article Search API.
+    Returns structured bylines, abstracts, section tags, and keyword tags —
+    significantly richer than RSS teasers.
+    Used automatically when company is New York Times and NYTIMES_API_KEY is set.
+    """
+    api_key = os.getenv("NYTIMES_API_KEY")
+    if not api_key:
+        return None  # fall through to RSS
+
+    articles = []
+    pages_needed = (n + 9) // 10  # ceil(n / 10), each page returns up to 10
+    for page in range(pages_needed):
+        if len(articles) >= n:
+            break
+        try:
+            print(f"[NYT] Fetching page {page + 1}/{pages_needed} via Article Search API...")
+            resp = requests.get(
+                "https://api.nytimes.com/svc/search/v2/articlesearch.json",
+                params={
+                    "api-key": api_key,
+                    "sort": "newest",
+                    "page": page,
+                },
+                timeout=10,
+            )
+            resp.raise_for_status()
+            docs = resp.json().get("response", {}).get("docs", [])
+            if not docs:
+                break
+            articles.extend(docs)
+            if page < pages_needed - 1:
+                time.sleep(0.5)  # stay within 10 req/min rate limit
+        except Exception:
+            break
+
+    if not articles:
+        return None
+
+    articles = articles[:n]
+
+    # Normalise into consistent structure
+    normalised = []
+    for doc in articles:
+        byline_raw = (doc.get("byline") or {}).get("original", "Unknown")
+        author = byline_raw[3:] if byline_raw.startswith("By ") else byline_raw
+        abstract = doc.get("abstract") or doc.get("snippet") or ""
+        section = doc.get("section_name") or doc.get("subsection_name") or "Uncategorised"
+        keywords = [
+            kw["value"] for kw in doc.get("keywords", [])
+            if kw.get("name") in ("subject", "glocations", "organizations")
+        ]
+        normalised.append({
+            "title":     doc.get("headline", {}).get("main", "No title"),
+            "author":    author or "Unknown",
+            "abstract":  abstract[:800],
+            "section":   section,
+            "url":       doc.get("web_url", ""),
+            "published": doc.get("pub_date", "Unknown date"),
+            "keywords":  keywords[:5],
+        })
+
+    print(f"[NYT] {len(normalised)} articles retrieved via Article Search API")
+
+    # Byline analysis
+    known_authors = [a["author"] for a in normalised if a["author"] != "Unknown"]
+    unique_authors = list(set(known_authors))
+    unknown_count = sum(1 for a in normalised if a["author"] == "Unknown")
+
+    # Section distribution
+    section_counts: dict = {}
+    for article in normalised:
+        section_counts[article["section"]] = section_counts.get(article["section"], 0) + 1
+
+    # Community coverage scan
+    community_hits = {c: [] for c in INCLUSIVITY_KEYWORDS}
+    for article in normalised:
+        full_text = (
+            article["title"] + " " + article["abstract"] + " " + " ".join(article["keywords"])
+        ).lower()
+        for community, keywords in INCLUSIVITY_KEYWORDS.items():
+            for keyword in keywords:
+                if keyword in full_text:
+                    community_hits[community].append({
+                        "keyword": keyword,
+                        "title":   article["title"],
+                        "url":     article["url"],
+                    })
+                    break
+
+    # Language flag scan
+    language_flags = []
+    for article in normalised:
+        full_text = (article["title"] + " " + article["abstract"]).lower()
+        for phrase in PROBLEMATIC_LANGUAGE:
+            if phrase in full_text:
+                language_flags.append({"phrase": phrase, "title": article["title"], "url": article["url"]})
+
+    lines = [
+        "PRIMARY SOURCE ANALYSIS: New York Times (NYT Article Search API)",
+        "Source: api.nytimes.com/svc/search/v2/articlesearch.json — structured bylines + abstracts",
+        f"Articles analysed: {len(normalised)}",
+        "",
+        "=== BYLINE ANALYSIS ===",
+        f"Known authors: {len(known_authors)} | Unknown/missing bylines: {unknown_count}",
+        f"Unique author names: {len(unique_authors)}",
+        f"Names found: {', '.join(unique_authors[:15]) if unique_authors else 'None detected'}",
+        "",
+        "=== SECTION DISTRIBUTION ===",
+    ]
+    for section, count in sorted(section_counts.items(), key=lambda x: -x[1])[:8]:
+        lines.append(f"  {section}: {count} articles")
+
+    lines += ["", "=== COMMUNITY COVERAGE ==="]
+    for community, hits in community_hits.items():
+        lines.append(f"{community.upper()}: {len(hits)} articles mention this community")
+        for h in hits[:3]:
+            lines.append(f"  - {h['title']}")
+            lines.append(f"    {h['url']}")
+
+    lines += [
+        "",
+        "=== LANGUAGE FLAGS ===",
+        f"{len(language_flags)} potentially non-inclusive terms detected"
+        if language_flags else "No problematic language detected in headlines or abstracts.",
+    ]
+    for flag in language_flags[:5]:
+        lines.append(f"  Term '{flag['phrase']}' found in: '{flag['title']}'")
+        lines.append(f"  {flag['url']}")
+
+    lines += ["", "=== MOST RECENT 5 ARTICLES ==="]
+    for article in normalised[:5]:
+        lines.append(f"Title:    {article['title']}")
+        lines.append(f"Author:   {article['author']} | {article['published']}")
+        lines.append(f"Section:  {article['section']}")
+        lines.append(f"Abstract: {article['abstract'][:200]}")
+        lines.append(f"URL:      {article['url']}")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
 # RSS feed URLs for our 4 monitored outlets
 RSS_FEEDS = {
     "al jazeera":         "https://www.aljazeera.com/xml/rss/all.xml",
@@ -150,9 +293,52 @@ RSS_FEEDS = {
     "the guardian":       "https://www.theguardian.com/world/rss",
     "guardian":           "https://www.theguardian.com/world/rss",
     "npr":                "https://feeds.npr.org/1001/rss.xml",  # fallback if multi-feed fails
-    "new york times":     "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+    "new york times":     "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",  # fallback if multi-feed fails
     "nyt":                "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
 }
+
+# NYT section feeds most relevant to inclusivity research — no API key required.
+# Ordered by relevance: broader sections first, niche sections last.
+_NYT_FEEDS = [
+    ("https://rss.nytimes.com/services/xml/rss/nyt/US.xml",         "U.S."),
+    ("https://rss.nytimes.com/services/xml/rss/nyt/World.xml",      "World"),
+    ("https://rss.nytimes.com/services/xml/rss/nyt/Health.xml",     "Health"),
+    ("https://rss.nytimes.com/services/xml/rss/nyt/Politics.xml",   "Politics"),
+    ("https://rss.nytimes.com/services/xml/rss/nyt/Education.xml",  "Education"),
+    ("https://rss.nytimes.com/services/xml/rss/nyt/Science.xml",    "Science"),
+    ("https://rss.nytimes.com/services/xml/rss/nyt/Business.xml",   "Business"),
+    ("https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml", "Technology"),
+]
+
+
+def _fetch_nyt_combined(n: int = 30) -> list:
+    """
+    Fetch from multiple NYT section feeds and return up to n unique entries.
+    Deduplicates by article URL. No API key required.
+    Returns raw feedparser entry objects — same interface as feed.entries.
+    """
+    seen_urls: set = set()
+    combined: list = []
+    for feed_url, section_name in _NYT_FEEDS:
+        if len(combined) >= n:
+            break
+        try:
+            print(f"[RSS/NYT] Fetching: {section_name} ({feed_url})")
+            feed = feedparser.parse(feed_url)
+            for entry in feed.entries:
+                entry_url = getattr(entry, "link", "")
+                if entry_url and entry_url not in seen_urls:
+                    seen_urls.add(entry_url)
+                    combined.append(entry)
+                    if len(combined) >= n:
+                        break
+        except Exception as e:
+            print(f"[RSS/NYT] Failed {feed_url}: {e}")
+            continue
+    sections_fetched = len({s for _, s in _NYT_FEEDS[:len([f for f, _ in _NYT_FEEDS])]})
+    print(f"[RSS/NYT] Combined: {len(combined)} unique articles from {len(_NYT_FEEDS)} section feeds")
+    return combined[:n]
+
 
 # NPR publishes multiple limited-article feeds (~10 each).
 # Combine topic feeds to reach a sample size comparable to other outlets.
@@ -239,12 +425,24 @@ def analyse_rss_feed(company: str) -> str:
             return guardian_result
         # fall through to RSS if API key missing or call fails
 
+    # Route NYT: Article Search API if key present, otherwise fall through to multi-feed RSS
+    if "new york times" in company_key or "nyt" in company_key:
+        nyt_result = _analyse_nyt_api()
+        if nyt_result:
+            return nyt_result
+        # No API key or call failed — fall through to multi-section RSS feeds below
+
     # Route NPR through multi-feed combiner (individual feeds return ~10 articles each)
     if "npr" in company_key:
         raw_entries = _fetch_npr_combined(n=30)
         if not raw_entries:
             return "Could not retrieve any NPR RSS feeds after trying all configured sources."
         feed_url = f"NPR combined ({len(_NPR_FEEDS)} topic feeds)"
+    elif "new york times" in company_key or "nyt" in company_key:
+        raw_entries = _fetch_nyt_combined(n=30)
+        if not raw_entries:
+            return "Could not retrieve any NYT RSS feeds after trying all configured sources."
+        feed_url = f"NYT combined ({len(_NYT_FEEDS)} section feeds)"
     else:
         # Find the feed URL for this company
         feed_url = None

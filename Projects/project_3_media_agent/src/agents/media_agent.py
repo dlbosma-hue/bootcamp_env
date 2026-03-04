@@ -160,8 +160,31 @@ def run_research(company: str) -> dict:
                     HumanMessage(content=_build_research_prompt(company)),
                 ]
             },
-            config={"recursion_limit": 30},
+            config={"recursion_limit": 100},
         )
+
+        # Check which tools were actually called
+        REQUIRED_TOOLS = {"analyse_rss_feed", "rag_query_tool", "search_newsapi", "search_wikipedia"}
+        tools_used = {
+            msg.name for msg in result["messages"]
+            if hasattr(msg, "name") and msg.name in REQUIRED_TOOLS
+        }
+        missing = REQUIRED_TOOLS - tools_used
+
+        if missing:
+            missing_list = ", ".join(sorted(missing))
+            print(f"[AGENT] Missing tool calls: {missing_list} — continuing research...")
+            continuation = HumanMessage(
+                content=(
+                    f"You have not yet called the following required tools: {missing_list}. "
+                    f"You MUST call each of them now. Do not write your final summary until all "
+                    f"four tools have been called and their results reviewed."
+                )
+            )
+            result = agent.invoke(
+                {"messages": result["messages"] + [continuation]},
+                config={"recursion_limit": 100},
+            )
 
         # The final AI message is the last non-tool message
         final_analysis = ""

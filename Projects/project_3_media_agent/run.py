@@ -25,4 +25,4 @@ if __name__ == "__main__":
     print("\n  Press Ctrl+C to stop.\n")
     print("=" * 60 + "\n")
 
-    uvicorn.run("app:app", host="0.0.0.0", port=PORT, reload=True)
+    uvicorn.run("app:app", host="0.0.0.0", port=PORT, reload=False)
