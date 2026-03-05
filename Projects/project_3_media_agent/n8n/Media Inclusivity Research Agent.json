@@ -179,10 +179,8 @@
       "parameters": {
         "httpMethod": "POST",
         "path": "media-agent",
-        "responseMode": "onReceived",
-        "options": {
-          "responseCode": 202
-        }
+        "responseMode": "responseNode",
+        "options": {}
       },
       "id": "25a1ae41-ed67-45a1-b9fe-bb7f6d435fe6",
       "name": "Webhook Trigger API1",

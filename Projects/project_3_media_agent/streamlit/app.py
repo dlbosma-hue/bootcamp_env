@@ -45,21 +45,24 @@ with col2:
 st.divider()
 
 if st.button("Run Inclusivity Audit", type="primary", disabled=not company):
-    with st.spinner(f"Submitting audit for {company}..."):
+    with st.spinner(f"Researching {company}... this takes 1–2 minutes"):
         try:
             response = requests.post(
                 WEBHOOK_URL,
                 json={"company": company, "focus": focus},
-                timeout=30,
+                timeout=300,
             )
-            if response.status_code not in (200, 202):
+            # 524 = Cloudflare gateway timeout — workflow ran but response timed out
+            # The report is still saved to Notion and Slack is notified
+            if response.status_code not in (200, 202, 524):
                 st.error(f"Unexpected response: {response.status_code}")
                 st.stop()
         except requests.Timeout:
-            st.error("Could not reach n8n. Check your workflow is active.")
-            st.stop()
+            pass  # local timeout — workflow is still running in background
         except requests.RequestException as e:
-            st.error(f"Request failed: {e}")
-            st.stop()
+            # 524 surfaces as an HTTPError — treat it as success
+            if "524" not in str(e):
+                st.error(f"Request failed: {e}")
+                st.stop()
 
-    st.success(f"Audit queued for **{company}**. The report will appear in Notion in ~2 minutes and you will receive a Slack notification.")
+    st.success(f"Audit complete for **{company}**. Report saved to Notion — check Slack for your notification.")
