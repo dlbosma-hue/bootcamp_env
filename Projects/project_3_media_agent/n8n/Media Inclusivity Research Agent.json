@@ -1,0 +1,528 @@
+{
+  "name": "Media Inclusivity Research Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 0 6 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "1c457dc6-da97-48ef-8f86-8d072e2f7650",
+      "name": "Schedule NPR",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [1856, 7520]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 10 6 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "a2b3c4d5-e6f7-8901-bcde-f23456789012",
+      "name": "Schedule NYT",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [1856, 7680]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 20 6 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "b3c4d5e6-f7a8-9012-cdef-034567890123",
+      "name": "Schedule Guardian",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [1856, 7840]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 30 6 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "c4d5e6f7-a8b9-0123-def0-145678901234",
+      "name": "Schedule Al Jazeera",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [1856, 8000]
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            { "name": "company", "stringValue": "NPR" },
+            { "name": "focus", "stringValue": "all" },
+            { "name": "triggered_by", "stringValue": "schedule" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d5e6f7a8-b9c0-1234-ef01-256789012345",
+      "name": "Set Company NPR",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [2096, 7520]
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            { "name": "company", "stringValue": "New York Times" },
+            { "name": "focus", "stringValue": "all" },
+            { "name": "triggered_by", "stringValue": "schedule" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e6f7a8b9-c0d1-2345-f012-367890123456",
+      "name": "Set Company NYT",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [2096, 7680]
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            { "name": "company", "stringValue": "The Guardian" },
+            { "name": "focus", "stringValue": "all" },
+            { "name": "triggered_by", "stringValue": "schedule" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f7a8b9c0-d1e2-3456-0123-478901234567",
+      "name": "Set Company Guardian",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [2096, 7840]
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            { "name": "company", "stringValue": "Al Jazeera English" },
+            { "name": "focus", "stringValue": "all" },
+            { "name": "triggered_by", "stringValue": "schedule" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a8b9c0d1-e2f3-4567-1234-589012345678",
+      "name": "Set Company Al Jazeera",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [2096, 8000]
+    },
+    {
+      "parameters": {
+        "path": "dc4646c9-db04-4506-a298-bf573ed625ed",
+        "formTitle": "Media Diversity Watch",
+        "formDescription": "Run an on-demand inclusivity analysis on any major news outlet. The agent searches live news, RSS feeds, and our research knowledge base to produce a scored, evidence-based report.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Company Name",
+              "placeholder": "e.g. Al Jazeera English, The Guardian, NPR, New York Times",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Focus Community",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  { "option": "All Communities" },
+                  { "option": "Women and Gender Equality" },
+                  { "option": "LGBTQ+ Communities" },
+                  { "option": "Racial and Ethnic Minorities" },
+                  { "option": "People with Disabilities" }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "88e44a37-d6c3-488e-b3ba-4464a8f1f57a",
+      "name": "Form Trigger On-Demand1",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2,
+      "position": [1856, 8240],
+      "webhookId": "dc4646c9-db04-4506-a298-bf573ed625ed"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "media-agent",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "25a1ae41-ed67-45a1-b9fe-bb7f6d435fe6",
+      "name": "Webhook Trigger API1",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [1856, 8400],
+      "webhookId": "media-agent-webhook"
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "company",
+              "stringValue": "={{ $json.company ?? $json['Company Name'] ?? $json.body?.company ?? 'Al Jazeera English' }}"
+            },
+            {
+              "name": "focus",
+              "stringValue": "={{ $json.focus ?? ({'All Communities':'all','Women and Gender Equality':'women','LGBTQ+ Communities':'lgbtq','Racial and Ethnic Minorities':'race','People with Disabilities':'disability'})[$json['Focus Community']] ?? $json.body?.focus ?? 'all' }}"
+            },
+            {
+              "name": "triggered_by",
+              "stringValue": "={{ $json.triggered_by ?? ($json['Company Name'] ? 'form' : ($json.body ? 'webhook' : 'manual')) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5d7aac72-8744-4c8a-87de-e7b784cb2be7",
+      "name": "Prepare Input1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [2336, 7760]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://sparsely-apiaceous-aretha.ngrok-free.dev/research",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ company: $json.company, focus: $json.focus }) }}",
+        "options": {
+          "response": {
+            "response": {}
+          },
+          "timeout": 300000
+        }
+      },
+      "id": "9832cac3-863b-4094-8787-f89d8e5a106b",
+      "name": "HTTP Request to FastAPI1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [2576, 7760],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "condition_status",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "success",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "54dd089e-7378-439d-8e50-906eccbfab1f",
+      "name": "Check If Success1",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [2816, 7760]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst results = [];\n\nfor (const item of items) {\n  try {\n    const text = item.json.report_text || '';\n    const chunkSize = 1900;\n    const chunks = [];\n    for (let i = 0; i < text.length; i += chunkSize) {\n      chunks.push(text.slice(i, i + chunkSize));\n    }\n\n    // Parse overall_score from report_text if API didn't return it\n    let score = parseFloat(item.json.overall_score);\n    if (!score || isNaN(score)) {\n      const match = text.match(/Overall Average[\\s\\S]*?\\*\\*([\\d.]+)\\/10\\*\\*/);\n      score = match ? parseFloat(match[1]) : 0;\n    }\n\n    results.push({\n      json: {\n        ...item.json,\n        overall_score: score,\n        report_blocks: chunks\n      }\n    });\n  } catch (err) {\n    results.push({\n      json: {\n        ...item.json,\n        overall_score: item.json.overall_score || 0,\n        report_blocks: [],\n        parse_error: err.message\n      }\n    });\n  }\n}\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [3024, 7760],
+      "id": "1f49194e-dca7-4c42-966b-a0bd8102b3e0",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            { "name": "status", "stringValue": "success" },
+            { "name": "company", "stringValue": "={{ $('HTTP Request to FastAPI1').first().json.company }}" },
+            { "name": "overall_score", "stringValue": "={{ $json.overall_score }}" },
+            { "name": "summary", "stringValue": "={{ $('HTTP Request to FastAPI1').first().json.summary }}" },
+            { "name": "report_path", "stringValue": "={{ $('HTTP Request to FastAPI1').first().json.report_path }}" },
+            { "name": "report_text", "stringValue": "={{ $('HTTP Request to FastAPI1').first().json.report_text }}" },
+            { "name": "harm_flags", "stringValue": "={{ $('HTTP Request to FastAPI1').first().json.harm_flags?.join(', ') ?? 'None' }}" },
+            { "name": "community_scores", "stringValue": "={{ JSON.stringify($('HTTP Request to FastAPI1').first().json.community_scores ?? {}) }}" },
+            { "name": "triggered_by", "stringValue": "={{ $('Prepare Input1').first().json.triggered_by }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2c8812b0-c1db-484a-a9b9-e15734241e4e",
+      "name": "Success Output1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [3264, 7616]
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "https://www.notion.so/312e754b0cde8060a11ced9ef95064b5?v=312e754b0cde80b9b5f3000cb68f33bc",
+          "mode": "url"
+        },
+        "title": "={{ $json.company }} | Week {{ $now.format('W') }} {{ $now.format('yyyy') }}",
+        "propertiesUi": {
+          "propertyValues": [
+            { "key": "Score|number", "numberValue": "={{ Number($json.overall_score) }}" },
+            { "key": "Date|date", "date": "={{ $now.toISO() }}" },
+            { "key": "Status|select", "selectValue": "={{ $json.overall_score >= 7 ? 'Good Standing' : $json.overall_score >= 4 ? 'Needs Review' : 'Flagged for Action' }}" },
+            { "key": "Summary|rich_text", "textContent": "={{ $json.summary }}" },
+            { "key": "Harm Flags|rich_text", "textContent": "={{ $json.harm_flags }}" },
+            { "key": "Community Scores|rich_text", "textContent": "={{ $json.community_scores }}" },
+            { "key": "Triggered By|select", "selectValue": "={{ $json.triggered_by }}" }
+          ]
+        },
+        "blockUi": {
+          "blockValues": [
+            { "textContent": "={{ $json.report_text.slice(0, 1900) }}" },
+            { "textContent": "={{ $json.report_text.slice(1900, 3800) }}" },
+            { "textContent": "={{ $json.report_text.slice(3800, 5700) }}" },
+            { "textContent": "={{ $json.report_text.slice(5700, 7600) }}" },
+            { "textContent": "={{ $json.report_text.slice(7600, 9500) }}" },
+            { "textContent": "={{ $json.report_text.slice(9500, 11400) }}" },
+            { "textContent": "={{ $json.report_text.slice(11400, 13300) }}" },
+            { "textContent": "={{ $json.report_text.slice(13300, 15200) }}" },
+            { "textContent": "={{ $json.report_text.slice(15200, 17100) }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "46ef7e36-119e-4c08-8721-9576462242b6",
+      "name": "Notion — Save Report1",
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2,
+      "position": [3504, 7616],
+      "credentials": {
+        "notionApi": {
+          "id": "c91BcnJz3fVjfbRL",
+          "name": "Notion account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "U0ABB09ARGR",
+          "mode": "id"
+        },
+        "text": "={{ '📊 ' + $('Success Output1').first().json.company + '\\nScore: ' + $('Success Output1').first().json.overall_score + '/10' + '\\nStatus: ' + ($('Success Output1').first().json.overall_score >= 7 ? 'Good Standing ✅' : $('Success Output1').first().json.overall_score >= 4 ? 'Needs Review ⚠️' : 'Flagged for Action 🚨') + '\\nSummary: ' + $('Success Output1').first().json.summary }}",
+        "otherOptions": {}
+      },
+      "id": "6fead93b-bdf6-4720-a7aa-382d6f82483e",
+      "name": "Slack DM — Low Score Alert1",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [3744, 7616],
+      "webhookId": "9c9782a5-94e8-4334-bed4-853594678667",
+      "credentials": {
+        "slackApi": {
+          "id": "67HhwqtWYLHO1Zdm",
+          "name": "Slack account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: $json.status, company: $json.company, overall_score: $json.overall_score, report_path: $json.report_path, notion_saved: true }) }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              { "name": "Content-Type", "value": "application/json" }
+            ]
+          }
+        }
+      },
+      "id": "7765efcf-7bd3-462f-89e0-0b938311614a",
+      "name": "Respond Success1",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [3984, 7616],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            { "name": "status", "stringValue": "error" },
+            { "name": "error", "stringValue": "={{ $('HTTP Request to FastAPI1').first().json.error ?? 'Unknown error' }}" },
+            { "name": "suggestion", "stringValue": "Check that run.py is running (python run.py) and ngrok is active pointing to port 8000" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7e4aa3a0-5bae-49a2-924d-bbab19ff6594",
+      "name": "Error Output1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [3056, 7904]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'error', error: $json.error, suggestion: $json.suggestion }) }}",
+        "options": {
+          "responseCode": 500,
+          "responseHeaders": {
+            "entries": [
+              { "name": "Content-Type", "value": "application/json" }
+            ]
+          }
+        }
+      },
+      "id": "9dc8f9e4-5c59-494f-8c1f-bf2884007811",
+      "name": "Respond Error1",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [3296, 7904],
+      "continueOnFail": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule NPR": {
+      "main": [[{ "node": "Set Company NPR", "type": "main", "index": 0 }]]
+    },
+    "Schedule NYT": {
+      "main": [[{ "node": "Set Company NYT", "type": "main", "index": 0 }]]
+    },
+    "Schedule Guardian": {
+      "main": [[{ "node": "Set Company Guardian", "type": "main", "index": 0 }]]
+    },
+    "Schedule Al Jazeera": {
+      "main": [[{ "node": "Set Company Al Jazeera", "type": "main", "index": 0 }]]
+    },
+    "Set Company NPR": {
+      "main": [[{ "node": "Prepare Input1", "type": "main", "index": 0 }]]
+    },
+    "Set Company NYT": {
+      "main": [[{ "node": "Prepare Input1", "type": "main", "index": 0 }]]
+    },
+    "Set Company Guardian": {
+      "main": [[{ "node": "Prepare Input1", "type": "main", "index": 0 }]]
+    },
+    "Set Company Al Jazeera": {
+      "main": [[{ "node": "Prepare Input1", "type": "main", "index": 0 }]]
+    },
+    "Form Trigger On-Demand1": {
+      "main": [[{ "node": "Prepare Input1", "type": "main", "index": 0 }]]
+    },
+    "Webhook Trigger API1": {
+      "main": [[{ "node": "Prepare Input1", "type": "main", "index": 0 }]]
+    },
+    "Prepare Input1": {
+      "main": [[{ "node": "HTTP Request to FastAPI1", "type": "main", "index": 0 }]]
+    },
+    "HTTP Request to FastAPI1": {
+      "main": [
+        [{ "node": "Check If Success1", "type": "main", "index": 0 }],
+        [{ "node": "Error Output1", "type": "main", "index": 0 }]
+      ]
+    },
+    "Check If Success1": {
+      "main": [
+        [{ "node": "Code in JavaScript1", "type": "main", "index": 0 }],
+        [{ "node": "Error Output1", "type": "main", "index": 0 }]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [[{ "node": "Success Output1", "type": "main", "index": 0 }]]
+    },
+    "Success Output1": {
+      "main": [[{ "node": "Notion — Save Report1", "type": "main", "index": 0 }]]
+    },
+    "Notion — Save Report1": {
+      "main": [[{ "node": "Slack DM — Low Score Alert1", "type": "main", "index": 0 }]]
+    },
+    "Slack DM — Low Score Alert1": {
+      "main": [[{ "node": "Respond Success1", "type": "main", "index": 0 }]]
+    },
+    "Respond Success1": {
+      "main": [[]]
+    },
+    "Error Output1": {
+      "main": [[{ "node": "Respond Error1", "type": "main", "index": 0 }]]
+    },
+    "Respond Error1": {
+      "main": [[]]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "8673d7ed-587b-4fd9-8094-00465be0b009",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "75d764fd58df4d133b8604d6d8e5b6b984a531d180635a1d40f14378725d6d76"
+  },
+  "id": "mrmXRs741488ymBj",
+  "tags": [
+    {
+      "updatedAt": "2026-02-27T11:00:36.320Z",
+      "createdAt": "2026-02-27T11:00:36.320Z",
+      "id": "8oyt1SGERcQLqpmv",
+      "name": "project-3"
+    },
+    {
+      "updatedAt": "2026-02-27T11:00:36.283Z",
+      "createdAt": "2026-02-27T11:00:36.283Z",
+      "id": "XkcEoUSTp00I0JtA",
+      "name": "media-agent"
+    }
+  ]
+}

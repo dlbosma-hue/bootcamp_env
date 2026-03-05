@@ -5,8 +5,9 @@
 This workflow automates weekly inclusivity monitoring for 4 major news outlets.
 It supports two operation modes:
 
-**Scheduled (primary):** Runs every Monday at 6am automatically.
-Researches Al Jazeera English, The Guardian, NPR, and New York Times.
+**Scheduled (primary):** Runs every Monday morning automatically via 4 staggered triggers.
+Each outlet gets its own independent execution: NPR at 6:00, New York Times at 6:10,
+The Guardian at 6:20, Al Jazeera English at 6:30.
 Saves all 4 reports to Notion before the researcher starts work.
 
 **On-demand:** Researcher opens the form at the N8N URL,
@@ -44,25 +45,27 @@ Update the HTTP Request node URL each session.
 
 | Node | Type | Purpose |
 |------|------|---------|
-| Schedule Trigger Monday 6am | scheduleTrigger | Fires every Monday at 6am |
-| Split Into 4 Companies | code | Generates one item per outlet |
+| Schedule NPR | scheduleTrigger | Fires every Monday at 6:00am |
+| Schedule NYT | scheduleTrigger | Fires every Monday at 6:10am |
+| Schedule Guardian | scheduleTrigger | Fires every Monday at 6:20am |
+| Schedule Al Jazeera | scheduleTrigger | Fires every Monday at 6:30am |
+| Set Company NPR/NYT/Guardian/Al Jazeera | set | Hardcodes company name and focus=all for each scheduled execution |
 | Form Trigger On-Demand | formTrigger | Web form for on-demand research |
 | Webhook Trigger API | webhook | Programmatic access |
-| Manual Trigger | manualTrigger | Testing in N8N canvas |
-| Prepare Input | set | Normalises input from all 4 triggers |
+| Prepare Input | set | Normalises input from all triggers (schedule, form, webhook) |
 | HTTP Request to FastAPI | httpRequest | Calls POST {ngrok_url}/research |
 | Check If Success | if | Routes success vs error |
 | Code in JavaScript | code | Parses overall_score from report text; chunks report into 1900-char blocks |
 | Success Output | set | Formats successful result |
 | Notion — Save Report | notion | Saves report; Status set inline (Good Standing / Needs Review / Flagged for Action) |
 | Slack DM — Low Score Alert | slack | Sends Slack DM summary for every completed report (status emoji reflects score) |
-| Respond Success | respondToWebhook | Returns 200 with result |
+| Respond Success | respondToWebhook | Returns 200 with result (no-op for scheduled executions) |
 | Error Output | set | Formats error details |
-| Respond Error | respondToWebhook | Returns 500 with error |
+| Respond Error | respondToWebhook | Returns 500 with error (no-op for scheduled executions) |
 
 ## Setup
 
-1. Import `media_agent_workflow_updated.json` into N8N cloud
+1. Import `Media Inclusivity Research Agent.json` into N8N cloud
 2. Start FastAPI locally: `python run.py`
 3. Start ngrok: `ngrok http 8000` — copy the public URL
 4. Update the HTTP Request node URL to your ngrok URL + `/research`
