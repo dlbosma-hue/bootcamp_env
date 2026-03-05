@@ -218,7 +218,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://YOUR-APP.up.railway.app/research",
+        "url": "https://bootcampenv-production.up.railway.app/research",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify({ company: $json.company, focus: $json.focus }) }}",
