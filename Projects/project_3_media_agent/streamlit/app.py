@@ -2,6 +2,7 @@
 Streamlit UI for Media Diversity Watch
 Submits a company name to the n8n webhook, which runs the full pipeline:
 Railway agent → Notion report → Slack notification.
+The webhook responds immediately (202) — report arrives in Notion in ~2 minutes.
 """
 
 import requests
@@ -24,7 +25,7 @@ st.set_page_config(page_title="Media Diversity Watch", page_icon="📊", layout=
 
 st.title("Media Diversity Watch")
 st.caption("Autonomous inclusivity research agent — powered by LangGraph ReAct")
-st.info("Reports are saved automatically to Notion and a Slack notification is sent on completion.")
+st.info("The report will appear in Notion and a Slack notification will be sent when complete (~2 minutes).")
 
 st.divider()
 
@@ -44,32 +45,21 @@ with col2:
 st.divider()
 
 if st.button("Run Inclusivity Audit", type="primary", disabled=not company):
-    with st.spinner(f"Researching {company}... this takes 1–2 minutes"):
+    with st.spinner(f"Submitting audit for {company}..."):
         try:
             response = requests.post(
                 WEBHOOK_URL,
                 json={"company": company, "focus": focus},
-                timeout=300,
+                timeout=30,
             )
-            response.raise_for_status()
-            data = response.json()
+            if response.status_code not in (200, 202):
+                st.error(f"Unexpected response: {response.status_code}")
+                st.stop()
         except requests.Timeout:
-            st.error("Request timed out after 5 minutes. Try again.")
+            st.error("Could not reach n8n. Check your workflow is active.")
             st.stop()
         except requests.RequestException as e:
             st.error(f"Request failed: {e}")
             st.stop()
 
-    score = data.get("overall_score", "—")
-    st.success(f"Audit complete for **{company}** — Score: **{score}/10**. Report saved to Notion.")
-
-    col_a, col_b = st.columns(2)
-    with col_a:
-        st.metric("Overall Score", f"{score}/10" if score != "—" else "—")
-    with col_b:
-        if score != "—":
-            status = "Good Standing" if score >= 7 else "Needs Review" if score >= 4 else "Flagged"
-            st.metric("Status", status)
-
-    if data.get("summary"):
-        st.info(data["summary"])
+    st.success(f"Audit queued for **{company}**. The report will appear in Notion in ~2 minutes and you will receive a Slack notification.")
