@@ -1,12 +1,13 @@
 """
 Streamlit UI for Media Diversity Watch
-Submits a company name to the Railway API and displays the report.
+Submits a company name to the n8n webhook, which runs the full pipeline:
+Railway agent → Notion report → Slack notification.
 """
 
 import requests
 import streamlit as st
 
-API_URL = "https://bootcampenv-production.up.railway.app/research"
+WEBHOOK_URL = "https://dlbosma.app.n8n.cloud/webhook/media-agent"
 
 COMPANIES = ["NPR", "The Guardian", "New York Times", "Al Jazeera English"]
 COMMUNITIES = ["All Communities", "Women and Gender Equality", "LGBTQ+ Communities",
@@ -23,6 +24,7 @@ st.set_page_config(page_title="Media Diversity Watch", page_icon="📊", layout=
 
 st.title("Media Diversity Watch")
 st.caption("Autonomous inclusivity research agent — powered by LangGraph ReAct")
+st.info("Reports are saved automatically to Notion and a Slack notification is sent on completion.")
 
 st.divider()
 
@@ -45,7 +47,7 @@ if st.button("Run Inclusivity Audit", type="primary", disabled=not company):
     with st.spinner(f"Researching {company}... this takes 1–2 minutes"):
         try:
             response = requests.post(
-                API_URL,
+                WEBHOOK_URL,
                 json={"company": company, "focus": focus},
                 timeout=300,
             )
@@ -55,34 +57,19 @@ if st.button("Run Inclusivity Audit", type="primary", disabled=not company):
             st.error("Request timed out after 5 minutes. Try again.")
             st.stop()
         except requests.RequestException as e:
-            st.error(f"API error: {e}")
+            st.error(f"Request failed: {e}")
             st.stop()
 
-    st.success(f"Report complete — Overall Score: **{data['overall_score']}/10**")
+    score = data.get("overall_score", "—")
+    st.success(f"Audit complete for **{company}** — Score: **{score}/10**. Report saved to Notion.")
 
-    col_a, col_b, col_c = st.columns(3)
+    col_a, col_b = st.columns(2)
     with col_a:
-        st.metric("Overall Score", f"{data['overall_score']}/10")
+        st.metric("Overall Score", f"{score}/10" if score != "—" else "—")
     with col_b:
-        status = "Good Standing" if data["overall_score"] >= 7 else "Needs Review" if data["overall_score"] >= 4 else "Flagged"
-        st.metric("Status", status)
-    with col_c:
-        st.metric("Date", data["date"])
+        if score != "—":
+            status = "Good Standing" if score >= 7 else "Needs Review" if score >= 4 else "Flagged"
+            st.metric("Status", status)
 
     if data.get("summary"):
         st.info(data["summary"])
-
-    if data.get("community_scores"):
-        st.subheader("Community Scores")
-        cols = st.columns(len(data["community_scores"]))
-        for i, (community, score) in enumerate(data["community_scores"].items()):
-            with cols[i]:
-                st.metric(community, f"{score}/10")
-
-    if data.get("harm_flags"):
-        st.subheader("Harm Flags")
-        for flag in data["harm_flags"]:
-            st.warning(flag)
-
-    st.subheader("Full Report")
-    st.markdown(data["report_text"])
