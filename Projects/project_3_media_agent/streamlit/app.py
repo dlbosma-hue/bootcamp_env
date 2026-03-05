@@ -65,4 +65,4 @@ if st.button("Run Inclusivity Audit", type="primary", disabled=not company):
                 st.error(f"Request failed: {e}")
                 st.stop()
 
-    st.success(f"Audit complete for **{company}**. Report saved to Notion — check Slack for your notification.")
+    st.success(f"Audit complete for **{company}**. Check Slack & Notion for your report.")
