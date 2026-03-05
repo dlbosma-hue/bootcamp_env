@@ -373,7 +373,7 @@
     {
       "parameters": {
         "respondWith": "json",
-        "responseBody": "={{ JSON.stringify({ status: $json.status, company: $json.company, overall_score: $json.overall_score, summary: $json.summary, report_path: $json.report_path, notion_saved: true }) }}",
+        "responseBody": "={{ JSON.stringify({ status: $('Success Output1').first().json.status, company: $('Success Output1').first().json.company, overall_score: $('Success Output1').first().json.overall_score, summary: $('Success Output1').first().json.summary, report_path: $('Success Output1').first().json.report_path, notion_saved: true }) }}",
         "options": {
           "responseCode": 200,
           "responseHeaders": {
