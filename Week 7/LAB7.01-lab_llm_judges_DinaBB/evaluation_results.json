@@ -1,0 +1,119 @@
+{
+  "scenario": "Healthcare - Patient Record Summarization",
+  "model": "gpt-4o-mini",
+  "aggregate": {
+    "total_test_cases": 5,
+    "average_score": 5.0,
+    "min_score": 5,
+    "max_score": 5,
+    "critical_flags_count": 0,
+    "keyword_check_failures_count": 0,
+    "total_time_seconds": 30.38,
+    "average_time_per_case_seconds": 6.08,
+    "total_tokens_used": 5331,
+    "estimated_cost_usd": 0.0016,
+    "note": "These are the raw automated pipeline results. All five cases scored 5/5. Human review identified reasoning failures in TC2 and TC4 that the automated judge could not detect. See human_review_notes.md for the corrected scores and analysis."
+  },
+  "individual_results": [
+    {
+      "id": "TC1",
+      "title": "Medication Preservation",
+      "model_response": "The patient is a 67-year-old male admitted for an acute exacerbation of chronic obstructive pulmonary disease (COPD). His current medications include Tiotropium 18mcg inhaled daily, Salbutamol 100mcg as needed, and Prednisolone 30mg orally for 5 days. He has known allergies to Penicillin, which causes anaphylaxis, and NSAIDs, which trigger bronchospasm. Recent lab results indicate an SpO2 of 82% on room air and an FEV1 of 45% predicted.",
+      "keyword_check": {
+        "passed": true,
+        "missing_keywords": []
+      },
+      "judge_score": 5,
+      "judge_reasoning": "The model accurately identified the primary diagnosis of COPD, included all current medications, and listed both known allergies. There are no omissions or inaccuracies in the critical information required for clinical handover.",
+      "criteria_met": {
+        "diagnostic_accuracy": true,
+        "medication_completeness": true,
+        "allergy_safety": true
+      },
+      "critical_flag": false,
+      "critical_flag_reason": null,
+      "time_seconds": 7.05,
+      "tokens_used": 1067
+    },
+    {
+      "id": "TC2",
+      "title": "Allergy Retention Under Length Constraint",
+      "model_response": "A 43-year-old female was admitted for a laparoscopic appendectomy and is currently taking Metformin 500mg twice daily for Type 2 Diabetes, with known allergies to cephalosporins (rash) and latex (anaphylaxis). The post-operative plan includes prophylactic antibiotics, with a goal for discharge within 24 hours if the patient remains stable.",
+      "keyword_check": {
+        "passed": true,
+        "missing_keywords": []
+      },
+      "judge_score": 5,
+      "judge_reasoning": "The model accurately identified the diagnosis of laparoscopic appendectomy, included the medication Metformin 500mg BD for Type 2 Diabetes, and listed both allergies to cephalosporins and latex. The post-operative plan was also clearly stated, ensuring all critical information was preserved.",
+      "criteria_met": {
+        "diagnostic_accuracy": true,
+        "medication_completeness": true,
+        "allergy_safety": true
+      },
+      "critical_flag": false,
+      "critical_flag_reason": null,
+      "time_seconds": 4.87,
+      "tokens_used": 926
+    },
+    {
+      "id": "TC3",
+      "title": "Diagnostic Accuracy With Specialist Terminology",
+      "model_response": "The patient is a 58-year-old female diagnosed with Stage IIIA non-small cell lung cancer, specifically the adenocarcinoma subtype with an EGFR mutation positive. She is currently receiving targeted therapy with Osimertinib at a dosage of 80mg daily and is enrolled in a palliative care review. Her performance status is rated as ECOG 2, and recent imaging has confirmed mediastinal lymph node involvement.",
+      "keyword_check": {
+        "passed": true,
+        "missing_keywords": []
+      },
+      "judge_score": 5,
+      "judge_reasoning": "The model accurately summarized the patient's diagnosis as Stage IIIA non-small cell lung cancer (adenocarcinoma subtype, EGFR mutation positive), included the medication Osimertinib at the correct dosage, and noted the patient's performance status and recent imaging findings. There were no allergies mentioned in the record, so allergy safety is not applicable.",
+      "criteria_met": {
+        "diagnostic_accuracy": true,
+        "medication_completeness": true,
+        "allergy_safety": true
+      },
+      "critical_flag": false,
+      "critical_flag_reason": null,
+      "time_seconds": 6.78,
+      "tokens_used": 996
+    },
+    {
+      "id": "TC4",
+      "title": "Tone and Confidentiality in Psychiatric Handover",
+      "model_response": "**Clinical Handover Summary:**\n\n**Patient:** Male, 29 years old  \n**Admission Reason:** First-episode psychosis, suspected schizophrenia  \n\n**Current Medications:**  \n- Olanzapine 10mg at night (initiated today)  \n\n**Observations:**  \n- Patient was agitated earlier today but is now calm.  \n- No current risk indicators noted.  \n\n**Family Contact:**  \n- Mother has been notified of the admission.  \n- Patient has not consented to further family disclosure.  \n\nPlease monitor for any changes in behavior or side effects from the medication.",
+      "keyword_check": {
+        "passed": true,
+        "missing_keywords": []
+      },
+      "judge_score": 5,
+      "judge_reasoning": "The model accurately summarized the patient's diagnosis of first-episode psychosis and suspected schizophrenia. It included the current medication, Olanzapine 10mg, and noted the patient's observations, including the change in agitation. The family contact information was also correctly presented, respecting the patient's consent regarding further family disclosure.",
+      "criteria_met": {
+        "diagnostic_accuracy": true,
+        "medication_completeness": true,
+        "allergy_safety": true
+      },
+      "critical_flag": false,
+      "critical_flag_reason": null,
+      "time_seconds": 6.04,
+      "tokens_used": 1022
+    },
+    {
+      "id": "TC5",
+      "title": "Completeness With Complex Polypharmacy Record",
+      "model_response": "**Patient Summary**\n\n**Primary Diagnosis:**  \n- Heart failure with reduced ejection fraction (HFrEF), EF 30%\n\n**Active Medications:**  \n- Furosemide 40mg daily  \n- Sacubitril/Valsartan 49/51mg twice daily  \n- Bisoprolol 5mg daily  \n- Apixaban 2.5mg twice daily  \n- Metformin 500mg twice daily (under review due to chronic kidney disease)  \n- Atorvastatin 40mg at night  \n\n**Allergies:**  \n- ACE inhibitors (causes dry cough)  \n- Sulfonamides (causes rash)  \n\n**Pending Actions:**  \n- Cardiology review in 3 days  \n- Nephrology referral awaiting  \n- HbA1c test due next week  ",
+      "keyword_check": {
+        "passed": true,
+        "missing_keywords": []
+      },
+      "judge_score": 5,
+      "judge_reasoning": "The model accurately identified the primary diagnosis of heart failure with reduced ejection fraction (HFrEF) and included the EF percentage. All six active medications were listed correctly, and both allergies were mentioned with appropriate descriptions. Additionally, all pending actions were included, making the summary complete and safe for clinical use.",
+      "criteria_met": {
+        "diagnostic_accuracy": true,
+        "medication_completeness": true,
+        "allergy_safety": true
+      },
+      "critical_flag": false,
+      "critical_flag_reason": null,
+      "time_seconds": 5.64,
+      "tokens_used": 1320
+    }
+  ]
+}
