@@ -19,7 +19,24 @@ The published Tableau Public dashboard contains four worksheets arranged in a si
 | Box Plot by Category | Box-and-whisker plot showing score spread and outliers per category |
 | Model Heatmap | Colour-coded matrix of average score per model × category combination |
 
-## Note: 
+## Filters
+
+The dashboard has one explicit filter control: **Score**.
+
+### Active Filters
+
+**Score filter (range / discrete values):** The filter is labeled "Score" and offers selectable values 7,751 · 10,000 · 12,000 · 14,000 · 16,000 · 17,116. This filter works as a range or subset filter on the numeric score field, limiting all views to rows whose total count of scores matches the selected value(s).
+
+### How it affects each view
+
+| View | Effect |
+|---|---|
+| Score Distribution | Bars are re-computed only for records in the filtered subset, changing both counts and the visible distribution of binned scores |
+| Average Score by Category | The average score per category (code, instruction_following, knowledge, reasoning, tool_calling) is recalculated over filtered records only |
+| Score Spread by Category | Plotted points (Avg. Score per category) update to reflect the filtered subset — spread and relative positions may shift |
+| Model Performance by Category | Square sizes (Score) for each Model Version–Category combination are recalculated on filtered data only, so model comparisons reflect that subset |
+
+## Note:
 
 This dashboard does not use separate filter widgets on the canvas; instead, clicking a bar in the Score Distribution histogram filters all other views to that score range.
 Interactive filters allow drill-down by model version, category, and date range.
