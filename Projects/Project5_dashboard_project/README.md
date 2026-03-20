@@ -39,7 +39,7 @@ Project5_dashboard_project/
 │   ├── langsmith_evaluation.md               # Setup + methodology docs
 │   └── evaluation_report.md                 # Results with scores and analysis
 ├── n8n/
-│   ├── workflow.json                         # Importable n8n cloud workflow
+│   ├── workflow.json                         # Importable n8n cloud workflow (live: https://dina2.app.n8n.cloud/workflow/GlYboQAG5jk11eQR)
 │   └── workflow_documentation.md
 ├── dashboard/
 │   └── dashboard_documentation.md

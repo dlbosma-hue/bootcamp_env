@@ -101,6 +101,51 @@ Optimise class schedules and capacity (time slots, class types, locations) using
 
 ---
 
+---
+
+## Implementation Status (as of March 2026)
+
+This section documents what was actually built during the 2-day sprint vs. what remains at concept/proposal level.
+
+### Use Case 1 — Member Dropout Prediction: FULLY IMPLEMENTED
+
+Everything described above was built and is live:
+
+- **Data pipeline:** `data/prepare_fitness_user_metrics_from_json.py` processes 167,783 Endomondo workout sessions into `fitness_user_metrics.csv` (1,059 members, 12 columns including churn risk and revenue at risk).
+- **Churn scoring:** Rule-based heuristic using `avg_sessions_per_week` and `days_since_last_workout` assigns each member a low / medium / high risk label. Result: 382 low, 447 medium, 230 high-risk members; €345,000 total revenue at risk.
+- **Dashboard:** Interactive Plotly/Dash app (5 charts + KPI cards) and a published Tableau workbook — both loaded and running against live data.
+- **Automated daily alert:** n8n workflow (live at dina2.app.n8n.cloud) runs every weekday at 08:00, filters high-risk members, and sends a Slack message to the coach channel with member list and revenue at risk.
+- **AI insight layer:** LangChain agent (`agent/agent.py`) generates 12 business insights from the processed data, saved to `agent/insights_generated.json`.
+- **Quality monitoring:** LangSmith evaluation (`langsmith/monitoring_setup.py`) runs LLM-as-judge scoring across 3 dimensions (relevance, actionability, clarity). Overall score: 0.911 / 1.0.
+
+### Use Case 2 — Coach Workload Balancing: CONCEPT ONLY (not built)
+
+This use case is fully scoped in the proposal above but was not implemented in the sprint. The primary reason is a data gap: the Endomondo dataset contains no coach assignment data. There is no field mapping members to coaches, no coach workload metrics, and no coach-level aggregations in the current pipeline.
+
+What exists that partially supports this use case:
+- The Plotly dashboard includes a filterable high-risk member table, which a coach could manually use to identify who needs outreach.
+- The n8n daily alert lists members by days inactive — a coach receiving this alert effectively has a prioritised action list.
+
+What would be needed to fully implement this in production:
+- A coach–member assignment table from the gym management system.
+- Coach-level aggregations (average risk score per coach, number of high-risk members per coach, follow-up logs).
+- A coach-facing dashboard view separate from the management overview.
+
+### Use Case 3 — Class Scheduling & Capacity Optimisation: CONCEPT ONLY (not built)
+
+This use case is fully scoped in the proposal but was not implemented. The data required (class attendance logs, time slots, occupancy rates, waitlists) does not exist in either the Endomondo or gym_churn_us datasets.
+
+What exists that partially supports this use case:
+- The `sport` field in the Endomondo data shows which sport type each session was logged for (e.g. running, cycling, gym). The pipeline derives `sport_variety` per member.
+- The dashboard shows sport variety by risk level, which gives a weak proxy for class engagement breadth.
+
+What would be needed to fully implement this in production:
+- Class-level attendance logs from the studio booking system (date, time, class type, instructor, capacity, occupancy).
+- Time-slot analysis: occupancy rate by hour and day of week.
+- Scenario modelling: simple rules or descriptive analytics to identify underperforming slots and high-demand classes.
+
+---
+
 ## Fit with a European Medium‑Sized Chain
 
 These three use cases are specifically scoped for a European medium‑sized fitness chain:

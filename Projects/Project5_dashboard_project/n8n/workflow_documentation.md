@@ -1,6 +1,7 @@
 # n8n Workflow Documentation
 **Workflow name:** Fitness Chain — Daily Retention Alert
 **Purpose:** Proof of concept for automated dropout early-warning
+**Live workflow:** https://dina2.app.n8n.cloud/workflow/GlYboQAG5jk11eQR
 
 ---
 
