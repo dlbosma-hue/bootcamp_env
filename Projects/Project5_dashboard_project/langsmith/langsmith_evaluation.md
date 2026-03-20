@@ -117,3 +117,5 @@ LANGCHAIN_PROJECT=fitness-retention-p5
 See [`evaluation_report.md`](./evaluation_report.md) for the full results including per-insight scores, key findings, bias discussion, and recommendations.
 
 **Experiment URL:** https://eu.smith.langchain.com/o/561aa291-0a5c-4c0b-aad9-85d2023d43c6/datasets/c7204587-7dea-4db1-bbee-8ea45c99ca7e/compare?selectedSessions=a268c42b-92e4-4201-bc1d-892c629af741
+
+**Public shareable link (no login required):** https://eu.smith.langchain.com/public/9114327b-af22-4991-b756-8b31be6c9b7e/d

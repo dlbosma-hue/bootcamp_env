@@ -4,15 +4,15 @@
 
 The European fitness sector is large and data-rich. Around 65,000 health and fitness clubs serve roughly 68 million members across Europe, generating €31–36 billion in revenue annually (EuropeActive / Deloitte). Post-COVID recovery has been strong, and boutique fitness — HIIT studios, cycling, strength training — is the fastest-growing segment.
 
-Our client, Chleo, runs a European medium-sized fitness chain: roughly 50–100 studios and 200+ coaches. That puts her squarely in the middle market — not a single independent studio, not a global brand — where margins are tight and retention is everything.
+Our client, Chleo, runs a European boutique fitness chain: studios of up to 200 members per location, premium pricing, and a coaching model where staff know every member by name. Boutique fitness — HIIT studios, cycling, strength training — is the fastest-growing segment of the European market and operates on a fundamentally different model to large commercial gyms. Margins depend on retention, and retention depends on personal relationships.
 
 ---
 
 ## 2. The Core Business Problem: Churn
 
-Industry benchmarks show that around 50–60% of members stop using their membership within the first 6–12 months, even if their contract runs longer. For a 100-member studio charging ~€50/month, effective lifetime value per member sits around €1,500–€2,000.
+Industry benchmarks (IHRSA) put annual churn at approximately 60% for the fitness sector. For a boutique studio with up to 200 premium members, that translates to €90,000–€120,000 in preventable lost revenue per year, based on a lifetime value of €1,500 or more per member.
 
-If 60 of those 100 members effectively churn in year one, that's €90,000–€120,000 in lost lifetime value — per studio, per year. Across a 50-studio chain, that's a multi-million euro problem.
+Unlike large commercial gyms that quietly profit from inactive direct debits, boutique chains cannot absorb this loss silently. When a boutique member cancels, it is an active, conscious decision — and it was almost certainly preceded by weeks of visible disengagement that the coaching team had the opportunity to catch.
 
 The pattern is predictable: members don't quit suddenly. They "quiet quit" — attendance drops gradually over weeks, coaches miss the signals, and by the time anyone notices, the decision is already made. The intervention window is roughly **4–6 weeks before cancellation**, and that's exactly what this system is designed to catch.
 

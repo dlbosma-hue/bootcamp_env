@@ -1,13 +1,13 @@
-# Use Case Proposals: European Medium Fitness / Health Tech Chain
+# Use Case Proposals: European Boutique Fitness Chain
 
 ## Client Profile
 
-- Sector: Fitness / Health Tech  
-- Geography: Europe (EU‑based operator)  
-- Company size: Medium – approx. 50–100 studios, 200+ coaches.  
-- Core business model: Subscription and class‑based memberships with recurring revenue; strong dependence on retention and coach relationships.
+- Sector: Fitness / Health Tech
+- Geography: Europe (EU‑based operator)
+- Company size: Boutique – studios of up to 200 members per location, premium pricing, coaching-led model where staff know every member by name.
+- Core business model: Premium subscription and class‑based memberships; strong dependence on personal coaching relationships and retention.
 
-Average membership fees in Europe often sit in the ~€30–€70 per month range depending on country and positioning, which means each retained member has a meaningful yearly value. Chleo’s main concern is that AI is a “black box” and she cannot see how it makes decisions about her members. The use cases below are chosen to both deliver financial value and showcase transparency.
+European boutique fitness chains are not large commercial gym chains that profit from inactive memberships. When a member cancels, it is not a lapsed direct debit quietly dropping off a spreadsheet — it is a conscious decision that was almost certainly preceded by weeks of visible disengagement. At a lifetime value of €1,500 or more per member, every cancellation is a meaningful financial event. Chleo’s main concern is that AI is a “black box” and she cannot see how it makes decisions about her members. The use cases below are chosen to both deliver financial value and showcase transparency.
 
 ---
 
@@ -16,10 +16,10 @@ Average membership fees in Europe often sit in the ~€30–€70 per month rang
 **Goal**  
 Identify members at high risk of cancelling 2–4 weeks before they actually quit, so coaches can intervene proactively.
 
-**Why it matters for a European medium chain**  
-- Assume a typical studio with 100 active members paying around €50 per month (~€600 per year) and an effective lifetime value in the €1,500–€2,000 range when members stay engaged.  
-- If roughly 60% of members disengage within the first 6–12 months, the lost lifetime value quickly reaches €90,000–€120,000 per year per 100‑member studio.  
-- For a 50‑studio chain, even a modest 20–30% reduction in churn translates into hundreds of thousands of euros in retained revenue annually.
+**Why it matters for a European boutique fitness chain**
+- A typical boutique studio has up to 200 members paying premium rates (often €50–€100 per month) with an effective lifetime value in the €1,500–€2,000 range.
+- Industry data (IHRSA) puts annual churn at approximately 60%. For a 100-member boutique studio, that translates to €90,000–€120,000 in preventable lost revenue per year.
+- Unlike large commercial gyms, boutique chains cannot absorb this silently — every member is a named relationship, and every cancellation is a visible loss.
 
 **Data used**  
 - Behavioural workout data (sessions per week, gaps between workouts, intensity, variability) from Endomondo‑like datasets or integrated trackers.  
@@ -46,9 +46,9 @@ Identify members at high risk of cancelling 2–4 weeks before they actually qui
 **Goal**  
 Provide coaches and regional managers with a clear view of which coaches are overloaded and which high‑risk members need immediate attention.
 
-**Why it matters for a European medium chain**  
-- With 200+ coaches across multiple countries or regions, it is difficult to see who has too many at‑risk clients and who has spare capacity.  
-- Overloaded coaches may miss warning signs, while underutilised coaches could focus on outreach or follow‑up programmes.
+**Why it matters for a European boutique fitness chain**
+- In a boutique model, coaches personally know every member. That relationship is the product. An overloaded coach misses signals that, in a smaller studio, should be impossible to miss.
+- When one coach carries too many high-risk members, the personal attention that defines boutique fitness breaks down — and churn accelerates.
 
 **Data used**  
 - Output from Use Case 1 (member‑level risk scores).  
@@ -75,9 +75,9 @@ Provide coaches and regional managers with a clear view of which coaches are ove
 **Goal**  
 Optimise class schedules and capacity (time slots, class types, locations) using attendance and engagement data, rather than intuition alone.
 
-**Why it matters for a European medium chain**  
-- With 50–100 studios in different cities or countries, local class demand patterns vary strongly.  
-- Poor scheduling can leave daytime classes half‑empty while evening classes have waitlists, limiting revenue growth and member satisfaction.
+**Why it matters for a European boutique fitness chain**
+- Boutique studios run smaller, more specialised class formats (HIIT, cycling, strength). Class timing and format mismatches affect member experience more acutely than in a large commercial gym.
+- Poor scheduling in a premium studio is more visible: a half-empty class undermines the sense of community that justifies the premium price point.
 
 **Data used**  
 - Class attendance logs: date/time, location, class type, instructor, capacity, occupancy rate, waitlists.  
@@ -146,18 +146,19 @@ What would be needed to fully implement this in production:
 
 ---
 
-## Fit with a European Medium‑Sized Chain
+## Fit with a European Boutique Fitness Chain
 
-These three use cases are specifically scoped for a European medium‑sized fitness chain:
+These three use cases are specifically scoped for the boutique fitness model:
 
-- They rely on data that the operator likely already has (attendance, basic workout data, membership info).  
-- They assume realistic tooling: common EU‑friendly SaaS and cloud offerings, plus free or low‑cost tiers (LangSmith, n8n Cloud, LLM APIs).  
-- They are modular and can be piloted in a subset of clubs in one country before scaling across the network.
+- They rely on data the operator already has or can easily collect (attendance logs, basic workout data, membership info).
+- They assume realistic tooling: EU‑friendly SaaS and cloud offerings, plus free or low‑cost tiers (LangSmith, n8n Cloud, LLM APIs) appropriate for a business that is not a large enterprise with a dedicated data team.
+- They are modular and can be piloted at a single studio before rolling out across a chain.
+- They respect the boutique value proposition: the goal is not to automate the coach relationship, but to give coaches better information so they can act on it.
 
 Together, these use cases form a coherent narrative for Chleo:
 
-1. See which members are at risk in the next few weeks, in euro terms.  
-2. Show which coaches and studios need help to act on that risk.  
-3. Align the schedule and capacity to how European members actually train.
+1. See which members are drifting toward cancellation, 4–6 weeks before they quit — in euro terms.
+2. Make sure every coach knows which of their members needs attention this week, without anyone falling through the cracks.
+3. Align the class schedule and format to how members in each location actually train.
 
-Each step is backed by visible data, interpretable metrics, and monitoring via LangSmith to address her fear that “AI is a black box.”
+Each step is backed by visible data, interpretable metrics, and monitoring via LangSmith to address her concern that “AI is a black box.”

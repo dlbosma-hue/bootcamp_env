@@ -1,7 +1,7 @@
 # Project 5 – Fitness Chain Retention: AI Early Warning System
 
-**Sector:** Fitness / Health Tech
-**Company size:** Medium (50–200 studios / 200+ coaches)
+**Sector:** Fitness / Health Tech — European boutique fitness chains
+**Company size:** Boutique (up to 200 members per studio, premium pricing, coaching-led model)
 **Scenario:** Dropout prediction, coach balancing, class optimisation
 **Interactive dashboard (Plotly/Dash):** `python dashboard/plotly_dashboard.py` → http://127.0.0.1:8050
 **Tableau (published):** [Member Retention Risk Overview](https://public.tableau.com/authoring/MemberRetentionRiskEarlyWarningSystem/MemberRetentionRiskOverview#1)
@@ -42,7 +42,8 @@ Project5_dashboard_project/
 │   ├── workflow.json                         # Importable n8n cloud workflow (live: https://dina2.app.n8n.cloud/workflow/GlYboQAG5jk11eQR)
 │   └── workflow_documentation.md
 ├── dashboard/
-│   └── dashboard_documentation.md
+│   ├── dashboard_documentation.md
+│   └── Member Retention Risk – Early Warning System.twbx
 ├── research/
 │   ├── sector_research.md
 │   ├── use_cases.md
@@ -50,6 +51,8 @@ Project5_dashboard_project/
 ├── cost_estimation/
 │   ├── cost_analysis.md
 │   └── timeline_estimate.md
+├── presentation_pitch_deck.html
+├── BoutiqueFitnessChurnPrediction_documentation.docx.pdf
 ├── requirements.txt
 ├── .env.example
 └── README.md
@@ -180,6 +183,8 @@ LANGCHAIN_ENDPOINT=https://eu.api.smith.langchain.com
 
 > **EU accounts:** `LANGCHAIN_ENDPOINT` must be set to the EU endpoint — without it all API calls return 403.
 
+**Public experiment link (no login required):** https://eu.smith.langchain.com/public/9114327b-af22-4991-b756-8b31be6c9b7e/d
+
 ---
 
 ## Viewing the Dashboard
@@ -217,7 +222,12 @@ python data/prepare_fitness_user_metrics_from_json.py
 
 ## Key Business Context
 
-- European fitness chains see **~60% annual churn** (IHRSA benchmark)
-- Estimated loss per studio: **~€90–120K/year** from preventable dropout
+European boutique fitness chains operate on a fundamentally different model to large commercial gyms. Premium pricing, smaller member bases, and a coaching relationship where staff know every member by name. When a member cancels, it is not a lapsed direct debit quietly dropping off a spreadsheet — it is a person who made an active, conscious decision to leave, almost certainly after weeks of disengagement.
+
+- **LTV per member: €1,500+** — at premium pricing, every cancellation is a meaningful financial event
+- **~60% annual churn** (IHRSA benchmark) → **€90–120K in preventable lost revenue per 100-member studio/year**
 - Members show behavioural drop-off **4–6 weeks** before cancelling — that's the intervention window
+- In a boutique studio with personal coaching relationships, that window is exactly where an intervention can work
 - This system targets that window using `days_since_last_workout` and `avg_sessions_per_week` as leading indicators
+
+**Full business context and problem statement:** `BoutiqueFitnessChurnPrediction_documentation.docx.pdf`
