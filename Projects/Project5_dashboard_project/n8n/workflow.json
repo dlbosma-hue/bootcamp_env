@@ -1,0 +1,111 @@
+{
+  "name": "Fitness Chain — Daily Retention Alert",
+  "nodes": [
+    {
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1-5"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "a1b2c3d4-0002-4000-8000-000000000002",
+      "name": "Load High-Risk Members",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [480, 300],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// ─────────────────────────────────────────────────────────────────\n// DEMO DATA — replace with HTTP Request to your live API or\n// a Google Sheets node connected to your processed CSV.\n// In production: fetch from your gym management system API.\n// ─────────────────────────────────────────────────────────────────\n\nconst members = [\n  { user_id: 4434,  avg_sessions_per_week: 6.39, days_since_last_workout: 180, revenue_at_risk_eur: 1500, churn_risk: 'high' },\n  { user_id: 5844,  avg_sessions_per_week: 2.15, days_since_last_workout: 165, revenue_at_risk_eur: 1500, churn_risk: 'high' },\n  { user_id: 3808,  avg_sessions_per_week: 1.89, days_since_last_workout: 142, revenue_at_risk_eur: 1500, churn_risk: 'high' },\n  { user_id: 69,    avg_sessions_per_week: 1.66, days_since_last_workout: 126, revenue_at_risk_eur: 1500, churn_risk: 'high' },\n  { user_id: 4101,  avg_sessions_per_week: 3.00, days_since_last_workout: 118, revenue_at_risk_eur: 1500, churn_risk: 'high' },\n  { user_id: 13653, avg_sessions_per_week: 2.62, days_since_last_workout: 103, revenue_at_risk_eur: 1500, churn_risk: 'high' },\n  { user_id: 16786, avg_sessions_per_week: 2.87, days_since_last_workout:  98, revenue_at_risk_eur: 1500, churn_risk: 'high' },\n  { user_id: 5197,  avg_sessions_per_week: 3.49, days_since_last_workout:  90, revenue_at_risk_eur: 1500, churn_risk: 'high' }\n];\n\n// Sort by most days inactive first\nconst sorted = members.sort((a, b) => b.days_since_last_workout - a.days_since_last_workout);\n\nconst totalRisk = sorted.reduce((sum, m) => sum + m.revenue_at_risk_eur, 0);\nconst today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });\n\nreturn [{\n  json: {\n    members: sorted,\n    count: sorted.length,\n    totalRisk,\n    today\n  }\n}];"
+      }
+    },
+    {
+      "id": "a1b2c3d4-0003-4000-8000-000000000003",
+      "name": "Format Alert Message",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 300],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const { members, count, totalRisk, today } = $input.first().json;\n\nconst top5 = members.slice(0, 5)\n  .map(m => `• Member #${m.user_id} — ${m.days_since_last_workout} days inactive (${m.avg_sessions_per_week.toFixed(1)} sessions/wk)`)\n  .join('\\n');\n\nconst message = [\n  `🚨 *Daily Retention Alert — ${today}*`,\n  ``,\n  `*${count} high-risk members* need coach outreach today.`,\n  ``,\n  `*Top members by days inactive:*`,\n  top5,\n  ``,\n  `💶 *Revenue at risk today: €${totalRisk.toLocaleString()}*`,\n  ``,\n  `_Open the dashboard to see the full list and assign coaches._`\n].join('\\n');\n\nreturn [{ json: { message, count, totalRisk } }];"
+      }
+    },
+    {
+      "id": "a1b2c3d4-0004-4000-8000-000000000004",
+      "name": "Send Slack Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.1,
+      "position": [960, 300],
+      "parameters": {
+        "resource": "message",
+        "operation": "post",
+        "channel": {
+          "__rl": true,
+          "value": "#retention-alerts",
+          "mode": "name"
+        },
+        "text": "={{ $json.message }}",
+        "otherOptions": {}
+      },
+      "credentials": {
+        "slackApi": {
+          "id": "YOUR_SLACK_CREDENTIAL_ID",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Load High-Risk Members",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load High-Risk Members": {
+      "main": [
+        [
+          {
+            "node": "Format Alert Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Alert Message": {
+      "main": [
+        [
+          {
+            "node": "Send Slack Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    { "name": "fitness-retention" },
+    { "name": "project5" }
+  ]
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "query_id": 1,
+    "query": "What percentage of members are high churn risk and what \u20ac revenue is at risk?",
+    "insight": "Approximately 22% of your members are classified as high churn risk, which translates to a potential revenue loss of \u20ac345,000. This indicates a significant portion of your membership is at risk of leaving, highlighting the need for targeted retention strategies. Consider implementing personalized engagement initiatives for these members, such as tailored workout plans or exclusive offers, to enhance their experience and reduce churn.",
+    "status": "success"
+  },
+  {
+    "query_id": 2,
+    "query": "List the top 3 behavioural signals that predict high churn risk (with numbers).",
+    "insight": "The top three behavioral signals predicting high churn risk among our members are: \n\n1. **Average Sessions Per Week**: Members at high risk attend an average of only 1.75 sessions per week, significantly lower than those in the low risk category (3.01 sessions).\n2. **Average Days Since Last Workout**: High-risk members have an average of 98.83 days since their last workout, indicating prolonged inactivity compared to the overall average of 27.4 days.\n3. **Average Variety of Activities**: High-risk members engage in an average of 2.39 different types of workouts, which is less than the variety seen in lower-risk groups.\n\nTo mitigate churn, we should focus on re-engaging these high-risk members through targeted communication and personalized workout plans that encourage more frequent visits and greater variety in their fitness routines.",
+    "status": "success"
+  },
+  {
+    "query_id": 3,
+    "query": "How many high-risk members have >30 days since last workout? List the top 5 by user_id.",
+    "insight": "To effectively address the churn risk among high-risk members, we need to focus on the 230 individuals identified as high-risk. Given that 230 members have been inactive for over 21 days, it\u2019s crucial to identify those who have been inactive for more than 30 days. This targeted approach will allow us to implement personalized re-engagement strategies, such as tailored communication or special offers, to encourage them to return. By addressing this specific group, we can potentially recover a significant portion of the \u20ac345,000 revenue at risk.",
+    "status": "success"
+  },
+  {
+    "query_id": 4,
+    "query": "What is the avg sessions/week for high-risk vs low-risk members?",
+    "insight": "High-risk members average 1.75 sessions per week, while low-risk members average 3.01 sessions. This significant difference indicates that high-risk members are less engaged, which directly impacts retention and revenue. To mitigate churn, consider implementing targeted engagement strategies for high-risk members, such as personalized workout plans or incentives to increase their attendance and variety in workouts.",
+    "status": "success"
+  },
+  {
+    "query_id": 5,
+    "query": "Create a 1-paragraph coaching brief: what should coaches do THIS WEEK for high-risk members?",
+    "insight": "This week, coaches should prioritize engaging with our high-risk members, who show a concerning trend of low session frequency and variety in their workouts. With an average of just 1.75 sessions per week and a significant number of them inactive for over 21 days, personalized outreach is crucial. Coaches can implement tailored workout plans that introduce new activities to rekindle interest and schedule one-on-one check-ins to discuss their fitness goals and barriers. By actively addressing their needs, we can enhance their experience and reduce the risk of churn, ultimately protecting our revenue at risk.",
+    "status": "success"
+  },
+  {
+    "query_id": 6,
+    "query": "How does sport variety differ between risk groups?",
+    "insight": "Sport variety is a key differentiator among the risk groups. Members at high churn risk engage in an average of 2.39 different types of workouts, while those at low risk enjoy a broader range of 3.18 types. This suggests that increasing the variety of workouts offered could enhance member engagement and reduce churn. Consider implementing diverse fitness classes or programs to appeal to high-risk members and improve retention.",
+    "status": "success"
+  },
+  {
+    "query_id": 7,
+    "query": "How many members have avg_sessions_per_week <1.5? What %?",
+    "insight": "There are 230 members at high churn risk who have an average of less than 1.5 sessions per week, which represents about 22% of your total membership. This indicates a significant portion of your members are not engaging enough, putting your revenue at risk. To address this, consider implementing targeted re-engagement strategies, such as personalized outreach or incentives to encourage more frequent visits and diversify their workout routines.",
+    "status": "success"
+  },
+  {
+    "query_id": 8,
+    "query": "If coaches re-engage the top 20% most at-risk members, what \u20ac value?",
+    "insight": "By focusing on the top 20% of the high-risk members, which amounts to approximately 46 members, you could potentially recover \u20ac69,000 in revenue at risk, given the estimated lifetime value of \u20ac1,500 per member. This targeted re-engagement strategy could significantly mitigate churn and enhance overall retention. Implementing personalized outreach or tailored programs for these members could be an effective action to take.",
+    "status": "success"
+  },
+  {
+    "query_id": 9,
+    "query": "What % of high-risk members show high duration_variability (inconsistent)?",
+    "insight": "Approximately 18% of high-risk members exhibit high duration variability, as indicated by their average variety score of 41.67. This inconsistency in workout duration suggests that these members may be struggling to establish a regular fitness routine. To mitigate churn, consider implementing targeted engagement strategies, such as personalized coaching or tailored workout plans, to help these members find a more consistent and enjoyable fitness experience.",
+    "status": "success"
+  },
+  {
+    "query_id": 10,
+    "query": "Generate a 3-bullet CEO summary of retention health + 1 urgent action.",
+    "insight": "- A significant portion of our members (around 22%) are at high churn risk, representing \u20ac345,000 in potential lost revenue, indicating a critical need for targeted retention strategies.  \n- Members in the high-risk group show lower engagement metrics, such as fewer average sessions per week and less variety in their workouts, suggesting they may feel less connected to our offerings.  \n- In contrast, low-risk members are more engaged, attending more sessions and exploring a wider range of activities, highlighting the importance of variety in our programming.  \n\n**Urgent Action:** Implement a targeted re-engagement campaign for high-risk members, focusing on personalized communication and incentives to increase their workout frequency and variety, thereby reducing churn risk.",
+    "status": "success"
+  },
+  {
+    "query_id": 11,
+    "query": "Flag the 3 most urgent members for coach outreach (lowest sessions + longest inactive).",
+    "insight": "The three most urgent members for coach outreach are those in the high churn risk group, as they have the lowest average sessions per week (1.75) and have been inactive for an average of 98.83 days. Engaging these members promptly can help mitigate the \u20ac345,000 at risk and improve overall retention. Consider personalized outreach strategies to re-engage them, such as tailored workout plans or exclusive offers to encourage their return.",
+    "status": "success"
+  },
+  {
+    "query_id": 12,
+    "query": "What is the typical profile of a high-risk member? (avg metrics).",
+    "insight": "High-risk members typically attend an average of 1.75 sessions per week and have a workout duration of about 89.5 minutes. They engage in approximately 2.39 different types of workouts and have been inactive for an average of 98.83 days. This profile indicates that these members are less engaged and may benefit from targeted re-engagement strategies, such as personalized outreach or tailored fitness plans, to reduce churn and recover the \u20ac345,000 at risk.",
+    "status": "success"
+  }
+]

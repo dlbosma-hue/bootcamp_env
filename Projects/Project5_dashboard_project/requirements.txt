@@ -1,0 +1,11 @@
+langchain
+langchain-openai
+langchain-community
+langchain-core
+langsmith
+pandas
+numpy
+python-dotenv
+openai
+dash
+plotly
