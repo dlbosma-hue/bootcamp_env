@@ -1,0 +1,888 @@
+{
+  "name": "Spottr — Survey Trigger",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 20 * * *"
+            }
+          ]
+        }
+      },
+      "id": "1d559dd6-112c-4a3c-9efe-f9eb1f2a76a8",
+      "name": "Trigger A: Daily Class Check (20:00)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        2560,
+        -1472
+      ],
+      "notes": "Runs daily at 20:00 after classes have ended. Checks whether any class dropped in attendance vs its 4-week rolling average. Fires survey if threshold breached for 2+ consecutive sessions."
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 22 * * *"
+            }
+          ]
+        }
+      },
+      "id": "431685ab-03f1-4808-88e6-b6d36aa12580",
+      "name": "Trigger B: Daily Studio Check-In Check (22:00)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        2560,
+        -1184
+      ],
+      "notes": "Runs daily at 22:00. Checks whether total studio check-ins today dropped more than 20% vs the prior 7-day average. Fires survey to all active members if threshold is met."
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"class_sessions\": [\n    {\n      \"class_name\": \"Monday Morning HIIT\",\n      \"four_week_avg\": 18,\n      \"attendees\": 11,\n      \"consecutive_low_sessions\": 3,\n      \"attendee_ids\": [\"M001\",\"M003\",\"M005\",\"M007\",\"M008\",\"M002\",\"M004\",\"M006\",\"M009\",\"M010\",\"M011\"]\n    },\n    {\n      \"class_name\": \"Tuesday Yoga Flow\",\n      \"four_week_avg\": 14,\n      \"attendees\": 13,\n      \"consecutive_low_sessions\": 1,\n      \"attendee_ids\": [\"M001\",\"M002\",\"M003\",\"M004\",\"M005\",\"M006\",\"M007\",\"M008\",\"M009\",\"M010\",\"M011\",\"M012\",\"M013\"]\n    },\n    {\n      \"class_name\": \"Thursday Spin\",\n      \"four_week_avg\": 20,\n      \"attendees\": 12,\n      \"consecutive_low_sessions\": 2,\n      \"attendee_ids\": [\"M001\",\"M002\",\"M003\",\"M004\",\"M005\",\"M006\",\"M007\",\"M008\",\"M009\",\"M010\",\"M011\",\"M012\"]\n    },\n    {\n      \"class_name\": \"Friday Pilates\",\n      \"four_week_avg\": 10,\n      \"attendees\": 9,\n      \"consecutive_low_sessions\": 1,\n      \"attendee_ids\": [\"M001\",\"M002\",\"M003\",\"M004\",\"M005\",\"M006\",\"M007\",\"M008\",\"M009\"]\n    }\n  ]\n}",
+        "options": {}
+      },
+      "id": "c29ad642-a013-4225-9e85-e4186492cd54",
+      "name": "Load Class Attendance Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        2784,
+        -1472
+      ],
+      "notes": "In production: replace with Read Binary File pointing to class_attendance.csv or HTTP Request to gym booking system. Required fields: class_id, session_date, attendees (today), four_week_avg, consecutive_low_sessions, attendee_ids."
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"seven_day_avg\": 32,\n  \"today_checkins\": 21,\n  \"active_member_ids\": [\"M001\",\"M002\",\"M003\",\"M004\",\"M005\",\"M006\",\"M007\",\"M008\",\"M009\",\"M010\",\"M011\",\"M012\",\"M013\",\"M014\",\"M015\",\"M016\",\"M017\",\"M018\",\"M019\",\"M020\",\"M021\"]\n}",
+        "options": {}
+      },
+      "id": "a4336e3a-1a4b-471d-be33-cd7dc9900556",
+      "name": "Load Studio Check-In Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        2784,
+        -1184
+      ],
+      "notes": "In production: replace with aggregated check-in count from fitness_user_metrics.csv. today_checkins = total unique member check-ins today. seven_day_avg = average of prior 7 days."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Check which classes breached the attendance drop threshold\n// Threshold: attendance dropped >30% vs 4-week avg for 2+ consecutive sessions\nconst classes = $input.first().json.class_sessions;\n\nconst breached = classes.filter(c => {\n  const dropPct = (c.four_week_avg - c.attendees) / c.four_week_avg;\n  return dropPct > 0.30 && c.consecutive_low_sessions >= 2;\n});\n\nif (breached.length === 0) {\n  return [{ json: { trigger_fired: false, reason: 'No class attendance drop threshold breached today.' } }];\n}\n\n// Collect unique attendee IDs from all breached classes\nconst uniqueIds = [...new Set(breached.flatMap(c => c.attendee_ids))];\nconst classNames = breached.map(c => c.class_name).join(', ');\n\nreturn [{ json: { trigger_fired: true, trigger_type: 'class_drop', affected_class_names: classNames, candidate_member_ids: uniqueIds } }];"
+      },
+      "id": "87e5d802-d0ea-41fb-8330-4353bd88fc2f",
+      "name": "Check Class Drop Threshold",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3008,
+        -1472
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Check if studio-wide check-ins dropped >20% vs 7-day average\nconst data = $input.first().json;\nconst dropPct = (data.seven_day_avg - data.today_checkins) / data.seven_day_avg;\n\nif (dropPct <= 0.20) {\n  return [{ json: { trigger_fired: false, reason: `Check-in drop ${Math.round(dropPct * 100)}% — below 20% threshold.` } }];\n}\n\nreturn [{ json: {\n  trigger_fired: true,\n  trigger_type: 'studio_drop',\n  drop_pct: Math.round(dropPct * 100),\n  candidate_member_ids: data.active_member_ids\n} }];"
+      },
+      "id": "a3f415e4-35e3-4d1f-be05-4718b42f8165",
+      "name": "Check Studio Drop Threshold",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3008,
+        -1184
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.trigger_fired }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "083afea9-cb58-4774-9ad2-310934986604",
+      "name": "IF: Class Threshold Breached?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        3232,
+        -1472
+      ],
+      "notes": "TRUE: proceed to survey eligibility check. FALSE: stop — no survey needed today."
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.trigger_fired }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "fc482ab5-248b-4c49-8b42-f87cbb3b8360",
+      "name": "IF: Studio Threshold Breached?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        3232,
+        -1184
+      ],
+      "notes": "TRUE: proceed to survey eligibility check. FALSE: stop — check-in drop not significant enough."
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "0424c5c8-f240-40bf-b213-a946ed037d11",
+      "name": "Load Survey Sent Log (Class)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        3440,
+        -1472
+      ],
+      "notes": "In production: replace with Read Binary File pointing to survey_sent_log.csv. Fields: member_id, last_survey_sent (ISO date). Used to enforce 5-week cooldown per member."
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "5845d644-ec1e-4f0c-9689-a8e311f8b70c",
+      "name": "Load Survey Sent Log (Studio)",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        3440,
+        -1184
+      ],
+      "notes": "Same log, separate node. In production: both nodes point to the same survey_sent_log.csv."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Filter to members who have NOT received a survey in the past 5 weeks (35 days)\nconst triggerData = $('IF: Class Threshold Breached?').first().json;\nconst logData = $('Load Survey Sent Log (Class)').first().json;\n\nconst COOLDOWN_DAYS = 35;\nconst today = new Date();\n\nconst sentMap = {};\n(logData.survey_sent_log || []).forEach(r => { sentMap[r.member_id] = new Date(r.last_survey_sent); });\n\nconst eligible = (triggerData.candidate_member_ids || []).filter(id => {\n  const lastSent = sentMap[id];\n  if (!lastSent) return true; // never surveyed\n  const daysSince = (today - lastSent) / (1000 * 60 * 60 * 24);\n  return daysSince >= COOLDOWN_DAYS;\n});\n\nif (eligible.length === 0) {\n  return [{ json: { send_surveys: false, reason: 'All candidates in cooldown window.' } }];\n}\n\nreturn eligible.map(id => ({ json: {\n  member_id: id,\n  trigger_type: triggerData.trigger_type,\n  trigger_context: triggerData.affected_class_names || '',\n  send_surveys: true\n} }));"
+      },
+      "id": "f5e60a79-3aca-47e1-a9c1-921767a7bb93",
+      "name": "Filter: Cooldown Check (Class)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3664,
+        -1472
+      ],
+      "notes": "Enforces 5-week (35-day) cooldown per member regardless of how many triggers fire. A member never receives more than one survey in any 5-week period."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Same cooldown logic for studio-wide trigger\nconst triggerData = $('IF: Studio Threshold Breached?').first().json;\nconst logData = $('Load Survey Sent Log (Studio)').first().json;\n\nconst COOLDOWN_DAYS = 35;\nconst today = new Date();\n\nconst sentMap = {};\n(logData.survey_sent_log || []).forEach(r => { sentMap[r.member_id] = new Date(r.last_survey_sent); });\n\nconst eligible = (triggerData.candidate_member_ids || []).filter(id => {\n  const lastSent = sentMap[id];\n  if (!lastSent) return true;\n  const daysSince = (today - lastSent) / (1000 * 60 * 60 * 24);\n  return daysSince >= COOLDOWN_DAYS;\n});\n\nif (eligible.length === 0) {\n  return [{ json: { send_surveys: false, reason: 'All candidates in cooldown window.' } }];\n}\n\nreturn eligible.map(id => ({ json: {\n  member_id: id,\n  trigger_type: triggerData.trigger_type,\n  drop_pct: triggerData.drop_pct,\n  send_surveys: true\n} }));"
+      },
+      "id": "ff4b1cef-9856-448d-9691-fec89c40482d",
+      "name": "Filter: Cooldown Check (Studio)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3664,
+        -1184
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.send_surveys }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "c7891031-7304-4afa-aa18-a28807d1d556",
+      "name": "IF: Eligible Members (Class)?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        3664,
+        -1344
+      ],
+      "notes": "TRUE: at least one member is eligible (not in cooldown). FALSE: all candidates already surveyed in the past 5 weeks — stop here."
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.send_surveys }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "2bb13476-ec90-4299-af99-6d488318df6d",
+      "name": "IF: Eligible Members (Studio)?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        3664,
+        -1072
+      ],
+      "notes": "TRUE: at least one member is eligible. FALSE: all active members already surveyed in the past 5 weeks — stop here."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format the survey invitation email for each eligible member\n// Survey link is a Tally.so form with member_id pre-filled as a hidden field\nconst member = $input.first().json;\nconst SURVEY_BASE_URL = 'https://tally.so/r/WOPxRR?member_id=M001';\nconst surveyUrl = `${SURVEY_BASE_URL}?member_id=${member.member_id}`;\n\nconst subject = 'A quick question about your sessions';\nconst body = `<p>Hi,</p>\n<p>We noticed things have been a little quieter at the studio lately and we wanted to check in with you. It would really help us to hear how things have been going for you.</p>\n<p>We have a few quick questions; it will take less than a minute:</p>\n<p><a href=\"${surveyUrl}\" style=\"background:#222;color:#fff;padding:10px 18px;text-decoration:none;border-radius:4px\">Share your feedback</a></p>\n<p>You can also just reply to this email if you prefer to write directly.</p>\n<p>Thanks,<br>The team at YOUR GYM</p>\n<p style=\"font-size:11px;color:#aaa\">You can opt out of these check-in emails at any time by replying with 'unsubscribe'. Your response is voluntary and confidential.</p>`;\n\nreturn [{ json: { member_id: member.member_id, trigger_type: member.trigger_type, email_subject: subject, email_body: body, survey_url: surveyUrl } }];"
+      },
+      "id": "d9a7f356-635f-42bf-bacc-1197a536ba79",
+      "name": "Format Survey Email (Class)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3888,
+        -1472
+      ],
+      "notes": "Replace YOUR_FORM_ID with your Tally.so form ID. The member_id is passed as a URL query parameter and used by Tally to tag the response. Member names are never used."
+    },
+    {
+      "parameters": {
+        "jsCode": "const member = $input.first().json;\nconst SURVEY_BASE_URL = 'https://tally.so/r/WOPxRR?member_id=M001';\nconst surveyUrl = `${SURVEY_BASE_URL}?member_id=${member.member_id}`;\n\nconst subject = 'A quick question about your sessions';\nconst body = `<p>Hi,</p>\n<p>We noticed things have been a little quieter at the studio lately and we wanted to check in with you. \nIt would really help us to hear how things have been going for you.</p>\n<p>We have a few quick questions, it will take less than a minute:</p>\n<p><a href=\"${surveyUrl}\" style=\"background:#222;color:#fff;padding:10px 18px;text-decoration:none;border-radius:4px\">Share your feedback</a></p>\n<p>You can also just reply to this email if you prefer to write directly.</p>\n<p>Thanks,<br>The team at YOUR GYM </p>\n<p style=\"font-size:11px;color:#aaa\">You can opt out of these check-in emails at any time by replying with 'unsubscribe'. Your response is voluntary and confidential.</p>`;\n\nreturn [{ json: { member_id: member.member_id, trigger_type: member.trigger_type, email_subject: subject, email_body: body, survey_url: surveyUrl } }];"
+      },
+      "id": "94828b8a-6587-4884-ab63-9f975f04a74b",
+      "name": "Format Survey Email (Studio)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3888,
+        -1184
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@yourstudio.com",
+        "toEmail": "={{ $json.member_id }}@members.yourstudio.com",
+        "subject": "={{ $json.email_subject }}",
+        "html": "={{ $json.email_body }}",
+        "options": {}
+      },
+      "id": "1ed2b98d-bed3-4503-a0d4-d3f5daa1102f",
+      "name": "Send Survey Email (Class)",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        4112,
+        -1472
+      ],
+      "webhookId": "d788ec76-0622-40bb-9d19-095cb7723c28",
+      "credentials": {
+        "smtp": {
+          "id": "1g1NdiQVipHsxyUY",
+          "name": "SMTP account"
+        }
+      },
+      "notes": "In production: toEmail should resolve to the member's actual email address from the gym management system. In this demo, member_id is used as a placeholder."
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@yourstudio.com",
+        "toEmail": "=dlbosma@gmail.com",
+        "subject": "={{ $json.email_subject }}",
+        "html": "={{ $json.email_body }}",
+        "options": {}
+      },
+      "id": "7c307a02-bd11-4283-813d-2c7ebb382f03",
+      "name": "Send Survey Email (Studio)",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        4112,
+        -1184
+      ],
+      "webhookId": "2aa96755-e6b4-49c3-868e-6bef1422c048",
+      "credentials": {
+        "smtp": {
+          "id": "1g1NdiQVipHsxyUY",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Log that a survey was sent — prevents re-sending within cooldown window\nconst member = $input.first().json;\nconst today = new Date().toISOString().split('T')[0];\n\n// In production: append this row to survey_sent_log.csv\n// For demo: return the log entry that would be written\nreturn [{ json: {\n  log_entry: { member_id: member.member_id, last_survey_sent: today, trigger_type: member.trigger_type },\n  status: 'Survey sent and logged.'\n} }];"
+      },
+      "id": "4f575eeb-e580-4b10-a6d8-bbc145cd8a51",
+      "name": "Log Survey Sent (Class)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4320,
+        -1472
+      ],
+      "notes": "In production: use a Write Binary File node to append to survey_sent_log.csv. This log is read by both trigger paths to enforce the 5-week cooldown."
+    },
+    {
+      "parameters": {
+        "jsCode": "const member = $input.first().json;\nconst today = new Date().toISOString().split('T')[0];\n\nreturn [{ json: {\n  log_entry: { member_id: member.member_id, last_survey_sent: today, trigger_type: member.trigger_type },\n  status: 'Survey sent and logged.'\n} }];"
+      },
+      "id": "93134c8d-6541-4ebf-b521-0e5b0fdf355b",
+      "name": "Log Survey Sent (Studio)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4320,
+        -1184
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "tally-survey-response",
+        "options": {}
+      },
+      "id": "6808c776-d465-4b5a-886c-d5734d07228e",
+      "name": "Tally Response Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [
+        2560,
+        -912
+      ],
+      "webhookId": "cf8e3394-ca6a-449e-aba7-a3b9f9c3d674",
+      "notes": "Receives POST from Tally.so when a member submits their survey. Configure in Tally: Settings → Webhooks → paste this n8n webhook URL. Tally sends member_id (from the URL parameter), rating, free_text, and wants_checkin."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse Tally webhook payload and standardise to survey_responses.csv format\nconst payload = $input.first().json;\n\n// Tally sends field responses as an array — map by label\nconst fields = payload.data?.fields || [];\nconst get = (label) => fields.find(f => f.label === label)?.value ?? null;\n\nconst member_id  = payload.data?.hiddenFields?.member_id || get('member_id') || 'UNKNOWN';\nconst satisfaction_score = parseInt(get('How satisfied are you with your sessions lately? (1-5)')) || null;\nconst nps_score      = parseInt(get('How likely are you to recommend us? (0-10)')) || null;\nconst feedback       = get('Is there anything getting in the way?') || '';\nconst goal_progress  = get('How is your progress towards your goal?') || null;\n\nconst today = new Date().toISOString().split('T')[0];\n\n// In production: append to survey_responses.csv\nreturn [{ json: {\n  member_id,\n  survey_date: today,\n  satisfaction_score,\n  nps_score,\n  feedback,\n  goal_progress,\n  status: 'Response received and logged.'\n} }];"
+      },
+      "id": "f5bd14fb-dd81-4dda-aef1-86d464641811",
+      "name": "Parse and Log Survey Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2784,
+        -912
+      ],
+      "notes": "Standardises Tally's webhook payload to match survey_responses.csv schema. The weekly email workflow reads this file each Monday. member_id comes from the hidden field pre-filled when the survey link was sent."
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 1 * *"
+            }
+          ]
+        }
+      },
+      "id": "8d06c8c2-8609-42c3-ac7b-d94caf9614d7",
+      "name": "Monthly Survey Summary Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        2800,
+        -480
+      ],
+      "notes": "Fires on the 1st of every month at 08:00. Triggers the monthly survey summary email to the studio owner covering all responses from the previous calendar month."
+    },
+    {
+      "parameters": {
+        "jsCode": "const now = new Date();\nconst firstOfThisMonth = new Date(now.getFullYear(), now.getMonth(), 1);\nconst monthLabel = now.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });\n\n// Real + representative responses for March 2026\nconst allResponses = [\n  // Real submission from Tally (Mar 31)\n  { member_id: 'UNKNOWN', survey_date: '2026-03-31', satisfaction_score: null, nps_score: null, feedback: '', goal_progress: null },\n  // Representative demo responses\n  { member_id: 'M001', survey_date: '2026-03-24', satisfaction_score: 3, nps_score: 5, feedback: 'Been busy with work, hoping to get back on track soon.', goal_progress: 'falling_behind' },\n  { member_id: 'M003', survey_date: '2026-03-25', satisfaction_score: 2, nps_score: 4, feedback: 'Classes are good but I feel like my progress has stalled.', goal_progress: 'falling_behind' },\n  { member_id: 'M005', survey_date: '2026-03-21', satisfaction_score: 2, nps_score: 3, feedback: 'Feeling unmotivated, not sure the plan suits me anymore.', goal_progress: 'falling_behind' },\n  { member_id: 'M007', survey_date: '2026-03-26', satisfaction_score: 4, nps_score: 7, feedback: 'Still finding my rhythm as a new member.', goal_progress: 'getting_started' },\n  { member_id: 'M008', survey_date: '2026-03-23', satisfaction_score: 2, nps_score: 4, feedback: 'Schedule conflicts making it hard to come in regularly.', goal_progress: 'falling_behind' }\n];\n\nconst filtered = allResponses.filter(r => {\n  if (!r.survey_date) return true;\n  return new Date(r.survey_date) >= firstOfThisMonth;\n});\n\nreturn filtered.map(r => ({ json: { ...r, month: monthLabel } }));"
+      },
+      "id": "3fb81fd3-1b5d-4afa-a209-de488cb2d79e",
+      "name": "Load Monthly Survey Responses",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3024,
+        -480
+      ],
+      "notes": "In production: replace demo array with Read Binary File → parse CSV → filter by survey_date >= first of last month AND < first of this month. Returns all responses for the previous calendar month."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect all input items as the responses array\nconst responses = $input.all().map(i => i.json);\nconst monthLabel = responses[0]?.month || 'March 2026';\n\nif (responses.length === 0) {\n  return [{ json: { email_html: `<p>No survey responses received in ${monthLabel}.</p>`, skip: true } }];\n}\n\nconst scored = responses.filter(r => r.satisfaction_score !== null);\nconst avgSatisfaction = scored.length > 0\n  ? (scored.reduce((s, r) => s + (r.satisfaction_score || 0), 0) / scored.length).toFixed(1)\n  : 'N/A';\nconst avgNps = scored.length > 0\n  ? (scored.reduce((s, r) => s + (r.nps_score || 0), 0) / scored.length).toFixed(1)\n  : 'N/A';\nconst lowSatisfaction = responses.filter(r => r.satisfaction_score !== null && r.satisfaction_score <= 2);\n\nconst goalCounts = {};\nresponses.forEach(r => {\n  const g = r.goal_progress || 'not_specified';\n  goalCounts[g] = (goalCounts[g] || 0) + 1;\n});\n\nconst feedbackRows = responses\n  .filter(r => r.feedback && r.feedback.trim() !== '')\n  .map(r => `<tr><td style=\"padding:8px;border-bottom:1px solid #eee;\">${r.member_id}</td><td style=\"padding:8px;border-bottom:1px solid #eee;\">${r.survey_date}</td><td style=\"padding:8px;border-bottom:1px solid #eee;\">${r.satisfaction_score ?? 'N/A'}</td><td style=\"padding:8px;border-bottom:1px solid #eee;\">${r.nps_score ?? 'N/A'}</td><td style=\"padding:8px;border-bottom:1px solid #eee;\">${r.goal_progress || '-'}</td><td style=\"padding:8px;border-bottom:1px solid #eee;\">${r.feedback}</td></tr>`)\n  .join('');\n\nconst allRows = responses\n  .map(r => `<tr><td style=\"padding:8px;border-bottom:1px solid #eee;\">${r.member_id}</td><td style=\"padding:8px;border-bottom:1px solid #eee;\">${r.survey_date}</td><td style=\"padding:8px;border-bottom:1px solid #eee;\">${r.satisfaction_score ?? 'N/A'}</td><td style=\"padding:8px;border-bottom:1px solid #eee;\">${r.nps_score ?? 'N/A'}</td><td style=\"padding:8px;border-bottom:1px solid #eee;\">${r.goal_progress || '-'}</td><td style=\"padding:8px;border-bottom:1px solid #eee;\">${r.feedback || '-'}</td></tr>`)\n  .join('');\n\nconst goalBreakdown = Object.entries(goalCounts)\n  .map(([k, v]) => `<li><strong>${k.replace(/_/g, ' ')}:</strong> ${v} member${v > 1 ? 's' : ''}</li>`)\n  .join('');\n\nconst alertBlock = lowSatisfaction.length > 0\n  ? `<div style=\"background:#fff3cd;border-left:4px solid #ffc107;padding:12px 16px;margin-bottom:20px;border-radius:4px;\"><strong>⚠️ ${lowSatisfaction.length} member${lowSatisfaction.length > 1 ? 's' : ''} rated satisfaction ≤ 2</strong> — consider proactive outreach.<br>${lowSatisfaction.map(r => `<span style=\"margin-right:12px;\">• ${r.member_id} (score: ${r.satisfaction_score})</span>`).join('')}</div>`\n  : `<div style=\"background:#d4edda;border-left:4px solid #28a745;padding:12px 16px;margin-bottom:20px;border-radius:4px;\">✅ No critical satisfaction alerts this month.</div>`;\n\nconst html = `\n<!DOCTYPE html>\n<html>\n<head><meta charset=\"UTF-8\"></head>\n<body style=\"font-family:Arial,sans-serif;max-width:700px;margin:0 auto;padding:20px;color:#333;\">\n\n  <div style=\"background:#1a1a2e;padding:24px 28px;border-radius:8px 8px 0 0;\">\n    <h1 style=\"color:#fff;margin:0;font-size:22px;\">📊 Spottr — Monthly Survey Summary</h1>\n    <p style=\"color:#aaa;margin:6px 0 0;\">${monthLabel}</p>\n  </div>\n\n  <div style=\"background:#f8f9fa;padding:20px 28px;\">\n\n    <div style=\"display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap;\">\n      <div style=\"flex:1;min-width:140px;background:#fff;border-radius:8px;padding:16px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.08);\">\n        <div style=\"font-size:32px;font-weight:bold;color:#1a1a2e;\">${responses.length}</div>\n        <div style=\"color:#666;font-size:13px;margin-top:4px;\">Responses</div>\n      </div>\n      <div style=\"flex:1;min-width:140px;background:#fff;border-radius:8px;padding:16px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.08);\">\n        <div style=\"font-size:32px;font-weight:bold;color:#1a1a2e;\">${avgSatisfaction}</div>\n        <div style=\"color:#666;font-size:13px;margin-top:4px;\">Avg Satisfaction (1–5)</div>\n      </div>\n      <div style=\"flex:1;min-width:140px;background:#fff;border-radius:8px;padding:16px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.08);\">\n        <div style=\"font-size:32px;font-weight:bold;color:#1a1a2e;\">${avgNps}</div>\n        <div style=\"color:#666;font-size:13px;margin-top:4px;\">Avg NPS (0–10)</div>\n      </div>\n      <div style=\"flex:1;min-width:140px;background:#fff;border-radius:8px;padding:16px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.08);\">\n        <div style=\"font-size:32px;font-weight:bold;color:#e74c3c;\">${lowSatisfaction.length}</div>\n        <div style=\"color:#666;font-size:13px;margin-top:4px;\">Low Satisfaction Alerts</div>\n      </div>\n    </div>\n\n    ${alertBlock}\n\n    <h2 style=\"font-size:16px;border-bottom:2px solid #1a1a2e;padding-bottom:6px;\">📋 All Responses</h2>\n    <table style=\"width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px;\">\n      <thead><tr style=\"background:#1a1a2e;color:#fff;\">\n        <th style=\"padding:10px 8px;text-align:left;\">Member</th>\n        <th style=\"padding:10px 8px;text-align:left;\">Date</th>\n        <th style=\"padding:10px 8px;text-align:left;\">Satisfaction</th>\n        <th style=\"padding:10px 8px;text-align:left;\">NPS</th>\n        <th style=\"padding:10px 8px;text-align:left;\">Goal Progress</th>\n        <th style=\"padding:10px 8px;text-align:left;\">Feedback</th>\n      </tr></thead>\n      <tbody>${allRows}</tbody>\n    </table>\n\n    <h2 style=\"font-size:16px;border-bottom:2px solid #1a1a2e;padding-bottom:6px;\">🎯 Goal Progress Breakdown</h2>\n    <ul style=\"margin:0 0 24px;padding-left:20px;\">${goalBreakdown}</ul>\n\n    <p style=\"font-size:12px;color:#999;border-top:1px solid #ddd;padding-top:12px;\">Generated by Spottr Automation · ${new Date().toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'})}</p>\n  </div>\n\n</body>\n</html>`;\n\nreturn [{ json: { email_html: html, response_count: responses.length, month: monthLabel, skip: false } }];"
+      },
+      "id": "92dc9cdd-e24f-4dbe-886c-2b2d4446f6c2",
+      "name": "Build Monthly Summary Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3248,
+        -480
+      ],
+      "notes": "Aggregates all responses for the month: total count, avg satisfaction, avg NPS, low satisfaction count, goal progress breakdown, full response table. Outputs styled HTML email."
+    },
+    {
+      "parameters": {
+        "fromEmail": "fitandhealthbydina@gmail.com",
+        "toEmail": "dlbosma@gmail.com",
+        "subject": "={{ 'Spottr — Monthly Survey Summary: ' + $json.month }}",
+        "html": "={{ $json.email_html }}",
+        "options": {}
+      },
+      "id": "dc540657-924b-401a-a2e5-5025917e3c3a",
+      "name": "Send Monthly Survey Summary",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        3472,
+        -480
+      ],
+      "webhookId": "126ee182-5f0b-4d19-97b6-5fe933ba5821",
+      "credentials": {
+        "smtp": {
+          "id": "1g1NdiQVipHsxyUY",
+          "name": "SMTP account"
+        }
+      },
+      "notes": "Sends monthly summary to studio owner. Use same SMTP credential as the weekly email workflow. Update toEmail to studio owner address at onboarding."
+    }
+  ],
+  "pinData": {
+    "Tally Response Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "dina2.app.n8n.cloud",
+            "user-agent": "Tally Webhooks",
+            "content-length": "2476",
+            "accept": "application/json, text/plain, */*",
+            "accept-encoding": "gzip, br",
+            "baggage": "sentry-environment=production,sentry-release=1e1bb14921df58826261ef2d4a1dde4bb3252ac3,sentry-public_key=6af4b6673f1648edaa8fef3f2ca43405,sentry-trace_id=33de9742798f0fa8a1efbbd77672af5c,sentry-org_id=407628,sentry-sampled=false,sentry-sample_rand=0.09784398161209229,sentry-sample_rate=0",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "34.96.41.50",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "BE",
+            "cf-ray": "9e4df62fcf7988a9-LHR",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "sentry-trace": "33de9742798f0fa8a1efbbd77672af5c-06a238fd5f39155a-0",
+            "x-forwarded-for": "34.96.41.50, 172.70.85.15",
+            "x-forwarded-host": "dina2.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-39-7d8f9c97c5-vkx4s",
+            "x-is-trusted": "yes",
+            "x-real-ip": "34.96.41.50"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "eventId": "82e60f09-4d73-4db4-9ae5-eef13a230d77",
+            "eventType": "FORM_RESPONSE",
+            "createdAt": "2026-03-31T08:25:07.731Z",
+            "data": {
+              "responseId": "kbdDYX6",
+              "submissionId": "kbdDYX6",
+              "respondentId": "81PdYBP",
+              "formId": "WOPxRR",
+              "formName": " GYM (NPS) Survey ",
+              "createdAt": "2026-03-31T08:25:07.000Z",
+              "fields": [
+                {
+                  "key": "question_4kKApO",
+                  "label": "How likely are you to recommend the gym to a friend or colleague?",
+                  "type": "LINEAR_SCALE",
+                  "value": 9
+                },
+                {
+                  "key": "question_jMl5kE",
+                  "label": "How often do you visit our gym?",
+                  "type": "MULTIPLE_CHOICE",
+                  "value": [
+                    "c78e67fa-3897-490a-9110-acf63490e86d"
+                  ],
+                  "options": [
+                    {
+                      "id": "c78e67fa-3897-490a-9110-acf63490e86d",
+                      "text": "4 or more times per week"
+                    },
+                    {
+                      "id": "7fcf0cc0-6b2f-4ecd-9b60-bfcfec76ed12",
+                      "text": "2–3 times per week"
+                    },
+                    {
+                      "id": "86076189-72ad-42db-b418-f9eaf8de6f71",
+                      "text": "Once a week"
+                    },
+                    {
+                      "id": "a4fbd8ba-cf73-4818-88ac-c617a3d5c7fe",
+                      "text": "A few times per month"
+                    }
+                  ]
+                },
+                {
+                  "key": "question_2kK1DV",
+                  "label": "Overall, how satisfied are you with your gym experience?",
+                  "type": "MULTIPLE_CHOICE",
+                  "value": [
+                    "3feabfa7-799c-44f1-b240-519b5750fb1e"
+                  ],
+                  "options": [
+                    {
+                      "id": "3feabfa7-799c-44f1-b240-519b5750fb1e",
+                      "text": "Very satisfied"
+                    },
+                    {
+                      "id": "8f23ddec-77f9-4831-9f9a-a2e823cadeba",
+                      "text": "Satisfied"
+                    },
+                    {
+                      "id": "9e2ac785-e305-4df6-b4da-9f872b139aaf",
+                      "text": "Neutral"
+                    },
+                    {
+                      "id": "e3f93f2b-7537-40fd-b7d6-ecfca64c0d86",
+                      "text": "Dissatisfied"
+                    },
+                    {
+                      "id": "049c0a54-9c4c-49eb-a0d6-122b83da4971",
+                      "text": "Very dissatisfied"
+                    }
+                  ]
+                },
+                {
+                  "key": "question_xQJ4lo",
+                  "label": "Have you attended one of our classes?",
+                  "type": "MULTIPLE_CHOICE",
+                  "value": [
+                    "be08a9a5-040c-420b-92ec-097a205a3ddb"
+                  ],
+                  "options": [
+                    {
+                      "id": "be08a9a5-040c-420b-92ec-097a205a3ddb",
+                      "text": "yes"
+                    },
+                    {
+                      "id": "427d8efb-588f-4f4c-808c-c373931a9882",
+                      "text": "no"
+                    }
+                  ]
+                },
+                {
+                  "key": "question_ZV2vZy",
+                  "label": "If yes, how would you rate your class experience?",
+                  "type": "MULTIPLE_CHOICE",
+                  "value": [
+                    "86c045f9-37d9-477b-a0c3-17df07e76fc0"
+                  ],
+                  "options": [
+                    {
+                      "id": "86c045f9-37d9-477b-a0c3-17df07e76fc0",
+                      "text": "Excellent"
+                    },
+                    {
+                      "id": "d382dcca-6795-484d-bd01-fff91687575b",
+                      "text": "Good"
+                    },
+                    {
+                      "id": "f5ba96d9-1ebe-4c95-a23b-f3fbbc96a709",
+                      "text": "Fair"
+                    },
+                    {
+                      "id": "e0517612-ca85-44e0-aff4-f2c0368d345f",
+                      "text": "Poor"
+                    },
+                    {
+                      "id": "3b562ed2-fda7-4608-a5ac-97eaa3b85fef",
+                      "text": "Very Poor"
+                    },
+                    {
+                      "id": "c4aed5c3-f86f-4399-bb17-4c56b966665c",
+                      "text": "Not applicable"
+                    }
+                  ]
+                },
+                {
+                  "key": "question_NV7MRQ",
+                  "label": "How can we improve the gym for you?",
+                  "type": "TEXTAREA",
+                  "value": "It’s all great "
+                },
+                {
+                  "key": "question_OPGJ28",
+                  "label": "How many stars will you give the full experience in YOUR GYM?",
+                  "type": "RATING",
+                  "value": 5
+                }
+              ]
+            }
+          },
+          "webhookUrl": "https://dina2.app.n8n.cloud/webhook/tally-survey-response",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Trigger A: Daily Class Check (20:00)": {
+      "main": [
+        [
+          {
+            "node": "Load Class Attendance Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger B: Daily Studio Check-In Check (22:00)": {
+      "main": [
+        [
+          {
+            "node": "Load Studio Check-In Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Class Attendance Data": {
+      "main": [
+        [
+          {
+            "node": "Check Class Drop Threshold",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Studio Check-In Data": {
+      "main": [
+        [
+          {
+            "node": "Check Studio Drop Threshold",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Class Drop Threshold": {
+      "main": [
+        [
+          {
+            "node": "IF: Class Threshold Breached?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Studio Drop Threshold": {
+      "main": [
+        [
+          {
+            "node": "IF: Studio Threshold Breached?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Class Threshold Breached?": {
+      "main": [
+        [
+          {
+            "node": "Load Survey Sent Log (Class)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Studio Threshold Breached?": {
+      "main": [
+        [
+          {
+            "node": "Load Survey Sent Log (Studio)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Survey Sent Log (Class)": {
+      "main": [
+        [
+          {
+            "node": "Filter: Cooldown Check (Class)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Survey Sent Log (Studio)": {
+      "main": [
+        [
+          {
+            "node": "Filter: Cooldown Check (Studio)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter: Cooldown Check (Class)": {
+      "main": [
+        [
+          {
+            "node": "IF: Eligible Members (Class)?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter: Cooldown Check (Studio)": {
+      "main": [
+        [
+          {
+            "node": "IF: Eligible Members (Studio)?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Eligible Members (Class)?": {
+      "main": [
+        [
+          {
+            "node": "Format Survey Email (Class)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Eligible Members (Studio)?": {
+      "main": [
+        [
+          {
+            "node": "Format Survey Email (Studio)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Survey Email (Class)": {
+      "main": [
+        [
+          {
+            "node": "Send Survey Email (Class)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Survey Email (Studio)": {
+      "main": [
+        [
+          {
+            "node": "Send Survey Email (Studio)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Survey Email (Class)": {
+      "main": [
+        [
+          {
+            "node": "Log Survey Sent (Class)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Survey Email (Studio)": {
+      "main": [
+        [
+          {
+            "node": "Log Survey Sent (Studio)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tally Response Webhook": {
+      "main": [
+        [
+          {
+            "node": "Parse and Log Survey Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Monthly Survey Summary Trigger": {
+      "main": [
+        [
+          {
+            "node": "Load Monthly Survey Responses",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Monthly Survey Responses": {
+      "main": [
+        [
+          {
+            "node": "Build Monthly Summary Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Monthly Summary Email": {
+      "main": [
+        [
+          {
+            "node": "Send Monthly Survey Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "dc6ec5e2-63cf-4580-9cac-69702701f658",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e4404fde0521d757a03ddb5eb10f513d99e37ae271f2829cb5bd1c1d6dc2c2f2"
+  },
+  "id": "s91N4l4g66IcXamH",
+  "tags": []
+}

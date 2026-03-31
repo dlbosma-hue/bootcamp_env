@@ -1,0 +1,5 @@
+.env
+data/raw/endomondo.json
+data/raw/gym_churn_us.csv
+__pycache__/
+*.pyc

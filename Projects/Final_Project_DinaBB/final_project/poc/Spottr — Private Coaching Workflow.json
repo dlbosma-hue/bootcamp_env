@@ -1,0 +1,420 @@
+{
+  "name": "Spottr — Private Coaching Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 7 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "e086bd0e-3159-4e23-8fc3-a3e7e01abefa",
+      "name": "Schedule Trigger (Monday 07:00)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -880,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"member_id\": \"M001\",\n  \"name\": \"Sophie Müller\",\n  \"email\": \"sophie.mueller@example.com\",\n  \"phone\": \"+49 176 1234 5678\",\n  \"coach\": \"Coach Jana\",\n  \"consent_wearable\": true,\n  \"sessions_booked\": 8,\n  \"sessions_attended\": 3,\n  \"days_since_checkin\": 16,\n  \"goal\": \"Weight loss & strength\",\n  \"membership_type\": \"Private Coaching\"\n}",
+        "include": "none",
+        "options": {}
+      },
+      "id": "15d3259e-e8b7-49ed-af09-9ee0eeefd9ed",
+      "name": "Load Coaching Clients",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        -656,
+        144
+      ],
+      "notes": "In production: replace with HTTP Request to gym booking system or CSV read. Each member object must include consent_wearable boolean set from the coaching intake form."
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "b9b58687-84fe-4004-9a2a-e1cfe3bead37",
+      "name": "Split Into Individual Members",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -448,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.consent_wearable }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "4a3c442b-33f1-4ee8-b84f-a3d905a12a74",
+      "name": "Consent Gate: Wearable Enabled?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -224,
+        144
+      ],
+      "notes": "TRUE branch: member has signed coaching intake form and consented to wearable data. FALSE branch: visit/check-in data only — Fitbit API never called."
+    },
+    {
+      "parameters": {
+        "url": "=https://api.fitbit.com/1/user/{{ $json.member_id }}/activities/list.json?afterDate={{ $now.minus(14, 'days').toFormat('yyyy-MM-dd') }}&sort=desc&limit=10&offset=0",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "oAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept-Language",
+              "value": "en_GB"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "06cbdebe-b82b-4bc4-b46d-203013edbce2",
+      "name": "Fetch Fitbit Workout Sessions",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        0,
+        0
+      ],
+      "credentials": {
+        "oAuth2Api": {
+          "id": "47bjAmp6XP3a6qDi",
+          "name": "Unnamed credential"
+        }
+      },
+      "notes": "Only called when consent_wearable = true. Fetches manually-initiated workout sessions from past 14 days only. Does NOT fetch sleep, steps, resting HR, or GPS data (GDPR data minimisation)."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Merge wearable sessions with member record\nconst member = $('Load Coaching Clients').first().json;\nconst activities = $input.first().json.activities || [];\n\nconst wearable_sessions_14d = activities.length;\nconst last_session_date = activities.length > 0 ?\n  activities[0].startDate : null;\n\nreturn [{\n  ...member,\n  wearable_sessions_14d,\n  last_wearable_session: last_session_date,\n  data_source: 'checkin_and_wearable'\n}];"
+      },
+      "id": "6368b5bd-61d3-402b-9cd8-d2dd8d763fd9",
+      "name": "Merge Wearable Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Consent gate NOT passed — check-in data only, wearable never accessed\nconst member = $input.first().json;\n\nreturn [{\n  ...member,\n  wearable_sessions_14d: null,\n  last_wearable_session: null,\n  data_source: 'checkin_only'\n}];"
+      },
+      "id": "fbfe382f-cf91-481c-91f1-e5e1640a0087",
+      "name": "Check-In Data Only (No Fitbit)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        288
+      ],
+      "notes": "Fitbit is never called. Member is processed using check-in attendance only."
+    },
+    {
+      "parameters": {},
+      "id": "2ba4659a-1fb5-434d-b3fe-027b5ccdb4d3",
+      "name": "Merge Branches",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        448,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Calculate coaching risk tier per member\nconst members = $input.all().map(item => item.json);\n\nfunction riskTier(sessions_booked, sessions_attended, days_since_checkin) {\n  const attendance_rate = sessions_booked > 0 ? sessions_attended / sessions_booked : 0;\n  if (attendance_rate < 0.50 || days_since_checkin > 14) return 'HIGH';\n  if (attendance_rate < 0.75 || days_since_checkin > 7)  return 'MEDIUM';\n  return 'LOW';\n}\n\nconst scored = members.map(m => ({\n  ...m,\n  attendance_rate: m.sessions_booked > 0\n    ? Math.round((m.sessions_attended / m.sessions_booked) * 100)\n    : 0,\n  risk_tier: riskTier(m.sessions_booked, m.sessions_attended, m.days_since_checkin)\n}));\n\n// Only surface HIGH and MEDIUM for briefing\nconst flagged = scored.filter(m => m.risk_tier !== 'LOW');\n\nreturn flagged.map(m => ({ json: m }));"
+      },
+      "id": "00eb684d-b1d4-43fb-ae6d-974aa295c1af",
+      "name": "Score Coaching Risk",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": {
+          "model": "gpt-4o-mini",
+          "temperature": 0,
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a coaching support assistant for a boutique fitness studio. You receive data about private coaching clients and write a short briefing for the client's coach in natural, conversational language.\n\nRules:\n- Never mention the member by name. Use their member ID only.\n- Summarise what the data shows, not what the coach should do.\n- Write as if giving the coach helpful context before a conversation, not issuing an instruction.\n- Distinguish clearly between coaching-specific disengagement and broader membership churn risk.\n- Keep the tone warm and human. The coach will use this as background for their own outreach.\n- Keep the summary under 80 words.\n- Do not speculate about personal reasons for absence.\n- Do not use words like 'alert', 'risk tier', or 'recommended action' in the output."
+            },
+            {
+              "role": "user",
+              "content": "={{ 'Generate a coaching briefing for member ' + $json.member_id + '. Attendance rate: ' + $json.attendance_rate + '% (' + $json.sessions_attended + ' of ' + $json.sessions_booked + ' sessions). Days since last check-in: ' + $json.days_since_checkin + '.' + ($json.wearable_sessions_14d !== null ? ' Wearable sessions in past 14 days: ' + $json.wearable_sessions_14d + '.' : ' No wearable data (not consented).') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6c446a44-29e2-4792-bfab-80e40a478018",
+      "name": "Generate Coaching Briefing (GPT-4o-mini)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        880,
+        144
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "YtL1jKscj8oWu0TF",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const member = $('Score Coaching Risk').first().json;\nconst llmOutput = $input.first().json;\nconst briefingText = llmOutput.choices?.[0]?.message?.content || 'Briefing unavailable.';\n\nconst riskLabel = member.risk_tier === 'HIGH' ? 'HIGH PRIORITY' : 'On your radar';\n\nreturn [{\n  json: {\n    member_id: member.member_id,\n    risk_tier: member.risk_tier,\n    risk_label: riskLabel,\n    briefing_text: briefingText,\n    data_source: member.data_source,\n    email_section: `<p><strong>${member.member_id}</strong> &mdash; ${riskLabel}<br>${briefingText}<br><em>Data source: ${member.data_source}</em></p>`\n  }\n}];"
+      },
+      "id": "c3f180e2-2008-4941-817a-df1d8d143e45",
+      "name": "Format Coaching Email Section",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1104,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Aggregate all coaching briefings into one email body\nconst items = $input.all().map(i => i.json);\n\nconst highRisk = items.filter(m => m.risk_tier === 'HIGH');\nconst medRisk  = items.filter(m => m.risk_tier === 'MEDIUM');\n\nlet html = `<h2>Coaching Update — ${new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}</h2>`;\n\nif (highRisk.length > 0) {\n  html += `<h3>High Priority</h3>` + highRisk.map(m => m.email_section).join('');\n}\nif (medRisk.length > 0) {\n  html += `<h3>On Your Radar</h3>` + medRisk.map(m => m.email_section).join('');\n}\nif (items.length === 0) {\n  html += `<p>No coaching clients flagged this week. All attendance rates and check-in patterns are within normal range.</p>`;\n}\n\nhtml += `<hr><p style=\"font-size:12px;color:#888\">This briefing is generated automatically from coaching session attendance and wearable data (where consented). Member names are not processed by the AI system. For questions or to update consent settings, contact your system administrator.</p>`;\n\nreturn [{ json: { email_html: html, recipient_count: items.length } }];"
+      },
+      "id": "91a98fbf-69ec-4ae2-bf87-d868751ea064",
+      "name": "Aggregate Coaching Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        144
+      ],
+      "notes": "Collects all per-member coaching briefings and assembles the HTML coaching section that is included in the weekly email report."
+    },
+    {
+      "parameters": {
+        "fromEmail": "fitandhealthbydina@gmail.com ",
+        "toEmail": "dlbosma@gmail.com",
+        "subject": "={{ 'Coaching Update — ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) }}",
+        "html": "={{ $json.email_html }}",
+        "options": {}
+      },
+      "id": "dac9bf6d-1db6-4440-82c1-d0fa92c3f31e",
+      "name": "Send Coaching Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1552,
+        144
+      ],
+      "webhookId": "72f85c2c-daf5-4651-856b-a404a098baa0",
+      "credentials": {
+        "smtp": {
+          "id": "1g1NdiQVipHsxyUY",
+          "name": "SMTP account"
+        }
+      },
+      "notes": "In production: replace toEmail with a list of coach email addresses. Can also be merged into the main weekly_email_workflow.json as a fourth section in the Monday report."
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger (Monday 07:00)": {
+      "main": [
+        [
+          {
+            "node": "Load Coaching Clients",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Coaching Clients": {
+      "main": [
+        [
+          {
+            "node": "Split Into Individual Members",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Into Individual Members": {
+      "main": [
+        [
+          {
+            "node": "Consent Gate: Wearable Enabled?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Consent Gate: Wearable Enabled?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consent Gate: Wearable Enabled?": {
+      "main": [
+        [
+          {
+            "node": "Fetch Fitbit Workout Sessions",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check-In Data Only (No Fitbit)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Fitbit Workout Sessions": {
+      "main": [
+        [
+          {
+            "node": "Merge Wearable Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Wearable Data": {
+      "main": [
+        [
+          {
+            "node": "Merge Branches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check-In Data Only (No Fitbit)": {
+      "main": [
+        [
+          {
+            "node": "Merge Branches",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Branches": {
+      "main": [
+        [
+          {
+            "node": "Score Coaching Risk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score Coaching Risk": {
+      "main": [
+        [
+          {
+            "node": "Generate Coaching Briefing (GPT-4o-mini)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Coaching Briefing (GPT-4o-mini)": {
+      "main": [
+        [
+          {
+            "node": "Format Coaching Email Section",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Coaching Email Section": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Coaching Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate Coaching Email": {
+      "main": [
+        [
+          {
+            "node": "Send Coaching Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "86d3ee39-902f-4fb3-b407-209207ed4431",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e4404fde0521d757a03ddb5eb10f513d99e37ae271f2829cb5bd1c1d6dc2c2f2"
+  },
+  "id": "OAlu8nD3uxpOyjVZ",
+  "tags": []
+}

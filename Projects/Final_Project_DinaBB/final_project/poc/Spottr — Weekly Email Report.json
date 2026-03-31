@@ -1,0 +1,337 @@
+{
+  "name": "Spottr — Weekly Email Report",
+  "nodes": [
+    {
+      "parameters": {
+        "fromEmail": "dlbosma@gmail.com",
+        "toEmail": "fitandhealthbydina@gmail.com",
+        "subject": "={{ 'Weekly Retention Report — ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) }}",
+        "html": "={{ $json.email_html }}",
+        "options": {}
+      },
+      "id": "4d89010c-5083-4da8-b936-2cba068273ea",
+      "name": "Send Weekly Email Report",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        3552,
+        1824
+      ],
+      "webhookId": "07bd74ec-236f-4f41-9c3a-2c0f00db4a73",
+      "credentials": {
+        "smtp": {
+          "id": "1g1NdiQVipHsxyUY",
+          "name": "SMTP account"
+        }
+      },
+      "notes": "In production: send individually to each coach (loop or comma-separated list). Use SMTP credentials configured in n8n Credentials. fromEmail and toEmail are set per studio at onboarding."
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 7 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "d7c26bb0-fa15-4bbd-9312-1a811af3b4e5",
+      "name": "Schedule Trigger (Monday 07:00)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        1856,
+        1824
+      ],
+      "notes": "Runs every Monday at 07:00. Output fans out to two parallel branches: member data (upper) and survey responses (lower). Both must complete before the workflow continues."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Collect all survey items and tag them for the merge combiner\nconst responses = $input.all().map(i => i.json);\nreturn [{ json: { _type: 'survey_data', survey_responses: responses } }];"
+      },
+      "id": "4825b61e-02be-45fd-b56e-17c5229eedf6",
+      "name": "Tag Survey Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2288,
+        1968
+      ],
+      "notes": "Tags the survey payload with _type: 'survey_data' so the downstream combiner can reliably distinguish the two branches after the merge."
+    },
+    {
+      "parameters": {},
+      "id": "088bd871-7d15-4d19-b561-6c527a17e310",
+      "name": "Wait for Both Branches",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        2512,
+        1824
+      ],
+      "notes": "Waits for both branches (risk data from upper, survey data from lower) to complete before continuing. Appends both items into a single stream. The downstream code node separates them by _type tag."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Both branches have completed. Separate by _type tag.\nconst items = $input.all().map(i => i.json);\n\nconst riskData   = items.find(i => i._type === 'risk_data');\nconst surveyData = items.find(i => i._type === 'survey_data');\n\nif (!riskData)   throw new Error('Risk data branch did not arrive at merge node.');\nif (!surveyData) throw new Error('Survey data branch did not arrive at merge node.');\n\n// Build survey lookup map by member_id\nconst surveyMap = {};\n(surveyData.survey_responses || []).forEach(r => {\n  surveyMap[r.member_id] = r;\n});\n\n// Attach survey response to each flagged member (HIGH + MEDIUM)\nconst enriched = riskData.flagged.map(m => ({\n  ...m,\n  survey_response: surveyMap[m.member_id] || null\n}));\n\n// WATCH: members who are LOW risk (attending normally) but rated satisfaction <= 2.\n// Different from churn risk — they are still coming, but unhappy.\n// Surfaced separately so coaches treat this as proactive, not urgent.\nconst watch = riskData.all_members\n  .filter(m => m.risk_tier === 'LOW')\n  .filter(m => {\n    const survey = surveyMap[m.member_id];\n    return survey && survey.satisfaction_score <= 2;\n  })\n  .map(m => ({\n    ...m,\n    risk_tier: 'WATCH',\n    survey_response: surveyMap[m.member_id],\n    flags: [`Satisfaction rated ${surveyMap[m.member_id].satisfaction_score}/5 — still attending normally`]\n  }));\n\nreturn [{ json: {\n  all_members:      riskData.all_members,\n  flagged:          enriched,\n  watch:            watch,\n  survey_responses: surveyData.survey_responses || []\n} }];"
+      },
+      "id": "821aadc5-4ad3-49f5-bfe6-5efc45b1d1fe",
+      "name": "Combine Risk + Survey Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2736,
+        1824
+      ],
+      "notes": "Receives both branch outputs from the merge node. Identifies each by _type tag. Attaches any survey response to the matching flagged member record before passing downstream."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format all flagged + watch members into a single LLM prompt.\n// One call replaces N sequential calls — more reliable in n8n and ~80% cheaper.\n\nconst data    = $input.first().json;\nconst flagged = data.flagged || [];\nconst watch   = data.watch   || [];\nconst allForLLM = [...flagged, ...watch];\n\nif (allForLLM.length === 0) {\n  return [{ json: { ...data, skip_llm: true, llm_prompt: '' } }];\n}\n\nconst memberSummaries = allForLLM.map(m => {\n  const survey = m.survey_response;\n  const tier   = m.risk_tier;\n\n  let text = `Member ${m.member_id} [${tier}]: ${m.days_since_last_workout} days since last visit, ${m.avg_sessions_per_week} sessions/week average, ${m.tenure_months} months tenure. Signals: ${(m.flags || []).join(', ')}.`;\n\n  if (survey) {\n    text += ` Survey (${survey.submitted_at}): rated ${survey.satisfaction_score}/5.`;\n    if (survey.feedback) text += ` Said: \"${survey.feedback}\".`;\n    if (survey.goal_progress) text += ` Goal progress: ${survey.goal_progress}.`;\n  } else {\n    text += ' No survey response this week.';\n  }\n\n  if (tier === 'WATCH') {\n    text += ' NOTE: This member is attending regularly — the concern is satisfaction, not attendance. Write a warm, curious note, not an urgent one.';\n  }\n\n  return text;\n});\n\nconst llm_prompt = `You are a fitness studio retention coach. Analyse these members and write a short, warm, actionable coaching note for each one (2-3 sentences max per member). Be specific to their data.\\n\\n${memberSummaries.join('\\n\\n')}`;\n\nreturn [{ json: { ...data, skip_llm: false, llm_prompt } }];"
+      },
+      "id": "09e07074-64c4-4728-a931-63324006f043",
+      "name": "Prepare LLM Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2944,
+        1824
+      ],
+      "notes": "Formats all flagged members into a single prompt string. One LLM call covers all members — no per-item splitting needed. Stored in llm_prompt field for the HTTP Request node."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse batched LLM response and build the full HTML email.\nconst llmResponse = $input.first().json;\nconst memberData = $('Prepare LLM Prompt').first().json;\n\nconst allMembers      = memberData.all_members     || [];\nconst flagged         = memberData.flagged          || [];\nconst watchMembers    = memberData.watch            || [];\nconst surveyResponses = memberData.survey_responses || [];\n\n// Extract briefings from native Claude node or OpenAI HTTP node\nconst raw = (typeof llmResponse.output === 'string' ? llmResponse.output : null)\n         || llmResponse.output?.[0]?.content?.[0]?.text\n         || llmResponse.choices?.[0]?.message?.content\n         || null;\n\nlet briefings = [];\nif (raw && typeof raw === 'object') {\n  briefings = raw.briefings || [];\n} else if (raw && typeof raw === 'string') {\n  try {\n    const cleaned = raw.replace(/```json\\n?/g, '').replace(/```\\n?/g, '').trim();\n    briefings = JSON.parse(cleaned).briefings || [];\n  } catch(e) {}\n}\n\nconst briefingMap = {};\nfor (const b of briefings) {\n  briefingMap[b.member_id] = b.text;\n}\n\nconst reportDate    = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });\nconst totalMembers  = allMembers.length;\nconst atRiskCount   = flagged.length;\nconst highRisk      = flagged.filter(m => m.risk_tier === 'HIGH').length;\nconst totalLtvAtRisk = flagged.reduce((sum, m) => sum + (m.ltv_at_risk || 0), 0);\n\n// ── Section 1: Risk member cards (HIGH + MEDIUM) ───────────────────────────\nconst riskCards = flagged.map(m => {\n  const briefingText = briefingMap[m.member_id] || 'No coaching note generated.';\n  const tierColor    = m.risk_tier === 'HIGH' ? '#e53e3e' : '#d69e2e';\n  const survey       = m.survey_response;\n  const surveyHtml   = survey\n    ? `<p style=\"margin:4px 0;color:#718096;font-size:13px;\">&#128172; \"${survey.feedback}\" — ${survey.satisfaction_score}/5 satisfaction</p>`\n    : `<p style=\"margin:4px 0;color:#a0aec0;font-size:13px;\">No survey response this week</p>`;\n  return `\n    <div style=\"border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin-bottom:12px;background:#fff;\">\n      <div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;\">\n        <strong style=\"font-size:16px;\">${m.name || m.member_id}</strong>\n        <span style=\"background:${tierColor};color:#fff;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:bold;\">${m.risk_tier}</span>\n      </div>\n      <p style=\"margin:4px 0;color:#4a5568;font-size:13px;\">&#128197; ${m.days_since_last_workout} days since last visit &nbsp;|&nbsp; &#128202; ${m.avg_sessions_per_week} sessions/week &nbsp;|&nbsp; &#128197; ${m.tenure_months} months tenure</p>\n      ${surveyHtml}\n      <div style=\"background:#f7fafc;border-left:3px solid #667eea;padding:10px;margin-top:10px;border-radius:4px;\">\n        <p style=\"margin:0;font-size:13px;color:#4a5568;\"><strong>Coaching note:</strong> ${briefingText}</p>\n      </div>\n    </div>`;\n}).join('');\n\n// ── Section 2: Survey snapshot ─────────────────────────────────────────────\nconst avgSatisfaction = surveyResponses.length\n  ? (surveyResponses.reduce((s, r) => s + (r.satisfaction_score || 0), 0) / surveyResponses.length).toFixed(1)\n  : 'N/A';\nconst avgNps = surveyResponses.length\n  ? (surveyResponses.reduce((s, r) => s + (r.nps_score || 0), 0) / surveyResponses.length).toFixed(1)\n  : 'N/A';\n\n// ── Section 3: WATCH — low satisfaction, still attending ──────────────────\nconst watchCards = watchMembers.map(m => {\n  const survey       = m.survey_response;\n  const briefingText = briefingMap[m.member_id] || '';\n  return `\n    <div style=\"border:1px solid #d6bcfa;border-radius:8px;padding:16px;margin-bottom:12px;background:#faf5ff;\">\n      <div style=\"display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;\">\n        <strong style=\"font-size:16px;\">${m.name || m.member_id}</strong>\n        <span style=\"background:#6c3483;color:#fff;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:bold;\">WATCH</span>\n      </div>\n      <p style=\"margin:4px 0;color:#4a5568;font-size:13px;\">Attending normally — ${m.avg_sessions_per_week} sessions/week &nbsp;|&nbsp; last visit ${m.days_since_last_workout} days ago</p>\n      <p style=\"margin:4px 0;color:#6c3483;font-size:13px;font-weight:bold;\">Satisfaction: ${survey.satisfaction_score}/5${survey.nps_score ? ' &nbsp;|&nbsp; NPS: ' + survey.nps_score + '/10' : ''}</p>\n      ${survey.feedback ? `<p style=\"margin:4px 0;color:#718096;font-size:13px;\">&#128172; \"${survey.feedback}\"</p>` : ''}\n      ${briefingText ? `<div style=\"background:#f3e8ff;border-left:3px solid #6c3483;padding:10px;margin-top:10px;border-radius:4px;\"><p style=\"margin:0;font-size:13px;color:#4a5568;\"><strong>Coaching note:</strong> ${briefingText}</p></div>` : ''}\n    </div>`;\n}).join('');\n\nconst watchSection = watchMembers.length > 0 ? `\n  <div style=\"background:#fff;border-radius:12px;padding:20px;margin-bottom:24px;border:1px solid #d6bcfa;\">\n    <h2 style=\"margin:0 0 8px;font-size:18px;color:#6c3483;\">&#128101; Satisfaction Alerts</h2>\n    <p style=\"margin:0 0 16px;color:#718096;font-size:13px;\">These members are <strong>still attending</strong> but rated satisfaction 2/5 or lower. No urgency — a warm personal check-in this week can prevent this becoming an attendance problem.</p>\n    ${watchCards}\n  </div>` : '';\n\n// ── Assemble full email ────────────────────────────────────────────────────\nconst email_html = `\n<!DOCTYPE html>\n<html>\n<head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width\"></head>\n<body style=\"font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7fafc;margin:0;padding:20px;\">\n<div style=\"max-width:620px;margin:0 auto;\">\n\n  <div style=\"background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:28px;border-radius:12px;margin-bottom:24px;text-align:center;\">\n    <h1 style=\"margin:0 0 6px;font-size:24px;\">Spottr Weekly Report</h1>\n    <p style=\"margin:0;opacity:0.85;font-size:14px;\">${reportDate}</p>\n  </div>\n\n  <div style=\"display:flex;gap:12px;margin-bottom:24px;\">\n    <div style=\"flex:1;background:#fff;border-radius:8px;padding:16px;text-align:center;border:1px solid #e2e8f0;\">\n      <div style=\"font-size:28px;font-weight:bold;color:#667eea;\">${totalMembers}</div>\n      <div style=\"font-size:12px;color:#718096;\">Total Members</div>\n    </div>\n    <div style=\"flex:1;background:#fff;border-radius:8px;padding:16px;text-align:center;border:1px solid #e2e8f0;\">\n      <div style=\"font-size:28px;font-weight:bold;color:#e53e3e;\">${atRiskCount}</div>\n      <div style=\"font-size:12px;color:#718096;\">At-Risk</div>\n    </div>\n    <div style=\"flex:1;background:#fff;border-radius:8px;padding:16px;text-align:center;border:1px solid #e2e8f0;\">\n      <div style=\"font-size:28px;font-weight:bold;color:#d69e2e;\">${highRisk}</div>\n      <div style=\"font-size:12px;color:#718096;\">High Risk</div>\n    </div>\n    <div style=\"flex:1;background:#fff;border-radius:8px;padding:16px;text-align:center;border:1px solid #e2e8f0;\">\n      <div style=\"font-size:28px;font-weight:bold;color:#6c3483;\">${watchMembers.length}</div>\n      <div style=\"font-size:12px;color:#718096;\">Watch</div>\n    </div>\n  </div>\n\n  <div style=\"background:#fff;border-radius:12px;padding:20px;margin-bottom:24px;border:1px solid #e2e8f0;\">\n    <h2 style=\"margin:0 0 16px;font-size:18px;color:#2d3748;\">&#128680; Members Needing Attention</h2>\n    ${riskCards || '<p style=\"color:#718096;\">No at-risk members this week.</p>'}\n  </div>\n\n  ${watchSection}\n\n  <div style=\"background:#fff;border-radius:12px;padding:20px;margin-bottom:24px;border:1px solid #e2e8f0;\">\n    <h2 style=\"margin:0 0 16px;font-size:18px;color:#2d3748;\">&#128203; Survey Snapshot (Last 7 Days)</h2>\n    <p style=\"margin:4px 0;color:#4a5568;\">Responses received: <strong>${surveyResponses.length}</strong></p>\n    <p style=\"margin:4px 0;color:#4a5568;\">Avg satisfaction: <strong>${avgSatisfaction}/5</strong></p>\n    <p style=\"margin:4px 0;color:#4a5568;\">Avg NPS: <strong>${avgNps}/10</strong></p>\n  </div>\n\n  <p style=\"text-align:center;color:#a0aec0;font-size:12px;\">Generated by Spottr &nbsp;&#183;&nbsp; ${reportDate}</p>\n</div>\n</body>\n</html>`;\n\nreturn [{ json: { email_html } }];"
+      },
+      "id": "2b5038df-c1f3-4bde-9fbf-c4cf47964887",
+      "name": "Build HTML Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3360,
+        1824
+      ],
+      "notes": "Parses the batched LLM JSON response, maps briefings to members by member_id, then assembles the 3-section HTML email. Uses $('Prepare LLM Prompt').first().json to recover member data — safe here because there is no item splitting upstream."
+    },
+    {
+      "parameters": {
+        "jsCode": "const members = $input.all().map(item => item.json);\n\nconst DAYS_HIGH_RISK = 21;\nconst LTV_PER_MONTH = 125;\n\nconst scored = members.map(m => {\n  let risk_score = 0;\n  let risk_tier = 'LOW';\n  const flags = [];\n\n  if (m.days_since_last_workout >= DAYS_HIGH_RISK) {\n    risk_score += 3;\n    flags.push(`${m.days_since_last_workout} days since last visit`);\n  } else if (m.days_since_last_workout >= 14) {\n    risk_score += 2;\n    flags.push(`${m.days_since_last_workout} days since last visit`);\n  } else if (m.days_since_last_workout >= 7) {\n    risk_score += 1;\n  }\n\n  if (m.avg_sessions_per_week < 1.0 && m.tenure_months > 2) {\n    risk_score += 2;\n    flags.push('visit frequency below 1/week for established member');\n  } else if (m.avg_sessions_per_week < 1.5 && m.tenure_months > 2) {\n    risk_score += 1;\n    flags.push('visit frequency declining');\n  }\n\n  if (m.tenure_months <= 3) {\n    risk_score += 1;\n    flags.push('new member — high churn risk window');\n  }\n\n  if (risk_score >= 4) risk_tier = 'HIGH';\n  else if (risk_score >= 2) risk_tier = 'MEDIUM';\n  else risk_tier = 'LOW';\n\n  const ltv_at_risk = Math.round(LTV_PER_MONTH * Math.max(1, 12 - m.tenure_months));\n\n  return { ...m, risk_score, risk_tier, flags, ltv_at_risk };\n});\n\nscored.sort((a, b) => b.risk_score - a.risk_score);\n\nreturn [{ json: { _type: 'risk_data', all_members: scored, flagged: scored.filter(m => m.risk_tier !== 'LOW') } }];"
+      },
+      "id": "7265a942-c1bc-4e9f-91dd-d67b288cfd26",
+      "name": "Score Churn Risk1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2256,
+        1680
+      ],
+      "notes": "Outputs a single item tagged _type: 'risk_data' so the downstream merge combiner can identify it by shape. In production: replace with HTTP Request to Python scoring endpoint."
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  { json: { member_id: 'M001', name: 'Sarah K.', phone: '+49 151 2341 8823', tenure_months: 14, days_since_last_workout: 25, avg_sessions_per_week: 0.8, plan: 'Premium', join_date: '2024-01-15' } },\n  { json: { member_id: 'M002', name: 'Tom B.', phone: '+49 176 9087 3341', tenure_months: 6, days_since_last_workout: 18, avg_sessions_per_week: 1.2, plan: 'Basic', join_date: '2024-09-20' } },\n  { json: { member_id: 'M003', name: 'Lisa M.', phone: '+49 160 5521 7764', tenure_months: 22, days_since_last_workout: 3, avg_sessions_per_week: 3.5, plan: 'Premium', join_date: '2023-05-10' } },\n  { json: { member_id: 'M004', name: 'James R.', phone: '+49 152 3390 1128', tenure_months: 2, days_since_last_workout: 10, avg_sessions_per_week: 2.1, plan: 'Basic', join_date: '2026-01-05' } },\n  { json: { member_id: 'M005', name: 'Emma V.', phone: '+49 171 8834 6650', tenure_months: 9, days_since_last_workout: 30, avg_sessions_per_week: 0.5, plan: 'Premium', join_date: '2024-06-12' } },\n  { json: { member_id: 'M006', name: 'Chris N.', phone: '+49 163 7712 9904', tenure_months: 18, days_since_last_workout: 5, avg_sessions_per_week: 2.8, plan: 'Premium', join_date: '2023-09-01' } },\n  { json: { member_id: 'M007', name: 'Anna P.', phone: '+49 157 4401 5537', tenure_months: 3, days_since_last_workout: 15, avg_sessions_per_week: 1.0, plan: 'Basic', join_date: '2025-12-20' } },\n  { json: { member_id: 'M008', name: 'David L.', phone: '+49 174 6623 8819', tenure_months: 11, days_since_last_workout: 22, avg_sessions_per_week: 0.7, plan: 'Premium', join_date: '2024-04-08' } }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2064,
+        1680
+      ],
+      "id": "7feef474-e946-422c-ac80-d745ab469fa9",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  { json: { response_id: 'R001', member_id: 'M001', submitted_at: '2026-03-24T09:15:00', satisfaction_score: 3, nps_score: 5, feedback: 'Been busy with work, hoping to get back on track soon.', goal_progress: 'falling_behind' } },\n  { json: { response_id: 'R002', member_id: 'M003', submitted_at: '2026-03-25T18:30:00', satisfaction_score: 2, nps_score: 4, feedback: 'Classes are good but I feel like my progress has stalled.', goal_progress: 'falling_behind' } },\n  { json: { response_id: 'R003', member_id: 'M005', submitted_at: '2026-03-21T11:00:00', satisfaction_score: 2, nps_score: 3, feedback: 'Feeling unmotivated, not sure the plan suits me anymore.', goal_progress: 'falling_behind' } },\n  { json: { response_id: 'R004', member_id: 'M007', submitted_at: '2026-03-26T08:45:00', satisfaction_score: 4, nps_score: 7, feedback: 'Still finding my rhythm as a new member.', goal_progress: 'getting_started' } },\n  { json: { response_id: 'R005', member_id: 'M008', submitted_at: '2026-03-23T14:20:00', satisfaction_score: 2, nps_score: 4, feedback: 'Schedule conflicts making it hard to come in regularly.', goal_progress: 'falling_behind' } }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2064,
+        1968
+      ],
+      "id": "aee534dd-b11b-48f6-b648-0abc9be2a89a",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "id"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are a briefing assistant for a boutique fitness studio coach. Your job is to help coaches understand what is happening with a member before they reach out — NOT to write text for the coach to send. Write each note in third person, as internal context for the coach. Describe what the data shows, what might be going on for the member, and what angle could work for a conversation. Never address the member directly. Never write 'I' as if you are the coach. Keep each note under 60 words and specific to the data. Return ONLY a valid JSON object: {\"briefings\": [{\"member_id\": \"M001\", \"text\": \"Your briefing here.\"}]}. No text outside the JSON."
+            },
+            {
+              "content": "={{ $json.llm_prompt }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {
+          "textFormat": {
+            "textOptions": {
+              "type": "json_object"
+            }
+          }
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        3152,
+        1824
+      ],
+      "id": "e09fc933-70b6-48d5-9fc9-8ac5afbf92f6",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "LK0TeHnXUGDXe3d1",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Send Weekly Email Report": {
+      "main": [
+        []
+      ]
+    },
+    "Schedule Trigger (Monday 07:00)": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tag Survey Data": {
+      "main": [
+        [
+          {
+            "node": "Wait for Both Branches",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Wait for Both Branches": {
+      "main": [
+        [
+          {
+            "node": "Combine Risk + Survey Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Risk + Survey Data": {
+      "main": [
+        [
+          {
+            "node": "Prepare LLM Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare LLM Prompt": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build HTML Email": {
+      "main": [
+        [
+          {
+            "node": "Send Weekly Email Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score Churn Risk1": {
+      "main": [
+        [
+          {
+            "node": "Wait for Both Branches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Score Churn Risk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Tag Survey Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Build HTML Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "caf5be34-15de-4358-94fd-b4f7ca4d2a92",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e4404fde0521d757a03ddb5eb10f513d99e37ae271f2829cb5bd1c1d6dc2c2f2"
+  },
+  "id": "NrcT96vmZawugBzH",
+  "tags": []
+}

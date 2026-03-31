@@ -1,0 +1,6 @@
+.env
+data/raw/endomondo.json
+data/raw/gym_churn_us.csv
+data/fitbit_tokens.json
+__pycache__/
+*.pyc
