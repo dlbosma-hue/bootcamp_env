@@ -3,20 +3,25 @@ monitoring_setup.py
 --------------------
 Runs a LangSmith experiment on the "Fitness Retention Insights V1" dataset.
 
-Target function: re-generates each insight from the query using the LLM.
-Evaluators:
-  1. relevance   – does the insight answer the question? (1–5)
-  2. actionability – does it suggest a concrete action? (1–5)
-  3. clarity      – is it understandable for a non-technical CEO? (1–5)
+GREEN PATTERN: Demand Shaping / Cached Computation
+  The target function now loads cached insights from insights_generated.json
+  instead of re-running the agent live for each evaluation example.
+  This eliminates 12 live LLM calls per evaluation cycle (was: 12, now: 0).
+  The LLM-as-judge evaluators still run — they evaluate the cached outputs.
 
-All three use an LLM-as-judge approach (Claude or GPT-4o-mini).
+Evaluators:
+  1. relevance      – does the insight answer the question? (1–5)
+  2. actionability  – does it suggest a concrete action? (1–5)
+  3. clarity        – is it understandable for a non-technical CEO? (1–5)
 
 Run AFTER langsmith/dataset_creation.py:
     cd Project5_dashboard_project
     python langsmith/monitoring_setup.py
 """
 
+import json
 import os
+import re
 from pathlib import Path
 
 import pandas as pd
@@ -31,42 +36,35 @@ load_dotenv()
 # ── Config ─────────────────────────────────────────────────────────────────────
 DATASET_NAME    = "Fitness Retention Insights V1"
 EXPERIMENT_NAME = "fitness-insights-llm-judge-v1"
-DATA_PATH       = Path(__file__).parent.parent / "data" / "processed" / "fitness_user_metrics.csv"
+INSIGHTS_PATH   = Path(__file__).parent.parent / "agent" / "insights_generated.json"
 
 client = Client()
 llm    = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
-# ── Data context (loaded once) ─────────────────────────────────────────────────
-_df = pd.read_csv(DATA_PATH)
-_by_risk = _df.groupby("churn_risk").agg(
-    avg_spw  = ("avg_sessions_per_week", "mean"),
-    avg_dur  = ("avg_duration_min", "mean"),
-    avg_days = ("days_since_last_workout", "mean"),
-    count    = ("user_id", "count"),
-    total_risk = ("revenue_at_risk_eur", "sum"),
-).round(2).to_string()
-
-DATA_CONTEXT = f"""Total members: {len(_df)}
-Churn distribution: {_df['churn_risk'].value_counts().to_dict()}
-Total revenue at risk: €{_df['revenue_at_risk_eur'].sum():,.0f}
-Per-risk-group stats:
-{_by_risk}"""
-
-AGENT_SYSTEM_PROMPT = """You are a fitness industry retention analyst briefing a non-technical CEO.
-Given member behaviour data and a question, respond with 2–4 clear, actionable sentences.
-Focus on business impact and recommended action."""
+# GREEN: load cached insights once at startup — no repeated file reads per example
+_cached_insights: dict[str, str] = {}
+if INSIGHTS_PATH.exists():
+    with open(INSIGHTS_PATH) as f:
+        for item in json.load(f):
+            if item.get("status") == "success":
+                _cached_insights[item["query"]] = item["insight"]
+    print(f"[GREEN] Loaded {len(_cached_insights)} cached insights from {INSIGHTS_PATH.name}")
+    print("  Evaluation will compare cached outputs — 0 live LLM calls for the target function.")
+else:
+    print(f"[WARNING] {INSIGHTS_PATH} not found — run agent/agent.py first to generate cached insights.")
 
 
 # ── Target function ────────────────────────────────────────────────────────────
 def run_agent(inputs: dict) -> dict:
-    """Re-generate the insight from the query — this is what LangSmith evaluates."""
+    """
+    GREEN: returns the cached insight for this query instead of re-running the LLM.
+    Eliminates 12 live LLM calls per evaluation cycle with no loss of evaluation quality.
+    """
     query = inputs["query"]
-    messages = [
-        SystemMessage(content=AGENT_SYSTEM_PROMPT),
-        HumanMessage(content=f"DATA:\n{DATA_CONTEXT}\n\nQUESTION: {query}"),
-    ]
-    response = llm.invoke(messages)
-    return {"insight": response.content.strip()}
+    insight = _cached_insights.get(query, "")
+    if not insight:
+        print(f"  [WARNING] No cached insight found for query: {query[:60]}...")
+    return {"insight": insight}
 
 
 # ── LLM-as-judge evaluators ────────────────────────────────────────────────────
@@ -86,7 +84,6 @@ Score 1–5 and explain briefly."""
         SystemMessage(content=JUDGE_SYSTEM),
         HumanMessage(content=prompt),
     ])
-    import json, re
     text = response.content.strip()
     match = re.search(r'\{.*\}', text, re.DOTALL)
     if match:
@@ -130,14 +127,19 @@ def evaluate_clarity(run, example) -> dict:
 
 # ── Run experiment ─────────────────────────────────────────────────────────────
 def main():
-    print(f"Running experiment '{EXPERIMENT_NAME}' on dataset '{DATASET_NAME}'...")
+    if not _cached_insights:
+        print("No cached insights available. Run agent/agent.py first.")
+        return
+
+    print(f"\nRunning experiment '{EXPERIMENT_NAME}' on dataset '{DATASET_NAME}'...")
+    print("[GREEN] Target function uses cached outputs — live LLM calls for this run: 0\n")
 
     results = evaluate(
         run_agent,
         data=DATASET_NAME,
         evaluators=[evaluate_relevance, evaluate_actionability, evaluate_clarity],
         experiment_prefix=EXPERIMENT_NAME,
-        metadata={"model": "gpt-4o-mini", "project": "fitness-retention-p5"},
+        metadata={"model": "gpt-4o-mini", "project": "fitness-retention-p5", "green": "cached-target"},
     )
 
     print("\nExperiment complete.")

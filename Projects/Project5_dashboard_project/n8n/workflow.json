@@ -1,5 +1,5 @@
 {
-  "name": "Fitness Chain — Daily Retention Alert",
+  "name": "Fitness Chain — Retention Alert (Every 3 Days)",
   "nodes": [
     {
       "id": "a1b2c3d4-0001-4000-8000-000000000001",
@@ -12,7 +12,7 @@
           "interval": [
             {
               "field": "cronExpression",
-              "expression": "0 8 * * 1-5"
+              "expression": "0 8 */3 * *"
             }
           ]
         }
@@ -37,7 +37,7 @@
       "position": [720, 300],
       "parameters": {
         "mode": "runOnceForAllItems",
-        "jsCode": "const { members, count, totalRisk, today } = $input.first().json;\n\nconst top5 = members.slice(0, 5)\n  .map(m => `• Member #${m.user_id} — ${m.days_since_last_workout} days inactive (${m.avg_sessions_per_week.toFixed(1)} sessions/wk)`)\n  .join('\\n');\n\nconst message = [\n  `🚨 *Daily Retention Alert — ${today}*`,\n  ``,\n  `*${count} high-risk members* need coach outreach today.`,\n  ``,\n  `*Top members by days inactive:*`,\n  top5,\n  ``,\n  `💶 *Revenue at risk today: €${totalRisk.toLocaleString()}*`,\n  ``,\n  `_Open the dashboard to see the full list and assign coaches._`\n].join('\\n');\n\nreturn [{ json: { message, count, totalRisk } }];"
+        "jsCode": "const { members, count, totalRisk, today } = $input.first().json;\n\nconst top5 = members.slice(0, 5)\n  .map(m => `• Member #${m.user_id} — ${m.days_since_last_workout} days inactive (${m.avg_sessions_per_week.toFixed(1)} sessions/wk)`)\n  .join('\\n');\n\nconst message = [\n  `🚨 *Retention Alert — ${today}*`,\n  ``,\n  `*${count} high-risk members* need coach outreach today.`,\n  ``,\n  `*Top members by days inactive:*`,\n  top5,\n  ``,\n  `💶 *Revenue at risk today: €${totalRisk.toLocaleString()}*`,\n  ``,\n  `_Open the dashboard to see the full list and assign coaches._`\n].join('\\n');\n\nreturn [{ json: { message, count, totalRisk } }];"
       }
     },
     {

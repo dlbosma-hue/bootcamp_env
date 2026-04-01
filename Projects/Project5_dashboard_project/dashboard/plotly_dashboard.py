@@ -27,6 +27,9 @@ ENDOMONDO  = BASE_DIR / "data" / "processed" / "fitness_user_metrics.csv"
 GYM_CHURN  = BASE_DIR / "data" / "raw" / "gym_churn_us.csv"
 
 # ── Load data ──────────────────────────────────────────────────────────────────
+# GREEN: both datasets are loaded once at server startup (module level).
+# Dash serves the pre-computed layout to every browser refresh — no per-request reload.
+# At scale (10+ studios), add flask_caching here if datasets grow or become dynamic.
 endo = pd.read_csv(ENDOMONDO)
 gym  = pd.read_csv(GYM_CHURN)
 
