@@ -64,6 +64,7 @@ The logistic regression model was trained on 4,000 gym members with real churn o
 | Channel | Frequency | Content | Recipients |
 |---|---|---|---|
 | Weekly email report | Monday 07:00 | Full member risk overview, survey responses from the week, natural language coaching context per flagged member | All coaches + studio owner (individual email per recipient, full studio view) |
+| Monthly survey summary | 1st of each month | Aggregated satisfaction scores, NPS, goal progress breakdown, every feedback quote from the past month | Studio owner |
 | Plotly dashboard | Always-on | Studio-level retention trends, segment breakdowns | Studio owner |
 
 **Weekly email — coaching context section:**
@@ -132,7 +133,7 @@ The consent gate in the n8n workflow technically enforces these tiers — wearab
 | **Studio owner** | Data controller, decision-maker, buyer | Revenue protection, GDPR compliance, minimal operational overhead. Wants to know churn is being caught early without hiring someone to watch a spreadsheet. |
 | **Coaches** | Primary system users | Timely, useful information that helps them have better conversations with members — without creating more admin work. Sceptical of tools that don't match how they work. |
 | **Members** | Data subjects | Not feeling surveilled. Trusting that their data is used to support them, not to pressure or disadvantage them. Clear right to opt out at any time. |
-| **Dina Bosma (consultant)** | Data processor, system operator | Delivering measurable retention outcomes. Building a replicable system that can be deployed across multiple studios. |
+| **Dina Bosma-Buczynska (consultant)** | Data processor, system operator | Delivering measurable retention outcomes. Building a replicable system that can be deployed across multiple studios. |
 | **Legal / DPA** (if applicable) | Compliance oversight | GDPR Article 28 DPA in place before processing begins. EU AI Act classification documented. Clear data subject rights processes. |
 | **Gym management software** (Mindbody, Gymdesk etc.) | Data source | System ingests exported data — no deep integration required at POC stage. Partnership potential at scale. |
 

@@ -1,6 +1,8 @@
 # MVP Documentation
 ### Spottr
 
+**GitHub Repository:** [dlbosma-hue/bootcamp_env — Final Project](https://github.com/dlbosma-hue/bootcamp_env/tree/main/Projects/Final_Project_DinaBB)
+
 ---
 
 ## MVP Scope
@@ -75,6 +77,12 @@ Trigger B: Studio-wide check-in drop (runs daily)
 Survey response received (Tally/Typeform webhook → n8n):
     → Tag response to member_id
     → Append to survey_responses.csv (member_id, date, rating, free_text, wants_checkin)
+
+Monthly summary trigger (1st of each month, 08:00):
+    → Read survey_responses.csv (filter: current calendar month)
+    → Aggregate: avg satisfaction, avg NPS, goal progress breakdown, all feedback quotes
+    → Build HTML summary email
+    → Send to studio owner via SMTP
 ```
 
 **Consent gate (coaching add-on members — private_coaching_workflow.json):** The wearable data branch only executes for members where `wearable_consent = true` in the consent flags table. Changing the flag to `false` immediately stops wearable data from being pulled on the next run.
@@ -138,6 +146,15 @@ For members enrolled in private coaching, an attendance-based override applies o
 
 **Retraining path:**
 After 6–8 weeks of real studio data, the model is retrained on that studio's actual churn outcomes using the same script (`src/model/train_churn_model.py`). Minimum accuracy threshold for production use: ≥ 80% on held-out test set.
+
+**Concept drift and ongoing model maintenance:**
+The model is not a one-time artefact. As a studio's member base, class offering, pricing, or seasonal patterns change over time, the statistical relationship between visit behaviour and churn shifts. This is concept drift — the model will gradually produce worse predictions if never updated, even if the code is unchanged.
+
+To address this in production:
+
+- **Retraining cadence:** Every 6 months per studio, using accumulated outcome data (actual cancellations vs. model predictions). Triggered earlier if the drift detection metric fires.
+- **Drift detection metric:** The Stage 1 churn rate ratio — flagged members cancelling at ≥ 2× the rate of unflagged members — is tracked monthly post-POC as the ongoing model health indicator. A ratio dropping below 1.5 on two consecutive months triggers early retraining.
+- **Support implication:** Drift monitoring and retraining cannot be fully automated without additional infrastructure. At POC and pilot scale, this is a manual consultant activity performed monthly. It is included in the monthly retainer and is a core justification for ongoing engagement beyond pure hosting.
 
 ---
 

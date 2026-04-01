@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spottr: Pitch Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif; background: #0a0a0a; color: #fff; overflow: hidden; }
+
+  .slide { display: none; width: 100vw; height: 100vh; padding: 52px 72px; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+  .slide.active { display: flex; }
+
+  .slide-number { position: absolute; bottom: 24px; right: 40px; font-size: 12px; color: rgba(255,255,255,0.25); letter-spacing: 1px; }
+  .tag { position: absolute; top: 24px; left: 40px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+
+  /* Spottr gradient palette */
+  :root {
+    --orange: #f97316;
+    --red:    #ef4444;
+    --purple: #8b5cf6;
+    --cyan:   #06b6d4;
+    --grad:   linear-gradient(90deg, #f97316, #ef4444, #8b5cf6, #06b6d4);
+    --grad135: linear-gradient(135deg, #f97316, #ef4444, #8b5cf6, #06b6d4);
+  }
+
+  h1 { font-size: 62px; font-weight: 800; line-height: 1.05; margin-bottom: 20px; }
+  h2 { font-size: 42px; font-weight: 700; line-height: 1.1; margin-bottom: 18px; }
+  h3 { font-size: 22px; font-weight: 600; margin-bottom: 10px; }
+  p  { font-size: 20px; line-height: 1.65; color: rgba(255,255,255,0.8); }
+  .sub { font-size: 22px; color: rgba(255,255,255,0.55); margin-top: 8px; }
+
+  .accent  { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .ora     { color: #f97316; }
+  .red-c   { color: #ef4444; }
+  .pur     { color: #8b5cf6; }
+  .cyn     { color: #06b6d4; }
+  .grn     { color: #22c55e; }
+  .amb     { color: #f59e0b; }
+
+  /* Slide backgrounds */
+  .s1  { background: radial-gradient(ellipse at 80% 50%, rgba(249,115,22,0.12) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(6,182,212,0.08) 0%, transparent 50%), #0a0a0a; }
+  .s2  { background: radial-gradient(ellipse at 15% 25%, rgba(100,116,139,0.1) 0%, transparent 55%), radial-gradient(ellipse at 85% 75%, rgba(239,68,68,0.04) 0%, transparent 40%), #0a0a0a; }
+  .s3  { background: radial-gradient(ellipse at 90% 10%, rgba(139,92,246,0.1) 0%, transparent 50%), #0a0a0a; }
+  .s4  { background: radial-gradient(ellipse at 50% 80%, rgba(6,182,212,0.08) 0%, transparent 50%), #0a0a0a; }
+  .s5  { background: radial-gradient(ellipse at 20% 20%, rgba(139,92,246,0.08) 0%, transparent 50%), #0a0a0a; }
+  .s6  { background: radial-gradient(ellipse at 80% 80%, rgba(249,115,22,0.08) 0%, transparent 50%), #0a0a0a; }
+  .s7  { background: radial-gradient(ellipse at 30% 70%, rgba(6,182,212,0.08) 0%, transparent 50%), #0a0a0a; }
+  .s8  { background: radial-gradient(ellipse at 70% 30%, rgba(34,197,94,0.06) 0%, transparent 50%), #0a0a0a; }
+  .s9  { background: radial-gradient(ellipse at 20% 50%, rgba(139,92,246,0.08) 0%, transparent 50%), #0a0a0a; }
+  .s10 { background: radial-gradient(ellipse at 60% 40%, rgba(249,115,22,0.1) 0%, transparent 50%), radial-gradient(ellipse at 30% 70%, rgba(6,182,212,0.08) 0%, transparent 50%), #0a0a0a; }
+
+  /* Layout */
+  .cols { display: grid; gap: 24px; }
+  .cols-2 { grid-template-columns: 1fr 1fr; }
+  .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+  .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 24px 22px; }
+  .card h3 { font-size: 18px; margin-bottom: 8px; }
+  .card p  { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.55; }
+  .card .big { font-size: 48px; font-weight: 800; margin-bottom: 6px; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .badge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .badge-red    { background: rgba(239,68,68,0.2);   color: #ef4444; border: 1px solid rgba(239,68,68,0.4); }
+  .badge-amber  { background: rgba(245,158,11,0.2);  color: #f59e0b; border: 1px solid rgba(245,158,11,0.4); }
+  .badge-green  { background: rgba(34,197,94,0.2);   color: #22c55e; border: 1px solid rgba(34,197,94,0.4); }
+  .badge-purple { background: rgba(139,92,246,0.2);  color: #8b5cf6; border: 1px solid rgba(139,92,246,0.4); }
+  .badge-cyan   { background: rgba(6,182,212,0.2);   color: #06b6d4; border: 1px solid rgba(6,182,212,0.4); }
+
+  ul { list-style: none; margin-top: 14px; }
+  ul li { font-size: 18px; color: rgba(255,255,255,0.75); padding: 7px 0 7px 22px; border-bottom: 1px solid rgba(255,255,255,0.05); position: relative; line-height: 1.5; }
+  ul li:before { content: '→'; position: absolute; left: 0; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  .divider { width: 50px; height: 3px; background: var(--grad); border-radius: 2px; margin-bottom: 24px; }
+  .kicker { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 16px; font-weight: 700; display: inline-block; }
+
+  .nav { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 100; }
+  .nav button { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 9px 26px; border-radius: 8px; font-size: 14px; cursor: pointer; transition: all 0.2s; }
+  .nav button:hover { background: rgba(249,115,22,0.3); border-color: #f97316; }
+
+  /* Spottr Logo SVG */
+  .spottr-logo { display: flex; align-items: center; margin-bottom: 32px; }
+  .logo-img { height: 130px; width: auto; }
+
+  /* Email screenshot style */
+  .email-window { background: #1a1a2e; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; overflow: hidden; font-size: 13px; }
+  .email-titlebar { background: rgba(255,255,255,0.06); padding: 10px 16px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .email-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .email-title { font-size: 11px; color: rgba(255,255,255,0.4); margin-left: 8px; letter-spacing: 0.5px; }
+  .email-body { padding: 18px 20px; }
+  .email-subject { font-weight: 700; font-size: 14px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+  .email-section { margin-bottom: 14px; }
+  .email-section-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 8px; }
+  .email-member { display: flex; justify-content: space-between; align-items: flex-start; padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.05); gap: 12px; }
+  .email-member-name { font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+  .email-member-note { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; font-style: italic; max-width: 260px; line-height: 1.4; }
+  .email-stat-row { display: flex; gap: 16px; margin-bottom: 12px; }
+  .email-stat { text-align: center; flex: 1; }
+  .email-stat-num { font-size: 20px; font-weight: 800; }
+  .email-stat-label { font-size: 10px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Dashboard screenshot style */
+  .dash-window { background: #111827; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; }
+  .dash-header { background: #0f172a; padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; }
+  .dash-title { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.8); }
+  .dash-meta { font-size: 11px; color: rgba(255,255,255,0.35); }
+  .dash-body { padding: 14px 16px; }
+  .dash-kpis { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .dash-kpi { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 10px 14px; text-align: center; }
+  .dash-kpi-num { font-size: 22px; font-weight: 800; }
+  .dash-kpi-label { font-size: 10px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .dash-chart { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 12px; margin-bottom: 10px; }
+  .chart-bars { display: flex; align-items: flex-end; gap: 16px; height: 70px; padding: 0 8px; }
+  .chart-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .chart-bar { width: 100%; border-radius: 4px 4px 0 0; }
+  .chart-bar-label { font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+  .chart-bar-num { font-size: 12px; font-weight: 700; }
+  .dash-table { width: 100%; border-collapse: collapse; }
+  .dash-table th { text-align: left; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 6px 10px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .dash-table td { padding: 7px 10px; font-size: 11px; color: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(255,255,255,0.04); }
+
+  /* Monthly summary style */
+  .survey-window { background: #0d1a2a; border: 1px solid rgba(6,182,212,0.2); border-radius: 12px; overflow: hidden; }
+  .survey-header { background: rgba(6,182,212,0.08); padding: 10px 16px; border-bottom: 1px solid rgba(6,182,212,0.15); font-size: 13px; font-weight: 700; color: #06b6d4; }
+  .survey-body { padding: 14px 16px; }
+  .survey-metric-row { display: flex; gap: 10px; margin-bottom: 12px; }
+  .survey-metric { flex: 1; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 10px; text-align: center; }
+  .survey-metric-num { font-size: 20px; font-weight: 800; color: #06b6d4; }
+  .survey-metric-label { font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 1px; }
+  .survey-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 11px; color: rgba(255,255,255,0.65); }
+  .survey-quote { background: rgba(239,68,68,0.08); border-left: 3px solid #ef4444; border-radius: 0 6px 6px 0; padding: 8px 12px; margin-top: 8px; font-size: 11px; color: rgba(255,255,255,0.6); font-style: italic; }
+
+  /* Watch flag */
+  .watch-box { background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.3); border-radius: 12px; padding: 14px 18px; margin-top: 8px; }
+
+  /* Flow steps */
+  .flow-h { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+  .flow-step { background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.25); border-radius: 10px; padding: 12px 16px; font-size: 14px; font-weight: 600; text-align: center; flex: 1; min-width: 100px; }
+  .flow-arrow { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 20px; flex-shrink: 0; font-weight: 700; }
+
+  .table-clean { width: 100%; border-collapse: collapse; margin-top: 14px; }
+  .table-clean th { text-align: left; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.35); padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .table-clean td { padding: 10px 14px; font-size: 16px; color: rgba(255,255,255,0.8); border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+  .progress-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 6px; margin-top: 4px; overflow: hidden; }
+  .progress-bar { height: 100%; border-radius: 4px; background: var(--grad); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 1 — TITLE / HOOK
+═══════════════════════════════════════════════ -->
+<div class="slide s1 active">
+  <div class="tag">Bootcamp Final Project · Dina Bosma-Buczynska</div>
+
+  <div class="cols cols-2" style="height:84vh; align-items:center; gap:64px;">
+    <div style="display:flex; flex-direction:column; align-items:flex-start; justify-content:center;">
+      <div class="spottr-logo" style="margin-bottom:28px;">
+        <img class="logo-img" src="../screenshots%20final%20project%20/spottr_logo.png" alt="Spottr">
+      </div>
+      <p class="kicker" style="margin-bottom:20px;">Member retention · AI-powered briefings</p>
+      <h1 style="font-size:72px;">Know who's drifting<br><span class="accent">before they cancel.</span></h1>
+      <p class="sub" style="font-size:22px; line-height:1.7; margin-top:20px;">Built for boutique fitness studios where every coach knows every member by name.<br>Every cancellation is real revenue walking out the door.<br>Spottr spots who's going quiet, 4 to 6 weeks before they leave.</p>
+      <div style="margin-top:40px; display:flex; gap:12px; flex-wrap:wrap;">
+        <div style="padding:10px 20px; border:1px solid rgba(249,115,22,0.4); border-radius:8px; font-size:14px; color:rgba(255,255,255,0.6);">POC Proposal · 90 days</div>
+        <div style="padding:10px 20px; border:1px solid rgba(6,182,212,0.3); border-radius:8px; font-size:14px; color:rgba(255,255,255,0.6);">Boutique fitness · 80–250 members</div>
+        <div style="padding:10px 20px; border:1px solid rgba(139,92,246,0.3); border-radius:8px; font-size:14px; color:rgba(255,255,255,0.6);">Dina Bosma-Buczynska · March 2026</div>
+      </div>
+    </div>
+
+    <div style="padding:36px 32px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:14px; height:70%; display:flex; flex-direction:column; justify-content:center; margin-top:60px;">
+      <p style="font-size:12px; letter-spacing:2.5px; text-transform:uppercase; font-weight:700; margin-bottom:20px; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:inline-block;">The cost of waiting</p>
+      <p style="font-size:23px; font-weight:600; line-height:1.65; color:rgba(255,255,255,0.88);">"Replacing one member costs <span style="background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">5 times more</span> than keeping them.</p>
+      <p style="font-size:23px; font-weight:600; line-height:1.65; color:rgba(255,255,255,0.88); margin-top:16px;">Your coaches have the opportunity window.</p>
+      <p style="font-size:23px; font-weight:600; line-height:1.65; color:rgba(255,255,255,0.88); margin-top:16px;">Until now they just didn't have the data."</p>
+    </div>
+  </div>
+
+  <div class="slide-number">01 / 09</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 2 — THE SOLUTION (with email screenshot)
+═══════════════════════════════════════════════ -->
+<div class="slide s3">
+  <div class="tag">The solution</div>
+  <div class="cols cols-2" style="align-items:center; gap:48px; height:82vh;">
+    <div>
+      <div class="divider"></div>
+      <h2>Every Monday at 07:00,<br>your coaches receive <span class="accent">this.</span></h2>
+      <p style="margin-top:16px; font-size:17px;">Who is going quiet. What the pattern looks like. A short note on what's worth knowing before you reach out. <strong style="color:rgba(255,255,255,0.95);">Spottr never contacts members. Your coaches do, in their own words.</strong></p>
+      <ul style="margin-top:20px;">
+        <li>At-risk members ranked by churn probability</li>
+        <li>Plain-English coaching note written for each one</li>
+        <li>Survey responses surfaced alongside risk score</li>
+        <li style="color:#8b5cf6;"><span style="color:inherit;">WATCH flag: still coming in, but unhappy</span></li>
+      </ul>
+
+      <div class="watch-box" style="margin-top:20px; border-color:rgba(139,92,246,0.4); padding:16px 20px;">
+        <p style="font-size:16px; margin-bottom:10px; line-height:1.7;"><strong style="color:#8b5cf6;">What the WATCH flag catches:</strong> A member who still attends regularly but rates their satisfaction low in a survey. Attendance alone would never flag them. They look fine in the data.</p>
+        <p style="font-size:15px; color:rgba(255,255,255,0.65); line-height:1.7;"><strong style="color:rgba(255,255,255,0.8);">How the survey works:</strong> When a class sees fewer check-ins than usual, Spottr automatically sends a short survey to the members who've been attending that class. It takes less than a minute. When the NPS score is lower than 3, their answers show up in Monday's briefing as WATCH. A member can only be surveyed once every 5 weeks, so no one gets flooded.</p>
+      </div>
+    </div>
+
+    <!-- Email screenshot recreation -->
+    <div class="email-window">
+      <div class="email-titlebar">
+        <div class="email-dot" style="background:#ef4444;"></div>
+        <div class="email-dot" style="background:#f59e0b;"></div>
+        <div class="email-dot" style="background:#22c55e;"></div>
+        <span class="email-title">Spottr Weekly Retention Report (sample data)</span>
+      </div>
+      <div class="email-body">
+        <div class="email-subject">📊 Spottr Weekly Retention Report <em style="font-weight:400; color:rgba(255,255,255,0.45); font-size:12px;">sample data</em></div>
+        <div class="email-stat-row">
+          <div class="email-stat"><div class="email-stat-num" style="color:#ef4444;">3</div><div class="email-stat-label">HIGH</div></div>
+          <div class="email-stat"><div class="email-stat-num" style="color:#f59e0b;">2</div><div class="email-stat-label">MEDIUM</div></div>
+          <div class="email-stat"><div class="email-stat-num" style="color:#22c55e;">57</div><div class="email-stat-label">OK</div></div>
+          <div class="email-stat"><div class="email-stat-num" style="color:#8b5cf6;">1</div><div class="email-stat-label">WATCH</div></div>
+        </div>
+        <div class="email-section">
+          <div class="email-section-label">High priority</div>
+          <div class="email-member">
+            <div>
+              <div class="email-member-name">Sarah K. <span class="badge badge-red">HIGH</span></div>
+              <div class="email-member-note">25 days since last visit · 0.8 sessions/wk · "Dropped from 3× a week to almost nothing. Worth a personal check-in before this gets harder to reverse."</div>
+            </div>
+          </div>
+          <div class="email-member">
+            <div>
+              <div class="email-member-name">Emma V. <span class="badge badge-red">HIGH</span></div>
+              <div class="email-member-note">18 days since last visit · new member (6 months) · contract ending soon. High-risk window: first impressions are still forming.</div>
+            </div>
+          </div>
+          <div class="email-member">
+            <div>
+              <div class="email-member-name">David L. <span class="badge badge-red">HIGH</span></div>
+              <div class="email-member-note">31 days since last visit · was 4×/week until January. Sharp drop with no survey response.</div>
+            </div>
+          </div>
+        </div>
+        <div class="watch-box" style="margin-top:6px;">
+          <div class="email-section-label" style="color:#8b5cf6;">⚠ WATCH: attending but unhappy</div>
+          <div class="email-member">
+            <div>
+              <div class="email-member-name" style="font-size:12px;">Lisa M. <span class="badge badge-purple">WATCH</span></div>
+              <div class="email-member-note">Still attending 3.5×/wk · rated 2/5 · "Classes are good but I feel my progress has stalled." → Wants coach check-in: Yes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="slide-number">02 / 09</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 3 — DASHBOARD (live visual)
+═══════════════════════════════════════════════ -->
+<div class="slide s4">
+  <div class="tag">The dashboard</div>
+  <div class="cols cols-2" style="align-items:start; gap:48px; height:82vh; margin-top:16px;">
+
+    <div>
+      <div class="divider"></div>
+      <h2>One view.<br>Every member.<br><span class="accent">Revenue at risk.</span></h2>
+      <p style="margin-top:16px; font-size:17px;">The dashboard lives on a browser tab in your studio. Open it before a coaching conversation or a meeting with your owner: instant snapshot of where your studio stands.</p>
+      <ul style="margin-top:20px;">
+        <li>All members colour-coded by risk tier</li>
+        <li>Revenue at risk, visible as a single number</li>
+        <li>Priority table: sort by risk, days inactive, revenue</li>
+        <li>Refreshes automatically before every Monday briefing</li>
+      </ul>
+      <div style="margin-top:20px; padding:14px 18px; background:rgba(6,182,212,0.08); border:1px solid rgba(6,182,212,0.2); border-radius:10px;">
+        <p style="font-size:14px; color:rgba(255,255,255,0.7);">No login, no app, no subscription portal. I set it up on your studio computer once. Your coaches bookmark the link.</p>
+      </div>
+    </div>
+
+    <!-- Dashboard: live iframe embed with HTML fallback -->
+    <div style="display:flex; flex-direction:column; height:100%;">
+      <div style="font-size:11px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Live dashboard: run <code style="background:rgba(255,255,255,0.08); padding:2px 8px; border-radius:4px; font-size:11px;">python dashboard/spottr_dashboard.py</code> first</div>
+      <div class="dash-window" style="flex:1; display:flex; flex-direction:column;">
+        <div class="dash-header">
+          <div class="dash-title">Spottr Retention Dashboard · http://127.0.0.1:8050</div>
+          <div class="dash-meta">demo data · run locally to see live view</div>
+        </div>
+        <iframe
+          id="dash-iframe"
+          src="http://127.0.0.1:8050"
+          style="width:100%; flex:1; border:none; border-radius:0 0 12px 12px; min-height:360px; display:none;"
+          onload="this.style.display='block'; document.getElementById('dash-fallback').style.display='none';"
+        ></iframe>
+        <!-- Fallback shown by default, hidden when iframe loads -->
+        <div id="dash-fallback" class="dash-body" style="display:flex; flex-direction:column;">
+          <div class="dash-kpis">
+            <div class="dash-kpi"><div class="dash-kpi-num" style="color:#ef4444;">60</div><div class="dash-kpi-label">HIGH risk</div></div>
+            <div class="dash-kpi"><div class="dash-kpi-num" style="color:#f59e0b;">30</div><div class="dash-kpi-label">MEDIUM risk</div></div>
+            <div class="dash-kpi"><div class="dash-kpi-num" style="color:#22c55e;">60</div><div class="dash-kpi-label">LOW risk</div></div>
+          </div>
+          <div class="dash-chart">
+            <div style="font-size:10px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Churn risk overview (demo)</div>
+            <div class="chart-bars">
+              <div class="chart-bar-wrap"><div class="chart-bar-num" style="color:#ef4444;">60</div><div class="chart-bar" style="height:60px; background:#ef4444; opacity:0.85;"></div><div class="chart-bar-label">HIGH</div></div>
+              <div class="chart-bar-wrap"><div class="chart-bar-num" style="color:#f59e0b;">30</div><div class="chart-bar" style="height:30px; background:#f59e0b; opacity:0.85;"></div><div class="chart-bar-label">MEDIUM</div></div>
+              <div class="chart-bar-wrap"><div class="chart-bar-num" style="color:#22c55e;">60</div><div class="chart-bar" style="height:60px; background:#22c55e; opacity:0.85;"></div><div class="chart-bar-label">LOW</div></div>
+            </div>
+          </div>
+          <table class="dash-table">
+            <tr><th>Member</th><th>Risk</th><th>Probability</th><th>Last visit</th><th>€ at risk</th></tr>
+            <tr><td>M-1042</td><td><span class="badge badge-red" style="font-size:9px;">HIGH</span></td><td><span style="color:#ef4444; font-weight:700;">91%</span></td><td>31 days ago</td><td style="color:#ef4444;">€1,440</td></tr>
+            <tr><td>M-0391</td><td><span class="badge badge-red" style="font-size:9px;">HIGH</span></td><td><span style="color:#ef4444; font-weight:700;">84%</span></td><td>25 days ago</td><td style="color:#ef4444;">€1,440</td></tr>
+            <tr><td>M-2817</td><td><span class="badge badge-amber" style="font-size:9px;">MED</span></td><td><span style="color:#f59e0b; font-weight:700;">58%</span></td><td>12 days ago</td><td style="color:#f59e0b;">€720</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="slide-number">03 / 09</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 4 — SURVEY LOOP + MONTHLY SUMMARY
+═══════════════════════════════════════════════ -->
+<div class="slide s7">
+  <div class="tag">The survey loop</div>
+  <div class="cols cols-2" style="height:84vh; align-items:center; gap:40px; margin-top:8px;">
+
+    <div>
+      <div class="divider"></div>
+      <h2>Members tell you what's wrong.<br><span class="accent">Automatically.</span></h2>
+      <p style="margin-top:12px; font-size:18px;">When a class starts losing attendees, Spottr sends a short check-in to the members who've been coming. 60 seconds. Three questions. No login required.</p>
+      <div class="flow-h" style="flex-direction:column; align-items:flex-start; gap:18px; margin-top:20px;">
+        <div style="display:flex; align-items:center; gap:16px;">
+          <div style="width:32px; height:32px; background:rgba(249,115,22,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#f97316; flex-shrink:0;">1</div>
+          <p style="font-size:19px; color:rgba(255,255,255,0.9);">A <span style="color:#f97316; font-weight:600;">drop</span> is detected. Members get a short survey link by email</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:16px;">
+          <div style="width:32px; height:32px; background:rgba(239,68,68,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#ef4444; flex-shrink:0;">2</div>
+          <p style="font-size:19px; color:rgba(255,255,255,0.9);">Member responds in 60 seconds: rating, <span style="color:#06b6d4; font-weight:600;">feedback</span>, do they want a call?</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:16px;">
+          <div style="width:32px; height:32px; background:rgba(139,92,246,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#8b5cf6; flex-shrink:0;">3</div>
+          <p style="font-size:19px; color:rgba(255,255,255,0.9);"><span style="color:#8b5cf6; font-weight:600;">Response</span> lands in Monday's briefing next to their risk score</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:16px;">
+          <div style="width:32px; height:32px; background:rgba(6,182,212,0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#06b6d4; flex-shrink:0;">4</div>
+          <p style="font-size:19px; color:rgba(255,255,255,0.9);">1st of the month: studio owner <span style="color:#06b6d4; font-weight:600;">gets an overview</span></p>
+        </div>
+      </div>
+      <p style="margin-top:18px; font-size:16px; color:rgba(255,255,255,0.35);">5-week cooldown per member. No one gets over-surveyed.</p>
+    </div>
+
+    <!-- Monthly survey email screenshot recreation -->
+    <div>
+      <div style="font-size:11px; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px;">Monthly summary: studio owner</div>
+      <div class="survey-window">
+        <div class="survey-header" style="display:flex; justify-content:space-between; align-items:center;">
+          <span>📋 Spottr Monthly Survey Summary</span>
+          <em style="font-weight:400; font-size:11px; opacity:0.6;">March 2026 · sample data</em>
+        </div>
+        <div class="survey-body">
+
+          <!-- Stats row -->
+          <div class="survey-metric-row">
+            <div class="survey-metric"><div class="survey-metric-num">6</div><div class="survey-metric-label">Responses</div></div>
+            <div class="survey-metric"><div class="survey-metric-num">2.6</div><div class="survey-metric-label">Avg satisfaction</div></div>
+            <div class="survey-metric"><div class="survey-metric-num">4.6</div><div class="survey-metric-label">Avg NPS</div></div>
+            <div class="survey-metric"><div class="survey-metric-num" style="color:#ef4444;">3</div><div class="survey-metric-label">Need attention</div></div>
+          </div>
+
+          <!-- Amber alert -->
+          <div style="background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.35); border-radius:6px; padding:8px 12px; margin-bottom:10px; font-size:11px; color:rgba(255,255,255,0.8); line-height:1.6;">
+            ⚠ 3 members rated satisfaction 2/5. Consider proactive outreach.<br>
+            <span style="color:rgba(255,255,255,0.4);">2 members flagged WATCH (attending but unhappy)</span>
+          </div>
+
+          <!-- All responses table -->
+          <div style="font-size:10px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:1px; margin-bottom:5px;">All Responses</div>
+          <table style="width:100%; border-collapse:collapse; font-size:11px;">
+            <thead>
+              <tr>
+                <th style="text-align:left; color:rgba(255,255,255,0.3); font-size:9px; letter-spacing:1px; text-transform:uppercase; padding:4px 6px; border-bottom:1px solid rgba(255,255,255,0.08);">Member</th>
+                <th style="text-align:center; color:rgba(255,255,255,0.3); font-size:9px; letter-spacing:1px; text-transform:uppercase; padding:4px 6px; border-bottom:1px solid rgba(255,255,255,0.08);">Sat</th>
+                <th style="text-align:left; color:rgba(255,255,255,0.3); font-size:9px; letter-spacing:1px; text-transform:uppercase; padding:4px 6px; border-bottom:1px solid rgba(255,255,255,0.08);">Goal progress</th>
+                <th style="text-align:left; color:rgba(255,255,255,0.3); font-size:9px; letter-spacing:1px; text-transform:uppercase; padding:4px 6px; border-bottom:1px solid rgba(255,255,255,0.08);">Feedback</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:5px 6px; color:rgba(255,255,255,0.75);">MX1</td>
+                <td style="padding:5px 6px; text-align:center; color:#ef4444; font-weight:700;">2/5</td>
+                <td style="padding:5px 6px; color:rgba(255,255,255,0.45); font-style:italic;">Falling behind</td>
+                <td style="padding:5px 6px; color:rgba(255,255,255,0.45);">"Busy with work..."</td>
+              </tr>
+              <tr style="border-top:1px solid rgba(255,255,255,0.04);">
+                <td style="padding:5px 6px; color:rgba(255,255,255,0.75);">MX3</td>
+                <td style="padding:5px 6px; text-align:center; color:#f59e0b; font-weight:700;">3/5</td>
+                <td style="padding:5px 6px; color:rgba(255,255,255,0.45); font-style:italic;">On track</td>
+                <td style="padding:5px 6px; color:rgba(255,255,255,0.3);">—</td>
+              </tr>
+              <tr style="border-top:1px solid rgba(255,255,255,0.04);">
+                <td style="padding:5px 6px; color:rgba(255,255,255,0.75);">MX5</td>
+                <td style="padding:5px 6px; text-align:center; color:#ef4444; font-weight:700;">2/5</td>
+                <td style="padding:5px 6px; color:rgba(255,255,255,0.45); font-style:italic;">Falling behind</td>
+                <td style="padding:5px 6px; color:rgba(255,255,255,0.45);">"Not sure this gym..."</td>
+              </tr>
+              <tr style="border-top:1px solid rgba(255,255,255,0.04);">
+                <td style="padding:5px 6px; color:rgba(255,255,255,0.75);">MX9</td>
+                <td style="padding:5px 6px; text-align:center; color:#ef4444; font-weight:700;">2/5</td>
+                <td style="padding:5px 6px; color:rgba(255,255,255,0.45); font-style:italic;">Falling behind</td>
+                <td style="padding:5px 6px; color:rgba(255,255,255,0.45);">"Keep skipping, want check-in"</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Goal progress breakdown -->
+          <div style="margin-top:10px; font-size:10px; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Goal Progress Breakdown</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.6); display:flex; justify-content:space-between; margin-bottom:3px;"><span>Falling behind</span><span>3 members</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:50%;"></div></div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.6); display:flex; justify-content:space-between; margin-top:6px; margin-bottom:3px;"><span>Getting started</span><span>2 members</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:33%;"></div></div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.6); display:flex; justify-content:space-between; margin-top:6px; margin-bottom:3px;"><span>On track</span><span>1 member</span></div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:17%;"></div></div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="slide-number">04 / 09</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 5 — THE AI (simplified)
+═══════════════════════════════════════════════ -->
+<div class="slide s6">
+  <div class="tag">How the AI works</div>
+  <div class="divider"></div>
+  <h2>Two things AI does,<br><span class="accent">for YOUR coaches.</span></h2>
+  <div class="cols cols-2" style="margin-top:24px; gap:28px;">
+
+    <div class="card">
+      <h3 style="color:#f97316;">🧠 It spots who is actually going quiet</h3>
+      <p style="margin-bottom:14px; font-size:18px;">Every check-in is a data point. When visits start to drop, Spottr notices. Usually weeks before the member says anything.</p>
+      <div style="background:rgba(249,115,22,0.07); border:1px solid rgba(249,115,22,0.2); border-radius:8px; padding:14px; font-size:17px; color:rgba(255,255,255,0.75); line-height:1.7;">
+        <strong style="color:#f97316;">Trained on 4,000 real cancellations.</strong> It knows what leaving looks like. That means when it flagged someone as at risk, they actually ended up leaving.
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#06b6d4;">💬 It writes the coach a short note</h3>
+      <p style="margin-bottom:14px; font-size:18px;">For every flagged member; one plain-English note with enough context to make the conversation feel natural.</p>
+      <div style="background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.25); border-radius:8px; padding:14px; font-size:16px; color:rgba(255,255,255,0.8); font-style:italic; line-height:1.7; margin-bottom:16px;">
+        "Sarah dropped from 3 sessions a week to almost nothing over the past month. Last visit was 25 days ago. A personal check-in about how she's finding the programme (not about attendance) would be a good starting point."
+      </div>
+      <ul style="margin-top:0;">
+        <li style="font-size:17px;">Runs once a week for the whole studio</li>
+        <li style="font-size:17px;">Same tone and format every time, no surprises</li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="slide-number">05 / 09</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 6 — GDPR + RESPONSIBLE AI
+═══════════════════════════════════════════════ -->
+<div class="slide s8">
+  <div class="tag">Compliance</div>
+  <div class="divider"></div>
+  <h2>GDPR taken care of.<br><span class="accent">Sorted before we start.</span></h2>
+  <div class="cols cols-2" style="margin-top:24px; gap:32px;">
+    <div>
+      <p style="margin-bottom:12px; font-size:15px; color:rgba(255,255,255,0.45); line-height:1.9;">GDPR is the EU law that sets the rules for how businesses collect and store personal data about people.<br>As a studio, your member records fall under it.</p>
+      <p style="margin-bottom:16px; font-size:17px; line-height:1.9;">Studio owners know GDPR applies to member data.<br>What stops them is having no one to handle it.<br>Spottr comes with all the paperwork ready.<br>I write what needs to be written, you sign what needs to be signed.</p>
+      <table class="table-clean">
+        <tr><th>Document</th><th>Status</th></tr>
+        <tr><td>Data Processing Agreement</td><td><span class="grn">✓ Pre-written</span></td></tr>
+        <tr><td>Member wearable consent form</td><td><span class="grn">✓ Pre-written</span></td></tr>
+        <tr><td>Privacy notice wording</td><td><span class="grn">✓ Exact text provided</span></td></tr>
+        <tr><td>EU AI Act classification</td><td><span class="grn">✓ LIMITED RISK, no extra obligations</span></td></tr>
+        <tr><td>Deletion on member request</td><td><span class="grn">✓ Documented, 48h procedure</span></td></tr>
+        <tr><td>Human in the loop</td><td><span class="grn">✓ AI suggests · coach decides</span></td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:20px;">
+        <h3>How member data is protected</h3>
+        <ul style="margin-top:8px;">
+          <li style="font-size:16px;">Members are tracked by an ID code, never by name</li>
+          <li style="font-size:16px;">Visit data used under legitimate interest (GDPR Art. 6)</li>
+          <li style="font-size:16px;">Wearable data: written consent required, workout sessions only</li>
+          <li style="font-size:16px;">Any member can opt out at any time, handled the same day</li>
+          <li style="font-size:16px;">All their data deleted within 48 hours of any request</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🌱 Responsible by design</h3>
+        <p style="font-size:16px; line-height:1.65; color:rgba(255,255,255,0.6);">Spottr runs once a week for all the members of your studio. Member data never leaves your setup. It spots and suggests. Your coach decides who to contact and what to say.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">06 / 09</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 7 — THE POC
+═══════════════════════════════════════════════ -->
+<div class="slide s9">
+  <div class="tag">The proof of concept</div>
+  <div class="divider"></div>
+  <h2>Not a trial. <span class="accent">A structured proof.</span><br><span style="font-size:28px; font-weight:400; color:rgba(255,255,255,0.6);">90 days. Two checkpoints. Real numbers.</span></h2>
+  <div class="cols cols-2" style="margin-top:24px; gap:36px; align-items:start;">
+
+    <!-- Timeline -->
+    <div style="position:relative; padding-left:36px;">
+      <div style="position:absolute; left:13px; top:12px; bottom:60px; width:2px; background:linear-gradient(to bottom, #f97316, #8b5cf6);"></div>
+
+      <!-- Week 1 -->
+      <div style="position:relative; margin-bottom:24px;">
+        <div style="position:absolute; left:-36px; top:2px; width:24px; height:24px; border-radius:50%; background:rgba(6,182,212,0.15); border:2px solid #06b6d4; display:flex; align-items:center; justify-content:center;">
+          <div style="width:8px; height:8px; border-radius:50%; background:#06b6d4;"></div>
+        </div>
+        <p style="font-size:16px; color:#06b6d4; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:4px;">Week 1</p>
+        <p style="font-size:18px; color:rgba(255,255,255,0.75);">Setup and configuration.<br>First live briefing delivered to coaches.</p>
+      </div>
+
+      <!-- Week 6 -->
+      <div style="position:relative; margin-bottom:10px;">
+        <div style="position:absolute; left:-36px; top:2px; width:24px; height:24px; border-radius:50%; background:rgba(249,115,22,0.15); border:2px solid #f97316; display:flex; align-items:center; justify-content:center;">
+          <div style="width:8px; height:8px; border-radius:50%; background:#f97316;"></div>
+        </div>
+        <p style="font-size:16px; color:#f97316; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:4px;">Week 6 — Checkpoint 1</p>
+        <p style="font-size:19px; font-weight:600; color:rgba(255,255,255,0.9); margin-bottom:6px;">Is Spottr flagging the right people?</p>
+        <p style="font-size:17px; color:rgba(255,255,255,0.65); line-height:1.8;">We look at who actually cancelled.<br>Were the members Spottr flagged more likely to leave than the ones it didn't?<br>If yes, coaches start acting on the briefings.<br>If not, we adjust together before moving on.</p>
+      </div>
+
+      <!-- Extension callout -->
+      <div style="margin-bottom:22px; padding:10px 14px; background:rgba(249,115,22,0.05); border-left:3px solid rgba(249,115,22,0.4); border-radius:0 6px 6px 0;">
+        <p style="font-size:15px; color:rgba(255,255,255,0.45); line-height:1.8;">If fewer than 5 members cancel in the 6-week window, the sample is too small to be conclusive.<br>The observation is extended by 4 weeks and the check is repeated.</p>
+      </div>
+
+      <!-- Week 13 -->
+      <div style="position:relative; margin-bottom:20px;">
+        <div style="position:absolute; left:-36px; top:2px; width:24px; height:24px; border-radius:50%; background:rgba(139,92,246,0.15); border:2px solid #8b5cf6; display:flex; align-items:center; justify-content:center;">
+          <div style="width:8px; height:8px; border-radius:50%; background:#8b5cf6;"></div>
+        </div>
+        <p style="font-size:16px; color:#8b5cf6; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:4px;">Week 13 — Checkpoint 2</p>
+        <p style="font-size:19px; font-weight:600; color:rgba(255,255,255,0.9); margin-bottom:6px;">Are the conversations making a difference?</p>
+        <p style="font-size:17px; color:rgba(255,255,255,0.65); line-height:1.8;">We compare two groups: flagged members coaches reached out to, and flagged members they didn't.<br>Are the ones who got a personal conversation staying?<br>Both answers decide whether we go further.</p>
+      </div>
+
+      <p style="font-size:15px; color:rgba(255,255,255,0.3); line-height:1.6;">A failed POC isn't wasted. It shows exactly what to fix before committing to anything monthly.</p>
+    </div>
+
+    <!-- Right column -->
+    <div>
+      <h3 style="margin-bottom:14px; color:rgba(255,255,255,0.8);">What's included in the 90 days</h3>
+      <ul>
+        <li>Weekly email briefing, every Monday morning, 90 days</li>
+        <li>Monthly survey summary, 1st of each month</li>
+        <li>Retention dashboard set up on studio computer</li>
+        <li>Event-triggered member satisfaction surveys</li>
+        <li>All GDPR documentation signed and ready before day 1</li>
+        <li>Full Week 13 debrief with your real studio numbers</li>
+      </ul>
+      <div style="margin-top:20px; padding:14px 18px; background:rgba(6,182,212,0.08); border:1px solid rgba(6,182,212,0.2); border-radius:10px;">
+        <p style="font-size:14px; color:rgba(255,255,255,0.7);"><strong style="color:#06b6d4;">System built and tested:</strong> The model, the dashboard, and email workflow shown here are all already live. This is not just a concept. It's running on demo data right now.</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="slide-number">07 / 09</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 8 — WHAT YOU GET
+═══════════════════════════════════════════════ -->
+<div class="slide s5">
+  <div class="tag">What you get</div>
+  <div class="divider"></div>
+  <h2>Three things that run themselves.<br><span class="accent">Zero extra admin.</span></h2>
+  <div class="cols cols-3" style="margin-top:28px; gap:20px;">
+
+    <div class="card" style="border-color:rgba(249,115,22,0.3);">
+      <div style="font-size:28px; margin-bottom:12px;">📬</div>
+      <h3 style="color:rgba(255,255,255,0.95);">Weekly briefing<br>Every Monday 07:00</h3>
+      <ul style="margin-top:8px;">
+        <li style="font-size:18px; padding:5px 0 5px 20px;">At-risk members ranked by urgency</li>
+        <li style="font-size:18px; padding:5px 0 5px 20px;">Coaching note: what to know before you reach out</li>
+        <li style="font-size:18px; padding:5px 0 5px 20px;"><span style="color:#8b5cf6;">WATCH flag</span>: attending but unhappy</li>
+        <li style="font-size:18px; padding:5px 0 5px 20px;">Survey responses from that week</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-color:rgba(34,197,94,0.3);">
+      <div style="font-size:28px; margin-bottom:12px;">📋</div>
+      <h3 style="color:rgba(255,255,255,0.95);">Monthly summary<br>1st of every month</h3>
+      <ul style="margin-top:8px;">
+        <li style="font-size:18px; padding:5px 0 5px 20px;">Average member satisfaction score</li>
+        <li style="font-size:18px; padding:5px 0 5px 20px;">NPS (Net Promoter Score)</li>
+        <li style="font-size:18px; padding:5px 0 5px 20px;">Goal progress across all members</li>
+        <li style="font-size:18px; padding:5px 0 5px 20px;">Every feedback quote from the month</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-color:rgba(6,182,212,0.3);">
+      <div style="font-size:28px; margin-bottom:12px;">📊</div>
+      <h3 style="color:rgba(255,255,255,0.95);">Retention dashboard<br>Always on</h3>
+      <ul style="margin-top:8px;">
+        <li style="font-size:18px; padding:5px 0 5px 20px;">All members colour-coded by risk</li>
+        <li style="font-size:18px; padding:5px 0 5px 20px;">Revenue at risk in euros</li>
+        <li style="font-size:18px; padding:5px 0 5px 20px;">Priority table: sort by urgency</li>
+        <li style="font-size:18px; padding:5px 0 5px 20px;">Bookmark it once. Open it like any website.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="slide-number">08 / 09</div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     SLIDE 9 — THE ASK
+═══════════════════════════════════════════════ -->
+<div class="slide s10">
+  <div class="tag">The ask</div>
+  <div class="cols cols-2" style="height:84vh; align-items:center; gap:64px;">
+    <div>
+      <img src="../screenshots%20final%20project%20/spottr_logo.png" alt="Spottr" style="height:120px; width:auto; margin-bottom:28px; display:block;">
+      <div class="divider"></div>
+      <h2>One studio.<br>90 days.<br><span class="accent">€2,000.</span></h2>
+      <p style="margin-top:20px; font-size:19px; line-height:1.75;">We run the system on your real members for 90 days and measure what happens.<br>If your coaches start saving cancellations, we continue.<br>If the numbers don't add up, you walk away with a full written report on exactly what we found.</p>
+      <div style="margin-top:24px; padding:14px 20px; background:rgba(249,115,22,0.08); border:1px solid rgba(249,115,22,0.25); border-radius:10px;">
+        <p style="font-size:16px; color:rgba(255,255,255,0.8);">After the 90 days: <strong style="color:#f97316;">€149/month</strong> to keep it running. No long-term contract required.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:16px; border-color:rgba(249,115,22,0.2);">
+        <h3>What this looks like in your studio</h3>
+        <p style="margin-bottom:10px; font-size:16px; color:rgba(255,255,255,0.6);">Say you have 150 members at €120/month. If 40% leave this year, that's 60 people walking out the door. That's around €86,400 in revenue you won't see again.</p>
+        <p style="font-size:16px; color:rgba(255,255,255,0.6);">Spottr gives your coaches a heads-up before those decisions are made. Even keeping a handful of those members pays for the whole year.</p>
+        <p style="margin-top:14px; font-size:16px; font-weight:600; color:rgba(255,255,255,0.8);">The 90 days shows you your real number, not an estimate.</p>
+      </div>
+      <div class="cols cols-3" style="gap:10px;">
+        <div class="card" style="text-align:center; padding:14px 10px; border-color:rgba(249,115,22,0.3);">
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-bottom:4px; text-transform:uppercase; letter-spacing:1px;">To get started</div>
+          <div style="font-size:24px; font-weight:800; color:#f97316;">€2,000</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35);">One-time · 90-day POC</div>
+        </div>
+        <div class="card" style="text-align:center; padding:14px 10px; border-color:rgba(34,197,94,0.3);">
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-bottom:4px; text-transform:uppercase; letter-spacing:1px;">If it works</div>
+          <div style="font-size:24px; font-weight:800; color:#22c55e;">€149</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35);">Per month after POC</div>
+        </div>
+        <div class="card" style="text-align:center; padding:14px 10px; border-color:rgba(6,182,212,0.3);">
+          <div style="font-size:10px; color:rgba(255,255,255,0.35); margin-bottom:4px; text-transform:uppercase; letter-spacing:1px;">If it doesn't</div>
+          <div style="font-size:18px; font-weight:800; color:#06b6d4;">Walk away</div>
+          <div style="font-size:10px; color:rgba(255,255,255,0.35);">Full report included</div>
+        </div>
+      </div>
+      <div style="margin-top:16px; padding:20px 22px; background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.25); border-radius:10px;">
+        <p style="font-size:17px; font-weight:600; color:#8b5cf6; margin-bottom:8px;">What happens next?</p>
+        <p style="font-size:15px; color:rgba(255,255,255,0.6); line-height:1.8;">We sign a short data contract. You connect your check-in data. Your coaches get their first briefing on Monday morning. Then we watch the numbers together.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">09 / 09</div>
+</div>
+
+
+<!-- NAVIGATION -->
+<div class="nav">
+  <button onclick="prevSlide()">← Back</button>
+  <span id="progress" style="padding:9px 16px; font-size:13px; color:rgba(255,255,255,0.4);"></span>
+  <button onclick="nextSlide()">Next →</button>
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const progress = document.getElementById('progress');
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    progress.textContent = (current + 1) + ' / ' + slides.length;
+  }
+
+  function nextSlide() { showSlide(current + 1); }
+  function prevSlide() { showSlide(current - 1); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+
+  // init
+  progress.textContent = '1 / ' + slides.length;
+</script>
+</body>
+</html>

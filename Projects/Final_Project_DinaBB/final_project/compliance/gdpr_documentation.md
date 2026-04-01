@@ -32,7 +32,7 @@
 *Studio Name: [To be completed at deployment]*
 *Studio Location: Berlin, Germany (pilot)*
 *Data Controller: Studio Owner / Manager*
-*Data Processor: Dina Bosma, AI Consultant*
+*Data Processor: Dina Bosma-Buczynska, AI Consultant*
 *DPA Reference: See data_processing_agreement_template.md*
 
 ---
@@ -104,7 +104,7 @@
 ### Wearable Activity Data Processing via Fitbit API
 
 *DPIA Date: March 2026*
-*Assessor: Dina Bosma (Data Processor) + Studio Owner (Data Controller)*
+*Assessor: Dina Bosma-Buczynska (Data Processor) + Studio Owner (Data Controller)*
 *Review Date: Quarterly*
 
 ---

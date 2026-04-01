@@ -97,7 +97,7 @@ Reasoning:
 | Section | Detail |
 |---|---|
 | System Name | AI Early Warning System – Member Churn Prediction |
-| Provider | Dina Bosma, AI Consultant |
+| Provider | Dina Bosma-Buczynska, AI Consultant |
 | Deployer | Boutique fitness studio (owner-operator) |
 | System Version | 1.0 (Pilot) |
 | Deployment Date | March 2026 |

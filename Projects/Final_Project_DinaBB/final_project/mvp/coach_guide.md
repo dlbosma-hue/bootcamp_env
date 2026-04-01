@@ -274,6 +274,10 @@ Responses are logged automatically to `data/survey_responses.csv` via an n8n web
 
 You do not need to check anything separately. If a member responds, you will see it in Monday's email.
 
+### Monthly survey summary
+
+On the 1st of every month, the studio owner automatically receives a **monthly survey summary** email. This covers all survey responses from the previous month in one overview — average satisfaction score, average NPS, goal progress breakdown across all respondents, and every feedback quote. This is separate from the weekly email and is not sent to coaches — it is a studio-level view for the owner to track whether member sentiment is improving over time.
+
 ### What to do if a member says "yes, please reach out"
 
 Contact them the same week. Reference something specific from their response if they left a comment. Do not mention Spottr by name unless they ask — just reach out naturally.
@@ -294,4 +298,5 @@ Nothing. Non-response is not a signal on its own. The risk scoring continues nor
 | Member consent form | `final_project/compliance/member_wearable_consent_form.md` |
 | Member withdraws consent | Set flag to false → delete CSV rows → revoke Fitbit token → confirm in writing |
 | Survey responses | Appear in Monday email automatically |
+| Monthly survey summary | Sent to studio owner on 1st of each month (automatic) |
 | Something looks wrong | Contact the studio manager or Dina (consultant) |

@@ -28,6 +28,7 @@ Phase 2 is only entered if both questions are answered yes. Phase 1 is not a tri
 - Weekly email report (Monday 07:00, n8n → all coaches + studio owner, full studio view)
 - Retention dashboard (Plotly, runs on studio computer, accessible via browser — shows member risk overview and priority contact list)
 - Event-triggered member survey (class attendance drop OR studio-wide check-in drop, max once per 5 weeks per member)
+- Monthly survey summary email (1st of each month, studio owner — aggregated satisfaction scores, NPS, goal progress, all feedback quotes from the past month)
 - Natural language coaching context per flagged member in weekly report
 - Human-in-the-loop coaching workflow
 - Manual GDPR deletion process (48-hour response on request)
@@ -130,6 +131,18 @@ Phase 1 handles erasure requests manually (studio emails consultant → consulta
 - Quarterly energy / carbon proxy reporting per studio
 
 **Commercial model active:** See Section 5.3.
+
+**Ongoing model operations (required at scale):**
+
+As the studio's member base evolves — new instructors, pricing changes, demographic shifts, seasonal patterns — the statistical relationship between visit behaviour and churn changes over time. A model trained once on a generic dataset will gradually make worse predictions. This is known as concept drift.
+
+To address this at Phase 3 scale:
+
+- **Model retraining schedule:** Every 6 months per studio, using accumulated outcome data from that studio's real cancellations. Retraining uses the same pipeline (`src/model/train_churn_model.py`) with a minimum accuracy threshold of ≥ 80% on a held-out test set before the new model goes live.
+- **Drift detection metric:** The Stage 1 churn rate ratio (flagged members cancelling at ≥ 2× the rate of unflagged members) is tracked monthly post-POC as the model health indicator. If this ratio drops below 1.5 on two consecutive months, retraining is triggered ahead of schedule.
+- **Monthly drift monitoring** is a standard support activity included in the monthly retainer. The retainer is not just hosting — it covers active model maintenance, threshold review, and outcome data collection per studio.
+
+This also means a degree of ongoing consultant involvement is required per studio at scale. A fully automated self-serve model is not viable without per-studio retraining infrastructure and human sign-off on retrained model performance.
 
 ---
 

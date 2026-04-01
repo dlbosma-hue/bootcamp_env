@@ -9,7 +9,7 @@
 
 **and**
 
-**Dina Bosma**, operating as an independent AI systems consultant, hereinafter referred to as the **"Processor"**
+**Dina Bosma-Buczynska**, operating as an independent AI systems consultant, hereinafter referred to as the **"Processor"**
 
 Together referred to as the **"Parties"**.
 
@@ -175,7 +175,7 @@ Signature: ______________________
 
 **For the Processor:**
 
-Name: Dina Bosma
+Name: Dina Bosma-Buczynska
 
 Date: ___________________________
 
