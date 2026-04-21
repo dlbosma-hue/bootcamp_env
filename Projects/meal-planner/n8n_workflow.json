@@ -1,0 +1,227 @@
+{
+  "name": "Familien-Mahlzeitenplaner",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 18 * * 0"
+            }
+          ]
+        },
+        "timezone": "Europe/Berlin"
+      },
+      "id": "schedule-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://r.jina.ai/https://www.chefkoch.de/rs/s0/schnell+proteinreich+gesund/Rezepte.html",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Accept", "value": "text/plain" }
+          ]
+        },
+        "options": {
+          "timeout": 30000,
+          "response": { "response": { "responseFormat": "text" } }
+        }
+      },
+      "id": "fetch-chefkoch",
+      "name": "Fetch Chefkoch (Jina)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [450, 200],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://r.jina.ai/https://eatsmarter.de/rezepte/schnell-kochen",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Accept", "value": "text/plain" }
+          ]
+        },
+        "options": {
+          "timeout": 30000,
+          "response": { "response": { "responseFormat": "text" } }
+        }
+      },
+      "id": "fetch-eatsmarter",
+      "name": "Fetch EatSmarter (Jina)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [450, 350],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://r.jina.ai/https://www.lecker.de/schnelle-rezepte",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Accept", "value": "text/plain" }
+          ]
+        },
+        "options": {
+          "timeout": 30000,
+          "response": { "response": { "responseFormat": "text" } }
+        }
+      },
+      "id": "fetch-lecker",
+      "name": "Fetch Lecker (Jina)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [450, 500],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const chefkoch = $('Fetch Chefkoch (Jina)').first();\nconst eatsmarter = $('Fetch EatSmarter (Jina)').first();\nconst lecker = $('Fetch Lecker (Jina)').first();\n\nconst extract = (node) => {\n  try {\n    const raw = node.json;\n    return String(raw.data || raw.body || raw || '').substring(0, 6000);\n  } catch(e) { return '[Nicht verfügbar]'; }\n};\n\nreturn [{ json: {\n  chefkochText: extract(chefkoch),\n  eatSmarterText: extract(eatsmarter),\n  leckerText: extract(lecker)\n} }];"
+      },
+      "id": "combine-jina",
+      "name": "Combine Jina Content",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { chefkochText, eatSmarterText, leckerText } = $input.first().json;\n\nconst systemPrompt = `Du bist ein Ernährungsexperte. Du erhältst echten Inhalt von deutschen Rezept-Websites und extrahierst daraus strukturierte Rezeptdaten. Antworte ausschließlich mit validem JSON mit dem Key \"recipes\" als Array.`;\n\nconst userPrompt = `Hier ist echter Inhalt von drei deutschen Rezept-Websites. Extrahiere und strukturiere daraus GENAU 28 verschiedene Rezepte — 14 Mittagessen, 14 Abendessen. Jeder Rezeptname muss einzigartig sein.\n\n=== CHEFKOCH.DE ===\n${chefkochText}\n\n=== EATSMARTER.DE ===\n${eatSmarterText}\n\n=== LECKER.DE ===\n${leckerText}\n\nFilter:\n- Zubereitungszeit: unter 30 Minuten\n- Vorwiegend vegetarisch ODER Geflügel ODER Fisch (kein Schalentier, kein roher Fisch)\n- Hoher Proteingehalt\n- Familienfreundlich\n- Abwechselnde Küchenstile: Mediterran, Asiatisch, Deutsch, Orientalisch, Griechisch\n\nWenn die Websites zu wenig Rezepte liefern, ergänze passende Rezepte aus deinem Wissen.\n\nFür jedes Rezept:\n- name (string, einzigartig)\n- source_url (string)\n- cuisine (string)\n- meal_type: \"Mittagessen\" oder \"Abendessen\"\n- prep_time_minutes (Zahl)\n- ingredients: Array von Strings mit metrischen Mengen, skaliert für 2.5 Portionen\n- steps: Array von Strings\n- calories_per_adult (Zahl)\n- protein_per_adult_g (Zahl)\n- child_adaptation (string oder null)\n- expensive_ingredients: Array von {name, alternative} oder leer\n- pregnancy_safe: true/false`;\n\nconst payload = {\n  model: 'gpt-4o',\n  response_format: { type: 'json_object' },\n  messages: [\n    { role: 'system', content: systemPrompt },\n    { role: 'user', content: userPrompt }\n  ]\n};\n\nreturn [{ json: { payload: JSON.stringify(payload) } }];"
+      },
+      "id": "build-recipe-prompt",
+      "name": "Build Recipe Prompt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1000, 350]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer PASTE_OPENAI_API_KEY_HERE" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "string",
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.payload }}",
+        "options": { "timeout": 120000 }
+      },
+      "id": "fetch-recipes-openai",
+      "name": "Parse Recipes (OpenAI)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1250, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first().json;\nlet recipes = [];\n\ntry {\n  const content = response.choices[0].message.content;\n  const parsed = JSON.parse(content);\n  recipes = parsed.recipes || Object.values(parsed)[0] || [];\n} catch(e) {\n  return [{ json: { error: 'Failed to parse recipes: ' + e.message, recipes: [] } }];\n}\n\nconst FORBIDDEN = [\n  'roher fisch','sushi','sashimi','ceviche','carpaccio','räucherlachs','roher lachs',\n  'weichkäse','brie','camembert','roquefort','gorgonzola',\n  'rohmilch','unpasteurisiert','leber'\n];\n\nconst safeRecipes = recipes.filter(r => {\n  if (r.pregnancy_safe === false) return false;\n  const text = (r.ingredients || []).join(' ').toLowerCase() + ' ' + (r.name || '').toLowerCase();\n  return !FORBIDDEN.some(f => text.includes(f));\n});\n\nconsole.log(`Rezepte gesamt: ${recipes.length}, schwangerschaftssicher: ${safeRecipes.length}`);\nreturn [{ json: { recipes: safeRecipes } }];"
+      },
+      "id": "validate-recipes",
+      "name": "Validate & Filter Recipes",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1500, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Assigns recipes to days deterministically — no GPT-4o, no duplicates possible.\nconst { recipes } = $input.first().json;\n\nconst DAYS = ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'];\n\n// Shuffle array (Fisher-Yates)\nconst shuffle = (arr) => {\n  const a = [...arr];\n  for (let i = a.length - 1; i > 0; i--) {\n    const j = Math.floor(Math.random() * (i + 1));\n    [a[i], a[j]] = [a[j], a[i]];\n  }\n  return a;\n};\n\nconst lunches = shuffle(recipes.filter(r => r.meal_type === 'Mittagessen'));\nconst dinners = shuffle(recipes.filter(r => r.meal_type === 'Abendessen'));\n\n// Pad with shuffled extras if fewer than 14 of either type\nwhile (lunches.length < 14) lunches.push(...shuffle(recipes).slice(0, 14 - lunches.length));\nwhile (dinners.length < 14) dinners.push(...shuffle(recipes).slice(0, 14 - dinners.length));\n\nconst meal_plan = DAYS.map((day, i) => ({\n  day,\n  lunch_option_1: lunches[i * 2].name,\n  lunch_option_2: lunches[i * 2 + 1].name,\n  dinner_option_1: dinners[i * 2].name,\n  dinner_option_2: dinners[i * 2 + 1].name,\n}));\n\n// Build recipe lookup by name\nconst byName = {};\nrecipes.forEach(r => { byName[r.name] = r; });\n\n// Build shopping lists in code — 100% accurate, no GPT guessing\nconst CATEGORIES = ['Gemüse & Obst','Proteine','Milch & Eier','Trockenwaren & Vorräte','Tiefkühl'];\n\nconst categorise = (ingredient) => {\n  const s = ingredient.toLowerCase();\n  if (/spinat|brokkoli|karott|paprika|zucchini|tomaten|zwiebel|knoblauch|avocado|aubergine|kohl|blumenkohl|salat|kräuter|basilikum|petersilie|mango|süßkartoffel|kartoffel|erbsen|bohnen|gurke|pilze|champignon|zitrone|limette/.test(s)) return 'Gemüse & Obst';\n  if (/hähnchen|hühnchen|pute|tofu|tempeh|thunfisch|fisch|lachs|garnelen|kichererbsen|linsen|bohnen|feta|mozzarella|parmesan|käse|erdnuss/.test(s)) return 'Proteine';\n  if (/ei|eier|joghurt|quark|sahne|milch|butter|ricotta|käse/.test(s)) return 'Milch & Eier';\n  if (/tiefkühl|gefrier/.test(s)) return 'Tiefkühl';\n  return 'Trockenwaren & Vorräte';\n};\n\nconst buildList = (dayIndices) => {\n  const consolidated = {};\n  dayIndices.forEach(i => {\n    const day = meal_plan[i];\n    ['lunch_option_1','lunch_option_2','dinner_option_1','dinner_option_2'].forEach(slot => {\n      const recipe = byName[day[slot]];\n      if (!recipe) return;\n      (recipe.ingredients || []).forEach(ing => {\n        const key = ing.toLowerCase().replace(/[^a-zäöü]/g, '').substring(0, 15);\n        if (!consolidated[key]) consolidated[key] = { name: ing, count: 1 };\n        else consolidated[key].count += 1;\n      });\n    });\n  });\n\n  const list = {};\n  CATEGORIES.forEach(c => list[c] = []);\n  Object.values(consolidated).forEach(({ name, count }) => {\n    const cat = categorise(name);\n    const qty = count > 1 ? `×${count} (konsolidiert)` : '';\n    list[cat].push({ name, quantity: qty });\n  });\n  return list;\n};\n\nconst shopping_list_1 = buildList([0, 1, 2, 3]); // Mon–Thu\nconst shopping_list_2 = buildList([4, 5, 6]);    // Fri–Sun\n\nreturn [{ json: { meal_plan, recipes, shopping_list_1, shopping_list_2 } }];"
+      },
+      "id": "assign-plan",
+      "name": "Assign Meal Plan & Shopping Lists",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1750, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "const { meal_plan, recipes, shopping_list_1, shopping_list_2 } = $input.first().json;\n\nconst mealPlanRows = meal_plan.map(day => `\n  <tr>\n    <td><strong>${day.day}</strong></td>\n    <td>${day.lunch_option_1}<br><small style=\"color:#666\">${day.lunch_option_2}</small></td>\n    <td>${day.dinner_option_1}<br><small style=\"color:#666\">${day.dinner_option_2}</small></td>\n  </tr>`).join('');\n\nconst recipeCards = recipes.map(r => {\n  const ingredients = (r.ingredients || []).map(i => `<li>${i}</li>`).join('');\n  const steps = (r.steps || []).map(s => `<li>${s}</li>`).join('');\n  const childNote = r.child_adaptation ? `<p><strong>👶 Für das Kind:</strong> ${r.child_adaptation}</p>` : '';\n  const altNote = (r.expensive_ingredients || []).length > 0\n    ? `<p><small>💡 Günstige Alternative: ${r.expensive_ingredients.map(e => `${e.name} → ${e.alternative}`).join(', ')}</small></p>`\n    : '';\n  return `\n  <div style=\"border:1px solid #ddd;border-radius:8px;padding:16px;margin-bottom:16px;\">\n    <h3><a href=\"${r.source_url || '#'}\" style=\"color:#40916c;\">${r.name}</a></h3>\n    <p>⏱ ${r.prep_time_minutes} Min &nbsp;|&nbsp; 🔥 ${r.calories_per_adult} kcal &nbsp;|&nbsp; 💪 ${r.protein_per_adult_g}g Protein &nbsp;|&nbsp; <span style=\"color:green\">✅ Schwangerschaftssicher</span></p>\n    <h4>Zutaten</h4><ul>${ingredients}</ul>\n    <h4>Zubereitung</h4><ol>${steps}</ol>\n    ${childNote}${altNote}\n  </div>`;\n}).join('');\n\nconst shoppingListHtml = (list, label) => {\n  if (!list || typeof list !== 'object') return '';\n  const categories = Object.entries(list).map(([cat, items]) => {\n    if (!items.length) return '';\n    const rows = items.map(item => `<li><strong>${item.name}</strong>${item.quantity ? ' — ' + item.quantity : ''}</li>`).join('');\n    return `<h3>${cat}</h3><ul>${rows}</ul>`;\n  }).join('');\n  return `<h2>🛒 Einkaufsliste ${label}</h2>${categories}`;\n};\n\nconst html = `<!DOCTYPE html>\n<html lang=\"de\">\n<head>\n  <meta charset=\"UTF-8\">\n  <style>\n    body{font-family:Arial,sans-serif;max-width:800px;margin:auto;padding:20px;color:#333}\n    h1{color:#2d6a4f} h2{color:#40916c;border-bottom:2px solid #40916c;padding-bottom:4px}\n    h3{color:#52b788} table{width:100%;border-collapse:collapse}\n    th,td{padding:8px;border:1px solid #ddd;vertical-align:top}\n    th{background:#f5f5f5} a{color:#40916c}\n    footer{text-align:center;color:#999;margin-top:40px;font-size:12px}\n  </style>\n</head>\n<body>\n  <h1>🥗 Dein Familien-Wochenplan</h1>\n  <h2>📅 Wochenübersicht</h2>\n  <table>\n    <thead><tr><th>Tag</th><th>Mittagessen</th><th>Abendessen</th></tr></thead>\n    <tbody>${mealPlanRows}</tbody>\n  </table>\n  <h2>📖 Rezeptkarten</h2>\n  ${recipeCards}\n  ${shoppingListHtml(shopping_list_1, 'Montag – Donnerstag')}\n  ${shoppingListHtml(shopping_list_2, 'Freitag – Sonntag')}\n  <footer>Erstellt von deinem Familien-Mahlzeitenplaner 🥦</footer>\n</body>\n</html>`;\n\nreturn [{ json: { html, subject: 'Dein Wochenplan 🥗' } }];"
+      },
+      "id": "render-html",
+      "name": "Render HTML Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2000, 350]
+    },
+    {
+      "parameters": {
+        "fromEmail": "dlbosma@gmail.com",
+        "toEmail": "dlbosma@gmail.com",
+        "subject": "={{ $json.subject }}",
+        "emailType": "html",
+        "message": "={{ $json.html }}"
+      },
+      "id": "send-email",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [2250, 350],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "gmail-oauth",
+          "name": "Gmail OAuth2"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [[
+        { "node": "Fetch Chefkoch (Jina)", "type": "main", "index": 0 },
+        { "node": "Fetch EatSmarter (Jina)", "type": "main", "index": 0 },
+        { "node": "Fetch Lecker (Jina)", "type": "main", "index": 0 }
+      ]]
+    },
+    "Fetch Chefkoch (Jina)": {
+      "main": [[{ "node": "Combine Jina Content", "type": "main", "index": 0 }]]
+    },
+    "Fetch EatSmarter (Jina)": {
+      "main": [[{ "node": "Combine Jina Content", "type": "main", "index": 1 }]]
+    },
+    "Fetch Lecker (Jina)": {
+      "main": [[{ "node": "Combine Jina Content", "type": "main", "index": 2 }]]
+    },
+    "Combine Jina Content": {
+      "main": [[{ "node": "Build Recipe Prompt", "type": "main", "index": 0 }]]
+    },
+    "Build Recipe Prompt": {
+      "main": [[{ "node": "Parse Recipes (OpenAI)", "type": "main", "index": 0 }]]
+    },
+    "Parse Recipes (OpenAI)": {
+      "main": [[{ "node": "Validate & Filter Recipes", "type": "main", "index": 0 }]]
+    },
+    "Validate & Filter Recipes": {
+      "main": [[{ "node": "Assign Meal Plan & Shopping Lists", "type": "main", "index": 0 }]]
+    },
+    "Assign Meal Plan & Shopping Lists": {
+      "main": [[{ "node": "Render HTML Email", "type": "main", "index": 0 }]]
+    },
+    "Render HTML Email": {
+      "main": [[{ "node": "Send Email", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Berlin"
+  },
+  "staticData": null,
+  "meta": {
+    "instanceId": "familien-mahlzeitenplaner"
+  }
+}

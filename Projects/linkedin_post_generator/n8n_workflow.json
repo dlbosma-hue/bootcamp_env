@@ -1,0 +1,238 @@
+{
+  "name": "LinkedIn Post Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 2,4,6"
+            }
+          ]
+        },
+        "timezone": "Europe/Berlin"
+      },
+      "id": "schedule-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://newsapi.org/v2/everything",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "q", "value": "artificial intelligence" },
+            { "name": "sortBy", "value": "publishedAt" },
+            { "name": "pageSize", "value": "5" },
+            { "name": "language", "value": "en" },
+            { "name": "apiKey", "value": "PASTE_NEWSAPI_KEY_HERE" }
+          ]
+        },
+        "options": { "timeout": 30000 }
+      },
+      "id": "fetch-newsapi",
+      "name": "Fetch NewsAPI",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [450, 300],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://r.jina.ai/https://tldr.tech/ai",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Accept", "value": "text/plain" }
+          ]
+        },
+        "options": {
+          "timeout": 30000,
+          "response": { "response": { "responseFormat": "text" } }
+        }
+      },
+      "id": "fetch-tldr",
+      "name": "Fetch TLDR AI",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [700, 300],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://r.jina.ai/https://www.aireport.nl/archive",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Accept", "value": "text/plain" }
+          ]
+        },
+        "options": {
+          "timeout": 30000,
+          "response": { "response": { "responseFormat": "text" } }
+        }
+      },
+      "id": "fetch-aireport-archive",
+      "name": "Fetch AI Report Archive",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [950, 300],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const archiveData = $input.first().json;\nlet archiveText = '';\n\nif (archiveData && archiveData.data) {\n  archiveText = String(archiveData.data);\n} else if (typeof archiveData === 'string') {\n  archiveText = archiveData;\n} else {\n  archiveText = JSON.stringify(archiveData);\n}\n\nconst raw = archiveText.match(/https:\\/\\/www\\.aireport\\.nl\\/p\\/[^\\s\\)\"'\\]]+/g) || [];\nconst seen = new Set();\nconst unique = [];\nfor (const u of raw) {\n  const clean = u.replace(/[.,;]+$/, '');\n  if (!seen.has(clean)) { seen.add(clean); unique.push(clean); }\n}\n// Beehiiv pins a featured article at index 0 — take index 1 for a genuinely recent post\nconst latestUrl = unique.length > 1 ? unique[1] : (unique[0] || null);\n\nreturn [{ json: { latest_article_url: latestUrl } }];"
+      },
+      "id": "extract-aireport-url",
+      "name": "Extract AI Report URL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://r.jina.ai/{{ $json.latest_article_url || 'https://www.aireport.nl/archive' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Accept", "value": "text/plain" }
+          ]
+        },
+        "options": {
+          "timeout": 30000,
+          "response": { "response": { "responseFormat": "text" } }
+        }
+      },
+      "id": "fetch-aireport-article",
+      "name": "Fetch AI Report Article",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1450, 300],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const newsapiNode = $('Fetch NewsAPI').first();\nconst tldrNode = $('Fetch TLDR AI').first();\nconst aireportNode = $('Fetch AI Report Article').first();\n\nlet newsapiText = '[NewsAPI unavailable]';\ntry {\n  const articles = newsapiNode.json.articles || [];\n  const lines = articles.filter(a => a.title).map(a => `- ${a.title}: ${a.description || ''}`).slice(0, 5);\n  if (lines.length > 0) newsapiText = lines.join('\\n');\n} catch(e) {}\n\nlet tldrText = '[TLDR AI unavailable]';\ntry {\n  const raw = tldrNode.json;\n  tldrText = String(raw.data || raw.body || JSON.stringify(raw)).substring(0, 4000);\n} catch(e) {}\n\nlet aireportText = '[AI Report NL unavailable]';\ntry {\n  const raw = aireportNode.json;\n  aireportText = String(raw.data || raw.body || JSON.stringify(raw)).substring(0, 4000);\n} catch(e) {}\n\nconst today = new Date().toLocaleDateString('en-GB', {\n  weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',\n  timeZone: 'Europe/Berlin'\n});\n\nreturn [{ json: { newsapi_output: newsapiText, tldr_content: tldrText, aireport_content: aireportText, today } }];"
+      },
+      "id": "combine-sources",
+      "name": "Combine Sources",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1700, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.first().json;\n\nconst systemPrompt = 'You are writing LinkedIn content for Dina, a PM and AI consultant.\\n\\nContext:\\n- Building a consulting practice targeting businesses and non-technical adults in the DACH region.\\n- 4 years PM experience, most recently building AI tools at Outfittery (17% stylist efficiency improvement).\\n- Fresh out of a 9-week AI consulting bootcamp (IronHack, 2026).\\n- PM-first, technical second. Do not overclaim technical depth.\\n\\nVoice rules:\\n- Direct, punchy, zero fluff. Conversational, not corporate.\\n- Short sentences. No em dashes. Ever.\\n- Assume smart reader. No hand-holding.\\n- Concrete over abstract. Use metrics when possible.\\n\\nLinkedIn post playbook:\\n- Punchy opener that stops the scroll.\\n- One concrete insight.\\n- End with a question.\\n- Max 220 words.\\n\\nNever use: leverage, delve, synergy, unlock, transformative.\\nNever sound like everyone else on LinkedIn.\\n\\nKnown failure modes to avoid:\\n- Too polished, loses her voice. Keep it human.\\n- Hedging everything. Be wrong and clear, not right and vague.\\n- Making it longer than it needs to be. Cut it.';\n\nconst userContent = 'Here are today\\'s AI news inputs:\\n\\nNEWSAPI HEADLINES:\\n' + d.newsapi_output + '\\n\\nTLDR AI (today\\'s page):\\n' + d.tldr_content + '\\n\\nAI REPORT NL (this content is in Dutch - translate it first):\\n' + d.aireport_content + '\\n\\nInstructions:\\n1. Translate any Dutch content to English internally - do NOT output the translation, just use it to understand the content\\n2. Identify the 3 most interesting AI topics across all sources\\n3. Each topic MUST come from a different company, product, or theme - no two posts about the same subject\\n4. Do NOT pick 3 variations of the same story\\n5. Use web_search once to find one additional angle not already covered by the sources above - do not use it to dig deeper into a topic you already have\\n6. For each topic output exactly this format:\\n\\nTOPIC [N]: [one-line title]\\nSOURCE: [which source]\\nWHY: [one sentence on why this is worth posting about]\\nPOST:\\n[full LinkedIn post, max 220 words, in Dina\\'s voice]\\n---\\n\\n7. Each post: punchy hook / one concrete insight / stat or example / question at end\\n8. Make the 3 posts distinct - different companies, different angles, different audiences if possible\\n9. Where relevant, write from Dina\\'s first-person perspective - e.g. what she saw building AI tools at Outfittery, what she learned in the bootcamp, or what she is seeing now as a consultant. First-person observations beat generic commentary.';\n\nconst payload = {\n  model: 'claude-sonnet-4-20250514',\n  max_tokens: 3000,\n  system: systemPrompt,\n  tools: [{ type: 'web_search_20250305', name: 'web_search' }],\n  messages: [{ role: 'user', content: userContent }]\n};\n\nreturn [{ json: { payload: JSON.stringify(payload), today: d.today } }];"
+      },
+      "id": "build-claude-payload",
+      "name": "Build Claude Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1950, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "PASTE_ANTHROPIC_KEY_HERE" },
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "anthropic-beta", "value": "web-search-2025-03-05" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "string",
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ $json.payload }}",
+        "options": { "timeout": 60000 }
+      },
+      "id": "claude-generate",
+      "name": "Claude: Generate Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [2200, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const response = $input.first().json;\nconst today = $('Build Claude Payload').first().json.today;\n\nlet postText = '';\nif (response.content && Array.isArray(response.content)) {\n  for (const block of response.content) {\n    if (block.type === 'text') postText += block.text;\n  }\n}\n\nif (!postText) postText = '[Post generation failed - check Claude API response]';\n\nconst sourceList = '- NewsAPI\\n- TLDR AI (tldr.tech/ai)\\n- AI Report NL (aireport.nl)\\n- Claude web_search';\nconst emailBody = 'Hi Dina,\\n\\nHere are your 3 LinkedIn post options for today. Pick one, copy, paste, edit if needed.\\n\\n' + postText + '\\nSources checked today:\\n' + sourceList + '\\n';\n\nreturn [{ json: { post_text: postText, email_body: emailBody, subject: 'Your 3 LinkedIn posts for ' + today } }];"
+      },
+      "id": "extract-post",
+      "name": "Extract Post Text",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2450, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "PASTE_GMAIL_ADDRESS_HERE",
+        "toEmail": "PASTE_RECIPIENT_EMAIL_HERE",
+        "subject": "={{ $json.subject }}",
+        "emailType": "text",
+        "message": "={{ $json.email_body }}"
+      },
+      "id": "send-email",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [2700, 300],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "gmail-oauth",
+          "name": "Gmail OAuth2"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [[{ "node": "Fetch NewsAPI", "type": "main", "index": 0 }]]
+    },
+    "Fetch NewsAPI": {
+      "main": [[{ "node": "Fetch TLDR AI", "type": "main", "index": 0 }]]
+    },
+    "Fetch TLDR AI": {
+      "main": [[{ "node": "Fetch AI Report Archive", "type": "main", "index": 0 }]]
+    },
+    "Fetch AI Report Archive": {
+      "main": [[{ "node": "Extract AI Report URL", "type": "main", "index": 0 }]]
+    },
+    "Extract AI Report URL": {
+      "main": [[{ "node": "Fetch AI Report Article", "type": "main", "index": 0 }]]
+    },
+    "Fetch AI Report Article": {
+      "main": [[{ "node": "Combine Sources", "type": "main", "index": 0 }]]
+    },
+    "Combine Sources": {
+      "main": [[{ "node": "Build Claude Payload", "type": "main", "index": 0 }]]
+    },
+    "Build Claude Payload": {
+      "main": [[{ "node": "Claude: Generate Post", "type": "main", "index": 0 }]]
+    },
+    "Claude: Generate Post": {
+      "main": [[{ "node": "Extract Post Text", "type": "main", "index": 0 }]]
+    },
+    "Extract Post Text": {
+      "main": [[{ "node": "Send Email", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Europe/Berlin"
+  },
+  "staticData": null,
+  "meta": {
+    "instanceId": "linkedin-post-generator"
+  }
+}
