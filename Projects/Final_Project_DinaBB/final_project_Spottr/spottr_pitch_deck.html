@@ -87,7 +87,7 @@
   .logo-img { height: 130px; width: auto; }
 
   /* Email screenshot style */
-  .email-window { background: #1a1a2e; border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; overflow: hidden; font-size: 13px; }
+  .email-window { background: #1a1a2e; border-radius: 12px; overflow: hidden; font-size: 13px; }
   .email-titlebar { background: rgba(255,255,255,0.06); padding: 10px 16px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); }
   .email-dot { width: 10px; height: 10px; border-radius: 50%; }
   .email-title { font-size: 11px; color: rgba(255,255,255,0.4); margin-left: 8px; letter-spacing: 0.5px; }
@@ -148,6 +148,69 @@
 
   .progress-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 6px; margin-top: 4px; overflow: hidden; }
   .progress-bar { height: 100%; border-radius: 4px; background: var(--grad); }
+
+  /* ── Heartbeat pulse on logo ── */
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14%       { transform: scale(1.06); }
+    28%       { transform: scale(1); }
+    42%       { transform: scale(1.04); }
+    56%       { transform: scale(1); }
+  }
+  .logo-img { animation: heartbeat 2.8s ease-in-out infinite; }
+
+  /* ── Animated gradient border on all blocks ── */
+  @property --border-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+  @keyframes spin-border { to { --border-angle: 360deg; } }
+
+  /* Cards: pseudo-element approach (no overflow:hidden) */
+  .card {
+    border-color: transparent !important;
+    position: relative;
+    isolation: isolate;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 15px;
+    background: conic-gradient(from var(--border-angle), #f97316, #ef4444, #8b5cf6, #06b6d4, #f97316);
+    z-index: -1;
+    animation: spin-border 4s linear infinite;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0px;
+    border-radius: 13px;
+    background: #111;
+    z-index: -1;
+  }
+
+  /* Window elements: direct background approach (overflow:hidden clips pseudo-elements) */
+  .email-window {
+    border: 1px solid transparent;
+    background: linear-gradient(#1a1a2e, #1a1a2e) padding-box,
+                conic-gradient(from var(--border-angle), #f97316, #ef4444, #8b5cf6, #06b6d4, #f97316) border-box;
+    animation: spin-border 4s linear infinite;
+  }
+  .dash-window {
+    border: 1px solid transparent;
+    background: linear-gradient(#111827, #111827) padding-box,
+                conic-gradient(from var(--border-angle), #f97316, #ef4444, #8b5cf6, #06b6d4, #f97316) border-box;
+    animation: spin-border 4s linear infinite;
+  }
+  .survey-window {
+    border: 1px solid transparent;
+    background: linear-gradient(#0d1a2a, #0d1a2a) padding-box,
+                conic-gradient(from var(--border-angle), #f97316, #ef4444, #8b5cf6, #06b6d4, #f97316) border-box;
+    animation: spin-border 4s linear infinite;
+  }
+
 </style>
 </head>
 <body>
@@ -161,11 +224,11 @@
   <div class="cols cols-2" style="height:84vh; align-items:center; gap:64px;">
     <div style="display:flex; flex-direction:column; align-items:flex-start; justify-content:center;">
       <div class="spottr-logo" style="margin-bottom:28px;">
-        <img class="logo-img" src="../screenshots%20final%20project%20/spottr_logo.png" alt="Spottr">
+        <img class="logo-img" src="screenshots%20final%20project%20/spottr_logo.png" alt="Spottr">
       </div>
       <p class="kicker" style="margin-bottom:20px;">Member retention · AI-powered briefings</p>
       <h1 style="font-size:72px;">Know who's drifting<br><span class="accent">before they cancel.</span></h1>
-      <p class="sub" style="font-size:22px; line-height:1.7; margin-top:20px;">Built for boutique fitness studios where every coach knows every member by name.<br>Every cancellation is real revenue walking out the door.<br>Spottr spots who's going quiet, 4 to 6 weeks before they leave.</p>
+      <p class="sub" style="font-size:23px; line-height:1.7; margin-top:20px;">Built for boutique fitness studios where every coach knows every member by name.<br>Every cancellation is real revenue walking out the door.<br>Spottr spots who's going quiet, 4 to 6 weeks before they leave.</p>
       <div style="margin-top:40px; display:flex; gap:12px; flex-wrap:wrap;">
         <div style="padding:10px 20px; border:1px solid rgba(249,115,22,0.4); border-radius:8px; font-size:14px; color:rgba(255,255,255,0.6);">POC Proposal · 90 days</div>
         <div style="padding:10px 20px; border:1px solid rgba(6,182,212,0.3); border-radius:8px; font-size:14px; color:rgba(255,255,255,0.6);">Boutique fitness · 80–250 members</div>
@@ -173,11 +236,11 @@
       </div>
     </div>
 
-    <div style="padding:36px 32px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:14px; height:70%; display:flex; flex-direction:column; justify-content:center; margin-top:60px;">
-      <p style="font-size:12px; letter-spacing:2.5px; text-transform:uppercase; font-weight:700; margin-bottom:20px; background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; display:inline-block;">The cost of waiting</p>
-      <p style="font-size:23px; font-weight:600; line-height:1.65; color:rgba(255,255,255,0.88);">"Replacing one member costs <span style="background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">5 times more</span> than keeping them.</p>
-      <p style="font-size:23px; font-weight:600; line-height:1.65; color:rgba(255,255,255,0.88); margin-top:16px;">Your coaches have the opportunity window.</p>
-      <p style="font-size:23px; font-weight:600; line-height:1.65; color:rgba(255,255,255,0.88); margin-top:16px;">Until now they just didn't have the data."</p>
+    <div class="card" style="padding:36px 32px; height:70%; display:flex; flex-direction:column; justify-content:center; margin-top:60px;">
+      <p style="font-size:32px; letter-spacing:2.5px; text-transform:uppercase; font-weight:700; margin-bottom:20px; color:#f97316;">The cost of waiting</p>
+      <p style="font-size:24px; font-weight:600; line-height:1.65; color:rgba(255,255,255,0.88);">"Replacing one member costs <span style="background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">5 times more</span> than keeping them.</p>
+      <p style="font-size:24px; font-weight:600; line-height:1.65; color:rgba(255,255,255,0.88); margin-top:16px;">Your coaches have the opportunity window.</p>
+      <p style="font-size:24px; font-weight:600; line-height:1.65; color:rgba(255,255,255,0.88); margin-top:16px;">Until now they just didn't have the data."</p>
     </div>
   </div>
 
@@ -202,9 +265,9 @@
         <li style="color:#8b5cf6;"><span style="color:inherit;">WATCH flag: still coming in, but unhappy</span></li>
       </ul>
 
-      <div class="watch-box" style="margin-top:20px; border-color:rgba(139,92,246,0.4); padding:16px 20px;">
+      <div class="watch-box" style="margin-top:20px; border-color:rgba(6,182,212,0.4); padding:16px 20px;">
         <p style="font-size:16px; margin-bottom:10px; line-height:1.7;"><strong style="color:#8b5cf6;">What the WATCH flag catches:</strong> A member who still attends regularly but rates their satisfaction low in a survey. Attendance alone would never flag them. They look fine in the data.</p>
-        <p style="font-size:15px; color:rgba(255,255,255,0.65); line-height:1.7;"><strong style="color:rgba(255,255,255,0.8);">How the survey works:</strong> When a class sees fewer check-ins than usual, Spottr automatically sends a short survey to the members who've been attending that class. It takes less than a minute. When the NPS score is lower than 3, their answers show up in Monday's briefing as WATCH. A member can only be surveyed once every 5 weeks, so no one gets flooded.</p>
+        <p style="font-size:15px; color:rgba(255,255,255,0.65); line-height:1.7;"><strong style="color:rgba(255,255,255,0.8);">How the survey works:</strong> When a class sees fewer check-ins than usual, Spottr automatically sends a short survey to the members who've been attending that class. When the NPS score is lower than 3, their answers show up in Monday's briefing as WATCH. A member can only be surveyed once every 5 weeks, so no one gets flooded.</p>
       </div>
     </div>
 
@@ -643,7 +706,7 @@
   <div class="tag">The ask</div>
   <div class="cols cols-2" style="height:84vh; align-items:center; gap:64px;">
     <div>
-      <img src="../screenshots%20final%20project%20/spottr_logo.png" alt="Spottr" style="height:120px; width:auto; margin-bottom:28px; display:block;">
+      <img class="logo-img" src="screenshots%20final%20project%20/spottr_logo.png" alt="Spottr" style="height:120px; width:auto; margin-bottom:28px; display:block;">
       <div class="divider"></div>
       <h2>One studio.<br>90 days.<br><span class="accent">€2,000.</span></h2>
       <p style="margin-top:20px; font-size:19px; line-height:1.75;">We run the system on your real members for 90 days and measure what happens.<br>If your coaches start saving cancellations, we continue.<br>If the numbers don't add up, you walk away with a full written report on exactly what we found.</p>
