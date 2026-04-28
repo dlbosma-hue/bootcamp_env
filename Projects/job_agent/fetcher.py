@@ -93,13 +93,13 @@ def _fetch_jobspy_parallel(terms: list[str], sites: list[str], location: str, ex
     return all_jobs
 
 
-def _fetch_rss(terms: list[str], url_template: str, source_name: str) -> list[dict]:
+def _fetch_rss(terms: list[str], url_template: str, source_name: str, path_encode: bool = False) -> list[dict]:
     jobs = []
     seen_urls: set[str] = set()
     cutoff = datetime.now(timezone.utc).timestamp() - (MAX_HOURS_OLD * 3600)
 
     for term in terms:
-        encoded = urllib.parse.quote(term)
+        encoded = term.replace(" ", "-") if path_encode else urllib.parse.quote(term)
         url = url_template.format(keyword=encoded)
         try:
             feed = feedparser.parse(url)
@@ -156,7 +156,7 @@ def fetch_all_jobs() -> list[dict]:
 
     with ThreadPoolExecutor(max_workers=3) as pool:
         f_linkedin = pool.submit(_run, "LinkedIn",     _fetch_jobspy_parallel, all_terms,   ["linkedin"], LOCATION)
-        f_indeed   = pool.submit(_run, "Indeed.de",   _fetch_jobspy_parallel, all_terms,   ["indeed"],   "Berlin", {"country_indeed": "DE"})
+        f_indeed   = pool.submit(_run, "Indeed.de",   _fetch_jobspy_parallel, all_terms,   ["indeed"],   "Berlin", {"country_indeed": "germany"})
         f_google   = pool.submit(_run, "Google Jobs", _fetch_jobspy_parallel, SEARCH_TERMS, ["google"],  "Berlin, Germany")
 
         all_jobs += f_linkedin.result()
@@ -164,12 +164,12 @@ def fetch_all_jobs() -> list[dict]:
         all_jobs += f_google.result()
 
     print("[fetcher] Stepstone RSS...")
-    stepstone = _fetch_rss(SEARCH_TERMS, STEPSTONE_RSS_TEMPLATE, "stepstone")
+    stepstone = _fetch_rss(SEARCH_TERMS, STEPSTONE_RSS_TEMPLATE, "stepstone", path_encode=True)
     print(f"  → {len(stepstone)} jobs")
     all_jobs += stepstone
 
     print("[fetcher] Jobware RSS...")
-    jobware = _fetch_rss(SEARCH_TERMS, JOBWARE_RSS_TEMPLATE, "jobware")
+    jobware = _fetch_rss(SEARCH_TERMS, JOBWARE_RSS_TEMPLATE, "jobware", path_encode=False)
     print(f"  → {len(jobware)} jobs")
     all_jobs += jobware
 
