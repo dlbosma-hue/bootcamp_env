@@ -1,5 +1,6 @@
 import hashlib
 import urllib.parse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 
 import feedparser
@@ -17,7 +18,6 @@ from config import (
     STEPSTONE_RSS_TEMPLATE,
 )
 
-# Title must contain at least one of these — drops obviously irrelevant roles before scoring
 _TITLE_MUST_INCLUDE = [
     "it", "cto", "cio", "tech", "digital", "infrastructure", "infra",
     "architect", "netzwerk", "network", "cloud", "devops", "security",
@@ -41,52 +41,56 @@ def _passes_title_filter(title: str) -> bool:
     return any(term in title.lower() for term in _TITLE_MUST_INCLUDE)
 
 
-def _fetch_jobspy(terms: list[str], sites: list[str], location: str, extra_kwargs: dict = {}) -> list[dict]:
+def _scrape_one_term(term: str, sites: list[str], location: str, extra_kwargs: dict) -> list[dict]:
+    try:
+        df = scrape_jobs(
+            site_name=sites,
+            search_term=term,
+            location=location,
+            distance=DISTANCE_KM,
+            results_wanted=RESULTS_PER_TERM,
+            hours_old=MAX_HOURS_OLD,
+            linkedin_fetch_description=True,
+            **extra_kwargs,
+        )
+    except Exception as e:
+        print(f"  [warn] '{term}' on {sites}: {e}")
+        return []
+
     jobs = []
+    for _, row in df.iterrows():
+        url = str(row.get("job_url", ""))
+        title = str(row.get("title", ""))
+        company = str(row.get("company", ""))
+        if not title or not company:
+            continue
+        if _is_excluded(title) or not _passes_title_filter(title):
+            continue
+        jobs.append({
+            "id": _job_id(title, company, url),
+            "title": title,
+            "company": company,
+            "location": str(row.get("location", "")),
+            "url": url,
+            "description": str(row.get("description", ""))[:3000],
+            "source": str(row.get("site", sites[0])),
+        })
+    return jobs
+
+
+def _fetch_jobspy_parallel(terms: list[str], sites: list[str], location: str, extra_kwargs: dict = {}) -> list[dict]:
+    all_jobs: list[dict] = []
     seen_urls: set[str] = set()
 
-    for term in terms:
-        try:
-            df = scrape_jobs(
-                site_name=sites,
-                search_term=term,
-                location=location,
-                distance=DISTANCE_KM,
-                results_wanted=RESULTS_PER_TERM,
-                hours_old=MAX_HOURS_OLD,
-                linkedin_fetch_description=True,
-                **extra_kwargs,
-            )
-        except Exception as e:
-            print(f"[jobspy:{sites}] Error fetching '{term}': {e}")
-            continue
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        futures = {executor.submit(_scrape_one_term, t, sites, location, extra_kwargs): t for t in terms}
+        for future in as_completed(futures):
+            for job in future.result():
+                if job["url"] not in seen_urls:
+                    seen_urls.add(job["url"])
+                    all_jobs.append(job)
 
-        for _, row in df.iterrows():
-            url = str(row.get("job_url", ""))
-            title = str(row.get("title", ""))
-            company = str(row.get("company", ""))
-
-            if not title or not company:
-                continue
-            if _is_excluded(title):
-                continue
-            if not _passes_title_filter(title):
-                continue
-            if url in seen_urls:
-                continue
-
-            seen_urls.add(url)
-            jobs.append({
-                "id": _job_id(title, company, url),
-                "title": title,
-                "company": company,
-                "location": str(row.get("location", "")),
-                "url": url,
-                "description": str(row.get("description", ""))[:3000],
-                "source": str(row.get("site", sites[0])),
-            })
-
-    return jobs
+    return all_jobs
 
 
 def _fetch_rss(terms: list[str], url_template: str, source_name: str) -> list[dict]:
@@ -97,14 +101,13 @@ def _fetch_rss(terms: list[str], url_template: str, source_name: str) -> list[di
     for term in terms:
         encoded = urllib.parse.quote(term)
         url = url_template.format(keyword=encoded)
-
         try:
             feed = feedparser.parse(url)
             if not feed.entries:
-                print(f"[{source_name}] No entries for '{term}' — URL may need adjustment: {url}")
+                print(f"  [{source_name}] No entries for '{term}' — URL may need adjustment")
                 continue
         except Exception as e:
-            print(f"[{source_name}] Error fetching '{term}': {e}")
+            print(f"  [{source_name}] Error: {e}")
             continue
 
         for entry in feed.entries:
@@ -121,9 +124,7 @@ def _fetch_rss(terms: list[str], url_template: str, source_name: str) -> list[di
 
             if not title or not link:
                 continue
-            if _is_excluded(title):
-                continue
-            if not _passes_title_filter(title):
+            if _is_excluded(title) or not _passes_title_filter(title):
                 continue
             if link in seen_urls:
                 continue
@@ -143,31 +144,24 @@ def _fetch_rss(terms: list[str], url_template: str, source_name: str) -> list[di
 
 
 def fetch_all_jobs() -> list[dict]:
-    all_jobs = []
+    all_jobs: list[dict] = []
+    all_terms = SEARCH_TERMS + SECONDARY_TERMS
 
-    print("[fetcher] LinkedIn...")
-    linkedin = _fetch_jobspy(SEARCH_TERMS + SECONDARY_TERMS, ["linkedin"], LOCATION)
-    print(f"  → {len(linkedin)} jobs")
-    all_jobs += linkedin
+    # all 3 jobspy sources run in parallel threads
+    def _run(label, fn, *args, **kwargs):
+        print(f"[fetcher] {label}...")
+        result = fn(*args, **kwargs)
+        print(f"  → {len(result)} jobs")
+        return result
 
-    print("[fetcher] Indeed.de...")
-    indeed = _fetch_jobspy(
-        SEARCH_TERMS + SECONDARY_TERMS,
-        ["indeed"],
-        "Berlin",  # shorter location works better for Indeed DE
-        {"country_indeed": "DE"},
-    )
-    print(f"  → {len(indeed)} jobs")
-    all_jobs += indeed
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        f_linkedin = pool.submit(_run, "LinkedIn",     _fetch_jobspy_parallel, all_terms,   ["linkedin"], LOCATION)
+        f_indeed   = pool.submit(_run, "Indeed.de",   _fetch_jobspy_parallel, all_terms,   ["indeed"],   "Berlin", {"country_indeed": "DE"})
+        f_google   = pool.submit(_run, "Google Jobs", _fetch_jobspy_parallel, SEARCH_TERMS, ["google"],  "Berlin, Germany")
 
-    print("[fetcher] Google Jobs (includes Glassdoor, Stepstone, and others)...")
-    google = _fetch_jobspy(
-        SEARCH_TERMS,
-        ["google"],
-        "Berlin, Germany",
-    )
-    print(f"  → {len(google)} jobs")
-    all_jobs += google
+        all_jobs += f_linkedin.result()
+        all_jobs += f_indeed.result()
+        all_jobs += f_google.result()
 
     print("[fetcher] Stepstone RSS...")
     stepstone = _fetch_rss(SEARCH_TERMS, STEPSTONE_RSS_TEMPLATE, "stepstone")
@@ -179,7 +173,7 @@ def fetch_all_jobs() -> list[dict]:
     print(f"  → {len(jobware)} jobs")
     all_jobs += jobware
 
-    # deduplicate across all sources by id
+    # deduplicate across all sources
     seen_ids: set[str] = set()
     unique = []
     for job in all_jobs:
