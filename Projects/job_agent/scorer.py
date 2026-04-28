@@ -2,9 +2,9 @@ import json
 import os
 import re
 
-import anthropic
+from openai import OpenAI
 
-client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 _RESUME_TEXT: str | None = None
 _ARBEITSZEUGNIS_TEXT: str | None = None
@@ -86,18 +86,11 @@ def _build_system_prompt() -> str:
 
 
 def score_job(job: dict) -> dict:
-    response = client.messages.create(
-        model="claude-sonnet-4-6",
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
         max_tokens=256,
-        system=[
-            {
-                "type": "text",
-                "text": _build_system_prompt(),
-                # resume + Arbeitszeugnis are identical across all calls — cache them
-                "cache_control": {"type": "ephemeral"},
-            }
-        ],
         messages=[
+            {"role": "system", "content": _build_system_prompt()},
             {
                 "role": "user",
                 "content": SCORE_PROMPT.format(
@@ -106,11 +99,11 @@ def score_job(job: dict) -> dict:
                     location=job["location"],
                     description=job["description"] or "No description available.",
                 ),
-            }
+            },
         ],
     )
 
-    raw = response.content[0].text.strip()
+    raw = response.choices[0].message.content.strip()
     try:
         return json.loads(raw)
     except json.JSONDecodeError:
