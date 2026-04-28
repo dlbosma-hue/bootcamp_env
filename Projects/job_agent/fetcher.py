@@ -5,9 +5,9 @@ import urllib.parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 
-import requests
 from bs4 import BeautifulSoup
 from jobspy import scrape_jobs
+from playwright.sync_api import sync_playwright
 
 from config import (
     DISTANCE_KM,
@@ -129,36 +129,105 @@ def _fetch_jobspy_parallel(terms: list[str], sites: list[str], location: str, ex
     return all_jobs
 
 
-# ── Stepstone scraper ─────────────────────────────────────────────────────────
+# ── Playwright helpers ────────────────────────────────────────────────────────
+
+def _get_rendered_html(page, url: str) -> str:
+    page.goto(url, wait_until="networkidle", timeout=30000)
+    return page.content()
+
+
+def _parse_jsonld_jobs(html: str, fallback_url: str, source: str) -> list[dict]:
+    soup = BeautifulSoup(html, "lxml")
+    jobs = []
+    for script in soup.find_all("script", type="application/ld+json"):
+        try:
+            data = json.loads(script.string or "")
+        except Exception:
+            continue
+        items = data if isinstance(data, list) else [data]
+        for item in items:
+            if item.get("@type") != "JobPosting":
+                continue
+            title = item.get("title", "")
+            org = item.get("hiringOrganization", {})
+            company = org.get("name", "Unknown") if isinstance(org, dict) else "Unknown"
+            job_url = item.get("url", fallback_url)
+            description = item.get("description", "")
+            if title and job_url:
+                jobs.append(_make_job(title, company, "Berlin", job_url, description, source))
+    return jobs
+
+
+# ── Stepstone scraper (Playwright + JSON-LD) ──────────────────────────────────
 
 def _fetch_stepstone(terms: list[str]) -> list[dict]:
     jobs: list[dict] = []
     seen_urls: set[str] = set()
 
-    for term in terms:
-        slug = term.replace(" ", "-").lower()
-        url = f"https://www.stepstone.de/jobs/{urllib.parse.quote(slug)}/in-berlin.html"
-        try:
-            resp = requests.get(url, headers=_HEADERS, timeout=15)
-            soup = BeautifulSoup(resp.text, "html.parser")
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        ctx = browser.new_context(user_agent=_HEADERS["User-Agent"])
+        page = ctx.new_page()
 
-            # Stepstone embeds structured JSON-LD job data in <script> tags
-            for script in soup.find_all("script", type="application/ld+json"):
-                try:
-                    data = json.loads(script.string or "")
-                except Exception:
+        for term in terms:
+            slug = urllib.parse.quote(term.replace(" ", "-").lower())
+            url = f"https://www.stepstone.de/jobs/{slug}/in-berlin.html"
+            try:
+                html = _get_rendered_html(page, url)
+                for job in _parse_jsonld_jobs(html, url, "stepstone"):
+                    if _is_excluded(job["title"]) or not _passes_title_filter(job["title"]):
+                        continue
+                    if job["url"] not in seen_urls:
+                        seen_urls.add(job["url"])
+                        jobs.append(job)
+            except Exception as e:
+                print(f"  [stepstone] '{term}': {e}")
+
+        browser.close()
+    return jobs
+
+
+# ── Jobware scraper (Playwright + HTML) ───────────────────────────────────────
+
+def _fetch_jobware(terms: list[str]) -> list[dict]:
+    jobs: list[dict] = []
+    seen_urls: set[str] = set()
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        ctx = browser.new_context(user_agent=_HEADERS["User-Agent"])
+        page = ctx.new_page()
+
+        for term in terms:
+            url = (
+                f"https://www.jobware.de/suche/stellen/"
+                f"?was={urllib.parse.quote(term)}&wo=Berlin&umkreis=30"
+            )
+            try:
+                html = _get_rendered_html(page, url)
+                soup = BeautifulSoup(html, "lxml")
+
+                # try JSON-LD first (most reliable)
+                jsonld = _parse_jsonld_jobs(html, url, "jobware")
+                if jsonld:
+                    for job in jsonld:
+                        if not _is_excluded(job["title"]) and _passes_title_filter(job["title"]):
+                            if job["url"] not in seen_urls:
+                                seen_urls.add(job["url"])
+                                jobs.append(job)
                     continue
 
-                items = data if isinstance(data, list) else [data]
-                for item in items:
-                    if item.get("@type") != "JobPosting":
-                        continue
-                    title = item.get("title", "")
-                    org = item.get("hiringOrganization", {})
-                    company = org.get("name", "Unknown") if isinstance(org, dict) else "Unknown"
-                    job_url = item.get("url", url)
-                    description = item.get("description", "")
-                    location = "Berlin"
+                # fallback: parse job listing elements
+                for el in soup.select("article, [class*='job'], [class*='stelle']"):
+                    title_el = el.find(["h2", "h3"])
+                    link_el = el.find("a", href=True)
+                    company_el = el.find(class_=re.compile(r"company|employer|arbeitgeber", re.I))
+
+                    title = title_el.get_text(strip=True) if title_el else ""
+                    job_url = link_el["href"] if link_el else ""
+                    if job_url and not job_url.startswith("http"):
+                        job_url = "https://www.jobware.de" + job_url
+                    company = company_el.get_text(strip=True) if company_el else "Unknown"
 
                     if not title or not job_url:
                         continue
@@ -167,51 +236,12 @@ def _fetch_stepstone(terms: list[str]) -> list[dict]:
                     if job_url in seen_urls:
                         continue
                     seen_urls.add(job_url)
-                    jobs.append(_make_job(title, company, location, job_url, description, "stepstone"))
+                    jobs.append(_make_job(title, company, "Berlin", job_url, "", "jobware"))
 
-        except Exception as e:
-            print(f"  [stepstone] Error for '{term}': {e}")
+            except Exception as e:
+                print(f"  [jobware] '{term}': {e}")
 
-    return jobs
-
-
-# ── Jobware scraper ───────────────────────────────────────────────────────────
-
-def _fetch_jobware(terms: list[str]) -> list[dict]:
-    jobs: list[dict] = []
-    seen_urls: set[str] = set()
-
-    for term in terms:
-        url = (
-            f"https://www.jobware.de/suche/stellen/"
-            f"?was={urllib.parse.quote(term)}&wo=Berlin&umkreis=30"
-        )
-        try:
-            resp = requests.get(url, headers=_HEADERS, timeout=15)
-            soup = BeautifulSoup(resp.text, "html.parser")
-
-            for article in soup.find_all("article", class_=re.compile(r"job")):
-                title_el = article.find(["h2", "h3", "a"])
-                title = title_el.get_text(strip=True) if title_el else ""
-                link_el = article.find("a", href=True)
-                job_url = link_el["href"] if link_el else ""
-                if job_url and not job_url.startswith("http"):
-                    job_url = "https://www.jobware.de" + job_url
-                company_el = article.find(class_=re.compile(r"company|employer|arbeitgeber", re.I))
-                company = company_el.get_text(strip=True) if company_el else "Unknown"
-
-                if not title or not job_url:
-                    continue
-                if _is_excluded(title) or not _passes_title_filter(title):
-                    continue
-                if job_url in seen_urls:
-                    continue
-                seen_urls.add(job_url)
-                jobs.append(_make_job(title, company, "Berlin", job_url, "", "jobware"))
-
-        except Exception as e:
-            print(f"  [jobware] Error for '{term}': {e}")
-
+        browser.close()
     return jobs
 
 
