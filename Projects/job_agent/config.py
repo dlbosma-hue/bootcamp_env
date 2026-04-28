@@ -37,7 +37,7 @@ RESULTS_PER_TERM = 10  # per search term per source
 
 SCORE_THRESHOLDS = {
     "apply": 8,
-    "maybe": 6,
+    "maybe": 5,
 }
 
 STEPSTONE_RSS_TEMPLATE = (
