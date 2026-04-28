@@ -1,0 +1,5 @@
+anthropic>=0.40.0
+python-jobspy>=1.1.0
+feedparser>=6.0.11
+pandas>=2.0.0
+python-dotenv>=1.0.0
