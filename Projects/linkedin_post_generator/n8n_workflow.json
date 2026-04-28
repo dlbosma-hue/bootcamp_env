@@ -17,7 +17,10 @@
       "name": "Schedule Trigger",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1,
-      "position": [200, 300]
+      "position": [
+        200,
+        300
+      ]
     },
     {
       "parameters": {
@@ -26,20 +29,44 @@
         "sendQuery": true,
         "queryParameters": {
           "parameters": [
-            { "name": "q", "value": "artificial intelligence" },
-            { "name": "sortBy", "value": "publishedAt" },
-            { "name": "pageSize", "value": "5" },
-            { "name": "language", "value": "en" },
-            { "name": "apiKey", "value": "PASTE_NEWSAPI_KEY_HERE" }
+            {
+              "name": "q",
+              "value": "artificial intelligence"
+            },
+            {
+              "name": "sortBy",
+              "value": "publishedAt"
+            },
+            {
+              "name": "pageSize",
+              "value": "5"
+            },
+            {
+              "name": "language",
+              "value": "en"
+            },
+            {
+              "name": "apiKey",
+              "value": "PASTE_NEWSAPI_KEY_HERE"
+            },
+            {
+              "name": "from",
+              "value": "={{ $now.minus({days: 7}).toFormat('yyyy-MM-dd') }}"
+            }
           ]
         },
-        "options": { "timeout": 30000 }
+        "options": {
+          "timeout": 30000
+        }
       },
       "id": "fetch-newsapi",
       "name": "Fetch NewsAPI",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4,
-      "position": [450, 300],
+      "position": [
+        450,
+        300
+      ],
       "continueOnFail": true
     },
     {
@@ -49,19 +76,29 @@
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "Accept", "value": "text/plain" }
+            {
+              "name": "Accept",
+              "value": "text/plain"
+            }
           ]
         },
         "options": {
           "timeout": 30000,
-          "response": { "response": { "responseFormat": "text" } }
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
         }
       },
       "id": "fetch-tldr",
       "name": "Fetch TLDR AI",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4,
-      "position": [700, 300],
+      "position": [
+        700,
+        300
+      ],
       "continueOnFail": true
     },
     {
@@ -71,30 +108,43 @@
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "Accept", "value": "text/plain" }
+            {
+              "name": "Accept",
+              "value": "text/plain"
+            }
           ]
         },
         "options": {
           "timeout": 30000,
-          "response": { "response": { "responseFormat": "text" } }
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
         }
       },
       "id": "fetch-aireport-archive",
       "name": "Fetch AI Report Archive",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4,
-      "position": [950, 300],
+      "position": [
+        950,
+        300
+      ],
       "continueOnFail": true
     },
     {
       "parameters": {
-        "jsCode": "const archiveData = $input.first().json;\nlet archiveText = '';\n\nif (archiveData && archiveData.data) {\n  archiveText = String(archiveData.data);\n} else if (typeof archiveData === 'string') {\n  archiveText = archiveData;\n} else {\n  archiveText = JSON.stringify(archiveData);\n}\n\nconst raw = archiveText.match(/https:\\/\\/www\\.aireport\\.nl\\/p\\/[^\\s\\)\"'\\]]+/g) || [];\nconst seen = new Set();\nconst unique = [];\nfor (const u of raw) {\n  const clean = u.replace(/[.,;]+$/, '');\n  if (!seen.has(clean)) { seen.add(clean); unique.push(clean); }\n}\n// Beehiiv pins a featured article at index 0 — take index 1 for a genuinely recent post\nconst latestUrl = unique.length > 1 ? unique[1] : (unique[0] || null);\n\nreturn [{ json: { latest_article_url: latestUrl } }];"
+        "jsCode": "const archiveData = $input.first().json;\nlet archiveText = '';\n\nif (archiveData && archiveData.data) {\n  archiveText = String(archiveData.data);\n} else if (typeof archiveData === 'string') {\n  archiveText = archiveData;\n} else {\n  archiveText = JSON.stringify(archiveData);\n}\n\nconst raw = archiveText.match(/https:\\/\\/www\\.aireport\\.nl\\/p\\/[^\\s\\)\"'\\]]+/g) || [];\nconst seen = new Set();\nconst unique = [];\nfor (const u of raw) {\n  const clean = u.replace(/[.,;]+$/, '');\n  if (!seen.has(clean)) { seen.add(clean); unique.push(clean); }\n}\n// Beehiiv pins a featured article at index 0 \u2014 take index 1 for a genuinely recent post\nconst latestUrl = unique.length > 1 ? unique[1] : (unique[0] || null);\n\nreturn [{ json: { latest_article_url: latestUrl } }];"
       },
       "id": "extract-aireport-url",
       "name": "Extract AI Report URL",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1200, 300]
+      "position": [
+        1200,
+        300
+      ]
     },
     {
       "parameters": {
@@ -103,40 +153,56 @@
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "Accept", "value": "text/plain" }
+            {
+              "name": "Accept",
+              "value": "text/plain"
+            }
           ]
         },
         "options": {
           "timeout": 30000,
-          "response": { "response": { "responseFormat": "text" } }
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
         }
       },
       "id": "fetch-aireport-article",
       "name": "Fetch AI Report Article",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4,
-      "position": [1450, 300],
+      "position": [
+        1450,
+        300
+      ],
       "continueOnFail": true
     },
     {
       "parameters": {
-        "jsCode": "const newsapiNode = $('Fetch NewsAPI').first();\nconst tldrNode = $('Fetch TLDR AI').first();\nconst aireportNode = $('Fetch AI Report Article').first();\n\nlet newsapiText = '[NewsAPI unavailable]';\ntry {\n  const articles = newsapiNode.json.articles || [];\n  const lines = articles.filter(a => a.title).map(a => `- ${a.title}: ${a.description || ''}`).slice(0, 5);\n  if (lines.length > 0) newsapiText = lines.join('\\n');\n} catch(e) {}\n\nlet tldrText = '[TLDR AI unavailable]';\ntry {\n  const raw = tldrNode.json;\n  tldrText = String(raw.data || raw.body || JSON.stringify(raw)).substring(0, 4000);\n} catch(e) {}\n\nlet aireportText = '[AI Report NL unavailable]';\ntry {\n  const raw = aireportNode.json;\n  aireportText = String(raw.data || raw.body || JSON.stringify(raw)).substring(0, 4000);\n} catch(e) {}\n\nconst today = new Date().toLocaleDateString('en-GB', {\n  weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',\n  timeZone: 'Europe/Berlin'\n});\n\nreturn [{ json: { newsapi_output: newsapiText, tldr_content: tldrText, aireport_content: aireportText, today } }];"
+        "jsCode": "const newsapiNode = $('Fetch NewsAPI').first();\nconst tldrNode = $('Fetch TLDR AI').first();\nconst aireportNode = $('Fetch AI Report Article').first();\n\nlet newsapiText = '[NewsAPI unavailable]';\ntry {\n  const articles = newsapiNode.json.articles || [];\n  const lines = articles.filter(a => a.title).map(a => `- [${(a.publishedAt || '').slice(0,10)}] ${a.title}: ${a.description || ''}`).slice(0, 5);\n  if (lines.length > 0) newsapiText = lines.join('\\n');\n} catch(e) {}\n\nlet tldrText = '[TLDR AI unavailable]';\ntry {\n  const raw = tldrNode.json;\n  tldrText = String(raw.data || raw.body || JSON.stringify(raw)).substring(0, 4000);\n} catch(e) {}\n\nlet aireportText = '[AI Report NL unavailable]';\ntry {\n  const raw = aireportNode.json;\n  aireportText = String(raw.data || raw.body || JSON.stringify(raw)).substring(0, 4000);\n} catch(e) {}\n\nconst today = new Date().toLocaleDateString('en-GB', {\n  weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',\n  timeZone: 'Europe/Berlin'\n});\n\nreturn [{ json: { newsapi_output: newsapiText, tldr_content: tldrText, aireport_content: aireportText, today } }];"
       },
       "id": "combine-sources",
       "name": "Combine Sources",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1700, 300]
+      "position": [
+        1700,
+        300
+      ]
     },
     {
       "parameters": {
-        "jsCode": "const d = $input.first().json;\n\nconst systemPrompt = 'You are writing LinkedIn content for Dina, a PM and AI consultant.\\n\\nContext:\\n- Building a consulting practice targeting businesses and non-technical adults in the DACH region.\\n- 4 years PM experience, most recently building AI tools at Outfittery (17% stylist efficiency improvement).\\n- Fresh out of a 9-week AI consulting bootcamp (IronHack, 2026).\\n- PM-first, technical second. Do not overclaim technical depth.\\n\\nVoice rules:\\n- Direct, punchy, zero fluff. Conversational, not corporate.\\n- Short sentences. No em dashes. Ever.\\n- Assume smart reader. No hand-holding.\\n- Concrete over abstract. Use metrics when possible.\\n\\nLinkedIn post playbook:\\n- Punchy opener that stops the scroll.\\n- One concrete insight.\\n- End with a question.\\n- Max 220 words.\\n\\nNever use: leverage, delve, synergy, unlock, transformative.\\nNever sound like everyone else on LinkedIn.\\n\\nKnown failure modes to avoid:\\n- Too polished, loses her voice. Keep it human.\\n- Hedging everything. Be wrong and clear, not right and vague.\\n- Making it longer than it needs to be. Cut it.';\n\nconst userContent = 'Here are today\\'s AI news inputs:\\n\\nNEWSAPI HEADLINES:\\n' + d.newsapi_output + '\\n\\nTLDR AI (today\\'s page):\\n' + d.tldr_content + '\\n\\nAI REPORT NL (this content is in Dutch - translate it first):\\n' + d.aireport_content + '\\n\\nInstructions:\\n1. Translate any Dutch content to English internally - do NOT output the translation, just use it to understand the content\\n2. Identify the 3 most interesting AI topics across all sources\\n3. Each topic MUST come from a different company, product, or theme - no two posts about the same subject\\n4. Do NOT pick 3 variations of the same story\\n5. Use web_search once to find one additional angle not already covered by the sources above - do not use it to dig deeper into a topic you already have\\n6. For each topic output exactly this format:\\n\\nTOPIC [N]: [one-line title]\\nSOURCE: [which source]\\nWHY: [one sentence on why this is worth posting about]\\nPOST:\\n[full LinkedIn post, max 220 words, in Dina\\'s voice]\\n---\\n\\n7. Each post: punchy hook / one concrete insight / stat or example / question at end\\n8. Make the 3 posts distinct - different companies, different angles, different audiences if possible\\n9. Where relevant, write from Dina\\'s first-person perspective - e.g. what she saw building AI tools at Outfittery, what she learned in the bootcamp, or what she is seeing now as a consultant. First-person observations beat generic commentary.';\n\nconst payload = {\n  model: 'claude-sonnet-4-20250514',\n  max_tokens: 3000,\n  system: systemPrompt,\n  tools: [{ type: 'web_search_20250305', name: 'web_search' }],\n  messages: [{ role: 'user', content: userContent }]\n};\n\nreturn [{ json: { payload: JSON.stringify(payload), today: d.today } }];"
+        "jsCode": "const d = $input.first().json;\n\nconst systemPrompt = \"You are writing LinkedIn posts for Dina, a product manager turned AI consultant based in Berlin.\\n\\nWHO SHE IS\\nDina spent 4 years as a PM, most recently at Outfittery where she led AI tooling that improved stylist efficiency by 17% - from 29 to 34 orders per day. She just completed a 9-week AI consulting bootcamp (IronHack, 2026) and is now building her own practice. Her clients are small and mid-size businesses and non-technical founders in the DACH region who want to use AI but don't know where to start.\\n\\nShe is not an AI researcher. She is not an engineer. She is someone who has watched AI projects succeed and fail from inside a real company, and is now helping others avoid the same mistakes. That practitioner perspective is her entire credibility.\\n\\nHER EDGE\\nMost LinkedIn AI content is written by people who haven't shipped anything. Dina has. Use the contrast. Her posts should feel like advice from a colleague who's been in the room, not commentary from someone who read the press release.\\n\\nVOICE RULES\\n- Short sentences. Default to under 12 words. Vary rhythm deliberately.\\n- No em dashes. No semicolons. No bullet walls.\\n- Conversational but not casual. Smart but not academic.\\n- Never hedge. Be direct even when uncertain. Wrong and clear beats right and vague.\\n- No throat-clearing. First sentence must earn attention.\\n- Concrete beats abstract. If you can say \\\"17%\\\" instead of \\\"significant gains,\\\" say \\\"17%.\\\"\\n\\nWHAT GREAT LOOKS LIKE\\nA great Dina post:\\n1. Opens with something that stops a scroll - a counterintuitive stat, a real observation, a short uncomfortable truth\\n2. Has one sharp insight rooted in what she has actually seen (Outfittery, clients, bootcamp)\\n3. Uses contrast: what most businesses do vs. what actually works\\n4. Ends with a question that a non-technical DACH business owner would genuinely answer - specific, not rhetorical, slightly uncomfortable\\n\\nThe rhythm looks like: short punch. Short punch. Slightly longer line that earns it. Back to short. Question.\\n\\nBANNED WORDS\\nleverage, delve, synergy, unlock, transformative, revolutionize, game-changer, landscape, ecosystem, streamline\\n\\nFAILURE MODES TO AVOID\\n- Too polished: if it sounds like a thought leadership post, rewrite it\\n- Generic AI commentary: if the same post could be written by anyone who read TechCrunch, it's wrong\\n- Rhetorical questions: \\\"What does this mean for your business?\\\" is not a question, it's a cop-out\\n- Long: 180-220 words maximum. Cut anything that doesn't earn its place\\n- Formula-following: the structure should emerge from the idea, not be imposed on it\";\n\nconst userContent = \"Here are today's AI news inputs:\\n\\nNEWSAPI HEADLINES:\\n\" + d.newsapi_output + \"\\n\\nTLDR AI (today's page):\\n\" + d.tldr_content + \"\\n\\nAI REPORT NL (this content is in Dutch - translate it first):\\n\" + d.aireport_content + \"\\n\\nInstructions:\\n1. Translate any Dutch content to English internally - do NOT output the translation, just use it to understand the content\\n2. Identify the 5 most interesting AI topics across all sources\\n3. Each topic MUST come from a different company, product, or theme - no two posts about the same subject\\n4. Do NOT pick 5 variations of the same story\\n5. Use web_search once to find one additional angle not already covered by the sources above - do not use it to dig deeper into a topic you already have\\n6. For each topic output exactly this format:\\n\\nTOPIC [N]: [one-line title]\\nSOURCE: [which source]\\nWHY: [one sentence on why this is worth posting about]\\nPOST:\\n[full LinkedIn post, max 220 words, in Dina's voice]\\n---\\n\\n7. Each post: punchy hook / one concrete insight / stat or example / question at end\\n8. Make the 5 posts distinct - different companies, different angles, different audiences if possible\\n9. At least 3 of the 5 posts must be written from Dina's first-person perspective - not as a journalist reporting on AI news, but as someone who has lived it. Use her PM background, her time at Outfittery, her bootcamp experience, or what she is now seeing as a consultant. First-person beats third-person commentary every time.\\n10. Exactly ONE of the 5 posts must follow this practitioner-insight format: open with a tension stat or blunt observation, add personal credibility with a line like I see why or I have seen this, show what businesses do WRONG using direct speech if possible, give ONE concrete rule or number, include a brief personal anecdote from Dina's Outfittery experience or consulting work, reframe with a simple contrast such as: not 47 tools - 3 tools used well, end with a casual relatable question about a specific frustration small business owners feel. This post is for non-technical business owners in DACH, not tech insiders.\\n11. RECENCY: only use news stories from the past 7 days. Each headline includes a date in [YYYY-MM-DD] format. If a story is older than 7 days, skip it.\\n12. HALLUCINATION GUARD: when referencing Dina's personal experience, use ONLY these verified facts - nothing else: At Outfittery she led AI tooling that improved stylist efficiency by 17% (from 29 to 34 orders per day). She completed a 9-week AI consulting bootcamp at IronHack in 2026. She is now building a consulting practice in Berlin for small and mid-size businesses and non-technical founders in DACH. Do NOT invent clients, project names, bootcamp projects, pitches, presentations, outcomes, or any other details not listed here. If you want a personal angle and these facts do not fit, write the post without a personal angle rather than making one up.\";\n\nconst payload = {\n  model: 'claude-sonnet-4-20250514',\n  max_tokens: 5000,\n  system: systemPrompt,\n  tools: [{ type: 'web_search_20250305', name: 'web_search' }],\n  messages: [{ role: 'user', content: userContent }]\n};\n\nreturn [{ json: { payload: JSON.stringify(payload), today: d.today } }];"
       },
       "id": "build-claude-payload",
       "name": "Build Claude Payload",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1950, 300]
+      "position": [
+        1950,
+        300
+      ]
     },
     {
       "parameters": {
@@ -145,10 +211,22 @@
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            { "name": "x-api-key", "value": "PASTE_ANTHROPIC_KEY_HERE" },
-            { "name": "anthropic-version", "value": "2023-06-01" },
-            { "name": "anthropic-beta", "value": "web-search-2025-03-05" },
-            { "name": "Content-Type", "value": "application/json" }
+            {
+              "name": "x-api-key",
+              "value": "PASTE_ANTHROPIC_KEY_HERE"
+            },
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "anthropic-beta",
+              "value": "web-search-2025-03-05"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
           ]
         },
         "sendBody": true,
@@ -156,13 +234,18 @@
         "contentType": "raw",
         "rawContentType": "application/json",
         "body": "={{ $json.payload }}",
-        "options": { "timeout": 60000 }
+        "options": {
+          "timeout": 60000
+        }
       },
       "id": "claude-generate",
       "name": "Claude: Generate Post",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4,
-      "position": [2200, 300]
+      "position": [
+        2200,
+        300
+      ]
     },
     {
       "parameters": {
@@ -172,7 +255,10 @@
       "name": "Extract Post Text",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [2450, 300]
+      "position": [
+        2450,
+        300
+      ]
     },
     {
       "parameters": {
@@ -186,7 +272,10 @@
       "name": "Send Email",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2,
-      "position": [2700, 300],
+      "position": [
+        2700,
+        300
+      ],
       "credentials": {
         "gmailOAuth2": {
           "id": "gmail-oauth",
@@ -197,34 +286,114 @@
   ],
   "connections": {
     "Schedule Trigger": {
-      "main": [[{ "node": "Fetch NewsAPI", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Fetch NewsAPI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Fetch NewsAPI": {
-      "main": [[{ "node": "Fetch TLDR AI", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Fetch TLDR AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Fetch TLDR AI": {
-      "main": [[{ "node": "Fetch AI Report Archive", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Fetch AI Report Archive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Fetch AI Report Archive": {
-      "main": [[{ "node": "Extract AI Report URL", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Extract AI Report URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Extract AI Report URL": {
-      "main": [[{ "node": "Fetch AI Report Article", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Fetch AI Report Article",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Fetch AI Report Article": {
-      "main": [[{ "node": "Combine Sources", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Combine Sources",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Combine Sources": {
-      "main": [[{ "node": "Build Claude Payload", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Build Claude Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Build Claude Payload": {
-      "main": [[{ "node": "Claude: Generate Post", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Claude: Generate Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Claude: Generate Post": {
-      "main": [[{ "node": "Extract Post Text", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Extract Post Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Extract Post Text": {
-      "main": [[{ "node": "Send Email", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
