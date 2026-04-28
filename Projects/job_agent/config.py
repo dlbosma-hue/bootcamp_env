@@ -40,12 +40,3 @@ SCORE_THRESHOLDS = {
     "maybe": 5,
 }
 
-STEPSTONE_RSS_TEMPLATE = (
-    "https://www.stepstone.de/stellenangebote--{keyword}-berlin.html"
-    "?rssFeed=true&radius=30"
-)
-
-JOBWARE_RSS_TEMPLATE = (
-    "https://www.jobware.de/suche/stellen/"
-    "?was={keyword}&wo=Berlin&umkreis=30&rss=1"
-)
