@@ -31,7 +31,7 @@ jobs:
           OPENAI_API_KEY:  ${{ secrets.OPENAI_API_KEY }}
           EMAIL_ADDRESS:   ${{ secrets.EMAIL_ADDRESS }}
           EMAIL_PASSWORD:  ${{ secrets.EMAIL_PASSWORD }}
-          EMAIL_TO:        ${{ secrets.EMAIL_TO }}
+          EMAIL_TO:        ${{ secrets.JA2_EMAIL_TO }}
           SMTP_HOST:       ${{ secrets.SMTP_HOST }}
           SMTP_PORT:       ${{ secrets.SMTP_PORT }}
         run: python pipeline.py
