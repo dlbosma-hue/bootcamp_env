@@ -12,10 +12,10 @@ def _summarise(recipes: list[dict]) -> list[dict]:
         {
             "name": r["name"],
             "meal_type": r.get("meal_type"),
-            "cuisine": r.get("cuisine"),
             "prep_time_minutes": r.get("prep_time_minutes"),
             "prenatal_score": r.get("prenatal_score"),
-            "ingredients": r.get("ingredients", [])[:5],  # first 5 only for context
+            "ingredients": r.get("ingredients", []),
+            "steps": r.get("steps", []),
         }
         for r in recipes
     ]
