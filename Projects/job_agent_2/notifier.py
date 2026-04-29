@@ -7,18 +7,44 @@ from email.mime.text import MIMEText
 from config import MIN_EMAIL_SCORE
 
 
+_SOURCE_COLOURS = {
+    "linkedin":  "#0077b5",
+    "indeed":    "#003a9b",
+    "xing":      "#026466",
+    "stepstone": "#e84034",
+    "jobware":   "#e87722",
+}
+
+
+def _source_badge(source: str) -> str:
+    colour = _SOURCE_COLOURS.get(source.lower(), "#888")
+    return (
+        f'<span style="background:{colour};color:#fff;font-size:11px;'
+        f'padding:1px 6px;border-radius:3px;margin-right:6px;">'
+        f'{source.capitalize()}</span>'
+    )
+
+
 def _section_html(jobs: list[dict], flag: str, label: str, score_range: str) -> str:
     relevant = [j for j in jobs if j["flag"] == flag]
     if not relevant:
         return ""
     rows = ""
     for i, j in enumerate(relevant, 1):
+        source_badge = _source_badge(j.get("source", ""))
+        cover = j.get("cover_opening", "")
+        cover_html = (
+            f'<div style="margin:6px 0 4px;padding:8px 10px;background:#f0f7ff;'
+            f'border-left:3px solid #1a73e8;color:#333;font-style:italic;font-size:13px;">'
+            f'{cover}</div>'
+        ) if cover else ""
         rows += f"""
         <tr>
-          <td style="padding:8px 0;border-bottom:1px solid #eee;vertical-align:top;">
-            <strong>{i}. {j['title']}</strong> — {j['company']}, {j['location']}<br>
-            <span style="color:#555;">Score: {j['score']}/10 &nbsp;|&nbsp; {j['match_reason']}</span><br>
-            <a href="{j['url']}" style="color:#1a73e8;">View job →</a>
+          <td style="padding:10px 0;border-bottom:1px solid #eee;vertical-align:top;">
+            {source_badge}<strong>{i}. {j['title']}</strong> — {j['company']}, {j['location']}<br>
+            <span style="color:#555;font-size:13px;">Score: {j['score']}/10 &nbsp;|&nbsp; {j['match_reason']}</span>
+            {cover_html}
+            <a href="{j['url']}" style="color:#1a73e8;font-size:13px;">View job →</a>
           </td>
         </tr>"""
     return f"""

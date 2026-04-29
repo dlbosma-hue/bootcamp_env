@@ -72,7 +72,10 @@ SCORE_THRESHOLDS = {
     "skip":  5,
 }
 
-OPENAI_MODEL = "gpt-4o"
+OPENAI_MODEL        = "gpt-4o"        # second pass + cover letters
+OPENAI_FILTER_MODEL = "gpt-4o-mini"   # first pass — filters all jobs fast
+FILTER_PASS_THRESHOLD = 5             # re-score with gpt-4o only if mini scores ≥ this
+SCORING_WORKERS = 8                   # parallel scoring threads
 
 # ── Email ─────────────────────────────────────────────────────────────────────
 

@@ -6,7 +6,7 @@ load_dotenv()
 from db import filter_new, mark_seen
 from fetcher import fetch_all_jobs
 from notifier import send_digest
-from scorer import score_job
+from scorer import score_all
 
 
 def _load(path: str) -> str:
@@ -15,8 +15,8 @@ def _load(path: str) -> str:
 
 
 def main():
-    resume_text       = _load("resume.md")
-    reference_text    = _load("reference.md")
+    resume_text        = _load("resume.md")
+    reference_text     = _load("reference.md")
     certification_text = _load("certification.md")
 
     print("[pipeline] Fetching jobs...")
@@ -30,15 +30,14 @@ def main():
         print("[pipeline] Nothing new — skipping scoring and email.")
         return
 
-    print("[pipeline] Scoring jobs...")
-    scored = []
-    for i, job in enumerate(new_jobs, 1):
-        result = score_job(job, resume_text, reference_text, certification_text)
-        job_scored = {**job, **result}
-        mark_seen(job, result["score"], result["flag"], result["match_reason"])
-        scored.append(job_scored)
-        flag_icon = {"apply": "✅", "maybe": "🤔", "skip": "⬜"}.get(result["flag"], "")
-        print(f"  [{i}/{len(new_jobs)}] {flag_icon} {result['score']}/10 — {job['title']} @ {job['company']}")
+    print(f"[pipeline] Scoring {len(new_jobs)} jobs (two-pass)...")
+    scored = score_all(new_jobs, resume_text, reference_text, certification_text)
+
+    for job in scored:
+        mark_seen(job, job["score"], job["flag"], job["match_reason"])
+        flag_icon = {"apply": "✅", "maybe": "🤔", "skip": "⬜"}.get(job["flag"], "")
+        cover_note = " + cover" if job.get("cover_opening") else ""
+        print(f"  {flag_icon} {job['score']}/10{cover_note} — {job['title']} @ {job['company']}")
 
     print("[pipeline] Sending digest...")
     send_digest(scored, total_seen=len(new_jobs))
