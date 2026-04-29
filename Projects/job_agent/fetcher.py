@@ -121,13 +121,26 @@ def _scrape_one_term(term: str, sites: list[str], location: str, extra_kwargs: d
 def _fetch_jobspy_parallel(terms: list[str], sites: list[str], location: str, extra_kwargs: dict = {}) -> list[dict]:
     seen_urls: set[str] = set()
     all_jobs: list[dict] = []
-    with ThreadPoolExecutor(max_workers=5) as executor:
+    with ThreadPoolExecutor(max_workers=3) as executor:
         futures = {executor.submit(_scrape_one_term, t, sites, location, extra_kwargs): t for t in terms}
         for future in as_completed(futures):
             for job in future.result():
                 if job["url"] not in seen_urls:
                     seen_urls.add(job["url"])
                     all_jobs.append(job)
+    return all_jobs
+
+
+def _fetch_linkedin_sequential(terms: list[str], location: str) -> list[dict]:
+    """LinkedIn rate-limits aggressively — run sequentially with a pause."""
+    seen_urls: set[str] = set()
+    all_jobs: list[dict] = []
+    for term in terms:
+        for job in _scrape_one_term(term, ["linkedin"], location, {}):
+            if job["url"] not in seen_urls:
+                seen_urls.add(job["url"])
+                all_jobs.append(job)
+        time.sleep(3)
     return all_jobs
 
 
@@ -286,10 +299,11 @@ def fetch_all_jobs() -> list[dict]:
         print(f"  → {len(result)} jobs")
         return result
 
-    # LinkedIn + Indeed run in parallel
-    with ThreadPoolExecutor(max_workers=2) as pool:
-        f_linkedin = pool.submit(_run, "LinkedIn",   _fetch_jobspy_parallel, all_terms, ["linkedin"], LOCATION)
-        f_indeed   = pool.submit(_run, "Indeed.de",  _fetch_jobspy_parallel, all_terms, ["indeed"],   "Berlin", {"country_indeed": "germany"})
+    # LinkedIn: sequential with pauses (rate-limit sensitive), primary terms only
+    # Indeed: parallel, all terms
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        f_linkedin = pool.submit(_run, "LinkedIn",  _fetch_linkedin_sequential, SEARCH_TERMS, LOCATION)
+        f_indeed   = pool.submit(_run, "Indeed.de", _fetch_jobspy_parallel, all_terms, ["indeed"], "Berlin", {"country_indeed": "germany"})
         all_jobs += f_linkedin.result()
         all_jobs += f_indeed.result()
 
