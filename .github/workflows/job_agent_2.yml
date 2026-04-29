@@ -1,0 +1,47 @@
+name: Daily Job Digest (AI PM)
+
+on:
+  schedule:
+    - cron: '0 7 * * 1-5'   # Mon–Fri 07:00 UTC = 08:00 CET / 09:00 CEST
+  workflow_dispatch:          # allow manual trigger from GitHub UI
+
+jobs:
+  scrape-and-notify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write         # needed to commit jobs.db back
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r Projects/job_agent_2/requirements.txt
+
+      - name: Install Playwright browser
+        run: playwright install chromium --with-deps
+
+      - name: Run job pipeline
+        working-directory: Projects/job_agent_2
+        env:
+          OPENAI_API_KEY:  ${{ secrets.OPENAI_API_KEY }}
+          EMAIL_ADDRESS:   ${{ secrets.EMAIL_ADDRESS }}
+          EMAIL_PASSWORD:  ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_TO:        ${{ secrets.EMAIL_TO }}
+          SMTP_HOST:       ${{ secrets.SMTP_HOST }}
+          SMTP_PORT:       ${{ secrets.SMTP_PORT }}
+        run: python pipeline.py
+
+      - name: Commit updated jobs.db
+        working-directory: Projects/job_agent_2
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add jobs.db
+          git diff --staged --quiet || git commit -m "chore: update jobs.db [skip ci]"
+          git pull --rebase
+          git push
