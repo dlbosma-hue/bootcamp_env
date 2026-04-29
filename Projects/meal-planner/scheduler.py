@@ -76,11 +76,8 @@ def run_meal_planner():
     print(f"  → {len(all_recipes)} Rezepte gesamt. Pränatal-Score berechnen...")
     scored_recipes = score_recipes(all_recipes)
 
-    selected = select_recipes(scored_recipes)
-    print(f"  → {len(selected)} Rezepte ausgewählt für GPT-4o.")
-
     print("  → Wochenplan erstellen...")
-    plan_data = build_meal_plan(selected)
+    plan_data = build_meal_plan(scored_recipes)
 
     print("  → E-Mail rendern und senden...")
     html = render_email(plan_data)

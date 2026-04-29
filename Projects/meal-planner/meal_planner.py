@@ -11,7 +11,7 @@ def build_meal_plan(recipes: list[dict]) -> dict:
     recipes_json = json.dumps(recipes, ensure_ascii=False, indent=2)
 
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {

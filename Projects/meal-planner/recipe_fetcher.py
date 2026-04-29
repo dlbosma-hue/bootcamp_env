@@ -41,7 +41,7 @@ def fetch_recipes() -> list[dict]:
     cuisines_str = ", ".join(CUISINE_ROTATION)
 
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         messages=[
             {
                 "role": "system",
