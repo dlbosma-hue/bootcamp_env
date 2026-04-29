@@ -363,5 +363,290 @@
     "title": "IT Specialist",
     "company": "Intercom",
     "first_seen": "2026-04-29"
+  },
+  "125a341876a7f9d931eb9454298af99f": {
+    "title": "IT-Leiter*in (m/w/d)",
+    "company": "Studierendenwerk Stuttgart Anstalt des \u00f6ffentlichen Rechts",
+    "first_seen": "2026-04-29"
+  },
+  "514cecef1d60c9011d1d0527ed52baf4": {
+    "title": "IT-Projektleiter:in (m/w/d)",
+    "company": "Pattr GmbH",
+    "first_seen": "2026-04-29"
+  },
+  "d1440c36a5ae43854a68c94dd117993d": {
+    "title": "Teamleiter IT (m/w/d)",
+    "company": "ISA-TRAESKO GmbH",
+    "first_seen": "2026-04-29"
+  },
+  "5866a38556d08f1e20e0864ff730060a": {
+    "title": "Teamleiter Servermanagement / IT-Administration (m/w/d)",
+    "company": "MDCC Magdeburg-City-Com GmbH",
+    "first_seen": "2026-04-29"
+  },
+  "22ec76961e75db585847cc141d567222": {
+    "title": "IT-Projektleiter:in SAP S/4HANA - Teilprojekt Migration (w/m/d)",
+    "company": "Berliner Wasserbetriebe",
+    "first_seen": "2026-04-29"
+  },
+  "cdc99e249779fd418b8353b21e1c27b6": {
+    "title": "Digitalisierungs- und IT-Manager:in",
+    "company": "Beh\u00f6rde f\u00fcr Stadtentwicklung und Wohnen",
+    "first_seen": "2026-04-29"
+  },
+  "47aab59d3bf22b8b4eb8eca3538dccc4": {
+    "title": "Stellvertretende Sachgebietsleitung (m/w/d) im Sachgebiet IT-Produktion",
+    "company": "Statistisches Amt f\u00fcr Hamburg und Schleswig-Holstein",
+    "first_seen": "2026-04-29"
+  },
+  "4bb78859ed4f40ba3c7aea2bbbf9a436": {
+    "title": "IT-Manager (m/w/d)",
+    "company": "Universit\u00e4t Bayreuth",
+    "first_seen": "2026-04-29"
+  },
+  "a18c172c4fe4f735d0007b590b7e500a": {
+    "title": "IT-Projektleitung (m/w/d)",
+    "company": "Finanz Informatik GmbH & Co. KG",
+    "first_seen": "2026-04-29"
+  },
+  "da35191db09512438021ca1a7cdc1e13": {
+    "title": "IT-Projektleitung Infrastrukturl\u00f6sungen (m/w/d)",
+    "company": "Finanz Informatik GmbH & Co. KG",
+    "first_seen": "2026-04-29"
+  },
+  "802af7e37090f9d09a2d8c96a366a2aa": {
+    "title": "IT-Projektleitung im Bereich Professional Services (m/w/d)",
+    "company": "Finanz Informatik GmbH & Co. KG",
+    "first_seen": "2026-04-29"
+  },
+  "f8c460f728b8a993d70017f358ad5234": {
+    "title": "Vertriebsbeauftragter / Sales Manager im Au\u00dfendienst - IT-L\u00f6sungen (m/w/d)",
+    "company": "SVA System Vertrieb Alexander GmbH",
+    "first_seen": "2026-04-29"
+  },
+  "ff56352b986c39206b69d132dbe351ec": {
+    "title": "Leitung IT-Bereich \u00bbKommunikations- und Gesch\u00e4ftsl\u00f6sungen\u00ab (m/w/d)",
+    "company": "Deutsche Bundesbank",
+    "first_seen": "2026-04-29"
+  },
+  "584f82f043530a632a62bd6e118d1408": {
+    "title": "Head of IT - Germany (m/w/d)",
+    "company": "USHIO Industry & Entertainment GmbH",
+    "first_seen": "2026-04-29"
+  },
+  "b50ab4f85f65c208efbba6d7bbf4c939": {
+    "title": "Head of IT (m/w/d) ERP | Cloud | Digital Transformation",
+    "company": "TOPOS Personalberatung GmbH",
+    "first_seen": "2026-04-29"
+  },
+  "e288dcec52b8eac739f5c6aedcb546e6": {
+    "title": "Channel Sales Manager Enterprise  IT-Infrastruktur und Hardwarel\u00f6sungen | Indirekter Vertrieb | DACH",
+    "company": "TOPOS Personalberatung GmbH",
+    "first_seen": "2026-04-29"
+  },
+  "1277e5c918fda02d27dbc8273676e8bf": {
+    "title": "IT-Spezialist Berechtigungsmanagement Active Directory (m/w/d)",
+    "company": "Finanz Informatik GmbH & Co. KG",
+    "first_seen": "2026-04-29"
+  },
+  "57dc94d27db51c4b8ae262d53c934ad7": {
+    "title": "(Wirtschafts-)Informatiker / Betriebswirt als IT-Projektmanager f\u00fcr die Weiterentwicklung der Kernsoftware mit Fokus auf das Entnahmezentrum Dresden (m/w/d)",
+    "company": "DKMS Collection Center gGmbH",
+    "first_seen": "2026-04-29"
+  },
+  "a0d75c210b80eed4969f3d1efe43375a": {
+    "title": "IT Solution Architect (w|m|d)",
+    "company": "ADAC IT Service GmbH",
+    "first_seen": "2026-04-29"
+  },
+  "006f9194973b2c923c313ab6e9ff1ea8": {
+    "title": "IT-Business-Architect (m/w/d)",
+    "company": "naturenergie hochrhein AG",
+    "first_seen": "2026-04-29"
+  },
+  "da72e4b942f9ced24424242e2bcc4848": {
+    "title": "IT Infrastructure Architect (m/w/d)",
+    "company": "Enrichment Technology Company Limited",
+    "first_seen": "2026-04-29"
+  },
+  "7d39187a42f208d33b5573268081c982": {
+    "title": "IT-Solution-Architect Enterprise Applications (m/w/d)",
+    "company": "Verlag C.H.BECK",
+    "first_seen": "2026-04-29"
+  },
+  "b5854f3095994fdc64eb6038053612ce": {
+    "title": "IT Consultant / Solution Architect Microsoft 365 & Azure (m/w/d)",
+    "company": "Avantgarde Business Solutions GmbH",
+    "first_seen": "2026-04-29"
+  },
+  "824879d20907ec1ce539324c857c74a6": {
+    "title": "IT-Architekt Mobile Apps (w/m/d)",
+    "company": "HUK-COBURG VVaG",
+    "first_seen": "2026-04-29"
+  },
+  "8dce081baf5736652cf6a1e1f4dc9acb": {
+    "title": "IT-Architektin/ IT-Architekt f\u00fcr KI-gest\u00fctzte Datenplattformen im Gesundheitswesen - Institut f\u00fcr Medizininformatik (IMI)",
+    "company": "Universit\u00e4tsklinikum Frankfurt",
+    "first_seen": "2026-04-29"
+  },
+  "1d69079a9d1a815240f95827a40927af": {
+    "title": "Strategische*r IT-Planer*in in der Landesverkehrszentrale NRW (w/m/d)",
+    "company": "Landesbetrieb Stra\u00dfenbau Nordrhein-Westfalen (Stra\u00dfen.NRW)",
+    "first_seen": "2026-04-29"
+  },
+  "6668856d187aee707d8b50e054dac653": {
+    "title": "(Senior) IT Cloud Architekt /Banking (all genders)",
+    "company": "msg systems",
+    "first_seen": "2026-04-29"
+  },
+  "ff724bd130dc774c29c7c8632346291e": {
+    "title": "(Senior) IT Cloud Architekt /Banking (all genders)",
+    "company": "msg systems",
+    "first_seen": "2026-04-29"
+  },
+  "47db4b62f4b97db5d994de276f89ece1": {
+    "title": "(Senior) IT Cloud Architekt /Banking (all genders)",
+    "company": "msg systems",
+    "first_seen": "2026-04-29"
+  },
+  "48112263a47dda31c6dd3b92e5dae722": {
+    "title": "(Senior) IT Cloud Architekt /Banking (all genders)",
+    "company": "msg systems",
+    "first_seen": "2026-04-29"
+  },
+  "85361b1bf7c7d629d431591c8cf4ebf8": {
+    "title": "(Senior) IT Cloud Architekt /Banking (all genders)",
+    "company": "msg systems",
+    "first_seen": "2026-04-29"
+  },
+  "5b10f271aeda5be978a67a11e300bda1": {
+    "title": "(Senior) IT Cloud Architekt /Banking (all genders)",
+    "company": "msg systems",
+    "first_seen": "2026-04-29"
+  },
+  "58812180fd96dcce723e92b001a85ca2": {
+    "title": "(Senior) IT Cloud Architekt /Banking (all genders)",
+    "company": "msg systems",
+    "first_seen": "2026-04-29"
+  },
+  "343d223c2e7a5a090b7bb6d7913447b7": {
+    "title": "Financial IT Governance Specialist (w/m/d)",
+    "company": "HUK-COBURG Versicherungsgruppe",
+    "first_seen": "2026-04-29"
+  },
+  "6c62a0293b77ef2c68c81c55ed9f68d8": {
+    "title": "Prozessmanager Governance & IT (w/m/d)",
+    "company": "ING Deutschland",
+    "first_seen": "2026-04-29"
+  },
+  "274753732bc17ce3a1cbdaaf01652be3": {
+    "title": "IT Governance & Strategie Manager (m/w/d)",
+    "company": "Deutsche Energie-Agentur GmbH (dena)",
+    "first_seen": "2026-04-29"
+  },
+  "472f22435f9b4be1f82b28d79e05c3fa": {
+    "title": "Zwei Cybersecurity Experts (m/w/d) - Red Teaming / TIBER",
+    "company": "Deutsche Bundesbank",
+    "first_seen": "2026-04-29"
+  },
+  "b00a01239875beb188cfe40f0d47b25e": {
+    "title": "IT Prozess- und Projektmanager:in / Inhouse Consultant (all genders)",
+    "company": "Stadtreinigung Hamburg",
+    "first_seen": "2026-04-29"
+  },
+  "d92e701ed636eb09d5b47b12e6e05047": {
+    "title": "Praktikant IT-Beratung/Pr\u00fcfung Schwerpunkt Banken oder Versicherungen (Financial Services) (w/m/d)",
+    "company": "EY Deutschland",
+    "first_seen": "2026-04-29"
+  },
+  "ed36f4e169db7f1e9204e9f63af7c099": {
+    "title": "DevOps Engineer (m/w/d) f\u00fcr Qualit\u00e4tsmanagement und technische Dokumentation von IT-Infrastruktur und Prozessen",
+    "company": "Ostfalia Hochschule f\u00fcr angewandte Wissenschaften",
+    "first_seen": "2026-04-29"
+  },
+  "2c8941eda38ff2dbcff3125fd8607713": {
+    "title": "IT-Teamleitung m/w/d im Krankenkassenumfeld (GKV-Leistungen)",
+    "company": "ITSCare - IT-Services f\u00fcr den Gesundheitsmarkt GbR",
+    "first_seen": "2026-04-29"
+  },
+  "5c819ef2d62450fa39bff9f4956b16cf": {
+    "title": "Stellv. Teamleitung IT-Systemadministration f\u00fcr die Schulen des Landkreises Lindau (Bodensee) - Dienstort Lindenberg",
+    "company": "Landratsamt Lindau",
+    "first_seen": "2026-04-29"
+  },
+  "2083beddfde2628dfc30c9e49ed5ce5f": {
+    "title": "Consultant IT Network (m/w/d)",
+    "company": "Finanz Informatik GmbH & Co. KG",
+    "first_seen": "2026-04-29"
+  },
+  "c982ef2634362f0ad55416785155b908": {
+    "title": "IT-Consultant (m/w/d)",
+    "company": "Finanz Informatik GmbH & Co. KG",
+    "first_seen": "2026-04-29"
+  },
+  "df0170d0c31d08f4dfd068c578a442c5": {
+    "title": "IT-Consultant Digitalisierung & IT-Strategie (m/w/d)",
+    "company": "rhenag Rheinische Energie AG",
+    "first_seen": "2026-04-29"
+  },
+  "5ddfd9dea2f870bc0e72aecca0c95a51": {
+    "title": "Architekt / Bauingenieur / Bautechniker als Projektleiter / Bauleiter (m/w/d)",
+    "company": "ICS IT & Consulting Services GmbH",
+    "first_seen": "2026-04-29"
+  },
+  "72ad1586c4126ef70d945eebb5ef8a34": {
+    "title": "IT Consultant (m/w/d) f\u00fcr den Bereich People & Culture / HR",
+    "company": "Dr. Beckmann Group",
+    "first_seen": "2026-04-29"
+  },
+  "b0a4262a689c80f636dd8ce05998ba22": {
+    "title": "IT-Projektmanager / Software Consultant SharePoint / Microsoft 365 (m/w/d)",
+    "company": "disserto management gmbH",
+    "first_seen": "2026-04-29"
+  },
+  "c5c659507063a3f930baaf8776cf34dd": {
+    "title": "IT Servicemanager (m/w/d)",
+    "company": "HERMED Technische Beratungs GmbH",
+    "first_seen": "2026-04-29"
+  },
+  "dead841c958c89e987093a1fabf10d6f": {
+    "title": "IT Service Management Asset Manager (m/w/d)",
+    "company": "Finanz Informatik GmbH & Co. KG",
+    "first_seen": "2026-04-29"
+  },
+  "dd57905f0ef542ffe1cb9e4166c23c95": {
+    "title": "IT Service Manager (m/w/d)",
+    "company": "Deutsche Energie-Agentur GmbH (dena)",
+    "first_seen": "2026-04-29"
+  },
+  "8dcd34fdca3f103a707d3a7731404bf7": {
+    "title": "IT Service Manager (m/w/d) Logistics Applications",
+    "company": "Progroup AG",
+    "first_seen": "2026-04-29"
+  },
+  "75a8579aa6eed753c25b6e0c5aa16e08": {
+    "title": "Senior IT-Service Manager (m/w/d) Microsoft-Umfeld",
+    "company": "KZVK - Kirchliche Zusatzversorgungskasse Rheinland-Westfalen",
+    "first_seen": "2026-04-29"
+  },
+  "5df0a6a789a492abd65ae611d5a9d4b4": {
+    "title": "IT Service Manager (m/w/d) Logistics Applications",
+    "company": "Progroup AG",
+    "first_seen": "2026-04-29"
+  },
+  "d46c407d27c9ded51fd04ad46db6d37b": {
+    "title": "IT-Systemadministrator (m/w/d)",
+    "company": "VEKA AG",
+    "first_seen": "2026-04-29"
+  },
+  "c5c33d69b90f6dfdbd801ff4cddbd4e8": {
+    "title": "Ingenieur*in (m/w/d) fu\u0308r Green IT und Energieeffizienz im Rechenzentrumsbetrieb",
+    "company": "Ostfalia Hochschule f\u00fcr angewandte Wissenschaften",
+    "first_seen": "2026-04-29"
+  },
+  "626ecffa7f8ec283ffc9a27bcb1e5dac": {
+    "title": "IT-Notfallbeauftragte:r bzw. IT-Notfallmanager:in",
+    "company": "Beh\u00f6rde f\u00fcr Stadtentwicklung und Wohnen",
+    "first_seen": "2026-04-29"
   }
 }
