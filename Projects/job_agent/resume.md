@@ -1,5 +1,5 @@
-Martin Buczynski, Dipl.-Ing. — IT Leader & Strategic Consultant
-Berlin | martin.buczynski@gmx.de | 0151 / 419 181 04
+Candidate — IT Leader & Strategic Consultant, Dipl.-Ing.
+Location: Berlin
 
 PROFILE
 Führungskraft mit umfassender Expertise in IT-Strategie, Unternehmensarchitektur und

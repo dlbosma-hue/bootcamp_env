@@ -158,7 +158,9 @@ def _parse_jsonld_jobs(html: str, fallback_url: str, source: str) -> list[dict]:
     return jobs
 
 
-# ── Stepstone scraper (Playwright + JSON-LD) ──────────────────────────────────
+# ── Stepstone scraper (Playwright) ───────────────────────────────────────────
+# Search results page has job cards with data-at attributes.
+# Each card has title, company, and a link — no JSON-LD on the listing page.
 
 def _fetch_stepstone(terms: list[str]) -> list[dict]:
     jobs: list[dict] = []
@@ -173,13 +175,34 @@ def _fetch_stepstone(terms: list[str]) -> list[dict]:
             slug = urllib.parse.quote(term.replace(" ", "-").lower())
             url = f"https://www.stepstone.de/jobs/{slug}/in-berlin.html"
             try:
-                html = _get_rendered_html(page, url)
-                for job in _parse_jsonld_jobs(html, url, "stepstone"):
-                    if _is_excluded(job["title"]) or not _passes_title_filter(job["title"]):
+                page.goto(url, wait_until="domcontentloaded", timeout=30000)
+                # wait for job cards to appear
+                try:
+                    page.wait_for_selector("[data-at='job-item']", timeout=8000)
+                except Exception:
+                    pass  # continue anyway and try to parse what loaded
+                html = page.content()
+                soup = BeautifulSoup(html, "lxml")
+
+                for card in soup.select("[data-at='job-item']"):
+                    title_el = card.select_one("[data-at='job-item-title']")
+                    company_el = card.select_one("[data-at='job-item-company-name']")
+                    link_el = card.select_one("a[href]")
+
+                    title = title_el.get_text(strip=True) if title_el else ""
+                    company = company_el.get_text(strip=True) if company_el else "Unknown"
+                    href = link_el["href"] if link_el else ""
+                    job_url = href if href.startswith("http") else f"https://www.stepstone.de{href}"
+
+                    if not title or not job_url:
                         continue
-                    if job["url"] not in seen_urls:
-                        seen_urls.add(job["url"])
-                        jobs.append(job)
+                    if _is_excluded(title) or not _passes_title_filter(title):
+                        continue
+                    if job_url in seen_urls:
+                        continue
+                    seen_urls.add(job_url)
+                    jobs.append(_make_job(title, company, "Berlin", job_url, "", "stepstone"))
+
             except Exception as e:
                 print(f"  [stepstone] '{term}': {e}")
 
@@ -187,7 +210,7 @@ def _fetch_stepstone(terms: list[str]) -> list[dict]:
     return jobs
 
 
-# ── Jobware scraper (Playwright + HTML) ───────────────────────────────────────
+# ── Jobware scraper (Playwright + HTML) ──────────────────────────────────────
 
 def _fetch_jobware(terms: list[str]) -> list[dict]:
     jobs: list[dict] = []
@@ -204,32 +227,34 @@ def _fetch_jobware(terms: list[str]) -> list[dict]:
                 f"?was={urllib.parse.quote(term)}&wo=Berlin&umkreis=30"
             )
             try:
-                html = _get_rendered_html(page, url)
+                page.goto(url, wait_until="domcontentloaded", timeout=30000)
+                try:
+                    page.wait_for_selector(".stellenangebot, .job, article", timeout=8000)
+                except Exception:
+                    pass
+
+                html = page.content()
                 soup = BeautifulSoup(html, "lxml")
 
-                # try JSON-LD first (most reliable)
-                jsonld = _parse_jsonld_jobs(html, url, "jobware")
-                if jsonld:
-                    for job in jsonld:
-                        if not _is_excluded(job["title"]) and _passes_title_filter(job["title"]):
-                            if job["url"] not in seen_urls:
-                                seen_urls.add(job["url"])
-                                jobs.append(job)
-                    continue
-
-                # fallback: parse job listing elements
-                for el in soup.select("article, [class*='job'], [class*='stelle']"):
-                    title_el = el.find(["h2", "h3"])
-                    link_el = el.find("a", href=True)
-                    company_el = el.find(class_=re.compile(r"company|employer|arbeitgeber", re.I))
+                # Jobware wraps each listing in <article> or a div with class containing "stelle"
+                cards = (
+                    soup.select("article.stellenangebot")
+                    or soup.select("article")
+                    or soup.select("[class*='stelle']")
+                )
+                for card in cards:
+                    title_el = card.select_one("h2, h3, .title, .jobtitle, [class*='title']")
+                    link_el = card.select_one("a[href]")
+                    company_el = card.select_one(
+                        ".company, .arbeitgeber, [class*='company'], [class*='arbeitgeber']"
+                    )
 
                     title = title_el.get_text(strip=True) if title_el else ""
-                    job_url = link_el["href"] if link_el else ""
-                    if job_url and not job_url.startswith("http"):
-                        job_url = "https://www.jobware.de" + job_url
+                    href = link_el["href"] if link_el else ""
+                    job_url = href if href.startswith("http") else f"https://www.jobware.de{href}"
                     company = company_el.get_text(strip=True) if company_el else "Unknown"
 
-                    if not title or not job_url:
+                    if not title or not job_url or job_url == "https://www.jobware.de":
                         continue
                     if _is_excluded(title) or not _passes_title_filter(title):
                         continue
