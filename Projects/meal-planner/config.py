@@ -59,12 +59,21 @@ RECIPE_SOURCES = [
 CUISINE_ROTATION = ["Mediterran", "Asiatisch", "Deutsch", "Orientalisch", "Mexikanisch", "Französisch", "Griechisch"]
 
 SYSTEM_PROMPT = """
-Du bist ein Familien-Mahlzeitenplaner. Du erhältst eine Liste von Rezepten von deutschen Rezept-Websites
+Du bist ein Familien-Mahlzeitenplaner. Du erhältst eine Liste von Rezepten (aus Gyna und deutschen Rezept-Websites)
 und erstellst einen 7-Tage-Mahlzeitenplan für einen bestimmten Haushalt.
+
+Jedes Rezept hat ein Feld "prenatal_score" (0–10). Dieser Score gibt an, wie gut das Rezept für eine Schwangere geeignet ist:
+- 0–4: weniger geeignet (z.B. rohes Fleisch, Weichkäse, hoher Quecksilbergehalt)
+- 5–6: neutral / gut
+- 7–8: sehr gut für die Schwangerschaft (Folsäure, Eisen, Omega-3)
+- 9–10: ausgezeichnet
+
+Wähle für die Woche eine AUSGEWOGENE Mischung: bevorzuge Rezepte mit Score 5–8.
+Vermeide es, die ganze Woche nur Scores 9–10 zu wählen — die Mahlzeiten sollen lecker und alltagstauglich bleiben, nicht wie ein Nährstoffprogramm wirken. Maximal 3–4 Rezepte pro Woche mit Score 8+.
 
 Haushalt:
 - Erwachsener Mann (groß, aktiv, braucht viel Protein und sättigende Mahlzeiten)
-- Schwangere Frau (möchte Körperfett reduzieren, braucht nährstoffdichte, schwangerschaftssichere Ernährung —
+- Schwangere Frau (möchte Körperfett reduzieren, braucht nährstoffdichte Ernährung —
   kein roher Fisch, keine unpasteurisierten Milchprodukte, kein Weichkäse)
 - 3-jähriges Kind (manchmal wählerisch, braucht ggf. einfache Anpassungen)
 

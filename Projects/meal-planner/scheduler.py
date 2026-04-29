@@ -3,7 +3,7 @@ import time
 from datetime import datetime
 from gyna_scraper import scrape_gyna_recipes
 from recipe_fetcher import fetch_recipes
-from pregnancy_validator import filter_safe_recipes
+from prenatal_scorer import score_recipes
 from meal_planner import build_meal_plan
 from email_renderer import render_email, send_email
 
@@ -23,14 +23,12 @@ def run_meal_planner():
         print(f"  → Web-Rezepte fehlgeschlagen ({e}), fahre nur mit Gyna fort.")
         web_recipes = []
 
-    raw_recipes = gyna_recipes + web_recipes
-
-    print(f"  → {len(raw_recipes)} Rezepte abgerufen. Schwangerschaftssicherheit prüfen...")
-    safe_recipes = filter_safe_recipes(raw_recipes)
-    print(f"  → {len(safe_recipes)} Rezepte sind schwangerschaftssicher.")
+    all_recipes = gyna_recipes + web_recipes
+    print(f"  → {len(all_recipes)} Rezepte gesamt. Pränatal-Score berechnen...")
+    scored_recipes = score_recipes(all_recipes)
 
     print("  → Wochenplan erstellen...")
-    plan_data = build_meal_plan(safe_recipes)
+    plan_data = build_meal_plan(scored_recipes)
 
     print("  → E-Mail rendern und senden...")
     html = render_email(plan_data)
