@@ -1,0 +1,32 @@
+name: Weekly Meal Planner
+
+on:
+  schedule:
+    - cron: '0 16 * * 0'   # Sunday 16:00 UTC = 18:00 CET / 17:00 UTC+1
+  workflow_dispatch:         # allow manual trigger from GitHub UI
+
+jobs:
+  generate-meal-plan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r Projects/meal-planner/requirements.txt
+
+      - name: Run meal planner
+        working-directory: Projects/meal-planner
+        env:
+          OPENAI_API_KEY: ${{ secrets.MEAL_OPENAI_API_KEY }}
+          SMTP_HOST: smtp.gmail.com
+          SMTP_PORT: 587
+          SMTP_USER: ${{ secrets.MEAL_SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.MEAL_SMTP_PASSWORD }}
+          EMAIL_TO: ${{ secrets.MEAL_EMAIL_TO }}
+        run: python -c "from scheduler import run_meal_planner; run_meal_planner()"
