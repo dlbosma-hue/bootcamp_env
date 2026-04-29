@@ -5,17 +5,21 @@ from config import OPENAI_API_KEY, SYSTEM_PROMPT
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 SHOPPING_LIST_PROMPT = """
-Du erhältst einen Wochenplan und die dazugehörigen Rezepte.
+Du erhältst einen Wochenplan (7 Tage, je 1 Mittagessen "lunch" und 1 Abendessen "dinner") und die Rezepte dazu.
+
 Erstelle 2 Einkaufslisten:
-- shopping_list_1: Zutaten für Montag, Dienstag, Mittwoch, Donnerstag
-- shopping_list_2: Zutaten für Freitag, Samstag, Sonntag
+- shopping_list_1: alle Zutaten der Rezepte von Montag, Dienstag, Mittwoch, Donnerstag (lunch + dinner)
+- shopping_list_2: alle Zutaten der Rezepte von Freitag, Samstag, Sonntag (lunch + dinner)
 
-Gruppierung: Gemüse & Obst / Proteine / Milch & Eier / Trockenwaren & Vorräte / Tiefkühl
-Jede Gruppe ist ein Array von Strings im Format "Menge Zutat" (z.B. "400g Spinat", "3 Eier").
-Mengen über alle Rezepte konsolidieren. Jede Zutat NUR EINMAL pro Liste nennen.
-Alle Zutaten bei Lidl oder Rewe in Deutschland erhältlich.
+Regeln:
+- Gruppiere nach: Gemüse & Obst / Proteine / Milch & Eier / Trockenwaren & Vorräte / Tiefkühl
+- Jede Gruppe ist ein Array von Strings, Format: "Menge Zutat" (z.B. "400g Spinat", "3 Eier")
+- Mengen konsolidieren — jede Zutat nur einmal pro Liste
+- Nur Zutaten aus den tatsächlich verwendeten Rezepten
 
-Ausgabe als JSON: { "shopping_list_1": { "Gemüse & Obst": [...], "Proteine": [...], "Milch & Eier": [...], "Trockenwaren & Vorräte": [...], "Tiefkühl": [...] }, "shopping_list_2": { ... } }
+Ausgabe als JSON:
+{ "shopping_list_1": { "Gemüse & Obst": [...], "Proteine": [...], "Milch & Eier": [...], "Trockenwaren & Vorräte": [...], "Tiefkühl": [...] },
+  "shopping_list_2": { "Gemüse & Obst": [...], "Proteine": [...], "Milch & Eier": [...], "Trockenwaren & Vorräte": [...], "Tiefkühl": [...] } }
 """
 
 
