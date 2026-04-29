@@ -5,7 +5,7 @@ from datetime import datetime
 from gyna_scraper import scrape_gyna_recipes
 from recipe_fetcher import fetch_recipes
 from prenatal_scorer import score_recipes
-from meal_planner import build_meal_plan
+from meal_planner import build_meal_plan, build_shopping_lists
 from email_renderer import render_email, send_email
 
 # Meal plan needs 28 slots (7 days × 4). Send 40 to give GPT-4o some choice.
@@ -78,6 +78,10 @@ def run_meal_planner():
 
     print("  → Wochenplan erstellen...")
     plan_data = build_meal_plan(scored_recipes)
+
+    print("  → Einkaufslisten erstellen...")
+    shopping = build_shopping_lists(plan_data.get("meal_plan", []), plan_data.get("recipes", []))
+    plan_data.update(shopping)
 
     print("  → E-Mail rendern und senden...")
     html = render_email(plan_data)

@@ -96,31 +96,19 @@ KRITISCHE REGEL: Über die gesamte Woche (alle 7 Tage × 4 Slots = 28 Slots) dar
 kein Rezept mehr als EINMAL erscheinen. Jeder Slot braucht ein eigenes, neues Rezept.
 Prüfe vor der Ausgabe: Sind alle 28 Rezeptnamen eindeutig verschieden?
 
-Pro Rezept:
-- Name und Quell-URL
-- Zutaten mit metrischen Mengenangaben (g, ml, EL, TL) — skaliert für 2.5 Portionen (2 Erwachsene + 1 Kleinkind)
-- Zubereitungsschritte
-- Zubereitungszeit
-- Kalorien und Protein pro Erwachsenenportion
-- Kinderanpassung falls nötig (z.B. "Für das Kind: ohne Chili, Nudeln weicher kochen.")
-- Schwangerschaftssicherheit ausdrücklich bestätigt
+Pro Rezept im "recipes" Array:
+- name: Rezeptname
+- source_url: URL (aus den Eingabedaten übernehmen, falls vorhanden, sonst "#")
+- prep_time_minutes: Zubereitungszeit in Minuten
+- ingredients: Zutaten-Liste als einfache Strings mit Menge, z.B. "400g Spinat", "2 Eier"
+- steps: Zubereitungsschritte als einfache String-Liste
+- calories_per_adult: SCHÄTZE die Kalorien pro Erwachsenenportion (Zahl, kein "?")
+- protein_per_adult_g: SCHÄTZE das Protein in Gramm pro Erwachsenenportion (Zahl, kein "?")
+- child_adaptation: Anpassung für 3-jähriges Kind, oder null
 
-Danach 2 Einkaufslisten erstellen:
-- Liste 1 (shopping_list_1): enthält ALLE Zutaten aller Rezepte die in lunch_option_1, lunch_option_2, dinner_option_1, dinner_option_2 von Montag, Dienstag, Mittwoch und Donnerstag stehen.
-- Liste 2 (shopping_list_2): enthält ALLE Zutaten aller Rezepte die in lunch_option_1, lunch_option_2, dinner_option_1, dinner_option_2 von Freitag, Samstag und Sonntag stehen.
-
-KRITISCH: Gehe jeden Tag einzeln durch. Schlage für jeden Tag alle 4 Rezepte nach und füge JEDE Zutat in die richtige Liste ein. Keine Zutat darf fehlen. Eine Zutat die in einem Rezept steht das an einem Montag–Donnerstag-Tag vorkommt, MUSS in Liste 1 sein — auch wenn das gleiche Rezept später in der Woche nochmal erscheint (dann auch in Liste 2).
-
-Gruppierung nach: Gemüse & Obst / Proteine / Milch & Eier / Trockenwaren & Vorräte / Tiefkühl.
-Mengen über alle betroffenen Rezepte konsolidieren.
-Bei teuren Zutaten günstige Alternativen vorschlagen.
-Wo sinnvoll: notieren ob Artikel eher bei Lidl oder Rewe erhältlich.
-
-Ausgabe zuerst als strukturiertes JSON mit folgenden Keys:
+Ausgabe als JSON mit folgenden Keys:
 - meal_plan: Array mit 7 Tages-Objekten (day, lunch_option_1, lunch_option_2, dinner_option_1, dinner_option_2)
-- recipes: Array aller Rezept-Objekte
-- shopping_list_1: Montag–Mittwoch
-- shopping_list_2: Donnerstag–Sonntag
+- recipes: Array aller ausgewählten Rezept-Objekte (genau 28, eines pro Slot)
 
 Die gesamte Ausgabe muss auf Deutsch sein.
 """

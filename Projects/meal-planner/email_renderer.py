@@ -7,24 +7,21 @@ from config import SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, EMAIL_TO
 
 
 def _shopping_list_html(shopping_list: dict, label: str) -> str:
-    html = f"<h2>🛒 Einkaufsliste {label}</h2>"
+    if not shopping_list:
+        return ""
+    html = f"<h2>Einkaufsliste {label}</h2>"
     for category, items in shopping_list.items():
+        if not items:
+            continue
         html += f"<h3>{category}</h3><ul>"
-        if isinstance(items, list):
-            for item in items:
-                if isinstance(item, dict):
-                    name = item.get("name", item.get("Zutat", str(item)))
-                    qty = item.get("quantity", item.get("Menge", ""))
-                    store = item.get("store", item.get("Supermarkt", ""))
-                    alt = item.get("alternative", item.get("Alternative", ""))
-                    line = f"<strong>{name}</strong> — {qty}"
-                    if store:
-                        line += f" <em>({store})</em>"
-                    if alt:
-                        line += f" <br><small>💡 Alternative: {alt}</small>"
-                    html += f"<li>{line}</li>"
-                else:
-                    html += f"<li>{item}</li>"
+        for item in items:
+            if isinstance(item, dict):
+                name = item.get("name", item.get("Zutat", str(item)))
+                qty = item.get("quantity", item.get("Menge", ""))
+                line = f"<strong>{qty} {name}</strong>".strip() if qty else f"<strong>{name}</strong>"
+            else:
+                line = str(item)
+            html += f"<li>{line}</li>"
         html += "</ul>"
     return html
 
@@ -33,8 +30,8 @@ def _recipe_card_html(recipe: dict) -> str:
     name = recipe.get("name", "Rezept")
     url = recipe.get("source_url", "#")
     prep = recipe.get("prep_time_minutes", "?")
-    calories = recipe.get("calories_per_adult", "?")
-    protein = recipe.get("protein_per_adult_g", "?")
+    calories = recipe.get("calories_per_adult") or "?"
+    protein = recipe.get("protein_per_adult_g") or "?"
     child_note = recipe.get("child_adaptation", "")
     safe = recipe.get("pregnancy_safe", True)
     ingredients = recipe.get("ingredients", [])
@@ -46,10 +43,14 @@ def _recipe_card_html(recipe: dict) -> str:
         else '<span style="color:red">⚠️ Nicht schwangerschaftssicher</span>'
     )
 
-    ing_html = "".join(
-        f"<li>{i if isinstance(i, str) else i.get('name','') + ' — ' + str(i.get('quantity',''))}</li>"
-        for i in ingredients
-    )
+    def _ing(i):
+        if isinstance(i, str):
+            return i
+        name = i.get("name", "")
+        qty = i.get("quantity", "") or i.get("amount", "")
+        return f"{qty} {name}".strip(" —") if qty else name
+
+    ing_html = "".join(f"<li>{_ing(i)}</li>" for i in ingredients)
     steps_html = "".join(f"<li>{s}</li>" for s in steps)
     child_html = f'<p><strong>👶 Für das Kind:</strong> {child_note}</p>' if child_note else ""
 
