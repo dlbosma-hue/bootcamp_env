@@ -73,8 +73,8 @@ def _weekly_overview_html(meal_plan: list[dict]) -> str:
         rows += f"""
 <tr>
   <td><strong>{day.get('day','')}</strong></td>
-  <td>{day.get('lunch_option_1','')}<br><small>{day.get('lunch_option_2','')}</small></td>
-  <td>{day.get('dinner_option_1','')}<br><small>{day.get('dinner_option_2','')}</small></td>
+  <td>{day.get('lunch','')}</td>
+  <td>{day.get('dinner','')}</td>
 </tr>"""
 
     return f"""

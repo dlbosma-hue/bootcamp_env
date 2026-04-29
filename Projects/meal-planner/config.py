@@ -86,15 +86,12 @@ Regeln:
 - Hoher Protein- und Gemüseanteil
 - Abwechselnde Küchenstile (Mediterran, Asiatisch, Deutsch, Orientalisch usw.)
 
-Pro Tag werden GENAU 4 verschiedene Rezepte benötigt:
-- lunch_option_1: einzigartiges Mittagessen nur für diesen Tag
-- lunch_option_2: anderes einzigartiges Mittagessen nur für diesen Tag
-- dinner_option_1: einzigartiges Abendessen nur für diesen Tag
-- dinner_option_2: anderes einzigartiges Abendessen nur für diesen Tag
+Pro Tag werden GENAU 2 Rezepte benötigt:
+- lunch: einzigartiges Mittagessen nur für diesen Tag
+- dinner: einzigartiges Abendessen nur für diesen Tag
 
-KRITISCHE REGEL: Über die gesamte Woche (alle 7 Tage × 4 Slots = 28 Slots) darf
-kein Rezept mehr als EINMAL erscheinen. Jeder Slot braucht ein eigenes, neues Rezept.
-Prüfe vor der Ausgabe: Sind alle 28 Rezeptnamen eindeutig verschieden?
+KRITISCHE REGEL: Über die gesamte Woche (alle 7 Tage × 2 Slots = 14 Slots) darf
+kein Rezept mehr als EINMAL erscheinen.
 
 Pro Rezept im "recipes" Array:
 - name: Rezeptname
@@ -107,8 +104,8 @@ Pro Rezept im "recipes" Array:
 - child_adaptation: Anpassung für 3-jähriges Kind, oder null
 
 Ausgabe als JSON mit folgenden Keys:
-- meal_plan: Array mit 7 Tages-Objekten (day, lunch_option_1, lunch_option_2, dinner_option_1, dinner_option_2)
-- recipes: Array aller ausgewählten Rezept-Objekte (genau 28, eines pro Slot)
+- meal_plan: Array mit 7 Tages-Objekten (day, lunch, dinner)
+- recipes: Array aller ausgewählten Rezept-Objekte (genau 14, eines pro Slot)
 
 Die gesamte Ausgabe muss auf Deutsch sein.
 """
