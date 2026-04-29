@@ -89,7 +89,18 @@ def _weekly_overview_html(meal_plan: list[dict]) -> str:
 """
 
 
+def _clean(obj):
+    if isinstance(obj, str):
+        return obj.replace('\xa0', ' ').replace('​', '')
+    if isinstance(obj, list):
+        return [_clean(i) for i in obj]
+    if isinstance(obj, dict):
+        return {k: _clean(v) for k, v in obj.items()}
+    return obj
+
+
 def render_email(plan_data: dict) -> str:
+    plan_data = _clean(plan_data)
     meal_plan = plan_data.get("meal_plan", [])
     recipes = plan_data.get("recipes", [])
     sl1 = plan_data.get("shopping_list_1", {})
