@@ -67,6 +67,8 @@ def _recipe_card_html(recipe: dict) -> str:
 def _weekly_overview_html(meal_plan: list[dict]) -> str:
     rows = ""
     for day in meal_plan:
+        if not isinstance(day, dict):
+            continue
         rows += f"""
 <tr>
   <td><strong>{day.get('day','')}</strong></td>
@@ -106,7 +108,7 @@ def render_email(plan_data: dict) -> str:
     sl1 = plan_data.get("shopping_list_1", {})
     sl2 = plan_data.get("shopping_list_2", {})
 
-    recipe_cards = "".join(_recipe_card_html(r) for r in recipes)
+    recipe_cards = "".join(_recipe_card_html(r) for r in recipes if isinstance(r, dict))
 
     html = f"""<!DOCTYPE html>
 <html lang="de">
