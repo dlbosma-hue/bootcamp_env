@@ -23,6 +23,7 @@ jobs:
       - name: Run meal planner
         working-directory: Projects/meal-planner
         env:
+          PYTHONUTF8: "1"
           OPENAI_API_KEY: ${{ secrets.MEAL_OPENAI_API_KEY }}
           SMTP_HOST: smtp.gmail.com
           SMTP_PORT: 587
