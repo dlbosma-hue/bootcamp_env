@@ -46,8 +46,8 @@ def _build_html(apply: list[dict], maybe: list[dict], total_seen: int, total_new
 
 
 def send_digest(scored_jobs: list[dict], total_fetched: int, already_seen: int) -> None:
-    sender = os.environ["EMAIL_SENDER"]
-    password = os.environ["EMAIL_PASSWORD"]
+    sender = os.environ["EMAIL_SENDER"].strip()
+    password = os.environ["EMAIL_PASSWORD"].encode("ascii", errors="ignore").decode().strip()
     recipients = [r.strip() for r in os.environ["EMAIL_RECIPIENT"].split(",")]
 
     apply = sorted(

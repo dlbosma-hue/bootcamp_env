@@ -29,8 +29,9 @@ def _section_html(jobs: list[dict], flag: str, label: str, score_range: str) -> 
 
 
 def send_digest(jobs_scored: list[dict], total_seen: int) -> None:
-    sender = os.environ["EMAIL_ADDRESS"]
-    password = os.environ["EMAIL_PASSWORD"]
+    sender = os.environ["EMAIL_ADDRESS"].strip()
+    # Strip non-ASCII chars (e.g. non-breaking spaces from copy-pasting App Password)
+    password = os.environ["EMAIL_PASSWORD"].encode("ascii", errors="ignore").decode().strip()
     recipients = [r.strip() for r in os.environ["EMAIL_TO"].split(",")]
     smtp_host = os.environ.get("SMTP_HOST", "smtp.gmail.com")
     smtp_port = int(os.environ.get("SMTP_PORT", "587"))
