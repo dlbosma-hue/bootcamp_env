@@ -169,6 +169,71 @@ def _parse_jsonld_jobs(html: str, fallback_url: str, source: str) -> list[dict]:
     return jobs
 
 
+# ── Xing scraper (Playwright) ────────────────────────────────────────────────
+# Job cards render client-side. Selectors confirmed from live DOM inspection:
+#   card:    [data-testid="job-search-result"]
+#   title:   [data-testid="job-teaser-list-title"]
+#   company: [class*="Company"]  (CSS-module class, substring match is stable)
+#   link:    a[href]  (relative path, prefix https://www.xing.com)
+
+def _fetch_xing(terms: list[str]) -> list[dict]:
+    jobs: list[dict] = []
+    seen_urls: set[str] = set()
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(
+            headless=True,
+            args=["--disable-blink-features=AutomationControlled"],
+        )
+        ctx = browser.new_context(
+            user_agent=_HEADERS["User-Agent"],
+            extra_http_headers={"Accept-Language": "de-DE,de;q=0.9"},
+        )
+        ctx.add_init_script(
+            "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+        )
+        page = ctx.new_page()
+
+        for term in terms:
+            url = (
+                f"https://www.xing.com/jobs/search"
+                f"?keywords={urllib.parse.quote(term)}&location=Berlin&radius=30"
+            )
+            try:
+                page.goto(url, wait_until="networkidle", timeout=35000)
+                try:
+                    page.wait_for_selector("[data-testid='job-search-result']", timeout=10000)
+                except Exception:
+                    pass
+                html = page.content()
+                soup = BeautifulSoup(html, "lxml")
+
+                for card in soup.select("[data-testid='job-search-result']"):
+                    title_el   = card.select_one("[data-testid='job-teaser-list-title']")
+                    link_el    = card.select_one("a[href]")
+                    company_el = card.select_one("[class*='Company']")
+
+                    title   = title_el.get_text(strip=True)  if title_el   else ""
+                    company = company_el.get_text(strip=True) if company_el else "Unknown"
+                    href    = link_el["href"] if link_el else ""
+                    job_url = href if href.startswith("http") else f"https://www.xing.com{href}"
+
+                    if not title or not job_url:
+                        continue
+                    if _is_excluded(title) or not _passes_title_filter(title):
+                        continue
+                    if job_url in seen_urls:
+                        continue
+                    seen_urls.add(job_url)
+                    jobs.append(_make_job(title, company, "Berlin", job_url, "", "xing"))
+
+            except Exception as e:
+                print(f"  [xing] '{term}': {e}")
+
+        browser.close()
+    return jobs
+
+
 # ── Stepstone scraper (Playwright) ───────────────────────────────────────────
 # Search results page has job cards with data-at attributes.
 # Each card has title, company, and a link — no JSON-LD on the listing page.
@@ -303,6 +368,7 @@ def fetch_all_jobs() -> list[dict]:
         all_jobs += f_linkedin.result()
         all_jobs += f_indeed.result()
 
+    all_jobs += _run("Xing",      _fetch_xing,      SEARCH_TERMS)
     all_jobs += _run("Stepstone", _fetch_stepstone, SEARCH_TERMS)
     all_jobs += _run("Jobware",   _fetch_jobware,   SEARCH_TERMS)
 
