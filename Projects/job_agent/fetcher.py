@@ -1,7 +1,9 @@
 import hashlib
 import json
 import re
+import time
 import urllib.parse
+import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 
@@ -172,13 +174,11 @@ def _fetch_stepstone(terms: list[str]) -> list[dict]:
         page = ctx.new_page()
 
         for term in terms:
-            slug = urllib.parse.quote(term.replace(" ", "-").lower())
-            url = f"https://www.stepstone.de/jobs/{slug}/in-berlin.html"
+            url = f"https://www.stepstone.de/jobs/?q={urllib.parse.quote(term)}&l=Berlin&radius=30"
             try:
                 page.goto(url, wait_until="domcontentloaded", timeout=30000)
-                # wait for job cards to appear
                 try:
-                    page.wait_for_selector("[data-at='job-item']", timeout=8000)
+                    page.wait_for_selector("[data-at='job-item']", timeout=10000)
                 except Exception:
                     pass  # continue anyway and try to parse what loaded
                 html = page.content()
@@ -210,63 +210,67 @@ def _fetch_stepstone(terms: list[str]) -> list[dict]:
     return jobs
 
 
-# ── Jobware scraper (Playwright + HTML) ──────────────────────────────────────
+# ── Jobware scraper (direct API) ─────────────────────────────────────────────
+# Jobware's Angular frontend calls an internal JSON API — call it directly.
+# API returns 20 listings per term; includes remote/homeoffice jobs nationally.
+
+_JOBWARE_API = "https://www.jobware.de/api/d48b2/xnfwe"
+_JOBWARE_BASE = "https://www.jobware.de/"
+_JW_REMOTE_TYPES = {"homeoffice option", "home office", "remote"}
+
 
 def _fetch_jobware(terms: list[str]) -> list[dict]:
     jobs: list[dict] = []
-    seen_urls: set[str] = set()
+    seen_ids: set[str] = set()
 
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        ctx = browser.new_context(user_agent=_HEADERS["User-Agent"])
-        page = ctx.new_page()
+    req_headers = {
+        **_HEADERS,
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "de-DE,de;q=0.9",
+        "Referer": "https://www.jobware.de/",
+    }
 
-        for term in terms:
-            url = (
-                f"https://www.jobware.de/suche/stellen/"
-                f"?was={urllib.parse.quote(term)}&wo=Berlin&umkreis=30"
-            )
-            try:
-                page.goto(url, wait_until="domcontentloaded", timeout=30000)
-                try:
-                    page.wait_for_selector(".stellenangebot, .job, article", timeout=8000)
-                except Exception:
-                    pass
+    for term in terms:
+        url = (
+            f"{_JOBWARE_API}"
+            f"?jw_jobname={urllib.parse.quote(term)}&jw_location=Berlin&jw_radius=50"
+        )
+        try:
+            req = urllib.request.Request(url, headers=req_headers)
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read())
+        except Exception as e:
+            print(f"  [jobware] '{term}': {e}")
+            continue
 
-                html = page.content()
-                soup = BeautifulSoup(html, "lxml")
+        for item in data.get("data", []):
+            title = item.get("title", "")
+            company = item.get("advertiser", {}).get("name", "Unknown")
+            location = item.get("location", "")
+            job_url = item.get("url", "")
+            if job_url and not job_url.startswith("http"):
+                job_url = _JOBWARE_BASE + job_url
+            description = item.get("task", "")
+            job_id = item.get("id", "")
 
-                # Jobware wraps each listing in <article> or a div with class containing "stelle"
-                cards = (
-                    soup.select("article.stellenangebot")
-                    or soup.select("article")
-                    or soup.select("[class*='stelle']")
-                )
-                for card in cards:
-                    title_el = card.select_one("h2, h3, .title, .jobtitle, [class*='title']")
-                    link_el = card.select_one("a[href]")
-                    company_el = card.select_one(
-                        ".company, .arbeitgeber, [class*='company'], [class*='arbeitgeber']"
-                    )
+            jobtypes = {jt.get("name", "").lower() for jt in item.get("jobtypes", [])}
+            is_remote = bool(jobtypes & _JW_REMOTE_TYPES)
 
-                    title = title_el.get_text(strip=True) if title_el else ""
-                    href = link_el["href"] if link_el else ""
-                    job_url = href if href.startswith("http") else f"https://www.jobware.de{href}"
-                    company = company_el.get_text(strip=True) if company_el else "Unknown"
+            # Keep Berlin-area jobs OR remote/homeoffice jobs anywhere in DACH
+            if not is_remote and "berlin" not in location.lower():
+                continue
 
-                    if not title or not job_url or job_url == "https://www.jobware.de":
-                        continue
-                    if _is_excluded(title) or not _passes_title_filter(title):
-                        continue
-                    if job_url in seen_urls:
-                        continue
-                    seen_urls.add(job_url)
-                    jobs.append(_make_job(title, company, "Berlin", job_url, "", "jobware"))
+            if not title or not job_url:
+                continue
+            if _is_excluded(title) or not _passes_title_filter(title):
+                continue
+            if job_id in seen_ids:
+                continue
+            seen_ids.add(job_id)
+            jobs.append(_make_job(title, company, location, job_url, description, "jobware"))
 
-            except Exception as e:
-                print(f"  [jobware] '{term}': {e}")
+        time.sleep(0.5)  # polite pause between terms
 
-        browser.close()
     return jobs
 
 
