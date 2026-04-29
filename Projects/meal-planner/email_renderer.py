@@ -151,10 +151,11 @@ def send_email(html_content: str, subject: str = "Dein Wochenplan ist da!") -> N
     msg["To"] = EMAIL_TO
     msg.attach(MIMEText(html_content, "html", "ascii"))
 
+    clean_password = SMTP_PASSWORD.replace('\xa0', ' ').strip()
     context = ssl.create_default_context()
     with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
         server.ehlo()
         server.starttls(context=context)
-        server.login(SMTP_USER, SMTP_PASSWORD)
+        server.login(SMTP_USER, clean_password)
         server.send_message(msg)
     print(f"E-Mail gesendet an {EMAIL_TO}")
