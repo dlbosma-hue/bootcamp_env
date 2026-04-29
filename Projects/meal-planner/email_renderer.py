@@ -142,12 +142,14 @@ def render_email(plan_data: dict) -> str:
     return html
 
 
-def send_email(html_content: str, subject: str = "🥗 Dein Wochenplan ist da!") -> None:
+def send_email(html_content: str, subject: str = "Dein Wochenplan ist da!") -> None:
+    # Strip any remaining non-ASCII before encoding
+    html_content = html_content.encode("ascii", "xmlcharrefreplace").decode("ascii")
     msg = MIMEMultipart("alternative")
     msg["Subject"] = subject
     msg["From"] = SMTP_USER
     msg["To"] = EMAIL_TO
-    msg.attach(MIMEText(html_content, "html", "utf-8"))
+    msg.attach(MIMEText(html_content, "html", "ascii"))
 
     context = ssl.create_default_context()
     with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:

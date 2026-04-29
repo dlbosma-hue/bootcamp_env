@@ -81,6 +81,7 @@ def run_meal_planner():
 
     print("  → E-Mail rendern und senden...")
     html = render_email(plan_data)
+    print(f"  → HTML generiert ({len(html)} Zeichen). Sende E-Mail...")
     send_email(html)
 
     print(f"[{datetime.now()}] Fertig!")
