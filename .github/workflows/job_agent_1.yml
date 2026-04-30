@@ -1,0 +1,45 @@
+name: Daily Job Digest (IT Manager)
+
+on:
+  schedule:
+    - cron: '0 7 * * 1-5'   # Mon–Fri 07:00 UTC = 08:00 CET / 09:00 CEST
+  workflow_dispatch:          # allow manual trigger from GitHub UI
+
+jobs:
+  scrape-and-notify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write         # needed to commit seen_jobs.json back
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r Projects/job_agent/requirements.txt
+
+      - name: Install Playwright browser
+        run: playwright install chromium --with-deps
+
+      - name: Run job pipeline
+        working-directory: Projects/job_agent
+        env:
+          OPENAI_API_KEY:   ${{ secrets.OPENAI_API_KEY }}
+          EMAIL_SENDER:     ${{ secrets.JA1_EMAIL_SENDER }}
+          EMAIL_PASSWORD:   ${{ secrets.JA1_EMAIL_PASSWORD }}
+          EMAIL_RECIPIENT:  ${{ secrets.JA1_EMAIL_RECIPIENT }}
+        run: python pipeline.py
+
+      - name: Commit updated seen_jobs.json
+        working-directory: Projects/job_agent
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add seen_jobs.json
+          git diff --staged --quiet || git commit -m "chore: update seen_jobs.json [skip ci]"
+          git pull --rebase
+          git push
