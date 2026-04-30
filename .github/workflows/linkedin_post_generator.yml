@@ -1,0 +1,31 @@
+name: LinkedIn Post Generator
+
+on:
+  schedule:
+    - cron: '0 7 * * 2,4,6'   # Tue/Thu/Sat 07:00 UTC = 08:00 CET / 09:00 CEST
+  workflow_dispatch:            # allow manual trigger from GitHub UI
+
+jobs:
+  generate-and-send:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r Projects/linkedin_post_generator/requirements.txt
+
+      - name: Generate and send LinkedIn post
+        working-directory: Projects/linkedin_post_generator
+        env:
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          NEWSAPI_KEY:        ${{ secrets.NEWSAPI_KEY }}
+          GMAIL_ADDRESS:      ${{ secrets.LPG_GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.LPG_GMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAIL:    ${{ secrets.LPG_RECIPIENT_EMAIL }}
+        run: python linkedin_post_generator.py
