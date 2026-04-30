@@ -48,6 +48,15 @@ def _scrape_recipe_detail(page, url: str) -> dict | None:
         body_text = page.inner_text("body")
         prep_time = _parse_prep_time(body_text)
 
+        # Fertility benefits — paragraph after "Vorteile für die Fruchtbarkeit" h2
+        fertility_benefits = ""
+        fertility_match = re.search(
+            r"Vorteile f.r die Fruchtbarkeit\s*\n(.+?)(?=\nZutaten|\nIngredients|\Z)",
+            body_text, re.DOTALL
+        )
+        if fertility_match:
+            fertility_benefits = fertility_match.group(1).strip()
+
         # Ingredients: <ul> contains <li> items
         ul = page.query_selector("ul")
         ingredients = []
@@ -77,6 +86,7 @@ def _scrape_recipe_detail(page, url: str) -> dict | None:
             "prep_time_minutes": prep_time,
             "ingredients": ingredients,
             "steps": steps,
+            "fertility_benefits": fertility_benefits,
             "calories_per_adult": 0,
             "protein_per_adult_g": 0,
             "child_adaptation": None,

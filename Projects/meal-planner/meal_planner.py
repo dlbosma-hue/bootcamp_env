@@ -34,6 +34,7 @@ def _summarise(recipes: list[dict]) -> list[dict]:
             "meal_type": r.get("meal_type"),
             "prep_time_minutes": r.get("prep_time_minutes"),
             "prenatal_score": r.get("prenatal_score"),
+            "fertility_benefits": r.get("fertility_benefits", ""),
             "ingredients": r.get("ingredients", []),
             "steps": r.get("steps", []),
         }

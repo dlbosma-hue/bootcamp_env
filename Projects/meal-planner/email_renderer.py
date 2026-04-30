@@ -33,15 +33,9 @@ def _recipe_card_html(recipe: dict) -> str:
     calories = recipe.get("calories_per_adult") or "?"
     protein = recipe.get("protein_per_adult_g") or "?"
     child_note = recipe.get("child_adaptation", "")
-    safe = recipe.get("pregnancy_safe", True)
     ingredients = recipe.get("ingredients", [])
     steps = recipe.get("steps", [])
-
-    safety_badge = (
-        '<span style="color:green">✅ Schwangerschaftssicher</span>'
-        if safe
-        else '<span style="color:red">⚠️ Nicht schwangerschaftssicher</span>'
-    )
+    fertility_benefits = recipe.get("fertility_benefits", "")
 
     def _ing(i):
         if isinstance(i, str):
@@ -52,12 +46,17 @@ def _recipe_card_html(recipe: dict) -> str:
 
     ing_html = "".join(f"<li>{_ing(i)}</li>" for i in ingredients)
     steps_html = "".join(f"<li>{s}</li>" for s in steps)
-    child_html = f'<p><strong>👶 Für das Kind:</strong> {child_note}</p>' if child_note else ""
+    child_html = f'<p><strong>Für das Kind:</strong> {child_note}</p>' if child_note else ""
+    fertility_html = (
+        f'<div style="background:#f0faf4;border-left:3px solid #40916c;padding:10px;margin:10px 0;font-size:13px;">'
+        f'<strong>Vorteile für die Fruchtbarkeit:</strong> {fertility_benefits}</div>'
+    ) if fertility_benefits else ""
 
     return f"""
 <div style="border:1px solid #ddd;border-radius:8px;padding:16px;margin-bottom:16px;">
   <h3><a href="{url}">{name}</a></h3>
-  <p>⏱ {prep} Min &nbsp;|&nbsp; 🔥 {calories} kcal &nbsp;|&nbsp; 💪 {protein}g Protein &nbsp;|&nbsp; {safety_badge}</p>
+  <p>⏱ {prep} Min &nbsp;|&nbsp; {calories} kcal &nbsp;|&nbsp; {protein}g Protein</p>
+  {fertility_html}
   <h4>Zutaten</h4><ul>{ing_html}</ul>
   <h4>Zubereitung</h4><ol>{steps_html}</ol>
   {child_html}
