@@ -30,7 +30,7 @@ jobs:
         env:
           OPENAI_API_KEY:  ${{ secrets.OPENAI_API_KEY }}
           EMAIL_ADDRESS:   ${{ secrets.JA2_EMAIL_ADDRESS }}
-          EMAIL_PASSWORD:  ${{ secrets.JA2_EMAIL_PASSWORD }}
+          EMAIL_PASSWORD:  ${{ secrets.JA1_EMAIL_PASSWORD }}
           EMAIL_TO:        ${{ secrets.JA1_EMAIL_TO }}
           SMTP_HOST:       ${{ secrets.JA2_SMTP_HOST }}
           SMTP_PORT:       ${{ secrets.JA2_SMTP_PORT }}
