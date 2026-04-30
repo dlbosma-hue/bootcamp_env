@@ -42,8 +42,51 @@ def _summarise(recipes: list[dict]) -> list[dict]:
     ]
 
 
+def _deduplicate_plan(plan_data: dict, all_recipes: list[dict]) -> dict:
+    """Replace any repeated recipes in the meal plan with unused ones from the pool."""
+    meal_plan = plan_data.get("meal_plan", [])
+    pool_by_name = {r["name"]: r for r in all_recipes if isinstance(r, dict)}
+
+    seen_names: set[str] = set()
+    duplicate_slots: list[tuple[int, str]] = []
+    for i, day in enumerate(meal_plan):
+        for slot in ("lunch", "dinner"):
+            name = day.get(slot, "")
+            if name in seen_names:
+                duplicate_slots.append((i, slot))
+            else:
+                seen_names.add(name)
+
+    if not duplicate_slots:
+        return plan_data
+
+    unused = [r for r in all_recipes if isinstance(r, dict) and r["name"] not in seen_names]
+
+    for idx, (day_idx, slot) in enumerate(duplicate_slots):
+        if idx >= len(unused):
+            break
+        replacement = unused[idx]
+        meal_plan[day_idx][slot] = replacement["name"]
+        seen_names.add(replacement["name"])
+
+    # Rebuild recipes list from final meal_plan names
+    final_names = []
+    for day in meal_plan:
+        for slot in ("lunch", "dinner"):
+            name = day.get(slot, "")
+            if name and name not in final_names:
+                final_names.append(name)
+
+    recipes_by_name = {r.get("name"): r for r in plan_data.get("recipes", []) if isinstance(r, dict)}
+    recipes_by_name.update(pool_by_name)
+    plan_data["meal_plan"] = meal_plan
+    plan_data["recipes"] = [recipes_by_name[n] for n in final_names if n in recipes_by_name]
+    return plan_data
+
+
 def build_meal_plan(recipes: list[dict]) -> dict:
-    recipes_json = json.dumps(_summarise(recipes), ensure_ascii=False, indent=2)
+    summarised = _summarise(recipes)
+    recipes_json = json.dumps(summarised, ensure_ascii=False, indent=2)
 
     response = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -57,7 +100,8 @@ def build_meal_plan(recipes: list[dict]) -> dict:
         response_format={"type": "json_object"},
     )
 
-    return json.loads(response.choices[0].message.content)
+    plan_data = json.loads(response.choices[0].message.content)
+    return _deduplicate_plan(plan_data, recipes)
 
 
 def build_shopping_lists(meal_plan: list[dict], recipes: list[dict]) -> dict:
