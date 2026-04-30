@@ -4,13 +4,37 @@ import random
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
 SEARCH_QUERIES = [
-    ("https://www.chefkoch.de/rs/s0g53/Vegetarisch/Rezepte.html", "Mittagessen"),
-    ("https://www.chefkoch.de/suche.html?query=H%C3%A4hnchen+schnell+gesund", "Abendessen"),
-    ("https://www.chefkoch.de/suche.html?query=Lachs+schnell+gesund", "Mittagessen"),
-    ("https://www.chefkoch.de/suche.html?query=vegetarisch+schnell+Abendessen", "Abendessen"),
+    ("https://www.chefkoch.de/rs/s0g53o3/Vegetarisch/Rezepte.html", "Mittagessen"),
+    ("https://www.chefkoch.de/suche.html?query=H%C3%A4hnchen+Pfanne+schnell+gesund", "Abendessen"),
+    ("https://www.chefkoch.de/suche.html?query=Lachs+Ofenrezept+schnell", "Abendessen"),
+    ("https://www.chefkoch.de/suche.html?query=vegetarisch+Salat+schnell+Mittagessen", "Mittagessen"),
 ]
 
-TARGET = 7  # recipes to return
+FORBIDDEN_WORDS = {"rind", "schwein", "speck", "wurst", "salsiccia", "hack", "hirsch", "wild", "lamm", "schinken"}
+
+
+def _is_allowed(recipe: dict) -> bool:
+    text = (recipe["name"] + " ".join(recipe["ingredients"])).lower()
+    return not any(w in text for w in FORBIDDEN_WORDS)
+
+TARGET = 7
+
+
+def _accept_cookies(page):
+    for sel in [
+        "button[data-testid='uc-accept-all-button']",
+        "button:has-text('Alle akzeptieren')",
+        "button:has-text('Akzeptieren')",
+        "#onetrust-accept-btn-handler",
+    ]:
+        try:
+            btn = page.query_selector(sel)
+            if btn:
+                btn.click()
+                time.sleep(1)
+                return
+        except Exception:
+            pass
 
 
 def _parse_time(body: str) -> int:
@@ -28,7 +52,6 @@ def _parse_steps(body: str) -> list[str]:
     if idx < 0:
         return []
     section = body[idx + len("Zubereitung"):idx + 3000]
-    # Numbered steps: lines starting with a digit
     steps = re.split(r"\n\d+\n", section)
     result = [s.strip() for s in steps if len(s.strip()) > 20]
     return result[:12]
@@ -38,6 +61,7 @@ def _scrape_recipe(page, url: str, default_meal_type: str) -> dict | None:
     try:
         page.goto(url, wait_until="networkidle", timeout=20000)
         time.sleep(1)
+        _accept_cookies(page)
 
         title = page.query_selector("h1")
         name = title.inner_text().strip() if title else ""
@@ -47,25 +71,17 @@ def _scrape_recipe(page, url: str, default_meal_type: str) -> dict | None:
         body = page.inner_text("body")
         prep_time = _parse_time(body)
 
-        # Ingredients from table rows: "300 g | Kichererbsen"
+        # Ingredients: each tr[class*='ingredient'] contains qty + name
         ingredients = []
-        rows = page.query_selector_all("table.ingredients tr")
-        for row in rows:
-            tds = row.query_selector_all("td")
-            if len(tds) >= 2:
-                qty = tds[0].inner_text().strip().replace('\n', ' ').replace('\t', ' ')
-                qty = re.sub(r'\s+', ' ', qty).strip()
-                name_td = tds[1].inner_text().strip().replace('\n', ' ').replace('\t', ' ')
-                name_td = re.sub(r'\s+', ' ', name_td).strip()
-                if name_td:
-                    ingredients.append(f"{qty} {name_td}".strip())
+        for row in page.query_selector_all("tr[class*='ingredient']"):
+            text = re.sub(r'\s+', ' ', row.inner_text().strip())
+            if text and len(text) > 1:
+                ingredients.append(text)
 
         if not ingredients:
             return None
 
         steps = _parse_steps(body)
-
-        # Clean URL (remove tracking hash)
         clean_url = url.split("#")[0].split("?ck_")[0]
 
         return {
@@ -90,10 +106,10 @@ def _get_recipe_links(page, search_url: str) -> list[str]:
     try:
         page.goto(search_url, wait_until="networkidle", timeout=15000)
         time.sleep(1)
+        _accept_cookies(page)
         links = set()
         for el in page.query_selector_all("a[href*='/rezepte/']"):
             href = el.get_attribute("href") or ""
-            # Only full recipe detail URLs (not category pages)
             if re.match(r"https://www\.chefkoch\.de/rezepte/\d+/", href):
                 links.add(href.split("#")[0].split("?ck_")[0])
         return list(links)
@@ -116,16 +132,17 @@ def scrape_web_recipes(n: int = TARGET) -> list[dict]:
             if len(recipes) >= n:
                 break
 
-            print(f"  → Suche auf chefkoch.de: {search_url.split('?')[0].split('/')[-1]}")
+            print(f"  → Suche: {search_url.split('?')[0].split('/')[-1]}")
             links = _get_recipe_links(page, search_url)
             random.shuffle(links)
+            print(f"    {len(links)} Links gefunden.")
 
             for url in links:
                 if len(recipes) >= n:
                     break
                 recipe = _scrape_recipe(page, url, meal_type)
                 if recipe and recipe["name"] not in seen_names:
-                    if recipe["prep_time_minutes"] <= 40:
+                    if recipe["prep_time_minutes"] <= 40 and _is_allowed(recipe):
                         seen_names.add(recipe["name"])
                         recipes.append(recipe)
                         print(f"    ✓ {recipe['name']} ({recipe['prep_time_minutes']} Min)")
@@ -136,8 +153,9 @@ def scrape_web_recipes(n: int = TARGET) -> list[dict]:
 
 
 if __name__ == "__main__":
-    import json
     results = scrape_web_recipes()
     print(f"\n{len(results)} Rezepte gefunden:")
     for r in results:
         print(f"  {r['name']} ({r['prep_time_minutes']} Min) — {len(r['ingredients'])} Zutaten")
+        if r['ingredients']:
+            print(f"    Beispiel: {r['ingredients'][0]}")
