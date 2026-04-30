@@ -10,7 +10,13 @@ SEARCH_QUERIES = [
     ("https://www.chefkoch.de/suche.html?query=vegetarisch+Salat+schnell+Mittagessen", "Mittagessen"),
 ]
 
-FORBIDDEN_WORDS = {"rind", "schwein", "speck", "wurst", "salsiccia", "hack", "hirsch", "wild", "lamm", "schinken"}
+FORBIDDEN_WORDS = {
+    # red meat
+    "rind", "schwein", "speck", "wurst", "salsiccia", "hack", "hirsch", "wild", "lamm", "schinken",
+    "steak", "schnitzel", "braten", "filet",
+    # desserts / baked goods — not meals
+    "kuchen", "torte", "tarte", "streusel", "muffin", "keks", "brownie", "dessert", "eis", "tiramisu",
+}
 
 
 def _is_allowed(recipe: dict) -> bool:

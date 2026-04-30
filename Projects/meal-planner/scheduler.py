@@ -11,11 +11,38 @@ from email_renderer import render_email, send_email
 GYNA_PER_WEEK = 10
 WEB_PER_WEEK = 10
 
+import re as _re
+
+# Matched as whole words (split on spaces/hyphens) to avoid "Reis" → "eis" false positives
+_GYNA_EXCLUDE_WORDS = {
+    # desserts & baked goods
+    "kuchen", "torte", "tarte", "muffin", "muffins", "keks", "kekse", "brownie",
+    "dessert", "eis", "riegel", "waffel", "streusel",
+    # drinks / smoothies — not meals
+    "smoothie", "smoothies", "shake", "saft",
+    # standalone dips/condiments
+    "dip",
+    # red meat
+    "steak", "steakbites", "schnitzel",
+}
+
+# Substring matches that are safe (no common false positives)
+_GYNA_EXCLUDE_SUBSTR = {"schmorbraten", "rinderbraten", "rumpsteak", "aufstrich"}
+
+
+def _is_gyna_meal(recipe: dict) -> bool:
+    name = recipe.get("name", "").lower()
+    words = set(_re.split(r"[\s\-/()\[\],]+", name))
+    if words & _GYNA_EXCLUDE_WORDS:
+        return False
+    return not any(s in name for s in _GYNA_EXCLUDE_SUBSTR)
+
 
 def _pick_gyna(scored: list[dict], n: int) -> list[dict]:
     """Randomly pick n recipes from Gyna, balanced between lunch and dinner."""
-    lunches = [r for r in scored if r.get("meal_type") == "Mittagessen"]
-    dinners = [r for r in scored if r.get("meal_type") == "Abendessen"]
+    eligible = [r for r in scored if _is_gyna_meal(r)]
+    lunches = [r for r in eligible if r.get("meal_type") == "Mittagessen"]
+    dinners = [r for r in eligible if r.get("meal_type") == "Abendessen"]
     random.shuffle(lunches)
     random.shuffle(dinners)
     half = n // 2
