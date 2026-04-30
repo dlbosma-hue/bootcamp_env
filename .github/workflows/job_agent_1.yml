@@ -29,11 +29,11 @@ jobs:
         working-directory: Projects/job_agent
         env:
           OPENAI_API_KEY:  ${{ secrets.OPENAI_API_KEY }}
-          EMAIL_ADDRESS:   ${{ secrets.JA1_EMAIL_ADDRESS }}
-          EMAIL_PASSWORD:  ${{ secrets.JA1_EMAIL_PASSWORD }}
+          EMAIL_ADDRESS:   ${{ secrets.JA2_EMAIL_ADDRESS }}
+          EMAIL_PASSWORD:  ${{ secrets.JA2_EMAIL_PASSWORD }}
           EMAIL_TO:        ${{ secrets.JA1_EMAIL_TO }}
-          SMTP_HOST:       ${{ secrets.JA1_SMTP_HOST }}
-          SMTP_PORT:       ${{ secrets.JA1_SMTP_PORT }}
+          SMTP_HOST:       ${{ secrets.JA2_SMTP_HOST }}
+          SMTP_PORT:       ${{ secrets.JA2_SMTP_PORT }}
         run: python pipeline.py
 
       - name: Commit updated seen_jobs.json
