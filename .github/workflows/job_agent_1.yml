@@ -25,6 +25,18 @@ jobs:
       - name: Install Playwright browser
         run: playwright install chromium --with-deps
 
+      - name: Debug secrets
+        env:
+          EMAIL_ADDRESS:   ${{ secrets.JA2_EMAIL_ADDRESS }}
+          EMAIL_PASSWORD:  ${{ secrets.JA1_EMAIL_PASSWORD }}
+          SMTP_HOST:       ${{ secrets.JA2_SMTP_HOST }}
+          SMTP_PORT:       ${{ secrets.JA2_SMTP_PORT }}
+        run: |
+          echo "EMAIL_ADDRESS length: ${#EMAIL_ADDRESS}"
+          echo "EMAIL_PASSWORD length: ${#EMAIL_PASSWORD}"
+          echo "SMTP_HOST: $SMTP_HOST"
+          echo "SMTP_PORT: $SMTP_PORT"
+
       - name: Run job pipeline
         working-directory: Projects/job_agent
         env:
