@@ -46,9 +46,11 @@ def _build_html(apply: list[dict], maybe: list[dict], total_seen: int, total_new
 
 
 def send_digest(scored_jobs: list[dict], total_fetched: int, already_seen: int) -> None:
-    sender = os.environ["EMAIL_SENDER"].strip()
+    sender = os.environ["EMAIL_ADDRESS"].strip()
     password = os.environ["EMAIL_PASSWORD"].encode("ascii", errors="ignore").decode().strip()
-    recipients = [r.strip() for r in os.environ["EMAIL_RECIPIENT"].split(",")]
+    recipients = [r.strip() for r in os.environ["EMAIL_TO"].split(",")]
+    smtp_host = os.environ.get("SMTP_HOST", "smtp.gmail.com")
+    smtp_port = int(os.environ.get("SMTP_PORT", "587"))
 
     apply = sorted(
         [j for j in scored_jobs if j.get("score", 0) >= SCORE_THRESHOLDS["apply"]],
@@ -73,7 +75,8 @@ def send_digest(scored_jobs: list[dict], total_fetched: int, already_seen: int) 
     html = _build_html(apply, maybe, already_seen, total_fetched)
     msg.attach(MIMEText(html, "html"))
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+    with smtplib.SMTP(smtp_host, smtp_port) as smtp:
+        smtp.starttls()
         smtp.login(sender, password)
         smtp.sendmail(sender, recipients, msg.as_string())
 
