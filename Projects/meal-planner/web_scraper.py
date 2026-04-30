@@ -17,7 +17,7 @@ def _is_allowed(recipe: dict) -> bool:
     text = (recipe["name"] + " ".join(recipe["ingredients"])).lower()
     return not any(w in text for w in FORBIDDEN_WORDS)
 
-TARGET = 7
+TARGET = 10
 
 
 def _accept_cookies(page):

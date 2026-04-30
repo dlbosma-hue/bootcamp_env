@@ -8,8 +8,8 @@ from prenatal_scorer import score_recipes
 from meal_planner import build_meal_plan, build_shopping_lists
 from email_renderer import render_email, send_email
 
-GYNA_PER_WEEK = 7
-WEB_PER_WEEK = 7
+GYNA_PER_WEEK = 10
+WEB_PER_WEEK = 10
 
 
 def _pick_gyna(scored: list[dict], n: int) -> list[dict]:
