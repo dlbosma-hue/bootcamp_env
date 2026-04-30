@@ -79,31 +79,6 @@ Company:     {company}
 Location:    {location}
 Description: {description}"""
 
-# ── Cover letter prompt ───────────────────────────────────────────────────────
-
-_COVER_SYSTEM = """\
-You write punchy, specific cover letter openings for job applications.
-You have access to the candidate's full background:
-
-<resume>{resume_text}</resume>
-<reference_letter>{reference_text}</reference_letter>
-<certification>{certification_text}</certification>
-
-Rules:
-- 2–3 sentences maximum
-- Reference a specific detail from the job description AND a specific
-  achievement from the candidate's background — no generic openers
-- Do not hallucinate experience not in the documents
-- Write in English unless the job description is in German, then write German
-- Do not start with "I am writing to apply" or "I am excited about"
-"""
-
-_COVER_USER = """\
-Write the opening paragraph for a cover letter for this job:
-Title:       {title}
-Company:     {company}
-Description: {description}"""
-
 
 # ── Core scoring function ─────────────────────────────────────────────────────
 
@@ -140,28 +115,6 @@ def _call_score(job: dict, context: dict, model: str) -> dict:
         print(f"  [scorer] error on '{job['title']}': {e}")
         return {"score": 0, "match_reason": str(e), "flag": "skip"}
 
-
-def _call_cover(job: dict, context: dict) -> str:
-    system = _COVER_SYSTEM.format(**context)
-    user = _COVER_USER.format(
-        title=job["title"],
-        company=job["company"],
-        description=job["description"][:2000],
-    )
-    try:
-        resp = client.chat.completions.create(
-            model=OPENAI_MODEL,
-            messages=[
-                {"role": "system", "content": system},
-                {"role": "user",   "content": user},
-            ],
-            max_tokens=200,
-            temperature=0.4,
-        )
-        return resp.choices[0].message.content.strip()
-    except Exception as e:
-        print(f"  [scorer] cover letter error on '{job['title']}': {e}")
-        return ""
 
 
 # ── Two-pass parallel pipeline ────────────────────────────────────────────────
@@ -209,20 +162,5 @@ def score_all(jobs: list[dict], resume_text: str, reference_text: str, certifica
     for job in scored:
         if job["id"] in refined:
             job.update(refined[job["id"]])
-
-    # ── Pass 3: cover letter openings for apply jobs ──────────────────────────
-    apply_jobs = [j for j in scored if j["flag"] == "apply"]
-    print(f"  [scorer] pass 3 — cover letters for {len(apply_jobs)} apply jobs")
-
-    with ThreadPoolExecutor(max_workers=4) as ex:
-        cover_map = {
-            ex.submit(_call_cover, job, context): job["id"]
-            for job in apply_jobs
-        }
-        covers = {fid: fut.result() for fut, fid in
-                  [(f, cover_map[f]) for f in as_completed(cover_map)]}
-
-    for job in scored:
-        job["cover_opening"] = covers.get(job["id"], "")
 
     return scored

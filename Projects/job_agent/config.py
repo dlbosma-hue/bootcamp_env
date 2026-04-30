@@ -31,7 +31,7 @@ EXCLUDE_TERMS = [
 
 LOCATION = "Berlin, Germany"
 DISTANCE_KM = 30
-MAX_HOURS_OLD = 180  # ~1 week with buffer — covers Mon-to-Mon window
+MAX_HOURS_OLD = 48  # daily run — look back 48h for safety
 
 RESULTS_PER_TERM = 10  # per search term per source
 

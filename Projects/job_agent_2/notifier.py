@@ -32,12 +32,7 @@ def _section_html(jobs: list[dict], flag: str, label: str, score_range: str) -> 
     rows = ""
     for i, j in enumerate(relevant, 1):
         source_badge = _source_badge(j.get("source", ""))
-        cover = j.get("cover_opening", "")
-        cover_html = (
-            f'<div style="margin:6px 0 4px;padding:8px 10px;background:#f0f7ff;'
-            f'border-left:3px solid #1a73e8;color:#333;font-style:italic;font-size:13px;">'
-            f'{cover}</div>'
-        ) if cover else ""
+        cover_html = ""
         rows += f"""
         <tr>
           <td style="padding:10px 0;border-bottom:1px solid #eee;vertical-align:top;">
