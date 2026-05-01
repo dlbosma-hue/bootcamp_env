@@ -29,7 +29,7 @@ def _build_html(apply: list[dict], maybe: list[dict], total_seen: int, total_new
 
     return f"""
     <html><body style="font-family:Arial,sans-serif; max-width:680px; margin:0 auto; color:#333;">
-      <h2 style="color:#1a1a2e;">📋 Weekly Job Digest — {today}</h2>
+      <h2 style="color:#1a1a2e;">📋 Daily Job Digest — {today}</h2>
       <p style="color:#666; font-size:13px;">{total_new} new jobs found · {total_seen} already seen and skipped</p>
 
       <h3 style="color:#2d6a4f;">🟢 Apply (score {SCORE_THRESHOLDS['apply']}–10)</h3>
@@ -68,7 +68,7 @@ def send_digest(scored_jobs: list[dict], total_fetched: int, already_seen: int) 
 
     today = date.today().strftime("%d %b %Y")
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = f"Weekly Job Digest {today} — {len(apply)} apply, {len(maybe)} maybe"
+    msg["Subject"] = f"Daily Job Digest {today} — {len(apply)} apply, {len(maybe)} maybe"
     msg["From"] = sender
     msg["To"] = ", ".join(recipients)
 
