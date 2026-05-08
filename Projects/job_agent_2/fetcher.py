@@ -3,7 +3,6 @@ import json
 import re
 import time
 import urllib.parse
-import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 
@@ -285,65 +284,88 @@ def _fetch_stepstone(terms: list[str]) -> list[dict]:
     return jobs
 
 
-# ── Jobware scraper (direct API) ─────────────────────────────────────────────
-# Jobware's Angular frontend calls an internal JSON API — call it directly.
-# Playwright cannot render this Angular app in headless mode.
-# API returns 20 listings per term; includes remote/homeoffice jobs nationally.
+# ── Jobware scraper (Playwright API interception) ────────────────────────────
+# Jobware blocks direct requests (403). Load the page via Playwright and
+# intercept the internal xnfwe API response which carries the job listings.
 
-_JOBWARE_API = "https://www.jobware.de/api/d48b2/xnfwe"
 _JOBWARE_BASE = "https://www.jobware.de/"
 _JW_REMOTE_TYPES = {"homeoffice option", "home office", "remote"}
+
+
+def _parse_jobware_response(data: dict, seen_ids: set) -> list[dict]:
+    jobs = []
+    for item in data.get("data", []):
+        title = item.get("title", "")
+        company = item.get("advertiser", {}).get("name", "Unknown")
+        location = item.get("location", "")
+        job_url = item.get("url", "")
+        if job_url and not job_url.startswith("http"):
+            job_url = _JOBWARE_BASE + job_url
+        description = item.get("task", "")
+        job_id = str(item.get("id", ""))
+
+        jobtypes = {jt.get("name", "").lower() for jt in item.get("jobtypes", [])}
+        is_remote = bool(jobtypes & _JW_REMOTE_TYPES)
+
+        if not is_remote and "berlin" not in location.lower():
+            continue
+        if not title or not job_url:
+            continue
+        if _is_excluded(title) or not _passes_title_filter(title):
+            continue
+        if job_id in seen_ids:
+            continue
+        seen_ids.add(job_id)
+        jobs.append(_make_job(title, company, location, job_url, description, "jobware"))
+    return jobs
 
 
 def _fetch_jobware(terms: list[str]) -> list[dict]:
     jobs: list[dict] = []
     seen_ids: set[str] = set()
 
-    req_headers = {
-        **_HEADERS,
-        "Accept": "application/json, text/plain, */*",
-        "Accept-Language": "de-DE,de;q=0.9",
-        "Referer": "https://www.jobware.de/",
-    }
-
-    for term in terms:
-        url = (
-            f"{_JOBWARE_API}"
-            f"?jw_jobname={urllib.parse.quote(term)}&jw_location=Berlin&jw_radius=50"
+    with sync_playwright() as p:
+        browser = p.chromium.launch(
+            headless=True,
+            args=["--disable-blink-features=AutomationControlled"],
         )
-        try:
-            req = urllib.request.Request(url, headers=req_headers)
-            with urllib.request.urlopen(req, timeout=15) as resp:
-                data = json.loads(resp.read())
-        except Exception as e:
-            print(f"  [jobware] '{term}': {e}")
-            continue
+        ctx = browser.new_context(
+            user_agent=_HEADERS["User-Agent"],
+            extra_http_headers={"Accept-Language": "de-DE,de;q=0.9"},
+        )
+        ctx.add_init_script(
+            "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+        )
+        page = ctx.new_page()
 
-        for item in data.get("data", []):
-            title = item.get("title", "")
-            company = item.get("advertiser", {}).get("name", "Unknown")
-            location = item.get("location", "")
-            job_url = item.get("url", "")
-            if job_url and not job_url.startswith("http"):
-                job_url = _JOBWARE_BASE + job_url
-            description = item.get("task", "")
-            job_id = item.get("id", "")
+        for term in terms:
+            captured: list[dict] = []
 
-            jobtypes = {jt.get("name", "").lower() for jt in item.get("jobtypes", [])}
-            is_remote = bool(jobtypes & _JW_REMOTE_TYPES)
+            def on_response(response, _captured=captured):
+                if "xnfwe" in response.url and response.status == 200:
+                    try:
+                        _captured.append(response.json())
+                    except Exception:
+                        pass
 
-            if not is_remote and "berlin" not in location.lower():
+            page.on("response", on_response)
+            search_url = (
+                f"https://www.jobware.de/jobsuche"
+                f"?jw_jobname={urllib.parse.quote(term)}&jw_location=Berlin&jw_radius=50"
+            )
+            try:
+                page.goto(search_url, wait_until="networkidle", timeout=35000)
+            except Exception as e:
+                print(f"  [jobware] '{term}': {e}")
+                page.remove_listener("response", on_response)
                 continue
-            if not title or not job_url:
-                continue
-            if _is_excluded(title) or not _passes_title_filter(title):
-                continue
-            if job_id in seen_ids:
-                continue
-            seen_ids.add(job_id)
-            jobs.append(_make_job(title, company, location, job_url, description, "jobware"))
 
-        time.sleep(0.5)
+            for data in captured:
+                jobs.extend(_parse_jobware_response(data, seen_ids))
+
+            page.remove_listener("response", on_response)
+
+        browser.close()
 
     return jobs
 
