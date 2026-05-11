@@ -314,7 +314,7 @@ def _parse_jobware_response(data: dict, seen_ids: set) -> list[dict]:
             continue
         if not title or not job_url:
             continue
-        if _is_excluded(title) or not _passes_title_filter(title):
+        if _is_excluded(title):
             continue
         if job_id in seen_ids:
             continue
