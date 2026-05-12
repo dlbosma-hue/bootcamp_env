@@ -261,10 +261,12 @@ def _fetch_stepstone(terms: list[str]) -> list[dict]:
                 for card in soup.select("[data-at='job-item']"):
                     title_el = card.select_one("[data-at='job-item-title']")
                     company_el = card.select_one("[data-at='job-item-company-name']")
+                    location_el = card.select_one("[data-at='job-item-location']")
                     link_el = card.select_one("a[href]")
 
                     title = title_el.get_text(strip=True) if title_el else ""
                     company = company_el.get_text(strip=True) if company_el else "Unknown"
+                    location = location_el.get_text(strip=True) if location_el else ""
                     href = link_el["href"] if link_el else ""
                     job_url = href if href.startswith("http") else f"https://www.stepstone.de{href}"
 
@@ -275,7 +277,7 @@ def _fetch_stepstone(terms: list[str]) -> list[dict]:
                     if job_url in seen_urls:
                         continue
                     seen_urls.add(job_url)
-                    jobs.append(_make_job(title, company, "Berlin", job_url, "", "stepstone"))
+                    jobs.append(_make_job(title, company, location, job_url, "", "stepstone"))
 
             except Exception as e:
                 print(f"  [stepstone] '{term}': {e}")
