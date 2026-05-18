@@ -1,9 +1,10 @@
 """
 LinkedIn Post Generator
-Fetches AI news from NewsAPI, Jina.ai (TLDR + AIReport NL latest article),
+Fetches AI news from NewsAPI, Jina.ai (The Deep View archive),
 and Claude web_search, then generates a post in Dina's voice and delivers it via email.
 """
 
+import json
 import os
 import re
 import smtplib
@@ -47,32 +48,75 @@ VOICE RULES
 - Conversational but not casual. Smart but not academic.
 - Never hedge. Be direct even when uncertain. Wrong and clear beats right and vague.
 - No throat-clearing. First sentence must earn attention.
-- Concrete beats abstract. If you can say "17%" instead of "significant gains," say "17%."
+- Concrete beats abstract. Use real numbers from the sources when they exist. Never invent a stat.
 - Self-deprecating humor that still communicates confidence.
 - She says the real thing, not the polished version.
 
 WHAT GREAT LOOKS LIKE
 A great Dina post:
-1. Opens with something that stops a scroll -- a counterintuitive stat, a real observation, a short uncomfortable truth
+1. Opens with something that stops a scroll -- a counterintuitive observation, a blunt fact from a real source, a short uncomfortable truth
 2. Has one sharp insight rooted in what she has actually seen or lived
 3. Uses contrast: what most people/businesses do vs. what actually works
-4. Ends with a question that her audience would genuinely answer -- specific, not rhetorical, slightly uncomfortable
+4. Ends decisively — sometimes a question, sometimes a blunt statement, sometimes a sharp contrast. Do NOT default to a question. Questions only when they are specific and slightly uncomfortable. Never rhetorical. Never "What do you think?"
 
-The rhythm looks like: short punch. Short punch. Slightly longer line that earns it. Back to short. Question.
+The rhythm looks like: short punch. Short punch. Slightly longer line that earns it. Back to short. Hard stop or a real question.
 
-TOPIC RANGE
-Posts do NOT have to be about AI. Her life as a parent, her Dutch-in-Berlin perspective, CrossFit discipline applied to work, theater thinking, PM craft, navigating a career transition at 35+ — all of these are fair game. When a post is about AI, it should still feel personal and lived-in, not like a TechCrunch summary.
+TOPIC RANGE AND PRIORITY
+Posts should primarily come from one of three lenses:
+1. AI CONSULTING (primary): what small businesses and startups actually get wrong about AI, how she helps them implement it without waste, the gap between AI hype and real operational value for SMBs — this is the core of her professional identity right now
+2. PM AND PRODUCT THINKING (secondary): shipping decisions, prioritization trade-offs, what PMs get wrong, lessons from building tools people actually use — this is her craft and credibility base
+3. PERSONAL LENS (flavor, not centerpiece): her 3-year-old son, CrossFit discipline, Dutch-in-Berlin perspective, theater thinking — these give her posts texture and humanity. Use them to open or close, or as contrast to a work insight. Do NOT write a post that is purely personal without a professional takeaway.
 
-BANNED WORDS
-leverage, delve, synergy, unlock, transformative, revolutionize, game-changer, landscape, ecosystem, streamline
+When a post is about AI, it must always be from the SMB/startup practitioner angle — not a TechCrunch summary, not a tech enthusiast take. Ask: what would a small business owner or startup founder need to understand from this?
+
+BANNED WORDS AND PHRASES
+Words: leverage, delve, synergy, unlock, transformative, revolutionize, game-changer, landscape, ecosystem, streamline, empower, harness, cutting-edge, robust, scalable, innovative
+Phrases: "worth their weight in gold", "at the end of the day", "it's not about X it's about Y", "AI amplifies", "in today's world", "the future is", "what most people don't realize", "here's the thing", "hot take", "unpopular opinion", "let that sink in"
 
 FAILURE MODES TO AVOID
-- Too polished: if it sounds like a thought leadership post, rewrite it
-- Generic AI commentary: if the same post could be written by anyone who read TechCrunch, it's wrong
-- Rhetorical questions: "What does this mean for your business?" is not a question, it's a cop-out
-- Long: 180-220 words maximum. Cut anything that doesn't earn its place
-- Formula-following: the structure should emerge from the idea, not be imposed on it
-- Forcing AI into a post that would be better without it"""
+- AI slop: generic observations that any LinkedIn ghost-writer would produce. If it sounds like ChatGPT wrote it for a thought leader, it's wrong.
+- Formula-following: every post should NOT have the same structure. Vary how it opens, how it builds, how it ends.
+- Mandatory question endings: ending every post with a question is a formula. Resist it. A hard statement often lands harder.
+- Generic AI commentary: if the same post could be written by anyone who read a tech newsletter, it's wrong. Every post must have a specific, non-obvious angle.
+- Rhetorical questions: "What does this mean for your business?" is not a question. "Are you measuring output or hours?" is.
+- Long: 150-200 words maximum. Cut anything that doesn't earn its place. Shorter is almost always better.
+- Forcing personal angles: if a personal detail doesn't fit naturally, don't use it. Better to write a clean professional post than a forced "my toddler taught me about agile" post.
+- Repeating topics: do not write about topics already covered in recent posts (listed below under RECENT POST HISTORY)"""
+
+
+HISTORY_FILE = os.path.join(os.path.dirname(__file__), "post_history.json")
+HISTORY_KEEP = 20
+
+
+def load_history() -> list[dict]:
+    if not os.path.exists(HISTORY_FILE):
+        return []
+    try:
+        with open(HISTORY_FILE) as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+
+def save_history(topic: str, opening_line: str) -> None:
+    history = load_history()
+    history.insert(0, {
+        "date": datetime.now().strftime("%Y-%m-%d"),
+        "topic": topic,
+        "opening_line": opening_line,
+    })
+    history = history[:HISTORY_KEEP]
+    with open(HISTORY_FILE, "w") as f:
+        json.dump(history, f, indent=2)
+
+
+def format_history_for_prompt(history: list[dict]) -> str:
+    if not history:
+        return "None yet."
+    lines = []
+    for h in history:
+        lines.append(f"- [{h['date']}] {h['topic']} | Opening: \"{h['opening_line']}\"")
+    return "\n".join(lines)
 
 
 def fetch_newsapi(query: str) -> str:
@@ -124,91 +168,86 @@ def fetch_jina(url: str) -> str:
         return f"[Content unavailable for {url}]"
 
 
-def fetch_aireport_latest() -> str:
-    """Fetch the latest article from AI Report NL via Jina.ai.
-    Tries the RSS feed first (most reliable for recency), then falls back
-    to scraping the archive page and picking the first non-featured article.
+def fetch_deepview_latest() -> str:
+    """Fetch the latest AI newsletter content from The Deep View archive via Jina.ai.
+    Scrapes the archive page and fetches the most recent issue.
     """
-    # Try RSS feed — Beehiiv newsletters expose /feed
-    rss_text = fetch_jina("https://www.aireport.nl/feed")
-    if not rss_text.startswith("[Content unavailable"):
-        rss_urls = re.findall(r'https://www\.aireport\.nl/p/[^\s<\"\'\]]+', rss_text)
-        if rss_urls:
-            latest_url = rss_urls[0]
-            print(f"  -> Fetching AI Report article (via RSS): {latest_url}")
-            return fetch_jina(latest_url)
-
-    # Fall back: scrape the archive page
-    archive_text = fetch_jina("https://www.aireport.nl/archive")
+    archive_text = fetch_jina("https://archive.thedeepview.com/")
     if archive_text.startswith("[Content unavailable"):
         return archive_text
 
-    # Beehiiv post URLs follow /p/<slug> pattern — deduplicate, preserve order
+    # The Deep View archive links follow thedeepview.com/p/<slug> pattern
     seen = set()
     urls = []
-    for u in re.findall(r'https://www\.aireport\.nl/p/[^\s\)\"\'\]]+', archive_text):
+    for u in re.findall(r'https://(?:archive\.)?thedeepview\.com/p/[^\s\)\"\'\]<]+', archive_text):
         if u not in seen:
             seen.add(u)
             urls.append(u)
 
     if not urls:
-        return archive_text
+        # Return the archive summary if no individual post links found
+        return archive_text[:4000]
 
-    # Beehiiv often pins a featured article at position 0. Try the second unique URL
-    # first so we get a genuinely recent post, then fall back to the first.
-    candidate_url = urls[1] if len(urls) > 1 else urls[0]
-    print(f"  -> Fetching AI Report article (via archive): {candidate_url}")
-    return fetch_jina(candidate_url)
+    latest_url = urls[0]
+    print(f"  -> Fetching Deep View article: {latest_url}")
+    return fetch_jina(latest_url)
 
 
-def generate_post(newsapi_output: str, tldr_content: str, aireport_content: str) -> tuple[str, list[str]]:
+def generate_post(newsapi_output: str, deepview_content: str, history: list[dict]) -> tuple[str, list[str]]:
     """Call Claude with web_search enabled. Returns (post_text, sources_used)."""
     client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+
+    history_block = format_history_for_prompt(history)
 
     user_prompt = f"""Here are today's news inputs:
 
 NEWSAPI HEADLINES:
 {newsapi_output}
 
-TLDR AI (today's page):
-{tldr_content}
+THE DEEP VIEW (latest AI newsletter issue):
+{deepview_content}
 
-AI REPORT NL (this content is in Dutch — translate it first):
-{aireport_content}
+RECENT POST HISTORY (do NOT repeat these topics or opening lines):
+{history_block}
 
 Instructions:
-1. Translate any Dutch content to English internally — do NOT output the translation, just use it to understand the content
-2. Identify 5 post ideas across all sources. Posts do NOT all have to be about AI. At least 2 must be about AI, but the rest can draw on broader themes — work, parenting, discipline, career transition, craft, Berlin life, Dutch perspective, anything from her world that has a genuine insight in it.
-3. Each post MUST be about a different topic — no two posts about the same subject
-4. Do NOT pick 5 variations of the same story
-5. Use web_search once to find one additional angle not covered by the sources above — do not use it to dig deeper into a topic you already have
-6. For each topic output exactly this format:
+1. Identify 5 post ideas across all sources. Distribution must be:
+   - AT LEAST 3 posts from the AI consulting lens: what this means for small businesses, startups, or non-technical founders. Think implementation cost, what to actually buy vs. build, where SMBs get burned chasing the wrong tools. Be specific — not "AI can help your business" but "here is the exact mistake and the exact fix."
+   - AT LEAST 1 post from a PM/product thinking angle: shipping decisions, prioritization, what PMs get wrong, lessons from building tools people actually use.
+   - AT MOST 1 post that uses a personal angle (3-year-old, CrossFit, Dutch-in-Berlin) — must still have a professional takeaway. No posts purely personal.
+2. Each post MUST be a genuinely different topic — no two posts from the same story or the same angle
+3. Do NOT repeat any topic or opening angle from RECENT POST HISTORY
+4. Use web_search once to find one additional angle not covered by the sources above
+5. For each topic output exactly this format:
 
 TOPIC [N]: [one-line title]
-SOURCE: [which source, or "personal" if drawing on her life]
-WHY: [one sentence on why this is worth posting about]
+LENS: [AI consulting / PM & product / personal-with-takeaway]
+SOURCE: [NewsAPI / The Deep View / web_search / personal]
+WHY: [one sentence on why this is a non-obvious angle worth posting about]
+OPENING LINE: [the first sentence of the post, standalone]
 POST:
-[full LinkedIn post, max 220 words, in Dina's voice]
+[full LinkedIn post, max 200 words, in Dina's voice]
 ---
 
-7. Each post: punchy hook / one concrete insight / stat or example / question at end
-8. Make the 5 posts distinct — different topics, different tones, different angles
-9. All 5 posts must be written from Dina's first-person perspective. She is not a journalist reporting on news. She is someone sharing what she actually noticed, learned, or lived. Use her background — PM, stylist, parent, CrossFit, theater, Dutch-in-Berlin — wherever it fits naturally.
-10. Exactly ONE of the 5 posts must follow this practitioner-insight format: open with a tension stat or blunt observation, add personal credibility ("I see why" / "I've seen this"), show what businesses do WRONG, give ONE concrete rule or number, reframe with a simple contrast, end with a casual relatable question a small business owner would actually answer.
-11. RECENCY: only use news stories from the past 7 days. Each headline includes a date in [YYYY-MM-DD] format. If a story is older than 7 days, skip it.
-12. HALLUCINATION GUARD: when referencing Dina's personal experience, use ONLY these verified facts — nothing else:
-    - 4 years as a PM, most recently at Outfittery building AI tooling
-    - At Outfittery: improved stylist efficiency by 17% (from 29 to 34 orders per day)
-    - 10+ years prior as a Senior Stylist at Outfittery before becoming a PM
-    - Completed a 9-week AI consulting bootcamp at IronHack in April 2026
-    - Building a consulting practice in Berlin for SMBs and non-technical founders in DACH
-    - Has a ~3-year-old son
-    - Does CrossFit, paints, acts and directs theater, was a fitness coach at Berlin HIIT Bootcamp
-    - Dutch, has lived in Berlin 10+ years
-    Do NOT invent clients, project names, bootcamp projects, pitches, outcomes, or any details not listed above. If a personal angle doesn't fit the verified facts, write without one rather than making something up.
+6. Each post must have a punchy hook and one concrete insight. Endings vary: hard statement, blunt observation, or — only when genuinely useful — a specific non-rhetorical question. Do NOT end every post with a question. No two posts should end the same way.
+7. All 5 posts from Dina's first-person perspective. Use her background only when it fits naturally — do not force it.
+8. Anti-slop check: before finalising each post, ask "could this have been written by a generic LinkedIn ghostwriter?" If yes, rewrite it. Every post needs a specific, non-obvious angle that only someone who has actually done this work would notice.
+9. RECENCY: only use news stories from the past 7 days. Each headline includes a date in [YYYY-MM-DD] format. Skip anything older.
+10. HALLUCINATION GUARD — no exceptions:
+    a) PERSONAL FACTS: use ONLY these verified facts about Dina:
+       - 4 years as a PM, most recently at Outfittery building AI tooling
+       - At Outfittery: improved stylist efficiency by 17% (from 29 to 34 orders per day)
+       - 10+ years prior as a Senior Stylist at Outfittery before becoming a PM
+       - Completed a 9-week AI consulting bootcamp at IronHack in April 2026
+       - Building a consulting practice in Berlin for SMBs and non-technical founders in DACH
+       - Has a ~3-year-old son
+       - Does CrossFit, paints, acts and directs theater, was a fitness coach at Berlin HIIT Bootcamp
+       - Dutch, has lived in Berlin 10+ years
+       Do NOT invent clients, project names, outcomes, or any detail not listed above.
+    b) NUMBERS: every stat or specific number MUST come from NewsAPI, The Deep View, or web_search. Do not invent or estimate. No number without a source.
 """
 
-    sources_used = ["NewsAPI", "TLDR AI (tldr.tech/ai)", "AI Report NL (aireport.nl)"]
+    sources_used = ["NewsAPI", "The Deep View (archive.thedeepview.com)"]
     post_text = ""
 
     messages = [{"role": "user", "content": user_prompt}]
@@ -280,21 +319,30 @@ Sources used today:
 
 
 def main():
-    print("[1/4] Fetching NewsAPI headlines...")
+    history = load_history()
+    print(f"[history] Loaded {len(history)} past posts.")
+
+    print("[1/3] Fetching NewsAPI headlines...")
     newsapi_output = fetch_newsapi("artificial intelligence")
 
-    print("[2/4] Fetching TLDR AI via Jina.ai...")
-    tldr_content = fetch_jina("https://tldr.tech/ai")
+    print("[2/3] Fetching The Deep View latest issue via Jina.ai...")
+    deepview_content = fetch_deepview_latest()
 
-    print("[3/4] Fetching AI Report NL latest article via Jina.ai...")
-    aireport_content = fetch_aireport_latest()
-
-    print("[4/4] Generating LinkedIn post with Claude...")
-    post_text, sources = generate_post(newsapi_output, tldr_content, aireport_content)
+    print("[3/3] Generating LinkedIn post with Claude...")
+    post_text, sources = generate_post(newsapi_output, deepview_content, history)
 
     print("\n--- GENERATED POST ---")
     print(post_text)
     print("--- END POST ---\n")
+
+    # Extract topics and opening lines from output to save to history
+    for match in re.finditer(
+        r"TOPIC \[\d+\]: (.+)\n.*?OPENING LINE: (.+)", post_text
+    ):
+        topic = match.group(1).strip()
+        opening = match.group(2).strip()
+        save_history(topic, opening)
+        print(f"[history] Saved: {topic}")
 
     print("Sending email...")
     send_email(post_text, sources)
