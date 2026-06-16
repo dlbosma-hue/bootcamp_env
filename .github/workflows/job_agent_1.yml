@@ -2,7 +2,7 @@ name: Daily Job Digest (IT Manager)
 
 on:
   schedule:
-    - cron: '0 7 * * 1-5'   # Mon–Fri 07:00 UTC = 08:00 CET / 09:00 CEST
+    - cron: '0 7 * * *'   # Daily 07:00 UTC = 09:00 CEST / 08:00 CET
   workflow_dispatch:          # allow manual trigger from GitHub UI
 
 jobs:
