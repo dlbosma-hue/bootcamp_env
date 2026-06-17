@@ -72,10 +72,34 @@ def send_digest(jobs_scored: list[dict], total_seen: int) -> None:
     )
 
     apply_section = _section_html(email_jobs, "apply", "✅ APPLY",  "8–10")
-    maybe_section = _section_html(email_jobs, "maybe", "🤔 MAYBE",  "6–7")
+    maybe_section = _section_html(email_jobs, "maybe", "🤔 MAYBE",  "5–7")
 
     if not apply_section and not maybe_section:
-        body_content = "<p style='color:#888;'>No strong matches today. Check back tomorrow.</p>"
+        # Fallback: show top 5 by score so the email is never empty
+        top5 = sorted(jobs_scored, key=lambda j: j["score"], reverse=True)[:5]
+        top5_rows = ""
+        for i, j in enumerate(top5, 1):
+            badge = _source_badge(j.get("source", ""))
+            top5_rows += f"""
+            <tr>
+              <td style="padding:10px 0;border-bottom:1px solid #eee;vertical-align:top;">
+                {badge}<strong>{i}. {j['title']}</strong> — {j['company']}, {j['location']}<br>
+                <span style="color:#555;font-size:13px;">Score: {j['score']}/10 &nbsp;|&nbsp; {j['match_reason']}</span><br>
+                <a href="{j['url']}" style="color:#1a73e8;font-size:13px;">View job →</a>
+              </td>
+            </tr>"""
+        body_content = f"""
+        <table width="100%" cellpadding="0" cellspacing="0">
+          <tr><td style="padding:16px 0 4px;">
+            <strong>👀 Best available today</strong>&nbsp;&nbsp;
+            <span style="color:#888;font-weight:normal;font-size:13px;">(no strong matches — showing top 5 by score)</span>
+          </td></tr>
+          <tr><td><table width="100%" cellpadding="0" cellspacing="0">{top5_rows}</table></td></tr>
+          <tr><td style="padding:20px 0 0;border-top:2px solid #eee;color:#888;font-size:12px;">
+            {total_seen} jobs seen today — {n_skipped} skipped (score &lt; {MIN_EMAIL_SCORE})
+          </td></tr>
+        </table>"""
+        subject = f"Job Digest — {date_str} | no strong matches"
     else:
         body_content = f"""
         <table width="100%" cellpadding="0" cellspacing="0">
