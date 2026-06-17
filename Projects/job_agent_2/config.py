@@ -77,15 +77,15 @@ MAX_HOURS_OLD = 48          # daily run — look back 48h for safety
 
 SCORE_THRESHOLDS = {
     "apply": 8,
-    "maybe": 6,
-    "skip":  5,
+    "maybe": 5,
+    "skip":  4,
 }
 
 OPENAI_MODEL        = "gpt-4o"        # second pass + cover letters
 OPENAI_FILTER_MODEL = "gpt-4o-mini"   # first pass — filters all jobs fast
-FILTER_PASS_THRESHOLD = 5             # re-score with gpt-4o only if mini scores ≥ this
+FILTER_PASS_THRESHOLD = 4             # re-score with gpt-4o only if mini scores ≥ this
 SCORING_WORKERS = 8                   # parallel scoring threads
 
 # ── Email ─────────────────────────────────────────────────────────────────────
 
-MIN_EMAIL_SCORE = 6         # include "maybe" (6-7) and "apply" (8-10) in digest
+MIN_EMAIL_SCORE = 5         # include "maybe" (5-7) and "apply" (8-10) in digest
