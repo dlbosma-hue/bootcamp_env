@@ -1,134 +1,4 @@
 {
-  "7e1d632ea2226d7118208d64da1fbee9": {
-    "title": "Technical Enterprise Architect (w/m/d)",
-    "company": "Westernacher Consulting",
-    "first_seen": "2026-06-01"
-  },
-  "1126ca11dab40324444ade34a10ed8f9": {
-    "title": "(Senior) Principal Enterprise Architect (f/m/d) - MU Germany",
-    "company": "SAP",
-    "first_seen": "2026-06-01"
-  },
-  "64fc67ed8bb91f0eb91b1872aa2de986": {
-    "title": "(Senior) Principal Enterprise Architect (f/m/d) - MU Germany",
-    "company": "SAP",
-    "first_seen": "2026-06-01"
-  },
-  "7a6c70dbaf14e12143cdb72ae62529ef": {
-    "title": "Business Solution Architect Core - Energy Retail (f/m/d)",
-    "company": "E.ON Digital Technology",
-    "first_seen": "2026-06-01"
-  },
-  "61bc698ce77fa2a483c46fc8cf569cb0": {
-    "title": "Chief Expert Enterprise Architect (f/m/d) - MU Germany",
-    "company": "SAP",
-    "first_seen": "2026-06-01"
-  },
-  "ab786f82c5fe7a1441717f5825cb72cc": {
-    "title": "Chief Expert Enterprise Architect (f/m/d) - MU Germany",
-    "company": "SAP",
-    "first_seen": "2026-06-01"
-  },
-  "41b8f66876133c1b2b06a2429564d30b": {
-    "title": "(Senior) Cyber Security Consultant(w/m/d)",
-    "company": "Westernacher Solutions",
-    "first_seen": "2026-06-01"
-  },
-  "90a4031788ee3abc50cc7efabad1c767": {
-    "title": "IT Change Manager (f/m/d)",
-    "company": "SAP",
-    "first_seen": "2026-06-01"
-  },
-  "b856183e4c4d4c0fc9a43e7f4e872800": {
-    "title": "Referent / PMO Manager IT (m/w/d)",
-    "company": "BIM Berliner Immobilienmanagement GmbH",
-    "first_seen": "2026-06-01"
-  },
-  "b3a68b332f9b1e9216363e3f30d2e06d": {
-    "title": "IT-Consultant \u2013 Infrastruktur Microsoft (m/w/d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-06-01"
-  },
-  "fbdc131518805aa2b7e56deb276bde88": {
-    "title": "Cloud Architect (m/w/d)",
-    "company": "CANCOM",
-    "first_seen": "2026-06-01"
-  },
-  "254da134656d633fe28d7bf9250dec6e": {
-    "title": "IT Sales Manager (m/w/d)",
-    "company": "Instaffo",
-    "first_seen": "2026-06-01"
-  },
-  "ba9fb27c0baed3e154333f4efce7ea44": {
-    "title": "Senior Consultant Technology & Solution Architecture (f/m/d)",
-    "company": "E.ON Digital Technology",
-    "first_seen": "2026-06-01"
-  },
-  "8271b118f910fe1af1ed608461dfe427": {
-    "title": "Lead Enterprise Architect (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-06-01"
-  },
-  "f6fd4472adc96d6360a8db034a1dc276": {
-    "title": "IT Service & Support (w/m/d)",
-    "company": "FRITZ!",
-    "first_seen": "2026-06-01"
-  },
-  "628a3ec81bf65f15da1a163a984fc6cf": {
-    "title": "IT Consultant \u2013 Digitale Transformation (m/w/d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-06-01"
-  },
-  "7eaefac04094806a1d76a54b056b045b": {
-    "title": "IT-Consultant \u2013 Infrastruktur Microsoft (m/w/d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-06-01"
-  },
-  "dfbc42f4a1f694439ee66ae085f671cb": {
-    "title": "IT-Sicherheit in der Lieferkette: Wie Unternehmen Supply-Chain-Angriffe effektiv abwehren und Kosten senken 31.05.2026",
-    "company": "030-IT GmbH",
-    "first_seen": "2026-06-01"
-  },
-  "386e7e07c3615aeb33beff5290701434": {
-    "title": "Technical Co-Founder / CTO MentalHealth Platform",
-    "company": "Mind Friend",
-    "first_seen": "2026-06-01"
-  },
-  "fabc02d77f79d0d3c2e9198eaf6e1ea7": {
-    "title": "Kaufm\u00e4nnnische Projektleitung in IT-Systemhaus (m/w/d)",
-    "company": "moontelecom",
-    "first_seen": "2026-06-01"
-  },
-  "ae68cf23a32cf1e614c8e0de6dd19e22": {
-    "title": "IT\u2011Abteilungsleitung / Head of IT Infrastructure (m/w/d)",
-    "company": "DIS AG Germany",
-    "first_seen": "2026-06-01"
-  },
-  "58053d63c626457bbedd9602d0a20ec3": {
-    "title": "Head of IT Governance (*)",
-    "company": "Stolzberger GmbH",
-    "first_seen": "2026-06-01"
-  },
-  "82436706e56a6b642c0b09fcc289d8db": {
-    "title": "Abteilungsleiter (m/w/d) IT-Governance",
-    "company": "DIS",
-    "first_seen": "2026-06-01"
-  },
-  "248e3945670e30722ca1ba4112c27b31": {
-    "title": "Head of IT Infrastructure (m/w/d)",
-    "company": "Amadeus Fire AG",
-    "first_seen": "2026-06-01"
-  },
-  "f4a23456ad355c6b517b845d88bc61a8": {
-    "title": "Referent / PMO Manager IT (m/w/d)",
-    "company": "BIM Berliner Immobilienmanagement GmbH",
-    "first_seen": "2026-06-01"
-  },
-  "201ccc7de0d527c983bfa80b4dd7cba8": {
-    "title": "Referent / PMO Manager IT (m/w/d)",
-    "company": "BIM Berliner Immobilienmanagement GmbH",
-    "first_seen": "2026-06-01"
-  },
   "43b1c6bb75b31f74e9cc11adc2fbdf1c": {
     "title": "IT-Projektleiter (m/w/d)",
     "company": "Burgermeister",
@@ -5913,5 +5783,180 @@
     "title": "IT-Spezialist (m/w/d) Berechtigungsmanagement",
     "company": "qards GmbH",
     "first_seen": "2026-07-01"
+  },
+  "9087dd9aebda91b3a4bd4e16d1c41315": {
+    "title": "IT-Architekt Public (m/w/d)",
+    "company": "Telekom MMS",
+    "first_seen": "2026-07-02"
+  },
+  "72acd9fc4866bb4bcdf23423f1088f81": {
+    "title": "IT Consultant (m/w/d)",
+    "company": "infodas",
+    "first_seen": "2026-07-02"
+  },
+  "bb891622aec5ead56d1c8dd64d84a7aa": {
+    "title": "Enterprise Architect (m/w/d)",
+    "company": "Bosch",
+    "first_seen": "2026-07-02"
+  },
+  "f9cbf4aae1d1fd15db3602011d0abd17": {
+    "title": "Senior Technical Solution Architect D365 (m/f/d)",
+    "company": "Halian | Managed Services, Recruitment Agency & Contract Staffing",
+    "first_seen": "2026-07-02"
+  },
+  "8601ede00b3923bb7aeedf67644696c4": {
+    "title": "Senior IT-Architekt Einsatznahe IT - Schwerpunkt F\u00fchrungsinformationssysteme (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-07-02"
+  },
+  "c59400473f498ff0441dd37e551272da": {
+    "title": "(Senior) CRM Solution Architect (m/w/d)",
+    "company": "THE KADEWE GROUP",
+    "first_seen": "2026-07-02"
+  },
+  "033ad58e1c60eb02a9566abe9d0f4af1": {
+    "title": "(Senior) Consultant Internal Auditor IT (Financial Services) (w/m/d)",
+    "company": "EY",
+    "first_seen": "2026-07-02"
+  },
+  "64727917f545d95b53709830c499de02": {
+    "title": "IT System Engineer - Cloud & Infrastruktur (m/w/d)",
+    "company": "Amadeus Fire",
+    "first_seen": "2026-07-02"
+  },
+  "b27c2780a073f3c9d3522312e447221e": {
+    "title": "Spezialist IT Asset- und Lizenzmanagement (w/m/d)",
+    "company": "Die Autobahn GmbH des Bundes",
+    "first_seen": "2026-07-02"
+  },
+  "2c7b2cb61045d9ad52bb6ddf0fa35a1b": {
+    "title": "(Senior) - IT-Project Manager Energy Sector (m/f/d)",
+    "company": "CGI",
+    "first_seen": "2026-07-02"
+  },
+  "b961a5a733d4031f418fda470953838c": {
+    "title": "IT Support & Workplace (ITSW) Agent",
+    "company": "BMG",
+    "first_seen": "2026-07-02"
+  },
+  "3f612fd87c44890e0748d9f395445a78": {
+    "title": "IT Operations Specialist (x, f, m)",
+    "company": "DKB Code Factory GmbH",
+    "first_seen": "2026-07-02"
+  },
+  "80f95f6ffec555e9109d30ea865cba5b": {
+    "title": "Enterprise Architect (m/w/d)",
+    "company": "Bosch",
+    "first_seen": "2026-07-02"
+  },
+  "d1a24d12539eb89a792a788fdc19904c": {
+    "title": "Cybersecurity Audit & Risk Advisor (w/m/d) - Public Sektor",
+    "company": "Capgemini",
+    "first_seen": "2026-07-02"
+  },
+  "285b282e0a34d2a85a604c24d67c5c75": {
+    "title": "(Senior) Sales Manager Cloud Infrastructure (w/m/d)",
+    "company": "Capgemini",
+    "first_seen": "2026-07-02"
+  },
+  "1116ed21070074ca8f7617cba844a5ed": {
+    "title": "Senior Technical Sales Expert (f/m/d) - Grid Consulting and Cyber Security",
+    "company": "Siemens Energy",
+    "first_seen": "2026-07-02"
+  },
+  "0a8c4d0fb56fc73115a0d15a74d3af36": {
+    "title": "Senior Audit Manager - Model Validation (f/m/d)",
+    "company": "Solaris Group",
+    "first_seen": "2026-07-02"
+  },
+  "75c6f63eaf78b2a60cebaf5eeb60403d": {
+    "title": "(Senior) Sales Manager Cloud Infrastructure (w/m/d)",
+    "company": "Capgemini",
+    "first_seen": "2026-07-02"
+  },
+  "7a8aef47949fc37b694bbbbe24290d0f": {
+    "title": "Leiter IT (m/w/d)",
+    "company": "Michael Page",
+    "first_seen": "2026-07-02"
+  },
+  "33f0276961a9dc17f1927161c54550e7": {
+    "title": "IT-Abteilungsleitung (wdm) Infrastruktur",
+    "company": "Michael Page",
+    "first_seen": "2026-07-02"
+  },
+  "3c7d7e8120241e442403fee0821111e3": {
+    "title": "Berater Digitale Transformation IT-Strategie - Technology Strategy Transformation (w/m/d)",
+    "company": "EY Deutschland",
+    "first_seen": "2026-07-02"
+  },
+  "9b334984095be1b0edae99d604451cf3": {
+    "title": "Senior IT Consultant / IT Architekt (m/w/d) Public Sector | IT Architektur | Cloud | Beratung |",
+    "company": "Majori GmbH",
+    "first_seen": "2026-07-02"
+  },
+  "c5a6a71b1a2c367910c626dab9d34ee5": {
+    "title": "Projektmanager (m/w/d) - klassische / hybride IT-Projekte",
+    "company": "BTC Business Technology Consulting AG",
+    "first_seen": "2026-07-02"
+  },
+  "1c0c26484f5715a6ebc2209b2c6f5661": {
+    "title": "IT Projektleiter \u00d6ffentliche Verwaltung (all genders)",
+    "company": "Accenture Dienstleistungen GmbH",
+    "first_seen": "2026-07-02"
+  },
+  "b8e31f00b53432c8a876295c1eaee777": {
+    "title": "IT-Projektleiter:in",
+    "company": "aconium GmbH Hauptsitz Berlin",
+    "first_seen": "2026-07-02"
+  },
+  "387a23bb58ddc3f433cab5a203530fd7": {
+    "title": "IT Projektleiter (m/w/d) - Insurance Software-Einf\u00fchrung",
+    "company": "HAPEKO Hanseatisches Personalkontor",
+    "first_seen": "2026-07-02"
+  },
+  "98593c0e7345936748bda0ffe0c98c05": {
+    "title": "Senior IT Project Manager (m/w/d)",
+    "company": "Natuvion GmbH",
+    "first_seen": "2026-07-02"
+  },
+  "1a03dca34ce50396929328d82401ae11": {
+    "title": "Senior IT Project Manager - Financial Services Regulatory",
+    "company": "Avaloq",
+    "first_seen": "2026-07-02"
+  },
+  "c32502325c001fcf10e97e4a5b1523e7": {
+    "title": "Senior Consultant (m/w/d) IT-Projektmanagement",
+    "company": "empiricus GmbH",
+    "first_seen": "2026-07-02"
+  },
+  "d0e839e769ea155af6610ceafa8d5487": {
+    "title": "Senior Manager (m/w/d) in einer IT-Managementberatung f\u00fcr Finanzdienstleister",
+    "company": "MatchMaker Personalberatung GmbH",
+    "first_seen": "2026-07-02"
+  },
+  "0cfa1d0b3d0bad5dc81665894e83459d": {
+    "title": "Implementierungsmanager / Berater (m/w/d) f\u00fcr die Digitalisierung im automobilen Servicegesch\u00e4ft in Europa",
+    "company": "Evosec GmbH & Co. KG",
+    "first_seen": "2026-07-02"
+  },
+  "efcbdf1523edeea1704f89b4040015a2": {
+    "title": "IT-Service Continuity Manager (m/w/d)",
+    "company": "Verband der Ersatzkassen e. V. (vdek)",
+    "first_seen": "2026-07-02"
+  },
+  "807c4ba9e5ed242391dd97581672182f": {
+    "title": "IT-Projekt- und Servicemanager (m/w/d)",
+    "company": "GWAdriga",
+    "first_seen": "2026-07-02"
+  },
+  "1494a5a32c9fdb1859a1cffa500aa610": {
+    "title": "Senior IT-Consultant Enterprise Service Management (all genders)",
+    "company": "adesso SE",
+    "first_seen": "2026-07-02"
+  },
+  "997e5d9f94826e9c44a1e5ce4b4c49c8": {
+    "title": "Cloud Architect (m/w/d)",
+    "company": "HITS.NRW - Hochschule IT Services NRW",
+    "first_seen": "2026-07-02"
   }
 }
