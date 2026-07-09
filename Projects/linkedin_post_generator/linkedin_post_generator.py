@@ -91,7 +91,16 @@ FAILURE MODES TO AVOID
 - Rhetorical questions: "What does this mean for your business?" is not a question. "Are you measuring output or hours?" is.
 - Long: 150-200 words maximum. Cut anything that doesn't earn its place. Shorter is almost always better.
 - Forcing personal angles: if a personal detail doesn't fit naturally, don't use it. Better to write a clean professional post than a forced "my toddler taught me about agile" post.
-- Repeating topics: do not write about topics already covered in recent posts (listed below under RECENT POST HISTORY)"""
+- Repeating topics: do not write about topics already covered in recent posts (listed below under RECENT POST HISTORY)
+
+LANGUAGE AND FORMAT
+Every post must be written bilingually: German first, then English below, separated by ---
+The German version comes first because her primary audience is DACH. The English version reaches her international network.
+Both versions must sound like Dina — not like a translation. The German should be direct, native-level, with her same voice. No stiff translated phrasing.
+Format for every post:
+[German version]
+---
+[English version]"""
 
 
 HISTORY_FILE = os.path.join(os.path.dirname(__file__), "post_history.json")
@@ -221,26 +230,29 @@ RECENT POST HISTORY (do NOT repeat these topics or opening lines):
 {history_block}
 
 Instructions:
-1. Identify 5 post ideas across all sources. Distribution must be:
+1. Identify 6 post ideas. Distribution must be:
    - AT LEAST 3 posts from the AI consulting lens: what this means for small businesses, startups, or non-technical founders. Think implementation cost, what to actually buy vs. build, where SMBs get burned chasing the wrong tools. Be specific — not "AI can help your business" but "here is the exact mistake and the exact fix."
    - AT LEAST 1 post from a PM/product thinking angle: shipping decisions, prioritization, what PMs get wrong, lessons from building tools people actually use.
    - AT MOST 1 post that uses a personal angle (3-year-old, CrossFit, Dutch-in-Berlin) — must still have a professional takeaway. No posts purely personal.
+   - EXACTLY 1 post on the motherhood + self-employment struggle, seen through an AI or product lens. This is not a "mompreneur" post. It is a post about the real operational reality of building a business while being a primary caregiver — the time economy, the context-switching, the decisions you make differently. The AI or product angle is mandatory: how does automation, product thinking, or AI tooling intersect with this reality? What does Dina actually do or think differently because of it? Be concrete, not inspirational. No toxic positivity. No "it's hard but worth it." The tension is the point.
 2. Each post MUST be a genuinely different topic — no two posts from the same story or the same angle
 3. Do NOT repeat any topic or opening angle from RECENT POST HISTORY
 4. Use web_search once to find one additional angle not covered by the sources above
 5. For each topic output exactly this format:
 
 TOPIC [N]: [one-line title]
-LENS: [AI consulting / PM & product / personal-with-takeaway]
+LENS: [AI consulting / PM & product / personal-with-takeaway / motherhood+work]
 SOURCE: [NewsAPI / The Deep View / web_search / personal]
 WHY: [one sentence on why this is a non-obvious angle worth posting about]
-OPENING LINE: [the first sentence of the post, standalone]
+OPENING LINE: [the first sentence of the post, standalone — in German]
 POST:
-[full LinkedIn post, max 200 words, in Dina's voice]
+[German version of the full LinkedIn post, max 200 words]
 ---
+[English version of the same post, max 200 words — same voice, not a stiff translation]
+===
 
 6. Each post must have a punchy hook and one concrete insight. Endings vary: hard statement, blunt observation, or — only when genuinely useful — a specific non-rhetorical question. Do NOT end every post with a question. No two posts should end the same way.
-7. All 5 posts from Dina's first-person perspective. Use her background only when it fits naturally — do not force it.
+7. All 6 posts from Dina's first-person perspective. Use her background only when it fits naturally — do not force it.
 8. Anti-slop check: before finalising each post, ask "could this have been written by a generic LinkedIn ghostwriter?" If yes, rewrite it. Every post needs a specific, non-obvious angle that only someone who has actually done this work would notice.
 9. RECENCY: only use news stories from the past 7 days. Each headline includes a date in [YYYY-MM-DD] format. Skip anything older.
 10. HALLUCINATION GUARD — no exceptions:
