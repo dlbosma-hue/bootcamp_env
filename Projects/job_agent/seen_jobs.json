@@ -1,254 +1,4 @@
 {
-  "d99171d5d044b4f596f17f6bcfad6903": {
-    "title": "Managing Consultant SAP Enterprise Architect (w/m/x)",
-    "company": "NTT DATA Europe & Latam",
-    "first_seen": "2026-06-27"
-  },
-  "741c31066b0b9a2c39507ad6a6418240": {
-    "title": "Senior Software Architekt  (w/m/d)",
-    "company": "Westernacher Solutions",
-    "first_seen": "2026-06-27"
-  },
-  "e4ed8b6286baf3e8b01fe3bf95604743": {
-    "title": "Lead Solution Architect - Military Solutions (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "a9bcbb115a65e4f264fe71ca9fea4646": {
-    "title": "IT Security und Compliance Consultant (m/w/d)",
-    "company": "mgm technology partners Vietnam",
-    "first_seen": "2026-06-27"
-  },
-  "88e5e983fe18233eea6888738eeb6ccd": {
-    "title": "IT Security und Compliance Consultant (m/w/d)",
-    "company": "mgm technology partners",
-    "first_seen": "2026-06-27"
-  },
-  "22dae9bf2b4c02f1d26bdd8b255dc9d7": {
-    "title": "PMO Projektmanager (m/w/d) - ID: 14648",
-    "company": "Dussmann Group",
-    "first_seen": "2026-06-27"
-  },
-  "b864b09462922f192de3c505dbd88076": {
-    "title": "(Senior) Manager M&A IT - Post-Merger-Integration & Carve-out (m/w/d)",
-    "company": "Deloitte",
-    "first_seen": "2026-06-27"
-  },
-  "3cfc078cdddbce3a57a8d57d4e19c833": {
-    "title": "IT Application Manager ERP & Prozesse (wdm)",
-    "company": "Michael Page",
-    "first_seen": "2026-06-27"
-  },
-  "589973e13cc011d6c8a46e2a0b919687": {
-    "title": "Senior Consultant IT Service Management (w/m/d)",
-    "company": "HiSolutions AG",
-    "first_seen": "2026-06-27"
-  },
-  "f530dd344fbf2bc5fee1ad214f3e185f": {
-    "title": "(Senior) IT-Manager Software Engineering / Digitale Sicherheit (m/w/d) in Berlin",
-    "company": "Deloitte",
-    "first_seen": "2026-06-27"
-  },
-  "139ac559cb3d461c7b53877d79252b9a": {
-    "title": "(Senior) IT Consultant \u2013 Consumer Industries (all genders) \u2013 BCG Platinion",
-    "company": "BCG Platinion",
-    "first_seen": "2026-06-27"
-  },
-  "0df9e9f5f84293a6a8979f583c77ff75": {
-    "title": "Senior IT Integration Consultant (m/w/d)",
-    "company": "Deloitte",
-    "first_seen": "2026-06-27"
-  },
-  "eb3b79a7c987f191e6607951809a0fcf": {
-    "title": "IT-Consultant bAV & Zeitwertkonten (all genders)",
-    "company": "adesso SE",
-    "first_seen": "2026-06-27"
-  },
-  "7fa9b844e80c3870bab8f6db9d52a9cf": {
-    "title": "IT-Consultant Telematikinfrastruktur (all genders)",
-    "company": "adesso SE",
-    "first_seen": "2026-06-27"
-  },
-  "9d45c39861567e0e3606ee5dbe9c108b": {
-    "title": "(Senior) IT Business Consultant (w/m/d)",
-    "company": "Westernacher Solutions",
-    "first_seen": "2026-06-27"
-  },
-  "1b57c9dc417d3da154ab4b45eef6822f": {
-    "title": "Senior IT Project Manager (m/w/d)",
-    "company": "Natuvion",
-    "first_seen": "2026-06-27"
-  },
-  "efdda6eb6ceedf6f6b372a779ca354c7": {
-    "title": "PMO Manager (Project Management Office) - Yoshi en (all genders)",
-    "company": "Sunday Natural",
-    "first_seen": "2026-06-27"
-  },
-  "ad38ec8800e85ce10de5f7dabc8471f3": {
-    "title": "Managing Consultant IT Service Management (w/m/d)",
-    "company": "HiSolutions AG",
-    "first_seen": "2026-06-27"
-  },
-  "96a332f88d51dbaa06e512f25ff712a2": {
-    "title": "IT-Architektur Groupware (m/w/d)",
-    "company": "Allgeier Public",
-    "first_seen": "2026-06-27"
-  },
-  "f6699f98fdb34032e452cddf7ed024d1": {
-    "title": "Teamleiter*in IT-Network (m/w/d)",
-    "company": "Transdev",
-    "first_seen": "2026-06-27"
-  },
-  "3e4aad093e9399beca8e9daaff86502a": {
-    "title": "Werkstudium im IT-Consulting (GN)",
-    "company": "mindeight GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "98fe77111b1388eda7ce62f1591ba738": {
-    "title": "Senior IT Project Manager (m/w/d)",
-    "company": "Natuvion GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "1977cff66f2f2d086153f7495cc07935": {
-    "title": "IT-Berater/Consultant \u2013 Anforderungsmanagement & Digitalisierung (m/w/d)",
-    "company": "Ebner Stolz",
-    "first_seen": "2026-06-27"
-  },
-  "1c41e693f3a02002f8915f999482e7fd": {
-    "title": "Leiter IT (m/w/d) mit SAP-Kenntnissen",
-    "company": "Amadeus Fire AG",
-    "first_seen": "2026-06-27"
-  },
-  "a9890ab20dbc59901078bc97380f14a0": {
-    "title": "Leiter:in IT Portfolio Management (N-3)",
-    "company": "BEW Berliner Energie und W\u00e4rme GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "7e6dc92cd2403f58ec72729383eb2bdd": {
-    "title": "Lead IT System Engineer KI-Betrieb (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "422e0df3e12da7958220e961979bb777": {
-    "title": "Teamleitung IT (m/w/d)",
-    "company": "YER",
-    "first_seen": "2026-06-27"
-  },
-  "c065c2311d83e3762cfbbe4fa194de7f": {
-    "title": "IT-Architekt (m/w/d)",
-    "company": "shoob.de",
-    "first_seen": "2026-06-27"
-  },
-  "30223b8d181e089857592b38a12a8291": {
-    "title": "Executive IT Expert Cloud (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "4f919d2cbde74c0fffd5e14eb58226c5": {
-    "title": "IT-Projektmanager (m/w/d)",
-    "company": "PSI Software SE Grid & Energy Management",
-    "first_seen": "2026-06-27"
-  },
-  "a000588ab53cad965e8112ddccdeace0": {
-    "title": "IT Asset- & Configuration Manager (m/w/d)",
-    "company": "Peak One GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "b686b41a2841bb87cf251f6ec819795c": {
-    "title": "IT Operations Projekt- & Prozessmanager (m/w/d)",
-    "company": "Warth & Klein Grant Thornton AG",
-    "first_seen": "2026-06-27"
-  },
-  "24e5b91b6c0a6fbaf361ba1bc8f465d8": {
-    "title": "Wirtschaftsinformatiker als Projektleiter (m/w/d)",
-    "company": "Berliner Wasserbetriebe",
-    "first_seen": "2026-06-27"
-  },
-  "76298e4d0731e78e068f86b67adf08d3": {
-    "title": "Qualit\u00e4ts- und Prozessmanagerin im PMO Offshore (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "4e6bcffabe49440d3bdd96e12e9ae824": {
-    "title": "IT Manager - Second-Level Operations / IT Infrastruktur (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "f4920123e05577fb6166c743e0a7a076": {
-    "title": "Informatiker als IT Service Manager - Problem Management & ITSCM (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "51cd02f8689446b6292e0891fd43d3e8": {
-    "title": "IT Service Manager (m/w/d) - ITIL / ITSM Prozesse",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "87b623c36782cc6364452f4aa7e374bc": {
-    "title": "Wirtschaftsinformatikerin - IT Service Management & ITSM-Prozesse (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "589f2a79d3f0536c03e5d119120d932d": {
-    "title": "IT Process Manager - Evaluation & Analyse ITSM / ITIL (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "81a3c543310ea19f03df1840e9e381f9": {
-    "title": "IT-Service-Manager:in GKV-Abrechnung (direkte Abrechnung)",
-    "company": "Kassena\u0308rztliche Vereinigung Berlin",
-    "first_seen": "2026-06-27"
-  },
-  "d721ce75c711ced5b1d2577fefe0bbc5": {
-    "title": "IT-Service-Manager:in GKV-Abrechnung (direkte Abrechnung)",
-    "company": "Kassen\u00e4rztliche Vereinigung Berlin",
-    "first_seen": "2026-06-27"
-  },
-  "961456f15b3d34b65e0e251a5c285778": {
-    "title": "IT - Servicemanager:in",
-    "company": "Nexus Deutschland",
-    "first_seen": "2026-06-27"
-  },
-  "9bb4364e6e7eb745d27cab5a29f1cb25": {
-    "title": "IT-Service Continuity Manager (m/w/d)",
-    "company": "Verband der Ersatzkassen e. V. (vdek)",
-    "first_seen": "2026-06-27"
-  },
-  "f7fef310f143485b1472d3180e3b63e0": {
-    "title": "Wirtschaftsinformatiker als Service Owner - St\u00f6rungsbehebung & Weiterentwicklung - IT-Systeme (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-06-27"
-  },
-  "34d18740223226edf86b8952219bb2f3": {
-    "title": "Head of Global IT Infrastructure (m/w/d)",
-    "company": "WAGO GmbH & Co. KG",
-    "first_seen": "2026-06-27"
-  },
-  "60859cec3b9afbf624475bc99d36b2e7": {
-    "title": "IT Architect (m/w/d) Mainframe",
-    "company": "R+V Allgemeine Versicherung AG",
-    "first_seen": "2026-06-27"
-  },
-  "28184626268f094bb35b2319b08bc109": {
-    "title": "IT Solution Architect (Cloud, Hybrid, Infrastructure, etc.) (m/w/d) - 100 % Home Office",
-    "company": "Anexia",
-    "first_seen": "2026-06-27"
-  },
-  "bdbc8a77664e738f8f1be4c96a9da306": {
-    "title": "Teamlead (m/w/d) IT-Service-Management",
-    "company": "STOCKMEIER Chemicals GmbH & Co. KG",
-    "first_seen": "2026-06-27"
-  },
-  "624a599f90b064a8352e6cbc0785ad89": {
-    "title": "IT-Projektmanager/in - Product & Plant Systems",
-    "company": "Hero",
-    "first_seen": "2026-06-27"
-  },
-  "bb6cd0d605d3746acac4fc2eac872803": {
-    "title": "IT-Projektmanager (m/w/d)",
-    "company": "STULZ GMBH",
-    "first_seen": "2026-06-27"
-  },
   "512318cca9e4762a5cbcccfb187f2069": {
     "title": "Teamleitung IT (m/w/d)",
     "company": "YER Deutschland",
@@ -6633,5 +6383,115 @@
     "title": "Senior Consultant im Bereich Dienstleistersteuerung und Preismodell (m/w/d)",
     "company": "Finanz Informatik GmbH & Co. KG",
     "first_seen": "2026-07-27"
+  },
+  "536447f53b6b14b2a9b610fb850d55dd": {
+    "title": "Head of IT Security / Leiter IT-Sicherheit (w/m/d)",
+    "company": "VIRES CONFERRE GmbH",
+    "first_seen": "2026-07-28"
+  },
+  "9311232f16a30ccf11b7370e1693effe": {
+    "title": "IT-Systemadministrator",
+    "company": "Bundesverband Erneuerbare Energie e.V. (BEE)",
+    "first_seen": "2026-07-28"
+  },
+  "ca469c6f53570f97ee82fe6eafd7815b": {
+    "title": "IT-Projektleiter:in \u2013 Schwerpunkt SAP",
+    "company": "Berliner Stadtreinigung",
+    "first_seen": "2026-07-28"
+  },
+  "c485209a6444875051f48fa97563a5fe": {
+    "title": "Senior IT Consultant / Teamleiter \u2013 IGA (m/w/d)",
+    "company": "Instaffo",
+    "first_seen": "2026-07-28"
+  },
+  "2f0cd136441bdfb465c3d9ea24cae549": {
+    "title": "Berater Cloud Architect - Digital Engineering (w/m/d)",
+    "company": "EY",
+    "first_seen": "2026-07-28"
+  },
+  "281f69a06f42649b235678a731db467f": {
+    "title": "Solution Architect",
+    "company": "Taktile",
+    "first_seen": "2026-07-28"
+  },
+  "db44d2873e54974bc713071ec56c296c": {
+    "title": "Category Leader - IT",
+    "company": "Zentiva",
+    "first_seen": "2026-07-28"
+  },
+  "28ff3e5fd659c8731e97a903f971f8f8": {
+    "title": "IT Infrastructure & Systems Engineer (m/w/d)",
+    "company": "PLAN-B NET ZERO",
+    "first_seen": "2026-07-28"
+  },
+  "55866ff9d591b6fbdce11fd9358e79d6": {
+    "title": "Referent IT-Management mit Schwerpunkt IT-Risikomanagement (m/w/d)",
+    "company": "S-Kreditpartner",
+    "first_seen": "2026-07-28"
+  },
+  "ab4b22cd197478520532b5f28539de6d": {
+    "title": "Senior IT Consultant \u2013 Public Sector (w/m/d)",
+    "company": "Instaffo",
+    "first_seen": "2026-07-28"
+  },
+  "8dd72665050d0a53d199ed4ac8ce6652": {
+    "title": "Solution Architect",
+    "company": "Taktile",
+    "first_seen": "2026-07-28"
+  },
+  "4864a8a0a4f0983b19cb3519069f3374": {
+    "title": "Servicetechniker (m/w/d) - IT-Systemelektroniker / Elektrotechniker / Mechatroniker",
+    "company": "H\u00d6RMANN Industries GmbH",
+    "first_seen": "2026-07-28"
+  },
+  "b9a5ebeb7cc8c22ea440a18b6e912498": {
+    "title": "Leiter Competence Center (m/w/d) ITSM Consulting Schwerpunkt IT Infrastructure & Technology",
+    "company": "IT Personalberatung Dr. Dienst & Wenzel GmbH & Co. KG",
+    "first_seen": "2026-07-28"
+  },
+  "88187f5e3cb97844a43868b7d9dacf90": {
+    "title": "IT Governance Managerin (m/w/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-07-28"
+  },
+  "b16a6b00df27d085359f9ca83735ef61": {
+    "title": "IT Governance Framework Managerin (m/w/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-07-28"
+  },
+  "bdc4dfd5a4f84c52f578c5cb1a1cba4b": {
+    "title": "IT Governance Richtlinien Managerin (m/w/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-07-28"
+  },
+  "15a0a969b98239d484372ef09ef18cf1": {
+    "title": "IT Governance Standards Managerin (m/w/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-07-28"
+  },
+  "315fd6cab37c7d25cfd5d4bb9ac8112c": {
+    "title": "IT Governance Security Managerin (m/w/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-07-28"
+  },
+  "cb013aebb36b8a20bf6d3351eb84e835": {
+    "title": "IT Governance Compliance Managerin (m/w/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-07-28"
+  },
+  "91549f60565d1ad097ec50340392a383": {
+    "title": "Projektmanager IT und Organisation (m/w/d)",
+    "company": "MDI Limbach Berlin GmbH",
+    "first_seen": "2026-07-28"
+  },
+  "4f919d2cbde74c0fffd5e14eb58226c5": {
+    "title": "IT-Projektmanager (m/w/d)",
+    "company": "PSI Software SE Grid & Energy Management",
+    "first_seen": "2026-07-28"
+  },
+  "df8b7cf60fd4ea396d67302b0854d4ce": {
+    "title": "Senior Solution Engineer (m/w/d)",
+    "company": "Beta Systems Software AG",
+    "first_seen": "2026-07-28"
   }
 }
