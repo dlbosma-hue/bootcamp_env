@@ -1,204 +1,4 @@
 {
-  "e6be5090a965f8f4bb3d78e34fe58685": {
-    "title": "IT-Projektportfolio- und Kapazit\u00e4tenmanager:in (w/m/d)",
-    "company": "Berliner Stadtreinigung",
-    "first_seen": "2026-06-29"
-  },
-  "6410b3d0194337a28f21d5a8f5cf42fd": {
-    "title": "IT-Service- und Produktmanager (m/w/d) - MS Dynamics 365",
-    "company": "NORSAN GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "29eeda0b75a4a96c5651d59e44d38c8a": {
-    "title": "(Senior) Manager IT & Technology in M&A (w/m/d)",
-    "company": "KPMG Deutschland",
-    "first_seen": "2026-06-29"
-  },
-  "878baff80308b1cd4fde0c3f882ecc6b": {
-    "title": "IT Architect (all genders) - BCG Platinion",
-    "company": "BCG Platinion",
-    "first_seen": "2026-06-29"
-  },
-  "269d0a02063e9cfd5f121f8e38713104": {
-    "title": "IT-Leiter (m/w/d)",
-    "company": "GO! EXPRESS & LOGISTICS Luxembourg S.a.r.l.",
-    "first_seen": "2026-06-29"
-  },
-  "6fa6832264ae3e5cea9a687ecc219a93": {
-    "title": "Agile IT-Projektmanager (m/w/d)",
-    "company": "inno2grid GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "7b2df873ae0903b63b98340117a18a5e": {
-    "title": "IT Consultant \u2013 Digitale Transformation (m/w/d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "b7facae2e9492653b8c4aa56d37d2eab": {
-    "title": "Senior Consultant (w/m/d) CIO Advisory Digital Ecosystem",
-    "company": "KPMG Deutschland",
-    "first_seen": "2026-06-29"
-  },
-  "766d68daed450123eea92bfab1fbaf55": {
-    "title": "(Senior) Solution Architect (w/m/d)",
-    "company": "KPMG Deutschland",
-    "first_seen": "2026-06-29"
-  },
-  "a3b3f23d303bea0dfba74ce86b96cfbc": {
-    "title": "Software Architekt (m/w/d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "4db8516c2408b414c91141ae0bdd7abe": {
-    "title": "ITSM Architekt (w/m/d)",
-    "company": "indivHR - We \ud83d\udc9a IT Recruiting",
-    "first_seen": "2026-06-29"
-  },
-  "4c1a02096deee0c5f7ee9bf6dd811af1": {
-    "title": "(Senior) Manager CIO Advisory - Digital Transformation (w/m/d)",
-    "company": "KPMG Deutschland",
-    "first_seen": "2026-06-29"
-  },
-  "2c5b9cac7637245e46908dfabcebfc4f": {
-    "title": "IT-Consultant \u2013 Infrastruktur Microsoft (m/w/d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "8da9e8e0ef534124e6d9eb87f7069d89": {
-    "title": "Senior Consultant - Cyber Security Strategy, Governance, Risk & Compliance (w/m/d)",
-    "company": "KPMG Deutschland",
-    "first_seen": "2026-06-29"
-  },
-  "02ae2327e7fc26e902e4bd3ed79d9c5f": {
-    "title": "Senior Consultant IT - Governance, Risk & Compliance Technology (w/m/d)",
-    "company": "KPMG Deutschland",
-    "first_seen": "2026-06-29"
-  },
-  "198c827bbb75b498017b62d209079f7a": {
-    "title": "Netzwerk- / IT-Administration",
-    "company": "Projektron GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "053ae768243019b1972381978cc5e475": {
-    "title": "Senior Consultant technische IT-Infrastruktur (w/m/d)",
-    "company": "HiSolutions AG",
-    "first_seen": "2026-06-29"
-  },
-  "148db172b36e8567271672b8c87f783a": {
-    "title": "(Senior) Manager IT Audit & IT Assurance (m/w/d)",
-    "company": "Deloitte",
-    "first_seen": "2026-06-29"
-  },
-  "3715b0add88d2dbb4d3d6822e215f3a0": {
-    "title": "(Senior) Manager Public Sector Health Care - IT Architektur & IT Strategie (w/m/d)",
-    "company": "KPMG Deutschland",
-    "first_seen": "2026-06-29"
-  },
-  "3fe7324df1fde13f1b225d398f290253": {
-    "title": "Systemadministrator IT-Infrastruktur (m/w/d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "9facad2995f256a570b56d1be561944f": {
-    "title": "IT-Administrator / Consultant | Server, Netzwerk, Cloud, BI, Security, Inhouse & Beratung (mwd)",
-    "company": "Vesterling AG",
-    "first_seen": "2026-06-29"
-  },
-  "1e277afc8c2a3b23a315da5194cfc2b9": {
-    "title": "IT-Systemadministrator (m/w/d)",
-    "company": "Dataciders GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "d6664253ab048f24b9d41c626320dc05": {
-    "title": "(Senior) Manager IT-Compliance (w/m/d)",
-    "company": "KPMG Deutschland",
-    "first_seen": "2026-06-29"
-  },
-  "0c3e57a2e1d379579e24e8b1f2652d7b": {
-    "title": "IT Supplier Management",
-    "company": "DKB | Deutsche Kreditbank AG",
-    "first_seen": "2026-06-29"
-  },
-  "0de42f157caed793722b4c5dd954d7ca": {
-    "title": "Senior IT-Consultant Digitale Transformation / ServiceNow (m/w/d)",
-    "company": "Deloitte",
-    "first_seen": "2026-06-29"
-  },
-  "60bdf573f1d80c6577d30424df166b34": {
-    "title": "(Senior) Consultant IT & Technology in M&A (w/m/d)",
-    "company": "KPMG Deutschland",
-    "first_seen": "2026-06-29"
-  },
-  "2c43d8146316f272d19f99e9212ce486": {
-    "title": "IT-Consultant (m|w|d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "ee7a4af2798b880e6ab9b9243ec8bf6f": {
-    "title": "Consultant Digital Transformation Management in Automotive (m/w/d)",
-    "company": "Deloitte",
-    "first_seen": "2026-06-29"
-  },
-  "8a0c569fa762c458d2ed1096ef58b18f": {
-    "title": "Senior Consultant Public Sector - Digital Transformation (w/m/d)",
-    "company": "KPMG Deutschland",
-    "first_seen": "2026-06-29"
-  },
-  "1abc3a766a98f11b6ca0cc89b4565703": {
-    "title": "Projektmanagerin/ Projektleiterin im Bereich Wealth Management / Retail Banking (m/w/d)",
-    "company": "Senacor",
-    "first_seen": "2026-06-29"
-  },
-  "e763b47f34f277cfc62fbde3f277a504": {
-    "title": "Informatiker*Informatikerin als Leitung f\u00fcr IT Service & Workplace im Klinikverbund der DRK Kliniken Berlin",
-    "company": "DRK Kliniken Berlin",
-    "first_seen": "2026-06-29"
-  },
-  "a071481ac9271db4355766e0e1c0ae26": {
-    "title": "IT Consultant \u2013 Digitale Transformation (m/w/d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "04eb5171201b0424f6e144fc46cfd0f6": {
-    "title": "IT-Consultant \u2013 Infrastruktur Microsoft (m/w/d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "4e96217707a5855a06299d3561f24236": {
-    "title": "IT-Consultant Data Engineering (m/w/d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "45cc533df18b914535f2665e547422b1": {
-    "title": "Business Unit Manager Ceramic Bodies",
-    "company": "SIBELCO",
-    "first_seen": "2026-06-29"
-  },
-  "42298bdd167b1c4cf061063cf98787d9": {
-    "title": "IT Consultant (m/w/d) Software Testing / Test Automation im Pega Umfeld",
-    "company": "puntus GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "e64f47487e31c74f69e036225e289a96": {
-    "title": "Talent Sourcer IT (m/w/d)",
-    "company": "Bundesdruckerei-Gruppe",
-    "first_seen": "2026-06-29"
-  },
-  "ea5f8852bd98d345a68dcf94d604f226": {
-    "title": "IT-Consultant (m|w|d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-06-29"
-  },
-  "e9856d4afbc0839146afa3165606d5b1": {
-    "title": "IT-Business Analyst / Feature-Engineer Conversational Platforms (w/m/d)",
-    "company": "ING Deutschland",
-    "first_seen": "2026-06-29"
-  },
-  "48ab06df7b47f818e5d51584a644b41f": {
-    "title": "IT-Projektmitarbeiter (m/w/d)",
-    "company": "PSI Software SE Grid & Energy Management",
-    "first_seen": "2026-06-29"
-  },
   "442b67692827471d188b97368c390bcd": {
     "title": "IT Service Manager (m/w/d) - ITIL / ITSM Prozesse",
     "company": "50Hertz Transmission GmbH",
@@ -6563,5 +6363,485 @@
     "title": "Teamleitung Prozess-IT (m/w/d)",
     "company": "Stadtwerke Saarbr\u00fccken Netz AG",
     "first_seen": "2026-07-29"
+  },
+  "2c46d2f00ce1635090529562d99773de": {
+    "title": "Leitung (m/w/d) Digitalisierung",
+    "company": "Gr\u00fcn Berlin",
+    "first_seen": "2026-07-30"
+  },
+  "dc3841e1884e6aa82082e78f06c37de3": {
+    "title": "Lead IT Enterprise Architect (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "5933101f0986aeb440538dbccced9497": {
+    "title": "Abteilungsleiter:in IT-Infrastruktur",
+    "company": "Kassen\u00e4rztliche Vereinigung Berlin",
+    "first_seen": "2026-07-30"
+  },
+  "072f98b9d0aa844e2a7a809e99929d2d": {
+    "title": "Abteilungsleiter:in IT-Infrastruktur",
+    "company": "Lundsholt Dohme Inc.",
+    "first_seen": "2026-07-30"
+  },
+  "bd72a3a3b2fc7bf1d5523c6036897fe0": {
+    "title": "IT-Projekt- & Delivery Manager",
+    "company": "DKB | Deutsche Kreditbank AG",
+    "first_seen": "2026-07-30"
+  },
+  "80a46d32d337bbb752176a97b955a5a0": {
+    "title": "Solution Architect (w/m/d)",
+    "company": "Capgemini Invent",
+    "first_seen": "2026-07-30"
+  },
+  "a42f3e209e135cde58d97b9dae8ef554": {
+    "title": "EU Cybersecurity Governance, Risk and Compliance Lead (m/w/d)",
+    "company": "Emerson",
+    "first_seen": "2026-07-30"
+  },
+  "a9ab500c5a00b31dad26203b4a9795af": {
+    "title": "Manager - IT (m/f/d)",
+    "company": "EIT RawMaterials",
+    "first_seen": "2026-07-30"
+  },
+  "ecf6bc9bc135e9af1b9e220319497635": {
+    "title": "Office Manager (m/w/d) im IT-Unternehmen, gelegentlich mit Eventplanung",
+    "company": "Zertificon Solutions GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "66c6ce25ea2324320e3611b825a14d16": {
+    "title": "IT-Application Specialist \u2013 Enterprise Content Management (m/w/d)",
+    "company": "Vivantes \u2013 Netzwerk f\u00fcr Gesundheit GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "0ddeeace827965d1cfd6570f8113b620": {
+    "title": "IT-Provider Manager (m/w/d)",
+    "company": "Michael Page",
+    "first_seen": "2026-07-30"
+  },
+  "d26980c1004ae30c4b9da6e485e25c58": {
+    "title": "(Senior) Manager Solution Architect -Technology Innovation (w/m/d)",
+    "company": "Capgemini Invent",
+    "first_seen": "2026-07-30"
+  },
+  "7f573bf2ef19a2e8f7373cef0f71cf40": {
+    "title": "Senior IT Projektmanager (m/w/d) \u2013 Data & Analytics",
+    "company": "Verti Versicherung AG",
+    "first_seen": "2026-07-30"
+  },
+  "3bbde3c715a16b5142f719edb3a9975b": {
+    "title": "IT Expert Mobility EMM / MAM - Hardware Lifecycle (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "a2ffc68c4eb7827f8925c79e369ffe1f": {
+    "title": "IT Support Specialist Commercial Operations (f/m/d)",
+    "company": "Beckman Coulter Life Sciences",
+    "first_seen": "2026-07-30"
+  },
+  "548901819857b5452e09a95bf3d0c8e9": {
+    "title": "IT Solution Architect (all genders) f\u00fcr Pre-Sales",
+    "company": "DATAGROUP SE",
+    "first_seen": "2026-07-30"
+  },
+  "93d9cd92bf772a23c063f5dbf62c5585": {
+    "title": "Senior Finance Coordinator & PMO Manager - UE Berlin",
+    "company": "GUS Germany GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "1998e1e04ba8be46d8b8d7f475e438cc": {
+    "title": "Senior IT-Projektmanager (all genders) mit Schwerpunkt RZ-Infrastruktur",
+    "company": "DATAGROUP SE",
+    "first_seen": "2026-07-30"
+  },
+  "30e537b4f5a06105e926c69b89656602": {
+    "title": "Abteilungsleiter:in IT-Infrastruktur",
+    "company": "Kassen\u00e4rztliche Vereinigung Berlin",
+    "first_seen": "2026-07-30"
+  },
+  "46db2461ab517565e2493ba017d17d56": {
+    "title": "Head of IT Governance (*)",
+    "company": "Stolzberger GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "aad197f04a816ccbf82699d25b743c97": {
+    "title": "Senior IT-Architekt | IT-Achitektur, TOGAF, OZG, Cloud, Beratung (mwd)",
+    "company": "Vesterling AG",
+    "first_seen": "2026-07-30"
+  },
+  "c065c2311d83e3762cfbbe4fa194de7f": {
+    "title": "IT-Architekt (m/w/d)",
+    "company": "shoob.de",
+    "first_seen": "2026-07-30"
+  },
+  "751192cbb90ee4fa4d3fb34967adcbb7": {
+    "title": "IT Spezialist - IT-Architekturen und Storage-Infrastrukturen (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "6df19ef8cb42db7ec5e3450a83346d02": {
+    "title": "IT Spezialist - IT-Architekturen und Storage-Infrastrukturen (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "8f3cb73da7b512f3522a8cee9e13700e": {
+    "title": "Senior IT-Systemadministrator / IT-Infrastruktur & Security (m/w/d)",
+    "company": "UNITAX-Pharmalogistik GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "4077ee3d0978d5346853c138ecc2ac02": {
+    "title": "IT Manager - Second-Level Operations / IT Infrastruktur (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "f2cc60b3e3520a5de41209d32068bbd6": {
+    "title": "IT-Projektleiter/Teamleiter Infrastruktur (m/w/d)",
+    "company": "Amadeus Fire AG",
+    "first_seen": "2026-07-30"
+  },
+  "b9e6f9fc287a4e586f95b040c3da1f7b": {
+    "title": "Jobangebot: Teamleitung IT-Operations (w/m/d)",
+    "company": "degewo Aktiengesellschaft",
+    "first_seen": "2026-07-30"
+  },
+  "cae96158badb12facb4bfd801fdf00a3": {
+    "title": "Leitung (m/w/d) Digitalisierung",
+    "company": "Gr\u00fcn Berlin GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "a97017c4c75cda6dd58a4924bbc71af2": {
+    "title": "IT-Leiter (m/w/d)",
+    "company": "Roth Services GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "44f2ccb320f2a2a1569ca1e136226bf6": {
+    "title": "Leiter IT / CIO (m/w/d)",
+    "company": "Energie- und Wasserversorgung Rheine GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "4be72b67eee1f15a831b9c8e9b6a3586": {
+    "title": "Head of IT Infrastructure & Security (m/w/d)",
+    "company": "SOLCOM GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "4ea294734a9acfc0ee86eab495fc80e8": {
+    "title": "Teamleiter IT (m/w/d)",
+    "company": "Lab Logistics Group GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "c0d7a1a26b8ed04c3f9080e18ba8516e": {
+    "title": "Head of IT (m/w/d)",
+    "company": "MjAMjAM Petfood GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "7903c71d08e184a6372fca0282cff515": {
+    "title": "Head of IT (m/w/d)",
+    "company": "Encevo Deutschland GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "65596e579c2eeef7c4dacb0ca6c78997": {
+    "title": "Head of IT Security (m/w/d)",
+    "company": "NOVENTI Health SE",
+    "first_seen": "2026-07-30"
+  },
+  "8d4a6a49bec41ee04502ce7f7404c599": {
+    "title": "Head of IT (m/w/d)",
+    "company": "Phorms Education SE",
+    "first_seen": "2026-07-30"
+  },
+  "f5e238ae45f970882c9b51bcd76ed39d": {
+    "title": "Head of International Strategy (m/w/d) Mittelst\u00e4ndische Software- & IT-Gruppe",
+    "company": "TOPOS Hamburg",
+    "first_seen": "2026-07-30"
+  },
+  "aa089e76a138e6a34dffc7fd779a6f80": {
+    "title": "Kaufm\u00e4nnische Leitung (m/w/d), Head of Controlling, Accounting, HR, IT",
+    "company": "HB-Dienstleistungs GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "cb45a4deea717f372374f1c7ff885880": {
+    "title": "Finance Transformation PMO Working Student (m/f/d)",
+    "company": "RTL Group Business Services GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "463ce70000bebe9a5226cfce795b96df": {
+    "title": "IT - Landscape Architect (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "2503ea8b3f9eb70f6693a79bb8876b29": {
+    "title": "IT Systems Architect / Senior IT Consultant (all genders) \u2013 Infrastruktur und Managed Services",
+    "company": "DATAGROUP",
+    "first_seen": "2026-07-30"
+  },
+  "9b72f7c6b4fba391ec77a745e19dd8f2": {
+    "title": "IT Solution Architect SAP BTP (w/m/d)",
+    "company": "Freudenberg Group",
+    "first_seen": "2026-07-30"
+  },
+  "2cdb28af485562e9ac3d43178286c828": {
+    "title": "IT Enterprise Architect (m/w/d)",
+    "company": "Ecclesia Holding GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "2df6af49af70e0b706320db6853aa10a": {
+    "title": "Operativer Vorstand / COO / CTO (w/m/d)",
+    "company": "Selaestus Personal Management GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "f69b69ba06d112853f6db80ae604546d": {
+    "title": "IT-Governance Experte (m/w/d)",
+    "company": "Creditreform",
+    "first_seen": "2026-07-30"
+  },
+  "1471a7b95bb728e16f3aed3651a340b1": {
+    "title": "IT Risk & Governance Manager (m/w/d)",
+    "company": "M\u00fcnchener Hypothekenbank eG",
+    "first_seen": "2026-07-30"
+  },
+  "3b05a5a0058dc2d758b4cea6ea87c85b": {
+    "title": "IT Consultant IAM - Identity Governance / IT Security (m/w/d)",
+    "company": "amiconsult GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "7304617be03e11ab50738bffe6fac480": {
+    "title": "IT Application Manager (m/w/d)",
+    "company": "LAMILUX Heinrich Strunz Holding GmbH & Co. KG",
+    "first_seen": "2026-07-30"
+  },
+  "5ef2c270158e16c6d942dc55ef19d458": {
+    "title": "IT Security Officer (m/w/d)",
+    "company": "BayWa AG",
+    "first_seen": "2026-07-30"
+  },
+  "42cb64b877de2af256f55e7ed711465a": {
+    "title": "IT Prozess Experte (all genders)",
+    "company": "Hermes Fulfilment GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "33471fe223c2b32f78a95dad6d4a80a0": {
+    "title": "Teamlead IT Strategy & Products (w/m/d)",
+    "company": "Modulat Leasing AG",
+    "first_seen": "2026-07-30"
+  },
+  "48e7a36a192a7275f8543107ed136fdd": {
+    "title": "IT-Demand-Manager (m/w/d)",
+    "company": "S-Markt & Mehrwert GmbH & Co. KG",
+    "first_seen": "2026-07-30"
+  },
+  "c2071d4aea010d80fa1e71ca93784665": {
+    "title": "Manager IT Infrastructure (m/w/d) in Direktvermittlung",
+    "company": "FERCHAU \u2013 Connecting People and Technologies",
+    "first_seen": "2026-07-30"
+  },
+  "a20b5787058dfa908876ce1a8e2cf636": {
+    "title": "Digitalisierungs- und Projekt Manager (m/w/d)",
+    "company": "ECOVIS R\u00fcgen GmbH & Co. KG Steuerberatungsgesellschaft",
+    "first_seen": "2026-07-30"
+  },
+  "170d80566ff6b26eb3c74b0090eaa347": {
+    "title": "Demand- und Digitalisierungsmanager (m/w/d)",
+    "company": "Th\u00fcga Aktiengesellschaft",
+    "first_seen": "2026-07-30"
+  },
+  "ad42861ba5bcc84c32de45bf4e2e4883": {
+    "title": "Account Manager - Sicherheitstechnik / IT-Infrastruktur (m/w/d)",
+    "company": "Funkwerk Security Solutions GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "f4e060357f741f0050fec317e46a33c1": {
+    "title": "Abteilungsleiter:in IT-Infrastruktur",
+    "company": "Kassen\u00e4rztliche Vereinigung Berlin",
+    "first_seen": "2026-07-30"
+  },
+  "46c63c50418e034560aed72d9065dc57": {
+    "title": "Abteilungsleiter IT / Luftfahrtindustrie / Raum Chemnitz (w/m/d) (Wirtschaftsinformatiker/in (Hochschule))",
+    "company": "COTESA GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "84786f8e89412ac237a33f2bd61db9f0": {
+    "title": "Teamleiter*in IT-Network (m/w/d)",
+    "company": "Transdev GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "e04110239be73d3ba126a985e529a51d": {
+    "title": "Teamlead IT-Contracting (m/w/d)",
+    "company": "Ratbacher GmbH - Karriere bei Ratbacher",
+    "first_seen": "2026-07-30"
+  },
+  "95c470bf2ab0e9fac829b0b6c2e7e548": {
+    "title": "Teamlead IT (m/w/d)",
+    "company": "Optik Hallmann GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "d7c2bf4015403dddb5d2124fafe878b9": {
+    "title": "Qualit\u00e4tsingenieur KI-Fokus / Quality Engineer (AI-augmented) (m/w/d) IT-Consulting",
+    "company": "PTA GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "89b2b8ef94350547a9f6e5fe763cbf67": {
+    "title": "Consultant IT & Prozesse - Automotive (w/m/d)",
+    "company": "PwC",
+    "first_seen": "2026-07-30"
+  },
+  "7f242dec60d9a0d5e1faa93af14fde51": {
+    "title": "Consultant IT-Assurance / Financial Services (m/w/d)",
+    "company": "Deloitte",
+    "first_seen": "2026-07-30"
+  },
+  "fe79590840caed1f1ebe23770e0ddf24": {
+    "title": "Consultant IT Security & Compliance (m/w/d)",
+    "company": "Materna Information & Communications SE",
+    "first_seen": "2026-07-30"
+  },
+  "282f343a9809a852ff29f127cf1d0974": {
+    "title": "IT-Berater*in im Datenschutz",
+    "company": "IT-Dienstleistungszentrum Berlin (ITDZ Berlin)",
+    "first_seen": "2026-07-30"
+  },
+  "bc3647eda6a3d67ae253cf9bb5e52a86": {
+    "title": "Senior IT-Consultant (m/w/d) Payment (Inhouse)",
+    "company": "S-Payment GmbH - Ein Unternehmen der DSV-Gruppe",
+    "first_seen": "2026-07-30"
+  },
+  "258e82da6e99b756cc7395221db8d957": {
+    "title": "Projektleiter/in f\u00fcr die Re-Systemakkreditierung (m/w/d)",
+    "company": "Universit\u00e4t Ulm Abteilung III-1 Personalservice",
+    "first_seen": "2026-07-30"
+  },
+  "cf1fa923dc184570d1be2c06d709d796": {
+    "title": "IT Produktmanager (m/w/d)",
+    "company": "Ratiodata SE",
+    "first_seen": "2026-07-30"
+  },
+  "46ad0d625b26e51407da1e568781fd45": {
+    "title": "IT Business Manager (d/w/m) Direktversicherung",
+    "company": "BavariaDirekt",
+    "first_seen": "2026-07-30"
+  },
+  "df6d42533513daf3b3d8aeec7e59a7ab": {
+    "title": "IT Information Security Manager (m/w/d)",
+    "company": "Gerresheimer AG",
+    "first_seen": "2026-07-30"
+  },
+  "54bf3ff5b272d8297813e505fe616ec4": {
+    "title": "IT-Projektmanager (m/w/d)",
+    "company": "Minimax GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "dff2fe6a3afa63b90b61cad674230296": {
+    "title": "IT-Projektmanager (m/w/d)",
+    "company": "S\u00fcdwestfalen - IT (Zweckverband)",
+    "first_seen": "2026-07-30"
+  },
+  "6c966feb6640442cd3ef919485917149": {
+    "title": "Technischer IT-Projektleiter (m/w/d)",
+    "company": "Huth Elektronik Systeme GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "42d0a52d52a54503912d728d84219c1a": {
+    "title": "Projektmanager f\u00fcr IT-Projekte (m/w/d)",
+    "company": "Oxalis Logistik GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "84d1966e74c78fea17988fb08ba0e1f8": {
+    "title": "Process & Project Manager (m/w/d) - IT-Koordination - Landverkehr / Spedition",
+    "company": "K\u00fchne + Nagel (AG & Co.) KG",
+    "first_seen": "2026-07-30"
+  },
+  "392fdfca25858f9c818c6ec5c47f9fa0": {
+    "title": "IT Project Manager (m/w/d)",
+    "company": "Melitta Gruppe",
+    "first_seen": "2026-07-30"
+  },
+  "4863010557c645c8c1bc33291e81dbad": {
+    "title": "IT-Projektleiter (Inhouse) (m/w/d)",
+    "company": "Vereinigte Hagelversicherung VVaG",
+    "first_seen": "2026-07-30"
+  },
+  "53e8a04e4a92dfd345cc2766b1566ba1": {
+    "title": "IT-Projektleiter:in \u2013 Schwerpunkt SAP",
+    "company": "Berliner Stadtreinigung (BSR)",
+    "first_seen": "2026-07-30"
+  },
+  "f5c402af21cc610525d49538368bb6a4": {
+    "title": "Projektmanagerin / Projektmanager IT-Sicherheit \u2013 Kritische Infrastruktur U-Bahn (w/m/d)",
+    "company": "Berliner Verkehrsbetriebe (BVG)",
+    "first_seen": "2026-07-30"
+  },
+  "8c227ee0e5618f07601e5224a1100a6a": {
+    "title": "IT Management Consultant | IT Projektmanager (m/w/d)",
+    "company": "Senacor Technologies AG",
+    "first_seen": "2026-07-30"
+  },
+  "5ff6337c0d5d0a95464b900470fa87e8": {
+    "title": "IT-Release Manager (m/w/d)",
+    "company": "REWE digital",
+    "first_seen": "2026-07-30"
+  },
+  "8801a27d90e997fd5da6994561b921bd": {
+    "title": "IT-Organisator (m/w/d) im Bereich IT-Servicemanagement",
+    "company": "Diehl Aviation",
+    "first_seen": "2026-07-30"
+  },
+  "bea8ae160a54d68c5cad6a237d18727a": {
+    "title": "Operator (m/w/d) f\u00fcr IT Service Management Tool",
+    "company": "SIGNAL IDUNA Gruppe",
+    "first_seen": "2026-07-30"
+  },
+  "f858b2ef30856631a2a98059395dd053": {
+    "title": "IT Service Manager Identity Management (Entra ID) (m/w/d)",
+    "company": "Stadtwerke Stuttgart GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "1b0320b9579463d47f496212f1924f6f": {
+    "title": "IT Service Management (ITSM) Spezialist (m/w/d)",
+    "company": "BKK firmus",
+    "first_seen": "2026-07-30"
+  },
+  "15b4cabad6e4d0cadaa929d3f669d186": {
+    "title": "(Senior) Consultant IT Organisation / ITSM Public Sector (all genders)",
+    "company": "msg systems ag",
+    "first_seen": "2026-07-30"
+  },
+  "454aa09739299d669f46c09358ae03b5": {
+    "title": "Bereichsleitung Einf\u00fchrungsmanagement OSPlus (Fokus IT-L\u00f6sungen f\u00fcr Firmenkunden) (m/w/d)",
+    "company": "Finanz Informatik GmbH & Co. KG",
+    "first_seen": "2026-07-30"
+  },
+  "df0d7c5f033746ce6bbfc7cedede749b": {
+    "title": "Senior Systemadministrator (m/w/d) - Cloud & Server Administration",
+    "company": "Big Dutchman International GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "fb5f7174a684ee5119f2295767f5895a": {
+    "title": "Teamleiter Application Management - Processing (m/w/d)",
+    "company": "qards GmbH",
+    "first_seen": "2026-07-30"
+  },
+  "266a3bf4cd71cc2ff3817aec2064ad02": {
+    "title": "IT-Consultant Aktivgesch\u00e4ft (m/w/d)",
+    "company": "Finanz Informatik GmbH & Co. KG",
+    "first_seen": "2026-07-30"
+  },
+  "64f0f218051048a83bd350744a782424": {
+    "title": "IT-Consultant Arbeitsplatzl\u00f6sungen (m/w/d)",
+    "company": "Finanz Informatik GmbH & Co. KG",
+    "first_seen": "2026-07-30"
+  },
+  "c0092290bb64bef5ee77307079825ccc": {
+    "title": "Kundenberater Sparkassen (m/w/d)",
+    "company": "Finanz Informatik GmbH & Co. KG",
+    "first_seen": "2026-07-30"
+  },
+  "b25cdc0e390cda3782992b0be7f77763": {
+    "title": "Technischer Berater Ladet\u00e4tigkeiten OSPlus Produktbaukasten (m/w/d)",
+    "company": "Finanz Informatik GmbH & Co. KG",
+    "first_seen": "2026-07-30"
+  },
+  "7370ea341bfd3e2884b1feda21559e99": {
+    "title": "Consultant Kundenservice Online-Banking & Elektronisches Postfach (m/w/d)",
+    "company": "Finanz Informatik GmbH & Co. KG",
+    "first_seen": "2026-07-30"
   }
 }
