@@ -25,6 +25,13 @@ SEARCH_TERMS = [
     "Produktmanager KI",
     "KI Berater",
     "AI Produktmanager",
+    "Product Manager",
+    "Product Manager AI",
+    "Product Owner",
+    "Product Lead",
+    "Product Manager Senior",
+    "Product Owner AI",
+    "Project Manager",
 ]
 
 SECONDARY_TERMS = [
