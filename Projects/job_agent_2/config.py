@@ -32,6 +32,15 @@ SEARCH_TERMS = [
     "Product Manager Senior",
     "Product Owner AI",
     "Project Manager",
+    "Senior Project Manager",
+    "Technical Project Manager",
+    "IT Project Manager",
+    "Digital Project Manager",
+    "Project Manager AI",
+    "Project Lead",
+    "Projektmanager",
+    "Projektmanager KI",
+    "Projektleiter",
 ]
 
 SECONDARY_TERMS = [
