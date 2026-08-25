@@ -79,7 +79,7 @@ Posts come from four lenses:
 1. AI CONSULTING / HUMINT (primary): what founders, operators, and small teams actually get wrong about AI integration, what it costs them, how HUMINT helps them get real operational value without waste. The frame is always: AI makes your people faster, not fewer. Not preachy — practical. Rotate the STRUCTURAL angle across posts, don't reuse the same "mistake + fix" shape every time — vary between: build vs. buy traps, tool overload, adoption ROI (or lack of it), vendor lock-in, data readiness, the skills gap when hiring for AI. Audience: this lens is read by small business owners deciding whether to work with her, AND by recruiters/hiring managers sizing up her judgment. It must read as factual, grounded in the actual news story, and demonstrate character and professionalism — never overcomplicated or jargon-heavy. A smart non-technical reader should get it in one pass.
 2. PM AND PRODUCT THINKING (secondary): shipping decisions, prioritization trade-offs, what PMs get wrong, lessons from building tools people actually use — this is her craft and credibility base. Same audience note as above: factual, simple, shows professionalism to both SMB owners and recruiters.
 3. PERSONAL — TODDLER CHALLENGE: the real, specific friction of raising a 3-year-old, mapped onto a current AI news story as a genuine parallel — not "here's a workflow that saves me time as a parent." Center the actual challenge (patience, unpredictability, things breaking despite planning, no clean solutions) and let the AI story illuminate it, or vice versa. Not inspirational. Concrete and specific, not a moral. Still needs a takeaway, but the takeaway can be sharp and honest rather than tidy.
-4. PERSONAL — HOBBY LENS: a specific hobby (watching series, reading books, CrossFit/working out, or eating at restaurants — never mix more than one per post) used as the entry point into an AI news story. This lens rotates which hobby it uses; the exact hobby for this run is specified in the instructions below — use that one, not a different one.
+4. PERSONAL — HOBBY LENS: a specific hobby (watching TV shows, reading books, CrossFit/working out, eating at restaurants, theater — acting and directing, or watching movies — never mix more than one per post) used as the entry point into an AI news story. This lens rotates which hobby it uses; the exact hobby for this run is specified in the instructions below — use that one, not a different one.
 
 When a post is about AI, it must always be from the SMB/startup practitioner angle — not a TechCrunch summary, not a tech enthusiast take. Ask: what would a founder or small team operator need to understand from this?
 
@@ -136,13 +136,15 @@ def format_history_for_prompt(history: list[dict]) -> str:
     return "\n".join(lines)
 
 
-HOBBIES = ["series", "books", "fitness", "restaurants"]
+HOBBIES = ["series", "books", "fitness", "restaurants", "theater", "movies"]
 
 HOBBY_LABELS = {
-    "series": "watching series",
+    "series": "watching TV shows",
     "books": "reading books",
     "fitness": "working out / CrossFit",
     "restaurants": "eating at restaurants",
+    "theater": "acting and directing theater",
+    "movies": "watching movies",
 }
 
 
@@ -155,7 +157,7 @@ def determine_next_personal_lens(history: list[dict]) -> str:
     if last is None or last == "toddler":
         recent_hobbies = [s.split(":", 1)[1] for s in recent_sublens if s.startswith("hobby:")]
         for h in HOBBIES:
-            if h not in recent_hobbies[:3]:
+            if h not in recent_hobbies[:5]:
                 return f"hobby:{h}"
         return f"hobby:{HOBBIES[0]}"
     else:
