@@ -1,114 +1,4 @@
 {
-  "536447f53b6b14b2a9b610fb850d55dd": {
-    "title": "Head of IT Security / Leiter IT-Sicherheit (w/m/d)",
-    "company": "VIRES CONFERRE GmbH",
-    "first_seen": "2026-07-28"
-  },
-  "9311232f16a30ccf11b7370e1693effe": {
-    "title": "IT-Systemadministrator",
-    "company": "Bundesverband Erneuerbare Energie e.V. (BEE)",
-    "first_seen": "2026-07-28"
-  },
-  "ca469c6f53570f97ee82fe6eafd7815b": {
-    "title": "IT-Projektleiter:in \u2013 Schwerpunkt SAP",
-    "company": "Berliner Stadtreinigung",
-    "first_seen": "2026-07-28"
-  },
-  "c485209a6444875051f48fa97563a5fe": {
-    "title": "Senior IT Consultant / Teamleiter \u2013 IGA (m/w/d)",
-    "company": "Instaffo",
-    "first_seen": "2026-07-28"
-  },
-  "2f0cd136441bdfb465c3d9ea24cae549": {
-    "title": "Berater Cloud Architect - Digital Engineering (w/m/d)",
-    "company": "EY",
-    "first_seen": "2026-07-28"
-  },
-  "281f69a06f42649b235678a731db467f": {
-    "title": "Solution Architect",
-    "company": "Taktile",
-    "first_seen": "2026-07-28"
-  },
-  "db44d2873e54974bc713071ec56c296c": {
-    "title": "Category Leader - IT",
-    "company": "Zentiva",
-    "first_seen": "2026-07-28"
-  },
-  "28ff3e5fd659c8731e97a903f971f8f8": {
-    "title": "IT Infrastructure & Systems Engineer (m/w/d)",
-    "company": "PLAN-B NET ZERO",
-    "first_seen": "2026-07-28"
-  },
-  "55866ff9d591b6fbdce11fd9358e79d6": {
-    "title": "Referent IT-Management mit Schwerpunkt IT-Risikomanagement (m/w/d)",
-    "company": "S-Kreditpartner",
-    "first_seen": "2026-07-28"
-  },
-  "ab4b22cd197478520532b5f28539de6d": {
-    "title": "Senior IT Consultant \u2013 Public Sector (w/m/d)",
-    "company": "Instaffo",
-    "first_seen": "2026-07-28"
-  },
-  "8dd72665050d0a53d199ed4ac8ce6652": {
-    "title": "Solution Architect",
-    "company": "Taktile",
-    "first_seen": "2026-07-28"
-  },
-  "4864a8a0a4f0983b19cb3519069f3374": {
-    "title": "Servicetechniker (m/w/d) - IT-Systemelektroniker / Elektrotechniker / Mechatroniker",
-    "company": "H\u00d6RMANN Industries GmbH",
-    "first_seen": "2026-07-28"
-  },
-  "b9a5ebeb7cc8c22ea440a18b6e912498": {
-    "title": "Leiter Competence Center (m/w/d) ITSM Consulting Schwerpunkt IT Infrastructure & Technology",
-    "company": "IT Personalberatung Dr. Dienst & Wenzel GmbH & Co. KG",
-    "first_seen": "2026-07-28"
-  },
-  "88187f5e3cb97844a43868b7d9dacf90": {
-    "title": "IT Governance Managerin (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-07-28"
-  },
-  "b16a6b00df27d085359f9ca83735ef61": {
-    "title": "IT Governance Framework Managerin (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-07-28"
-  },
-  "bdc4dfd5a4f84c52f578c5cb1a1cba4b": {
-    "title": "IT Governance Richtlinien Managerin (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-07-28"
-  },
-  "15a0a969b98239d484372ef09ef18cf1": {
-    "title": "IT Governance Standards Managerin (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-07-28"
-  },
-  "315fd6cab37c7d25cfd5d4bb9ac8112c": {
-    "title": "IT Governance Security Managerin (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-07-28"
-  },
-  "cb013aebb36b8a20bf6d3351eb84e835": {
-    "title": "IT Governance Compliance Managerin (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-07-28"
-  },
-  "91549f60565d1ad097ec50340392a383": {
-    "title": "Projektmanager IT und Organisation (m/w/d)",
-    "company": "MDI Limbach Berlin GmbH",
-    "first_seen": "2026-07-28"
-  },
-  "4f919d2cbde74c0fffd5e14eb58226c5": {
-    "title": "IT-Projektmanager (m/w/d)",
-    "company": "PSI Software SE Grid & Energy Management",
-    "first_seen": "2026-07-28"
-  },
-  "df8b7cf60fd4ea396d67302b0854d4ce": {
-    "title": "Senior Solution Engineer (m/w/d)",
-    "company": "Beta Systems Software AG",
-    "first_seen": "2026-07-28"
-  },
   "42686ff53dbc2d0277cbf17adf965145": {
     "title": "Leiter/Head of IT (m/w/d)",
     "company": "DNS:NET Internet Service GmbH",
@@ -6483,5 +6373,175 @@
     "title": "Senior Consultant im Bereich Dienstleistersteuerung und Preismodell (m/w/d)",
     "company": "Finanz Informatik GmbH & Co. KG",
     "first_seen": "2026-08-27"
+  },
+  "7f2107146fb24a8322711007b2bfe4d9": {
+    "title": "Abteilungsleitung IT (Head of IT) (w/m/d)",
+    "company": "Gewobag Wohnungsbau-Aktiengesellschaft Berlin",
+    "first_seen": "2026-08-28"
+  },
+  "4a43518bf10bf7a7d7803963d86f6abe": {
+    "title": "IT Architect (m/w/d)",
+    "company": "BearingPoint",
+    "first_seen": "2026-08-28"
+  },
+  "a86d7fd59acd233fd2711a7e3914e4f1": {
+    "title": "IT-Solution-Manager/in (w/m/d)",
+    "company": "DLR-Institut f\u00fcr Aeroelastik",
+    "first_seen": "2026-08-28"
+  },
+  "b159707b96d54cf17cca58dfd1ed06b6": {
+    "title": "Senior Consultant / Manager IT Strategy (all genders)",
+    "company": "Forvis Mazars in Germany",
+    "first_seen": "2026-08-28"
+  },
+  "518f99d1786fd01bbe650dc80db6e19a": {
+    "title": "Consultant Cloud-Strategie / Enterprise-Cloud-Architektur (all genders)",
+    "company": "adesso SE",
+    "first_seen": "2026-08-28"
+  },
+  "0bffc590866815c620f765fe28eadc03": {
+    "title": "IT Enterprise Architect (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-08-28"
+  },
+  "a4471992f36635fbfd25c560d030ad31": {
+    "title": "IT Security und Compliance Consultant (m/w/d)",
+    "company": "mgm technology partners",
+    "first_seen": "2026-08-28"
+  },
+  "03e784b22d5d7d7cc81c7c80bf7ff4fb": {
+    "title": "(Senior) Consultant / Manager IT-Project Governance & Transformation (all genders)",
+    "company": "Forvis Mazars in Germany",
+    "first_seen": "2026-08-28"
+  },
+  "dc45bf1d4769339f52e39169d09b18fc": {
+    "title": "IT-Administrator (m/w/d) Inhouse",
+    "company": "BAYOONET AG",
+    "first_seen": "2026-08-28"
+  },
+  "6dccea2181c7616b0820a2328097d62d": {
+    "title": "Netzwerk- / IT-Administration",
+    "company": "Projektron GmbH",
+    "first_seen": "2026-08-28"
+  },
+  "d78fbd032d8fa766a93077d20fd818a1": {
+    "title": "IT-Consultant - Migration (all genders)",
+    "company": "adesso SE",
+    "first_seen": "2026-08-28"
+  },
+  "800f423884b2820d14f8c6c9fd2ed407": {
+    "title": "PMO Manager (m/w/d)",
+    "company": "Hach",
+    "first_seen": "2026-08-28"
+  },
+  "f40921cf30ad18d49fcd57224e8ece79": {
+    "title": "Abteilungsleitung IT (Head of IT) (w/m/d)",
+    "company": "Gewobag Wohnungsbau-Aktiengesellschaft Berlin",
+    "first_seen": "2026-08-28"
+  },
+  "313f46839ac2c0574f384959dbd48a07": {
+    "title": "IT Mitarbeiter*in Systemadministration (Linux RedHat)",
+    "company": "Deutsche Rentenversicherung",
+    "first_seen": "2026-08-28"
+  },
+  "1b10e2e5a8a87bdbb7adce6c5cd011a7": {
+    "title": "IT Systemadministrator*in (Linux RedHat)",
+    "company": "Deutsche Rentenversicherung",
+    "first_seen": "2026-08-28"
+  },
+  "91bdb96877261ca047ddbc88b3eae8d0": {
+    "title": "Senior Projektmanager Umweltsteuerung/Genehmigungsmanagement (m/w/d)",
+    "company": "nan",
+    "first_seen": "2026-08-28"
+  },
+  "76bf234f9b22a602c4ea1a0b80509870": {
+    "title": "(Senior) Consultant / Manager IT M&A - Transformation (all genders)",
+    "company": "Forvis Mazars",
+    "first_seen": "2026-08-28"
+  },
+  "f9e18f13fef6bb0233f8298a43a2c1a5": {
+    "title": "(Senior) Consultant / Manager IT-Project Governance & Transformation (all genders)",
+    "company": "Forvis Mazars",
+    "first_seen": "2026-08-28"
+  },
+  "1bcfa34cab47c9f55ac93087e254ae79": {
+    "title": "(Senior) Consultant / Manager IT M&A - Transformation (all genders)",
+    "company": "Forvis Mazars",
+    "first_seen": "2026-08-28"
+  },
+  "b4b724331ff108c6f1a5ae3fda6d9d50": {
+    "title": "(Senior) Consultant / Manager IT-Project Governance & Transformation (all genders)",
+    "company": "Forvis Mazars",
+    "first_seen": "2026-08-28"
+  },
+  "2bfcaf9ce247bef00983ffb1c19af2f0": {
+    "title": "Associate Cloud Architect Defense (w/m/d)",
+    "company": "Capgemini",
+    "first_seen": "2026-08-28"
+  },
+  "099fe98aa522fb9d5f300134c24cad89": {
+    "title": "Associate Cloud Architect Defense (w/m/d)",
+    "company": "Capgemini",
+    "first_seen": "2026-08-28"
+  },
+  "485d92bc5b3f48058722dee659de1a2d": {
+    "title": "Senior Consultant / Manager IT Strategy (all genders)",
+    "company": "Forvis Mazars",
+    "first_seen": "2026-08-28"
+  },
+  "8a6be2bdedb42730f16eb351e2a287a1": {
+    "title": "Data & Process Manager (m/w/d) f\u00fcr den Bereich IT I Facility Manager",
+    "company": "Berlin Partner f\u00fcr Wirtschaft und Technologie",
+    "first_seen": "2026-08-28"
+  },
+  "d0d13df27c1d237e5c98d60000f4cc1f": {
+    "title": "Senior Consultant / Manager IT Strategy (all genders)",
+    "company": "Forvis Mazars",
+    "first_seen": "2026-08-28"
+  },
+  "d780bea949b22851c3cc9bf89fc148c9": {
+    "title": "Leiter:in IT / Kommunikationstechnik, Berlin, 100.000 - 130.000",
+    "company": "wabcon",
+    "first_seen": "2026-08-28"
+  },
+  "d09cc72a0952884c599aa96a725a2325": {
+    "title": "Cloud Strategy & Infrastructure Advisory Manager (all genders)",
+    "company": "Accenture Dienstleistungen GmbH",
+    "first_seen": "2026-08-28"
+  },
+  "4aeae7e9d488cf242f0dce4f0e144a92": {
+    "title": "Senior IT Manager (m/w/d) f\u00fcr gro\u00dfen Bildungstr\u00e4ger in Berlin gesucht!",
+    "company": "DEMANE GmbH",
+    "first_seen": "2026-08-28"
+  },
+  "2c6589468cdc787ac12d680c1a540015": {
+    "title": "Steuerberater - Kanzleif\u00fchrung / Digitalisierung / DATEV (m/w/d)",
+    "company": "Workwise GmbH",
+    "first_seen": "2026-08-28"
+  },
+  "5974e7cd219d75070d8da7aa9717eea0": {
+    "title": "IT-Projektmanager (Digitalisierung- / KHZG) (m/w/d)",
+    "company": "Evangelisches Krankenhaus K\u00f6nigin Elisabeth Herzberge gGmbH",
+    "first_seen": "2026-08-28"
+  },
+  "1935fbea75aed029e2091314e35acf8f": {
+    "title": "IT Operations Manager (m/w/d) Vollzeit / Berlin Spandau",
+    "company": "PerZukunft Arbeitsvermittlung GmbH&Co.KG",
+    "first_seen": "2026-08-28"
+  },
+  "df8b7cf60fd4ea396d67302b0854d4ce": {
+    "title": "Senior Solution Engineer (m/w/d)",
+    "company": "Beta Systems Software AG",
+    "first_seen": "2026-08-28"
+  },
+  "eba2ce8c6a1ec5921992cd60c8a49844": {
+    "title": "Unternehmensarchitekt / Enterprise Architect (w/m/d)",
+    "company": "HUK-COBURG Versicherungsgruppe",
+    "first_seen": "2026-08-28"
+  },
+  "6447f977ccfa39c9b17c1fd3aeb7b5db": {
+    "title": "Inhouse IT-Consultant Artificial Intelligence Kennziffer 25/45 | Vollzeit",
+    "company": "SONAX GmbH",
+    "first_seen": "2026-08-28"
   }
 }
