@@ -1,124 +1,4 @@
 {
-  "58f4044805597bbd480e426574a8c674": {
-    "title": "IT-Service Manager (m/w/d)",
-    "company": "Michael Page",
-    "first_seen": "2026-08-01"
-  },
-  "10cab1c1d7230e42c0dfa422a846ff2b": {
-    "title": "IT Service Manager Collaboration & Automation (m/w/d)",
-    "company": "Axel Springer",
-    "first_seen": "2026-08-01"
-  },
-  "46c899d7e9cacfe63cd7276369c8aeac": {
-    "title": "IT Lead \u00b7 Systemadministration & Infrastruktur (all genders)",
-    "company": "WIN Creating Images",
-    "first_seen": "2026-08-01"
-  },
-  "c9837b90f7bf0aa0f3f1a40444ae46c6": {
-    "title": "IT Enterprise Architect (m/w/d) - ID: 14621",
-    "company": "Dussmann Group",
-    "first_seen": "2026-08-01"
-  },
-  "64af49079b31a6487ae161dd5f74a664": {
-    "title": "Senior Cloud Architect (w/m/d)",
-    "company": "Capgemini",
-    "first_seen": "2026-08-01"
-  },
-  "f53dcee9de880d7bd48e106ea0762b52": {
-    "title": "Consultant (m/w/d) Enterprise Architecture Management",
-    "company": "DACHSER",
-    "first_seen": "2026-08-01"
-  },
-  "b348e31ddd99d332d048cff8792fca35": {
-    "title": "Senior Consultant IT-Service Management Strategy (f/m/d)",
-    "company": "MHP \u2013 A Porsche Company",
-    "first_seen": "2026-08-01"
-  },
-  "26fbe2bef6818496cd588cad66bbcbb2": {
-    "title": "Account Manager Public Sector IT (m/w/d)",
-    "company": "netgo",
-    "first_seen": "2026-08-01"
-  },
-  "83aad00f99f2f7e158aaf4e0e44d424e": {
-    "title": "Expert IT Inhouse Consultant (m/f/d)",
-    "company": "Simon-Kucher",
-    "first_seen": "2026-08-01"
-  },
-  "3b9246bd631b4e68c0e23c87b2b60719": {
-    "title": "IT Service Manager (all genders)",
-    "company": "DATAGROUP SE",
-    "first_seen": "2026-08-01"
-  },
-  "97d8a5403907206f0abc1df2e2dfe809": {
-    "title": "IT Service Manager (all genders)",
-    "company": "nan",
-    "first_seen": "2026-08-01"
-  },
-  "3ec993d492125269ecb6cf80506204cb": {
-    "title": "IT-Spezialist*in f\u00fcr digitale Pflegeprozesse und Interoperabilit\u00e4t gesucht (m/w/d)",
-    "company": "albatros social",
-    "first_seen": "2026-08-01"
-  },
-  "8c901c0c6eaa4271766200b849dab408": {
-    "title": "Wissenschaftlicher Mitarbeiter Cybersecurity & AI Defense (w/m/d)",
-    "company": "Kienbaum Consultants International GmbH",
-    "first_seen": "2026-08-01"
-  },
-  "5a1d765d8031bdd13a24d51d0d91da1b": {
-    "title": "(Senior) Automation Solution Architect (all genders) - Beats & Bytes - Universal Music Entertainment GmbH",
-    "company": "Universal Music Group",
-    "first_seen": "2026-08-01"
-  },
-  "84a72255c8ddf45b80753649c82f3dab": {
-    "title": "Abteilungsleiter:in IT-Infrastruktur",
-    "company": "Kassen\u00e4rztliche Vereinigung Berlin",
-    "first_seen": "2026-08-01"
-  },
-  "78bae135e822caa6d0d4381bba52e5d4": {
-    "title": "Head of Medical IT (d/w/m)",
-    "company": "Charit\u00e9 \u2013 Universit\u00e4tsmedizin Berlin",
-    "first_seen": "2026-08-01"
-  },
-  "170f67faa9a5bb37cacffc7f34ccef94": {
-    "title": "Senior System Engineer - IT-Infrastruktur / Projektmanagement / Windows (m/w/d)",
-    "company": "Workwise GmbH",
-    "first_seen": "2026-08-01"
-  },
-  "0c78595082d6f71134c59b3686f40397": {
-    "title": "IT Manager - Second-Level Operations / IT Infrastruktur (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-08-01"
-  },
-  "b4588efe8e46e952ab57ae3cb4dfc7e8": {
-    "title": "IT Service Manager (m/w/d) \u2013 Operations & Support",
-    "company": "PSI Software SE Grid & Energy Management",
-    "first_seen": "2026-08-01"
-  },
-  "73f7b44cd2be5b91f1d8cbbd1399ebe5": {
-    "title": "Referent Digitale Transformation / Projektleiter Liferay (m/w/d)",
-    "company": "Konrad-Adenauer-Stiftung e.V.",
-    "first_seen": "2026-08-01"
-  },
-  "d17cf12b6a703780a061ef332674c0b8": {
-    "title": "Digital Transformation Manager (m/w/d)",
-    "company": "DIS AG Germany",
-    "first_seen": "2026-08-01"
-  },
-  "f5f7cb00f1345965f9e7f837e3b3361e": {
-    "title": "Zwei IT-Solution Architects (m/w/d) f\u00fcr SAP Cloud ALM oder f\u00fcr SAP Success Factors",
-    "company": "Deutsche Bundesbank",
-    "first_seen": "2026-08-01"
-  },
-  "5c353c0a0b447a21ef175eb0fd9b5136": {
-    "title": "IT-Application Manager (m/w/d)",
-    "company": "Hekatron Unternehmen",
-    "first_seen": "2026-08-01"
-  },
-  "1dd59516db12bf15078f8672aae8b21c": {
-    "title": "IT Servicemanager SAP S/4HANA (m/w/d)",
-    "company": "Flughafen D\u00fcsseldorf GmbH",
-    "first_seen": "2026-08-01"
-  },
   "ec7189a9130ebad59fbb803173e246db": {
     "title": "Manager mit Fokus auf Enterprise Architecture (all genders)",
     "company": "MHP \u2013 A Porsche Company",
@@ -6208,5 +6088,125 @@
     "title": "IT-Verfahrensmanager Service Transition (m/w/d)",
     "company": "Bayerisches Landesamt f\u00fcr Steuern",
     "first_seen": "2026-08-31"
+  },
+  "465c7cdd124c476a0c506349264ef54b": {
+    "title": "IT-F\u00fchrungskr\u00e4fte (m/w/d) als Referatsleitung in verschiedenen Bereichen",
+    "company": "Bundesamt f\u00fcr Verfassungsschutz (BfV)",
+    "first_seen": "2026-09-01"
+  },
+  "48cbb74ab4cd295147d98f1ab6dbd832": {
+    "title": "Head of IT Operations (m/f/d)",
+    "company": "Orise",
+    "first_seen": "2026-09-01"
+  },
+  "b35d742cee35be0ee758b9e837b371c2": {
+    "title": "IT-Systemadministrator (m/w/d)",
+    "company": "Sozialkasse des Berliner Baugewerbes",
+    "first_seen": "2026-09-01"
+  },
+  "d19745774aff74eac1025b69100c7aec": {
+    "title": "Director Experte \u2013 Digitalisierung Public Sector/\u00d6ffentliches Gesundheitswesen (m/w/d)",
+    "company": "CGI",
+    "first_seen": "2026-09-01"
+  },
+  "f187ab4ac64907366b441b32e512a553": {
+    "title": "Senior Cloud Architect (w/m/d)",
+    "company": "Capgemini",
+    "first_seen": "2026-09-01"
+  },
+  "ad95b238709e3f975b37b1e4e31ec07e": {
+    "title": "(Senior) IT Consultant w/m/d VMware",
+    "company": "Computacenter",
+    "first_seen": "2026-09-01"
+  },
+  "3f322c3f7794b9427a1d208bbf77cb6c": {
+    "title": "Senior Consultant Informationssicherheit und IT Security (w/m/d)",
+    "company": "HiSolutions AG",
+    "first_seen": "2026-09-01"
+  },
+  "9d5e9a06d71d292eb704012e7414353a": {
+    "title": "IT-Projektleiter - Microsoft 365 & Modern Work (m/w/d)",
+    "company": "SVA System Vertrieb Alexander GmbH",
+    "first_seen": "2026-09-01"
+  },
+  "676bd5ec8e66f0cfbdc40ea086db05bd": {
+    "title": "Dezentrale IT-Administration und On-Site Support (w/m/d)",
+    "company": "University of Applied Sciences Potsdam",
+    "first_seen": "2026-09-01"
+  },
+  "21e923e2ed13d05e1526e0e1e118cf0b": {
+    "title": "Projektleitung (w/m/d) f\u00fcr Digitalisierungsprojekte in der Abteilung Z",
+    "company": "Bundesamt f\u00fcr Bauwesen und Raumordnung",
+    "first_seen": "2026-09-01"
+  },
+  "a42456b10570a70b87e8f3879a10525a": {
+    "title": "Senior Consultant IT Betrieb / IT Operations (w/m/d)",
+    "company": "HiSolutions AG",
+    "first_seen": "2026-09-01"
+  },
+  "b2e7ee1184cee37d79f8cd11b40fbd0b": {
+    "title": "(Senior) Manager Digitalisierung Accountingprozesse (m/w/d)",
+    "company": "Deloitte",
+    "first_seen": "2026-09-01"
+  },
+  "9e8767f0f2e55ca9a0c775b931ceb70a": {
+    "title": "Senior PMO (m/w/d)",
+    "company": "WestCo GmbH",
+    "first_seen": "2026-09-01"
+  },
+  "c72faa9e95bdbbd434ad762dbfd255ed": {
+    "title": "IT-Projektmanager (m/w/d)",
+    "company": "DARCBLUE AG",
+    "first_seen": "2026-09-01"
+  },
+  "c2fb6cdb92228da8c8fbb1225897d512": {
+    "title": "IT-Prozessmanager Automatisierung Verarbeitungssysteme (m/w/d)",
+    "company": "BAHN-BKK",
+    "first_seen": "2026-09-01"
+  },
+  "9ef5874c0da2429d36298bf7ab831be7": {
+    "title": "IT- Architect - Cloud Platform (m/w/d)",
+    "company": "netgo group GmbH",
+    "first_seen": "2026-09-01"
+  },
+  "aa8d1dc62e59a80970501ee1132330dc": {
+    "title": "IT- Architect - Cloud Platform (m/w/d)",
+    "company": "netgo group GmbH",
+    "first_seen": "2026-09-01"
+  },
+  "cfbd47fbd2d270e8924588d120c2a81b": {
+    "title": "Senior Solution Architect Lagef\u00fchrungssystem (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-09-01"
+  },
+  "798b51a379314fb819eaa118fad64fe0": {
+    "title": "IT- Consultant - Cloud Services / PreSales (m/w/d)",
+    "company": "netgo group GmbH",
+    "first_seen": "2026-09-01"
+  },
+  "942edf15c903d224ba641284f46d664a": {
+    "title": "IT- Consultant - Cloud Services / PreSales (m/w/d)",
+    "company": "netgo group GmbH",
+    "first_seen": "2026-09-01"
+  },
+  "24a58571ec57e93a5355823b37f79ec6": {
+    "title": "IT-Projektmanager (Digitalisierung- / KHZG) (m/w/d)",
+    "company": "Evangelisches Krankenhaus K\u00f6nigin Elisabeth Herzberge gGmbH",
+    "first_seen": "2026-09-01"
+  },
+  "ee2a98f0cfc0f3fa70ed2e33f7804a3c": {
+    "title": "Leiter/in Digitalisierung/IT m/w/d",
+    "company": "Verkehrsverbund Oberelbe GmbH",
+    "first_seen": "2026-09-01"
+  },
+  "93a8b1a1421b4aa7bb9aeea3f65b2839": {
+    "title": "Solution Architekt (m/w/d)",
+    "company": "Bayerisches Landesamt f\u00fcr Steuern",
+    "first_seen": "2026-09-01"
+  },
+  "a789a80531c466233d9680c0dcf8a01e": {
+    "title": "System Engineer (w/m/d)",
+    "company": "Kommunale Versorgungskassen Westfalen-Lippe",
+    "first_seen": "2026-09-01"
   }
 }
