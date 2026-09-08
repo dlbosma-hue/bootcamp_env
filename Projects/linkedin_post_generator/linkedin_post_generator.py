@@ -86,7 +86,7 @@ Posts come from four lenses:
 1. AI CONSULTING / HUMINT (primary): what founders, operators, and small teams actually get wrong about AI integration, what it costs them, how HUMINT helps them get real operational value without waste. The frame is always: AI makes your people faster, not fewer. Not preachy — practical. Rotate the STRUCTURAL angle across posts, don't reuse the same "mistake + fix" shape every time — vary between: build vs. buy traps, tool overload, adoption ROI (or lack of it), vendor lock-in, data readiness, the skills gap when hiring for AI. Audience: this lens is read by small business owners deciding whether to work with her, AND by recruiters/hiring managers sizing up her judgment. It must read as factual, grounded in the actual news story, and demonstrate character and professionalism — never overcomplicated or jargon-heavy. A smart non-technical reader should get it in one pass.
 2. PM AND PRODUCT THINKING (secondary): shipping decisions, prioritization trade-offs, what PMs get wrong, lessons from building tools people actually use — this is her craft and credibility base. Same audience note as above: factual, simple, shows professionalism to both SMB owners and recruiters.
 3. PERSONAL — TODDLER CHALLENGE: the real, specific friction of raising a 3-year-old, mapped onto a current AI news story as a genuine parallel — not "here's a workflow that saves me time as a parent." Center the actual challenge (patience, unpredictability, things breaking despite planning, no clean solutions) and let the AI story illuminate it, or vice versa. Not inspirational. Concrete and specific, not a moral. Still needs a takeaway, but the takeaway can be sharp and honest rather than tidy.
-4. PERSONAL — HOBBY LENS: a specific hobby (watching TV shows, reading books, CrossFit/working out, eating at restaurants, theater — acting and directing, or watching movies — never mix more than one per post) used as the entry point into an AI news story. This lens rotates which hobby it uses; the exact hobby for this run is specified in the instructions below — use that one, not a different one.
+4. PERSONAL — HOBBY LENS: a specific hobby (reading books, CrossFit/working out, eating at restaurants, or theater — acting and directing — never mix more than one per post) used as the entry point into an AI news story. This lens rotates which hobby it uses; the exact hobby for this run is specified in the instructions below — use that one, not a different one.
 
 When a post is about AI, it must always be from the SMB/startup practitioner angle — not a TechCrunch summary, not a tech enthusiast take. Ask: what would a founder or small team operator need to understand from this?
 
@@ -145,15 +145,13 @@ def format_history_for_prompt(history: list[dict]) -> str:
     return "\n".join(lines)
 
 
-HOBBIES = ["series", "books", "fitness", "restaurants", "theater", "movies"]
+HOBBIES = ["books", "fitness", "restaurants", "theater"]
 
 HOBBY_LABELS = {
-    "series": "watching TV shows",
     "books": "reading books",
     "fitness": "working out / CrossFit",
     "restaurants": "eating at restaurants",
     "theater": "acting and directing theater",
-    "movies": "watching movies",
 }
 
 
@@ -274,7 +272,7 @@ def generate_post(newsapi_output: str, deepview_content: str, history: list[dict
 
     if goal == "growth":
         goal_directive = (
-            "Identify 2-3 post ideas, all from the AI CONSULTING lens: what founders, operators, and "
+            "Identify exactly 3 post ideas, all from the AI CONSULTING lens: what founders, operators, and "
             "small teams get wrong about AI integration — implementation cost, build vs. buy, adoption "
             "ROI, vendor lock-in, data readiness, or the skills gap in hiring for AI. Each must use a "
             "DIFFERENT structural angle from this list — no two posts this run share one. This lens is "
@@ -287,7 +285,7 @@ def generate_post(newsapi_output: str, deepview_content: str, history: list[dict
         sublens_note = "n/a"
     elif goal == "thought-leader":
         goal_directive = (
-            "Identify 2-3 post ideas as a MIX of two lenses — do not pick only one: "
+            "Identify exactly 3 post ideas as a MIX of two lenses — do not pick only one: "
             "(a) AI CONSULTING angles that build trust with people already paying attention (hidden "
             "costs, false assumptions, vendor lock-in, data readiness, the skills gap — the angles that "
             "aren't played for maximum reach), and "
@@ -315,7 +313,7 @@ def generate_post(newsapi_output: str, deepview_content: str, history: list[dict
                 f'not substitute a different hobby.'
             )
         goal_directive = (
-            f"Identify 2-3 post ideas, all from this lens: {personal_directive} Each must map onto a "
+            f"Identify exactly 3 post ideas, all from this lens: {personal_directive} Each must map onto a "
             f"DIFFERENT AI news story from today's sources, with a different structural angle. Tag every "
             f"post's SUBLENS as exactly: {next_personal}. All posts this run are tagged CATEGORY: Social."
         )
@@ -332,6 +330,8 @@ THE DEEP VIEW (latest AI newsletter issue):
 
 RECENT POST HISTORY (do NOT repeat these topics, opening lines, or the same structural angle):
 {history_block}
+
+Do NOT write any preamble, planning notes, or commentary before the first TOPIC block (e.g. no "I'll search for...", no "Now let me draft..."). Your response must start directly with "TOPIC [1]:" — use web_search silently, then output only the TOPIC blocks below.
 
 Instructions:
 1. {goal_directive}
@@ -413,7 +413,12 @@ POST:
         else:
             break
 
-    return post_text.strip(), sources_used
+    post_text = post_text.strip()
+    first_topic = re.search(r"TOPIC \[\d+\]:", post_text)
+    if first_topic:
+        post_text = post_text[first_topic.start():].strip()
+
+    return post_text, sources_used
 
 
 def send_email(post_text: str, sources: list[str]) -> None:
