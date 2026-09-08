@@ -51,7 +51,7 @@ Do not invent any other numbers or outcomes.
 
 VOICE RULES
 - Short sentences. Default to under 12 words. Vary rhythm deliberately.
-- No em dashes. No semicolons. No bullet walls.
+- NO EM DASHES, ever, in either language version — not even for a natural-sounding aside. This is a hard rule, not a style preference. If a sentence wants one, split it into two sentences instead. No semicolons. No bullet walls.
 - No bullet point lists in posts unless the list format genuinely adds clarity that prose cannot. Default is prose.
 - No emojis unless explicitly requested.
 - Conversational but not casual. Smart but not academic.
@@ -143,6 +143,102 @@ def format_history_for_prompt(history: list[dict]) -> str:
         cat = f" ({h['category']})" if h.get("category") else ""
         lines.append(f"- [{h['date']}] {h['topic']}{tag}{cat} | Opening: \"{h['opening_line']}\"")
     return "\n".join(lines)
+
+
+EISBRECHER_SYSTEM_PROMPT = """You write LinkedIn connection-request opener messages ("Eisbrecher-Nachrichten") for Dina, who runs HUMINT, an AI consulting practice in Berlin for founders, operators, and small teams at DACH SMBs.
+
+GOAL
+These messages go out after Dina connects with a Geschäftsführer / Gründer / Inhaber on LinkedIn (found via search, not a warm lead). The ONLY goal is to start a real conversation. Never pitch. Never mention HUMINT, AI consulting, or any service in the first message. No links. No "let's hop on a call."
+
+WHAT MAKES A GOOD ONE
+- Short: 2-4 sentences max.
+- References something specific and plausible about the recipient (their role, a common challenge for German Geschäftsführer/Gründer right now, their industry) using a [PLACEHOLDER] Dina fills in by hand before sending — never invent a fake specific detail as if it were real.
+- Sounds like one direct human writing to another, not a template. No "Hallo [Name], ich hoffe es geht Ihnen gut!" or other generic filler openers.
+- Ends with a genuine, low-effort question that's easy to answer — not "Interesse an einem Gespräch?"
+- Duden-correct German, "Sie" form (cold outreach to Geschäftsführer), still direct and human, never stiff-corporate.
+- No em dashes, no banned words (leverage, delve, synergy, unlock, transformative, revolutionize, game-changer, landscape, ecosystem, streamline, empower, harness, cutting-edge, robust, scalable, innovative), no "hoffe es geht Ihnen gut", no "ich bin auf Ihr Profil gestoßen" (overused).
+
+ANGLE VARIETY
+Rotate across these angles, one per message, never repeat an angle within the same batch:
+- shared_challenge: names a concrete operational pain point common to their likely role/industry, framed as a genuine observation, ends with a question about how they handle it
+- content_reference: references [a recent post/comment of theirs] as the hook — placeholder, Dina fills in
+- curiosity_question: opens with a sharp, specific question about how their business handles something AI-adjacent, no pitch
+- direct_context: states plainly why Dina is reaching out (building her network with DACH Geschäftsführer/Gründer) without asking for anything, ends with an easy opener
+- observation: a short, genuine observation about their industry/role right now, framed as a question back to them
+
+OUTPUT FORMAT
+For each message output exactly:
+ANGLE: [one of the angle keys above]
+MESSAGE:
+[the message text, with [PLACEHOLDER] markers where Dina must personalize]
+
+Separate messages with a line containing only ===. No preamble, no numbering, no explanation. Do not repeat any angle, opening line, or exact phrasing from RECENT EISBRECHER HISTORY."""
+
+EISBRECHER_HISTORY_FILE = os.path.join(os.path.dirname(__file__), "eisbrecher_history.json")
+EISBRECHER_HISTORY_KEEP = 30
+EISBRECHER_PER_RUN = 6
+
+
+def load_eisbrecher_history() -> list[dict]:
+    if not os.path.exists(EISBRECHER_HISTORY_FILE):
+        return []
+    try:
+        with open(EISBRECHER_HISTORY_FILE) as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+
+def save_eisbrecher_history(entries: list[dict]) -> None:
+    history = load_eisbrecher_history()
+    for e in entries:
+        history.insert(0, {"date": datetime.now().strftime("%Y-%m-%d"), **e})
+    history = history[:EISBRECHER_HISTORY_KEEP]
+    with open(EISBRECHER_HISTORY_FILE, "w") as f:
+        json.dump(history, f, indent=2)
+
+
+def format_eisbrecher_history_for_prompt(history: list[dict]) -> str:
+    if not history:
+        return "None yet."
+    lines = []
+    for h in history[:15]:
+        lines.append(f"- [{h['date']}] ({h.get('angle', '?')}) {h.get('message', '')[:120]}")
+    return "\n".join(lines)
+
+
+def generate_eisbrecher_messages(client: "anthropic.Anthropic") -> list[dict]:
+    """Generate a batch of connection-opener DM templates. No web_search needed."""
+    history = load_eisbrecher_history()
+    history_block = format_eisbrecher_history_for_prompt(history)
+
+    user_prompt = f"""RECENT EISBRECHER HISTORY (do not repeat angle, opening, or phrasing):
+{history_block}
+
+Generate exactly {EISBRECHER_PER_RUN} Eisbrecher-Nachrichten, each a different angle from the list in your instructions, in German, using the exact output format specified."""
+
+    try:
+        response = client.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=2000,
+            system=EISBRECHER_SYSTEM_PROMPT,
+            messages=[{"role": "user", "content": user_prompt}],
+        )
+        text = "".join(b.text for b in response.content if hasattr(b, "text")).strip()
+    except Exception as e:
+        print(f"[WARN] Eisbrecher generation failed: {e}")
+        return []
+
+    messages = []
+    for block in text.split("==="):
+        angle_match = re.search(r"ANGLE:\s*([^\n]+)", block)
+        msg_match = re.search(r"MESSAGE:\s*\n(.+)", block, re.DOTALL)
+        if angle_match and msg_match:
+            messages.append({
+                "angle": angle_match.group(1).strip(),
+                "message": msg_match.group(1).strip(),
+            })
+    return messages
 
 
 HOBBIES = ["books", "fitness", "restaurants", "theater"]
@@ -263,7 +359,98 @@ def determine_goal() -> str:
     return GOAL_BY_WEEKDAY.get(datetime.now().weekday(), "growth")
 
 
-def generate_post(newsapi_output: str, deepview_content: str, history: list[dict], goal: str) -> tuple[str, list[str]]:
+# --- Netzwerkaufbau (Schritt 2) ---------------------------------------------
+
+NETWORK_SEARCH_TERMS = [
+    ("Geschäftsführer", "der Klassiker, breitester Pool"),
+    ("Gründer", "trifft eher jüngere Startups/SMBs"),
+    ("Inhaberin", "trifft eher inhabergeführte KMU"),
+    ("Geschäftsführerin", "gleiche Basis wie Geschäftsführer, andere Ansprache"),
+    ("Geschäftsinhaber", "breiter als Geschäftsführer, auch kleinere Betriebe"),
+    ("Gründerin", "gleiche Basis wie Gründer, andere Ansprache"),
+]
+NETWORK_WEEKLY_TARGET = 30  # neue Vernetzungsanfragen pro Woche
+
+
+def get_network_focus() -> tuple[str, str]:
+    """Deterministic weekly rotation through search terms, based on ISO week number."""
+    week = datetime.now().isocalendar()[1]
+    return NETWORK_SEARCH_TERMS[week % len(NETWORK_SEARCH_TERMS)]
+
+
+def network_block() -> str:
+    term, note = get_network_focus()
+    return f"""
+NETZWERKAUFBAU DIESE WOCHE
+Suchbegriff: "{term}" ({note})
+LinkedIn-Suche > Personen > "{term}" > Filter: 2. Grades, Standort DACH.
+Ziel: {NETWORK_WEEKLY_TARGET} neue Vernetzungsanfragen diese Woche, ohne Notiz (höhere Annahmequote).
+"""
+
+
+# --- KPI-Tracker (manuelles Log) --------------------------------------------
+
+KPI_LOG_FILE = os.path.join(os.path.dirname(__file__), "kpi_log.json")
+
+KPI_TARGETS = {
+    "impressions_90d": 100_000,
+    "eisbrecher_per_week": (15, 25),
+    "termine_per_week": 3,
+    "closing_rate_pct": 50,
+}
+
+
+def load_kpi_log() -> list[dict]:
+    if not os.path.exists(KPI_LOG_FILE):
+        return []
+    try:
+        with open(KPI_LOG_FILE) as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+
+def kpi_status_block() -> str:
+    """Builds a short status block from manually logged weekly numbers.
+    Log entries look like: {"date": "2026-09-12", "impressions": 8000,
+    "eisbrecher_sent": 18, "termine": 2, "abschluesse": 1}
+    Add entries by running: python log_kpi.py
+    """
+    log = load_kpi_log()
+    if not log:
+        return (
+            "\nKPI-STATUS\n"
+            "Noch keine Zahlen geloggt. Trag sie 1x/Woche ein mit: python log_kpi.py\n"
+        )
+
+    entries_sorted = sorted(log, key=lambda e: e["date"])
+    first_date = datetime.strptime(entries_sorted[0]["date"], "%Y-%m-%d")
+    days_running = max((datetime.now() - first_date).days, 1)
+
+    total_impressions = sum(e.get("impressions", 0) for e in log)
+    total_eisbrecher = sum(e.get("eisbrecher_sent", 0) for e in log)
+    total_termine = sum(e.get("termine", 0) for e in log)
+    total_abschluesse = sum(e.get("abschluesse", 0) for e in log)
+    weeks_logged = max(len(log), 1)
+
+    projected_90d = round(total_impressions / days_running * 90) if days_running else 0
+    avg_eisbrecher_week = round(total_eisbrecher / weeks_logged, 1)
+    avg_termine_week = round(total_termine / weeks_logged, 1)
+    closing_rate = round((total_abschluesse / total_termine) * 100, 1) if total_termine else 0.0
+
+    lo, hi = KPI_TARGETS["eisbrecher_per_week"]
+
+    return f"""
+KPI-STATUS (Tag {days_running}, {weeks_logged} Wochen geloggt)
+- Impressions gesamt: {total_impressions:,} | Projektion auf 90 Tage: {projected_90d:,} (Ziel: {KPI_TARGETS['impressions_90d']:,})
+- Eisbrecher-Nachrichten: Ø {avg_eisbrecher_week}/Woche (Ziel: {lo}-{hi})
+- Termine: Ø {avg_termine_week}/Woche (Ziel: {KPI_TARGETS['termine_per_week']}+)
+- Closing-Rate: {closing_rate}% ({total_abschluesse}/{total_termine} Termine) (Ziel: {KPI_TARGETS['closing_rate_pct']}%+)
+Neue Zahlen eintragen: python log_kpi.py
+"""
+
+
+def generate_post(newsapi_output: str, deepview_content: str, history: list[dict], goal: str, sublens: str = "") -> tuple[str, list[str]]:
     """Call Claude with web_search enabled. Returns (post_text, sources_used)."""
     client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
@@ -282,7 +469,6 @@ def generate_post(newsapi_output: str, deepview_content: str, history: list[dict
             "available for each, aimed at reaching people who don't know HUMINT yet."
         )
         lens_line = "AI consulting"
-        sublens_note = "n/a"
     elif goal == "thought-leader":
         goal_directive = (
             "Identify exactly 3 post ideas. EVERY post must be a strong combination of BOTH lenses "
@@ -297,17 +483,15 @@ def generate_post(newsapi_output: str, deepview_content: str, history: list[dict
             "are tagged CATEGORY: Thought-Leader."
         )
         lens_line = "AI consulting + PM & product"
-        sublens_note = "n/a"
     else:  # social
-        next_personal = determine_next_personal_lens(history)
-        if next_personal == "toddler":
+        if sublens == "toddler":
             personal_directive = (
                 'PERSONAL — TODDLER CHALLENGE. Must be the real friction of raising a 3-year-old, mapped '
                 'as a genuine parallel onto today\'s AI news stories. Not a "here\'s a workflow that '
                 'saves me time as a parent" post — that angle is retired. Not inspirational.'
             )
         else:
-            hobby_key = next_personal.split(":", 1)[1]
+            hobby_key = sublens.split(":", 1)[1]
             hobby_label = HOBBY_LABELS[hobby_key]
             personal_directive = (
                 f'PERSONAL — HOBBY. Must use exactly this hobby as the entry point: {hobby_label}. Do '
@@ -315,11 +499,10 @@ def generate_post(newsapi_output: str, deepview_content: str, history: list[dict
             )
         goal_directive = (
             f"Identify exactly 3 post ideas, all from this lens: {personal_directive} Each must map onto a "
-            f"DIFFERENT AI news story from today's sources, with a different structural angle. Tag every "
-            f"post's SUBLENS as exactly: {next_personal}. All posts this run are tagged CATEGORY: Social."
+            f"DIFFERENT AI news story from today's sources, with a different structural angle. All posts "
+            f"this run are tagged CATEGORY: Social."
         )
         lens_line = "personal-toddler / personal-hobby"
-        sublens_note = next_personal
 
     user_prompt = f"""Here are today's news inputs:
 
@@ -344,7 +527,6 @@ Instructions:
 TOPIC [N]: [one-line title]
 LENS: [{lens_line}]
 CATEGORY: {category}
-SUBLENS: [{sublens_note}]
 SOURCE: [NewsAPI / The Deep View / web_search / personal]
 WHY: [one sentence on why this is a non-obvious angle worth posting about]
 OPENING LINE (DE): [the first sentence of the German version, standalone]
@@ -376,6 +558,7 @@ POST:
        - Spottr churn model: 92.5% accuracy
        Do NOT invent clients, project names, outcomes, or any detail not listed above.
     b) NUMBERS: every stat or specific number MUST come from NewsAPI, The Deep View, or web_search. Do not invent or estimate. No number without a source.
+11. NO EM DASHES — no exceptions. The character "—" (or "--") must not appear anywhere in either language version. Where you'd reach for one, rewrite as two short sentences, or use a comma or "and" instead. Check both the German and English text before finalising each post.
 """
 
     sources_used = ["NewsAPI", "The Deep View (archive.thedeepview.com)"]
@@ -422,10 +605,38 @@ POST:
     return post_text, sources_used
 
 
-def send_email(post_text: str, sources: list[str]) -> None:
+def format_eisbrecher_for_email(messages: list[dict]) -> str:
+    if not messages:
+        return ""
+    blocks = []
+    for i, m in enumerate(messages, 1):
+        blocks.append(f"[{i}] ({m['angle']})\n{m['message']}")
+    joined = "\n\n".join(blocks)
+    return f"""
+EISBRECHER-NACHRICHTEN DIESE RUNDE (Vernetzungsanfragen ohne Notiz > dann diese als erste Nachricht)
+Personalisiere jede [PLACEHOLDER]-Markierung, bevor du sendest.
+
+{joined}
+"""
+
+
+def send_email(
+    post_text: str,
+    sources: list[str],
+    eisbrecher_messages: list[dict] | None = None,
+    include_network_block: bool = False,
+    include_kpi_block: bool = False,
+) -> None:
     """Send generated post via Gmail SMTP."""
     today = datetime.now().strftime("%A, %d %B %Y")
     source_list = "\n".join(f"  - {s}" for s in sources)
+
+    extra_sections = ""
+    if include_network_block:
+        extra_sections += network_block()
+    extra_sections += format_eisbrecher_for_email(eisbrecher_messages or [])
+    if include_kpi_block:
+        extra_sections += kpi_status_block()
 
     body = f"""Hi Dina,
 
@@ -436,7 +647,7 @@ Here's your LinkedIn post for today:
 ---
 
 Just copy, paste, and edit if needed. Takes 30 seconds.
-
+{extra_sections}
 Sources used today:
 {source_list}
 """
@@ -465,35 +676,51 @@ def main():
     deepview_content = fetch_deepview_latest()
 
     goal = determine_goal()
+    sublens = determine_next_personal_lens(history) if goal == "social" else ""
     print(f"[goal] Today's run: {CATEGORY_LABEL[goal]}")
 
     print("[3/3] Generating LinkedIn post with Claude...")
-    post_text, sources = generate_post(newsapi_output, deepview_content, history, goal)
+    post_text, sources = generate_post(newsapi_output, deepview_content, history, goal, sublens)
 
     print("\n--- GENERATED POST ---")
     print(post_text)
     print("--- END POST ---\n")
 
-    # Extract topics, lens, sublens, and opening lines from output to save to history
+    # Extract topics, lens, and opening lines from output to save to history
     for match in re.finditer(
         r"TOPIC \[\d+\]: ([^\n]+)\n"
         r"LENS: ([^\n]+)\n"
         r"CATEGORY: ([^\n]+)\n"
-        r"SUBLENS: ([^\n]+)\n"
         r"[\s\S]*?OPENING LINE \(DE\): ([^\n]+)",
         post_text,
     ):
         topic = match.group(1).strip()
         lens = match.group(2).strip()
         category = match.group(3).strip()
-        sublens = match.group(4).strip()
-        opening = match.group(5).strip()
-        sublens = "" if sublens.lower() in ("n/a", "na", "none") else sublens
+        opening = match.group(4).strip()
         save_history(topic, opening, lens=lens, sublens=sublens, category=category)
         print(f"[history] Saved: {topic}")
 
+    print("[4/4] Generating Eisbrecher-Nachrichten...")
+    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    eisbrecher_messages = generate_eisbrecher_messages(client)
+    if eisbrecher_messages:
+        save_eisbrecher_history(eisbrecher_messages)
+        print(f"[eisbrecher] Generated {len(eisbrecher_messages)} messages.")
+    else:
+        print("[eisbrecher] None generated (check warnings above).")
+
+    include_network = goal == "growth"       # Monday: Wochenstart
+    include_kpi = goal == "social"           # Friday: Wochenabschluss
+
     print("Sending email...")
-    send_email(post_text, sources)
+    send_email(
+        post_text,
+        sources,
+        eisbrecher_messages=eisbrecher_messages,
+        include_network_block=include_network,
+        include_kpi_block=include_kpi,
+    )
 
 
 if __name__ == "__main__":
