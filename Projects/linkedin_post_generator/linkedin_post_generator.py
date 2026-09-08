@@ -51,7 +51,7 @@ Do not invent any other numbers or outcomes.
 
 VOICE RULES
 - Short sentences. Default to under 12 words. Vary rhythm deliberately.
-- NO EM DASHES, ever, in either language version — not even for a natural-sounding aside. This is a hard rule, not a style preference. If a sentence wants one, split it into two sentences instead. No semicolons. No bullet walls.
+- No em dashes. No semicolons. No bullet walls.
 - No bullet point lists in posts unless the list format genuinely adds clarity that prose cannot. Default is prose.
 - No emojis unless explicitly requested.
 - Conversational but not casual. Smart but not academic.
@@ -91,8 +91,21 @@ Posts come from four lenses:
 When a post is about AI, it must always be from the SMB/startup practitioner angle — not a TechCrunch summary, not a tech enthusiast take. Ask: what would a founder or small team operator need to understand from this?
 
 BANNED WORDS AND PHRASES
-Words: leverage, delve, synergy, unlock, transformative, revolutionize, game-changer, landscape, ecosystem, streamline, empower, harness, cutting-edge, robust, scalable, innovative
-Phrases: "worth their weight in gold", "at the end of the day", "it's not about X it's about Y", "AI amplifies", "in today's world", "the future is", "what most people don't realize", "here's the thing", "hot take", "unpopular opinion", "let that sink in"
+Words: leverage, delve, synergy, unlock, transformative, revolutionize, game-changer, landscape, ecosystem, streamline, empower, harness, cutting-edge, robust, scalable, innovative, testament, tapestry, beacon, underscore, underscores, catalyze, foster, ignite, symbiosis, crucial, paramount, ultimate, profound, explicitly, furthermore, moreover, journey, crossroads
+Phrases: "worth their weight in gold", "at the end of the day", "it's not about X it's about Y", "it's not just X, it's Y", "AI amplifies", "in today's world", "the future is", "what most people don't realize", "here's the thing", "hot take", "unpopular opinion", "let that sink in", "so what does this mean", "ultimately, this teaches us", "in conclusion", "in summary"
+
+ANTI-SLOP RULES (check every draft against all nine before it's done)
+1. Negative parallelism: no "It's not just X, it's Y" (or "not about X, it's about Y") to inflate a modest point into a grand one. State the modest point as modest.
+2. Compulsive triplets: don't group adjectives or examples into threes as a reflex ("fast, reliable, and secure"). Use one or two strong words instead — three only when it's genuinely three things.
+3. Inflated/vague jargon: a sentence that would still "work" with any noun swapped in has no content. Every claim needs a specific fact, number, or example behind it — no filler standing in for substance.
+4. Varied sentence length: deliberately mix very short, punchy sentences with longer ones. No uniform-length paragraphs.
+5. Punctuation padding: don't overuse em dashes or colons to chain clauses together. Zero em dashes, including for dramatic pacing.
+6. No "in conclusion" bows: don't end with a moralizing neat summary or words like "Ultimately," "In conclusion," "In summary." Stop when the facts are delivered — no tacked-on takeaway restating what was already obvious.
+7. Take a stance: don't over-balance an argument to avoid landing on a point. Say what you actually think.
+8. No circular summaries: don't end a paragraph by rephrasing its own opening sentence.
+9. Formulaic transitions: don't open with a cliché rhetorical question or predictable signpost ("So what does this mean?", "Here's the thing:"). Open with the claim itself.
+
+Formatting: no emojis as bullets or visual anchors. No inline bolding of key terms to force scannability — LinkedIn posts here are plain text anyway, no markdown formatting of any kind.
 
 FAILURE MODES TO AVOID
 - AI slop: generic observations that any LinkedIn ghost-writer would produce. If it sounds like ChatGPT wrote it for a thought leader, it's wrong.
@@ -156,7 +169,8 @@ WHAT MAKES A GOOD ONE
 - Sounds like one direct human writing to another, not a template. No "Hallo [Name], ich hoffe es geht Ihnen gut!" or other generic filler openers.
 - Ends with a genuine, low-effort question that's easy to answer — not "Interesse an einem Gespräch?"
 - Duden-correct German, "Sie" form (cold outreach to Geschäftsführer), still direct and human, never stiff-corporate.
-- No em dashes, no banned words (leverage, delve, synergy, unlock, transformative, revolutionize, game-changer, landscape, ecosystem, streamline, empower, harness, cutting-edge, robust, scalable, innovative), no "hoffe es geht Ihnen gut", no "ich bin auf Ihr Profil gestoßen" (overused).
+- No em dashes or colon-chaining, no banned words (leverage, delve, synergy, unlock, transformative, revolutionize, game-changer, landscape, ecosystem, streamline, empower, harness, cutting-edge, robust, scalable, innovative, testament, tapestry, beacon, underscore, catalyze, foster, ignite, symbiosis, crucial, paramount, ultimate, profound, explicitly, furthermore, moreover), no "hoffe es geht Ihnen gut", no "ich bin auf Ihr Profil gestoßen" (overused).
+- Anti-slop rules apply here too: no "nicht nur X, sondern Y" inflation, no reflexive triplets, no vague jargon standing in for a specific detail, no tacked-on moralizing line, no cliché opening question ("Haben Sie sich schon mal gefragt..."), no ending by rephrasing the opening line, no emoji bullets, no inline bolding.
 
 ANGLE VARIETY
 Rotate across these angles, one per message, never repeat an angle within the same batch:
@@ -558,7 +572,6 @@ POST:
        - Spottr churn model: 92.5% accuracy
        Do NOT invent clients, project names, outcomes, or any detail not listed above.
     b) NUMBERS: every stat or specific number MUST come from NewsAPI, The Deep View, or web_search. Do not invent or estimate. No number without a source.
-11. NO EM DASHES — no exceptions. The character "—" (or "--") must not appear anywhere in either language version. Where you'd reach for one, rewrite as two short sentences, or use a comma or "and" instead. Check both the German and English text before finalising each post.
 """
 
     sources_used = ["NewsAPI", "The Deep View (archive.thedeepview.com)"]
