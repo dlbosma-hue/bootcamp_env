@@ -74,7 +74,7 @@ The rhythm looks like: short punch. Short punch. Slightly longer line that earns
 CONTENT CATEGORY (HUMINT funnel — tag, don't restructure)
 Every post is stage 1 of the funnel: attention on LinkedIn. Never pitch, never a hard CTA, never "book a call" / "DM me" / "link in bio." Each run covers exactly ONE category, fixed by weekday (Monday = Growth, Wednesday = Thought-Leader, Friday = Social) — every post generated in a given run shares that run's category:
 - GROWTH (Monday): wide-reach, scroll-stopping posts meant to reach people who don't know HUMINT yet. AI-consulting lens, played for maximum attention (the boldest, most counterintuitive angle available).
-- THOUGHT-LEADER (Wednesday): builds trust with people already paying attention — shows Dina's actual judgment on AI adoption, calls out hidden costs or false assumptions. A mix of AI-consulting angles (not the boldest ones — those are Growth's job) and the PM/product lens.
+- THOUGHT-LEADER (Wednesday): builds trust with people already paying attention — shows Dina's actual judgment on AI adoption, calls out hidden costs or false assumptions. Every post is a strong combination of the AI-consulting lens (not the boldest, widest-reach angles — those are Growth's job) AND the PM/product lens together, not a choice between them.
 - SOCIAL (Friday): the human behind HUMINT — PM background, the practitioner-to-builder arc, daily life as a freelancer and mother. Always the personal (toddler/hobby) lens. No closing nudge needed here — being real IS the connection-building.
 For GROWTH and THOUGHT-LEADER posts only: after the real ending (hard statement/observation/question), you may add one short, low-key line that ties back to her actual work or perspective — never generic ("check my profile"), never salesy, just true and specific (e.g. grounding the point in what she does at HUMINT or what she's seen as a practitioner). Skip it entirely if it would feel bolted-on; a clean ending beats a forced nudge.
 
@@ -285,17 +285,18 @@ def generate_post(newsapi_output: str, deepview_content: str, history: list[dict
         sublens_note = "n/a"
     elif goal == "thought-leader":
         goal_directive = (
-            "Identify exactly 3 post ideas as a MIX of two lenses — do not pick only one: "
-            "(a) AI CONSULTING angles that build trust with people already paying attention (hidden "
-            "costs, false assumptions, vendor lock-in, data readiness, the skills gap — the angles that "
-            "aren't played for maximum reach), and "
-            "(b) PM/PRODUCT THINKING: shipping decisions, prioritization trade-offs, what PMs get wrong, "
-            "lessons from building tools people actually use. "
+            "Identify exactly 3 post ideas. EVERY post must be a strong combination of BOTH lenses "
+            "together, not a choice between them: AI CONSULTING (hidden costs, false assumptions, "
+            "vendor lock-in, data readiness, the skills gap — the trust-building angles, not the "
+            "boldest-reach ones) blended with PM/PRODUCT THINKING (shipping decisions, prioritization "
+            "trade-offs, what PMs get wrong, lessons from building tools people actually use). Each post "
+            "should read as her actual judgment as both an AI consultant AND a product person on the "
+            "same story — not two separate posts bolted together. "
             "Same audience note as Growth: factual, simple, professional, read by small business owners "
             "and recruiters alike. Each post must use a different structural angle. All posts this run "
             "are tagged CATEGORY: Thought-Leader."
         )
-        lens_line = "AI consulting / PM & product"
+        lens_line = "AI consulting + PM & product"
         sublens_note = "n/a"
     else:  # social
         next_personal = determine_next_personal_lens(history)
