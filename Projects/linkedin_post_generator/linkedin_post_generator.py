@@ -71,6 +71,13 @@ A great Dina post:
 
 The rhythm looks like: short punch. Short punch. Slightly longer line that earns it. Back to short. Hard stop or a real question.
 
+CONTENT CATEGORY (HUMINT funnel — tag, don't restructure)
+Every post is stage 1 of the funnel: attention on LinkedIn. Never pitch, never a hard CTA, never "book a call" / "DM me" / "link in bio." The four lenses above already produce the actual content — this just tags which job each post is doing and, for two of the three categories, adds one very short closing beat:
+- GROWTH: wide-reach, scroll-stopping posts meant to reach people who don't know HUMINT yet. Usually the AI-consulting lens, played for maximum attention (the boldest, most counterintuitive angle in this run).
+- THOUGHT-LEADER: builds trust with people already paying attention — shows Dina's actual judgment on AI adoption, calls out hidden costs or false assumptions. Usually the AI-consulting lens (the other angles) and the PM/product lens.
+- SOCIAL: the human behind HUMINT — PM background, the practitioner-to-builder arc, daily life as a freelancer and mother. Always the personal (toddler/hobby) lens. No closing nudge needed here — being real IS the connection-building.
+For GROWTH and THOUGHT-LEADER posts only: after the real ending (hard statement/observation/question), you may add one short, low-key line that ties back to her actual work or perspective — never generic ("check my profile"), never salesy, just true and specific (e.g. grounding the point in what she does at HUMINT or what she's seen as a practitioner). Skip it entirely if it would feel bolted-on; a clean ending beats a forced nudge.
+
 BILINGUAL OUTPUT (REQUIRED)
 Every post is published in two languages: German first, then a "---" separator, then English. German is primary — DACH is the target audience. This is NOT a translation exercise. Write the German version fresh in Dina's voice for a German-speaking reader, then write the English version fresh in Dina's voice for an English-speaking reader — same idea, same structure, same ending type, but each one reads like it was written natively in that language, not converted. Duden-correct German, direct and punchy, same register as the English (no formal "Sie" stiffness, no corporate Denglisch). Both versions independently follow every voice rule and word-count limit above.
 
@@ -112,7 +119,7 @@ def load_history() -> list[dict]:
         return []
 
 
-def save_history(topic: str, opening_line: str, lens: str = "", sublens: str = "") -> None:
+def save_history(topic: str, opening_line: str, lens: str = "", sublens: str = "", category: str = "") -> None:
     history = load_history()
     history.insert(0, {
         "date": datetime.now().strftime("%Y-%m-%d"),
@@ -120,6 +127,7 @@ def save_history(topic: str, opening_line: str, lens: str = "", sublens: str = "
         "opening_line": opening_line,
         "lens": lens,
         "sublens": sublens,
+        "category": category,
     })
     history = history[:HISTORY_KEEP]
     with open(HISTORY_FILE, "w") as f:
@@ -132,7 +140,8 @@ def format_history_for_prompt(history: list[dict]) -> str:
     lines = []
     for h in history:
         tag = f" [{h['sublens']}]" if h.get("sublens") else ""
-        lines.append(f"- [{h['date']}] {h['topic']}{tag} | Opening: \"{h['opening_line']}\"")
+        cat = f" ({h['category']})" if h.get("category") else ""
+        lines.append(f"- [{h['date']}] {h['topic']}{tag}{cat} | Opening: \"{h['opening_line']}\"")
     return "\n".join(lines)
 
 
@@ -274,7 +283,7 @@ RECENT POST HISTORY (do NOT repeat these topics, opening lines, or the same stru
 
 Instructions:
 1. Identify 5 post ideas across all sources. Distribution is fixed:
-   - Posts 1-3: AI consulting lens. What this means for small businesses, startups, or non-technical founders — implementation cost, build vs. buy, adoption ROI, vendor lock-in, data readiness, or the skills gap in hiring for AI. Each of the 3 must use a DIFFERENT structural angle from this list — no two posts this run share one. This lens is read by small business owners AND recruiters — factual, grounded in the news story, shows character and professionalism, never overcomplicated.
+   - Posts 1-3: AI consulting lens. What this means for small businesses, startups, or non-technical founders — implementation cost, build vs. buy, adoption ROI, vendor lock-in, data readiness, or the skills gap in hiring for AI. Each of the 3 must use a DIFFERENT structural angle from this list — no two posts this run share one. This lens is read by small business owners AND recruiters — factual, grounded in the news story, shows character and professionalism, never overcomplicated. At least one of these 3 must be tagged CATEGORY: Growth (the single boldest, widest-reach angle of the three, for reaching people who don't know HUMINT yet); the other one or two are Thought-Leader.
    - Post 4: PM/product thinking angle: shipping decisions, prioritization, what PMs get wrong, lessons from building tools people actually use. Same audience note: factual, simple, professional.
    - Post 5: {personal_directive}
 2. Each post MUST be a genuinely different topic — no two posts from the same story or the same angle
@@ -284,6 +293,7 @@ Instructions:
 
 TOPIC [N]: [one-line title]
 LENS: [AI consulting / PM & product / personal-toddler / personal-hobby]
+CATEGORY: [Growth / Thought-Leader / Social — see CONTENT CATEGORY section: AI-consulting posts are Growth or Thought-Leader depending on which is the boldest angle this run, PM & product is Thought-Leader, personal-toddler/personal-hobby is always Social]
 SUBLENS: [n/a for posts 1-4; for post 5 use exactly the SUBLENS tag given above]
 SOURCE: [NewsAPI / The Deep View / web_search / personal]
 WHY: [one sentence on why this is a non-obvious angle worth posting about]
@@ -297,7 +307,7 @@ POST:
 [English version, max 200 words, in Dina's voice — not a translation]
 ===
 
-6. Each post must have a punchy hook and one concrete insight. Endings vary: hard statement, blunt observation, or — only when genuinely useful — a specific non-rhetorical question. Do NOT end every post with a question. No two posts should end the same way. Both language versions of a post must end the same way as each other (same ending type).
+6. Each post must have a punchy hook and one concrete insight. Endings vary: hard statement, blunt observation, or — only when genuinely useful — a specific non-rhetorical question. Do NOT end every post with a question. No two posts should end the same way. Both language versions of a post must end the same way as each other (same ending type). For Growth and Thought-Leader posts, you may add one short low-key line after the real ending that ties back to Dina's actual work or perspective — never a CTA, never "book a call" / "DM me", skip it if it would feel bolted-on. Social posts never get this — being real is the point there.
 7. All 5 posts from Dina's first-person perspective. Use her background only when it fits naturally — do not force it.
 8. Anti-slop check: before finalising each post, ask "could this have been written by a generic LinkedIn ghostwriter?" If yes, rewrite it. Every post needs a specific, non-obvious angle that only someone who has actually done this work would notice.
 9. RECENCY: only use news stories from the past 7 days. Each headline includes a date in [YYYY-MM-DD] format. Skip anything older.
@@ -410,16 +420,18 @@ def main():
     for match in re.finditer(
         r"TOPIC \[\d+\]: (.+)\n"
         r"LENS: (.+)\n"
+        r"CATEGORY: (.+)\n"
         r"SUBLENS: (.+)\n"
         r".*?OPENING LINE \(DE\): (.+)",
         post_text,
     ):
         topic = match.group(1).strip()
         lens = match.group(2).strip()
-        sublens = match.group(3).strip()
-        opening = match.group(4).strip()
+        category = match.group(3).strip()
+        sublens = match.group(4).strip()
+        opening = match.group(5).strip()
         sublens = "" if sublens.lower() in ("n/a", "na", "none") else sublens
-        save_history(topic, opening, lens=lens, sublens=sublens)
+        save_history(topic, opening, lens=lens, sublens=sublens, category=category)
         print(f"[history] Saved: {topic}")
 
     print("Sending email...")
