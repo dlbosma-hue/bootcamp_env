@@ -2,7 +2,7 @@ name: LinkedIn Post Generator
 
 on:
   schedule:
-    - cron: '0 7 */2 * *'   # Every 2 days, 07:00 UTC = 09:00 CEST / 08:00 CET
+    - cron: '0 7 * * 1,3,5'   # Mon/Wed/Fri 07:00 UTC = 09:00 CEST / 08:00 CET (Growth / Thought-Leader / Social)
   workflow_dispatch:            # allow manual trigger from GitHub UI
 
 permissions:

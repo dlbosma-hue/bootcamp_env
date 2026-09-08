@@ -7,7 +7,7 @@ Fetches fresh AI news, generates a LinkedIn post in your voice via Claude, and e
 1. Pulls AI news from Perplexity (sonar-small-online)
 2. Fetches TLDR AI and AI Report NL via Jina.ai reader (no API key needed)
 3. Calls Claude Sonnet with `web_search` enabled to generate the post
-4. Emails the result to you every Tuesday, Thursday, and Saturday at 8 AM Berlin time
+4. Emails the result to you every Monday, Wednesday, and Friday at ~8-9 AM Berlin time — each run covers exactly one goal: Monday = Growth, Wednesday = Thought-Leader, Friday = Social
 
 ---
 
@@ -40,7 +40,7 @@ cp .env.example .env
 python linkedin_post_generator.py
 ```
 
-### 4. Schedule via cron (Tue/Thu/Sat 8 AM Berlin)
+### 4. Schedule via cron (Mon/Wed/Fri 8 AM Berlin)
 
 ```bash
 crontab -e
@@ -49,7 +49,7 @@ crontab -e
 Add this line (adjust path):
 
 ```
-0 8 * * 2,4,6 TZ=Europe/Berlin /usr/bin/python3 /path/to/linkedin_post_generator.py >> /tmp/linkedin_post.log 2>&1
+0 8 * * 1,3,5 TZ=Europe/Berlin /usr/bin/python3 /path/to/linkedin_post_generator.py >> /tmp/linkedin_post.log 2>&1
 ```
 
 ### 5. Schedule via GitHub Actions
@@ -60,7 +60,7 @@ Create `.github/workflows/linkedin_post.yml` with:
 name: LinkedIn Post Generator
 on:
   schedule:
-    - cron: '0 7 * * 2,4,6'  # 7 AM UTC = 8 AM Berlin (CET); adjust for CEST offset in summer
+    - cron: '0 7 * * 1,3,5'  # 7 AM UTC = 8 AM Berlin (CET); adjust for CEST offset in summer
   workflow_dispatch:
 jobs:
   generate:
@@ -97,7 +97,7 @@ jobs:
 ### 3. Activate the workflow
 
 - Toggle the workflow to **Active**
-- It will fire every Tuesday, Thursday, Saturday at 08:00 Europe/Berlin
+- It will fire every Monday, Wednesday, Friday at 08:00 Europe/Berlin
 
 ### 4. Test it
 

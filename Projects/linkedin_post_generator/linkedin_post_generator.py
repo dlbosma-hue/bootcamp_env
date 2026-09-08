@@ -72,10 +72,10 @@ A great Dina post:
 The rhythm looks like: short punch. Short punch. Slightly longer line that earns it. Back to short. Hard stop or a real question.
 
 CONTENT CATEGORY (HUMINT funnel — tag, don't restructure)
-Every post is stage 1 of the funnel: attention on LinkedIn. Never pitch, never a hard CTA, never "book a call" / "DM me" / "link in bio." The four lenses above already produce the actual content — this just tags which job each post is doing and, for two of the three categories, adds one very short closing beat:
-- GROWTH: wide-reach, scroll-stopping posts meant to reach people who don't know HUMINT yet. Usually the AI-consulting lens, played for maximum attention (the boldest, most counterintuitive angle in this run).
-- THOUGHT-LEADER: builds trust with people already paying attention — shows Dina's actual judgment on AI adoption, calls out hidden costs or false assumptions. Usually the AI-consulting lens (the other angles) and the PM/product lens.
-- SOCIAL: the human behind HUMINT — PM background, the practitioner-to-builder arc, daily life as a freelancer and mother. Always the personal (toddler/hobby) lens. No closing nudge needed here — being real IS the connection-building.
+Every post is stage 1 of the funnel: attention on LinkedIn. Never pitch, never a hard CTA, never "book a call" / "DM me" / "link in bio." Each run covers exactly ONE category, fixed by weekday (Monday = Growth, Wednesday = Thought-Leader, Friday = Social) — every post generated in a given run shares that run's category:
+- GROWTH (Monday): wide-reach, scroll-stopping posts meant to reach people who don't know HUMINT yet. AI-consulting lens, played for maximum attention (the boldest, most counterintuitive angle available).
+- THOUGHT-LEADER (Wednesday): builds trust with people already paying attention — shows Dina's actual judgment on AI adoption, calls out hidden costs or false assumptions. A mix of AI-consulting angles (not the boldest ones — those are Growth's job) and the PM/product lens.
+- SOCIAL (Friday): the human behind HUMINT — PM background, the practitioner-to-builder arc, daily life as a freelancer and mother. Always the personal (toddler/hobby) lens. No closing nudge needed here — being real IS the connection-building.
 For GROWTH and THOUGHT-LEADER posts only: after the real ending (hard statement/observation/question), you may add one short, low-key line that ties back to her actual work or perspective — never generic ("check my profile"), never salesy, just true and specific (e.g. grounding the point in what she does at HUMINT or what she's seen as a practitioner). Skip it entirely if it would feel bolted-on; a clean ending beats a forced nudge.
 
 BILINGUAL OUTPUT (REQUIRED)
@@ -247,28 +247,80 @@ def fetch_deepview_latest() -> str:
     return fetch_jina(latest_url)
 
 
-def generate_post(newsapi_output: str, deepview_content: str, history: list[dict]) -> tuple[str, list[str]]:
+GOAL_BY_WEEKDAY = {
+    0: "growth",         # Monday
+    2: "thought-leader",  # Wednesday
+    4: "social",          # Friday
+}
+
+CATEGORY_LABEL = {
+    "growth": "Growth",
+    "thought-leader": "Thought-Leader",
+    "social": "Social",
+}
+
+
+def determine_goal() -> str:
+    """Each run covers exactly one goal, fixed by weekday: Mon=Growth, Wed=Thought-Leader, Fri=Social."""
+    return GOAL_BY_WEEKDAY.get(datetime.now().weekday(), "growth")
+
+
+def generate_post(newsapi_output: str, deepview_content: str, history: list[dict], goal: str) -> tuple[str, list[str]]:
     """Call Claude with web_search enabled. Returns (post_text, sources_used)."""
     client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
     history_block = format_history_for_prompt(history)
+    category = CATEGORY_LABEL[goal]
 
-    next_personal = determine_next_personal_lens(history)
-    if next_personal == "toddler":
-        personal_directive = (
-            'Post 5 lens: PERSONAL — TODDLER CHALLENGE. Must be the real friction of raising a '
-            '3-year-old, mapped as a genuine parallel onto one of today\'s AI news stories. '
-            'Not a "here\'s a workflow that saves me time as a parent" post — that angle is retired. '
-            'Not inspirational. SUBLENS tag for this post: toddler'
+    if goal == "growth":
+        goal_directive = (
+            "Identify 2-3 post ideas, all from the AI CONSULTING lens: what founders, operators, and "
+            "small teams get wrong about AI integration — implementation cost, build vs. buy, adoption "
+            "ROI, vendor lock-in, data readiness, or the skills gap in hiring for AI. Each must use a "
+            "DIFFERENT structural angle from this list — no two posts this run share one. This lens is "
+            "read by small business owners AND recruiters — factual, grounded in the news story, shows "
+            "character and professionalism, never overcomplicated. All posts this run are tagged "
+            "CATEGORY: Growth — play the single boldest, widest-reach, most counterintuitive angle "
+            "available for each, aimed at reaching people who don't know HUMINT yet."
         )
-    else:
-        hobby_key = next_personal.split(":", 1)[1]
-        hobby_label = HOBBY_LABELS[hobby_key]
-        personal_directive = (
-            f'Post 5 lens: PERSONAL — HOBBY. Must use exactly this hobby as the entry point: '
-            f'{hobby_label}. Do not substitute a different hobby. Tie it to one of today\'s AI news '
-            f'stories. SUBLENS tag for this post: {next_personal}'
+        lens_line = "AI consulting"
+        sublens_note = "n/a"
+    elif goal == "thought-leader":
+        goal_directive = (
+            "Identify 2-3 post ideas as a MIX of two lenses — do not pick only one: "
+            "(a) AI CONSULTING angles that build trust with people already paying attention (hidden "
+            "costs, false assumptions, vendor lock-in, data readiness, the skills gap — the angles that "
+            "aren't played for maximum reach), and "
+            "(b) PM/PRODUCT THINKING: shipping decisions, prioritization trade-offs, what PMs get wrong, "
+            "lessons from building tools people actually use. "
+            "Same audience note as Growth: factual, simple, professional, read by small business owners "
+            "and recruiters alike. Each post must use a different structural angle. All posts this run "
+            "are tagged CATEGORY: Thought-Leader."
         )
+        lens_line = "AI consulting / PM & product"
+        sublens_note = "n/a"
+    else:  # social
+        next_personal = determine_next_personal_lens(history)
+        if next_personal == "toddler":
+            personal_directive = (
+                'PERSONAL — TODDLER CHALLENGE. Must be the real friction of raising a 3-year-old, mapped '
+                'as a genuine parallel onto today\'s AI news stories. Not a "here\'s a workflow that '
+                'saves me time as a parent" post — that angle is retired. Not inspirational.'
+            )
+        else:
+            hobby_key = next_personal.split(":", 1)[1]
+            hobby_label = HOBBY_LABELS[hobby_key]
+            personal_directive = (
+                f'PERSONAL — HOBBY. Must use exactly this hobby as the entry point: {hobby_label}. Do '
+                f'not substitute a different hobby.'
+            )
+        goal_directive = (
+            f"Identify 2-3 post ideas, all from this lens: {personal_directive} Each must map onto a "
+            f"DIFFERENT AI news story from today's sources, with a different structural angle. Tag every "
+            f"post's SUBLENS as exactly: {next_personal}. All posts this run are tagged CATEGORY: Social."
+        )
+        lens_line = "personal-toddler / personal-hobby"
+        sublens_note = next_personal
 
     user_prompt = f"""Here are today's news inputs:
 
@@ -282,19 +334,16 @@ RECENT POST HISTORY (do NOT repeat these topics, opening lines, or the same stru
 {history_block}
 
 Instructions:
-1. Identify 5 post ideas across all sources. Distribution is fixed:
-   - Posts 1-3: AI consulting lens. What this means for small businesses, startups, or non-technical founders — implementation cost, build vs. buy, adoption ROI, vendor lock-in, data readiness, or the skills gap in hiring for AI. Each of the 3 must use a DIFFERENT structural angle from this list — no two posts this run share one. This lens is read by small business owners AND recruiters — factual, grounded in the news story, shows character and professionalism, never overcomplicated. At least one of these 3 must be tagged CATEGORY: Growth (the single boldest, widest-reach angle of the three, for reaching people who don't know HUMINT yet); the other one or two are Thought-Leader.
-   - Post 4: PM/product thinking angle: shipping decisions, prioritization, what PMs get wrong, lessons from building tools people actually use. Same audience note: factual, simple, professional.
-   - Post 5: {personal_directive}
+1. {goal_directive}
 2. Each post MUST be a genuinely different topic — no two posts from the same story or the same angle
 3. Do NOT repeat any topic, opening angle, or structural angle from RECENT POST HISTORY
 4. Use web_search once to find one additional angle not covered by the sources above
 5. For each topic output exactly this format. POST is bilingual: German text, then a line with just "---", then English text — this whole block is what Dina copies straight into LinkedIn, so do not add any other labels inside it.
 
 TOPIC [N]: [one-line title]
-LENS: [AI consulting / PM & product / personal-toddler / personal-hobby]
-CATEGORY: [Growth / Thought-Leader / Social — see CONTENT CATEGORY section: AI-consulting posts are Growth or Thought-Leader depending on which is the boldest angle this run, PM & product is Thought-Leader, personal-toddler/personal-hobby is always Social]
-SUBLENS: [n/a for posts 1-4; for post 5 use exactly the SUBLENS tag given above]
+LENS: [{lens_line}]
+CATEGORY: {category}
+SUBLENS: [{sublens_note}]
 SOURCE: [NewsAPI / The Deep View / web_search / personal]
 WHY: [one sentence on why this is a non-obvious angle worth posting about]
 OPENING LINE (DE): [the first sentence of the German version, standalone]
@@ -308,7 +357,7 @@ POST:
 ===
 
 6. Each post must have a punchy hook and one concrete insight. Endings vary: hard statement, blunt observation, or — only when genuinely useful — a specific non-rhetorical question. Do NOT end every post with a question. No two posts should end the same way. Both language versions of a post must end the same way as each other (same ending type). For Growth and Thought-Leader posts, you may add one short low-key line after the real ending that ties back to Dina's actual work or perspective — never a CTA, never "book a call" / "DM me", skip it if it would feel bolted-on. Social posts never get this — being real is the point there.
-7. All 5 posts from Dina's first-person perspective. Use her background only when it fits naturally — do not force it.
+7. All posts from Dina's first-person perspective. Use her background only when it fits naturally — do not force it.
 8. Anti-slop check: before finalising each post, ask "could this have been written by a generic LinkedIn ghostwriter?" If yes, rewrite it. Every post needs a specific, non-obvious angle that only someone who has actually done this work would notice.
 9. RECENCY: only use news stories from the past 7 days. Each headline includes a date in [YYYY-MM-DD] format. Skip anything older.
 10. HALLUCINATION GUARD — no exceptions:
@@ -409,8 +458,11 @@ def main():
     print("[2/3] Fetching The Deep View latest issue via Jina.ai...")
     deepview_content = fetch_deepview_latest()
 
+    goal = determine_goal()
+    print(f"[goal] Today's run: {CATEGORY_LABEL[goal]}")
+
     print("[3/3] Generating LinkedIn post with Claude...")
-    post_text, sources = generate_post(newsapi_output, deepview_content, history)
+    post_text, sources = generate_post(newsapi_output, deepview_content, history, goal)
 
     print("\n--- GENERATED POST ---")
     print(post_text)
@@ -418,11 +470,11 @@ def main():
 
     # Extract topics, lens, sublens, and opening lines from output to save to history
     for match in re.finditer(
-        r"TOPIC \[\d+\]: (.+)\n"
-        r"LENS: (.+)\n"
-        r"CATEGORY: (.+)\n"
-        r"SUBLENS: (.+)\n"
-        r".*?OPENING LINE \(DE\): (.+)",
+        r"TOPIC \[\d+\]: ([^\n]+)\n"
+        r"LENS: ([^\n]+)\n"
+        r"CATEGORY: ([^\n]+)\n"
+        r"SUBLENS: ([^\n]+)\n"
+        r"[\s\S]*?OPENING LINE \(DE\): ([^\n]+)",
         post_text,
     ):
         topic = match.group(1).strip()
