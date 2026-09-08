@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-08",
+    "topic": "The teams getting the most from AI have the fewest tools",
+    "opening_line": "Die Teams mit den besten KI-Ergebnissen haben nicht die meisten Tools \u2014 sie haben die wenigsten.",
+    "lens": "AI consulting",
+    "sublens": "",
+    "category": "Growth"
+  },
+  {
+    "date": "2026-09-08",
+    "topic": "The vendor quote is not the price \u2014 the integration is",
+    "opening_line": "Der Preis auf der Vendor-Website ist der kleinste Teil der Rechnung.",
+    "lens": "AI consulting",
+    "sublens": "",
+    "category": "Growth"
+  },
+  {
+    "date": "2026-09-08",
+    "topic": "When the model gets smarter, you see less \u2014 and that's a problem for every team using AI",
+    "opening_line": "Das neue OpenAI-Modell ist kl\u00fcger als sein Vorg\u00e4nger \u2014 und genau deshalb schwerer zu kontrollieren.",
+    "lens": "AI consulting",
+    "sublens": "",
+    "category": "Growth"
+  },
+  {
+    "date": "2026-09-08",
     "topic": "The meeting-capture AI boom \u2014 and the adoption tax nobody is counting",
     "opening_line": "Ein neues KI-Tool, das Meetings aufzeichnet \u2014 direkt von der Apple Watch. Klingt praktisch.",
     "lens": "AI consulting",
