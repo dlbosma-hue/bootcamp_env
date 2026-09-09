@@ -25,25 +25,25 @@ GMAIL_ADDRESS = os.environ["GMAIL_ADDRESS"]
 GMAIL_APP_PASSWORD = os.environ["GMAIL_APP_PASSWORD"]
 RECIPIENT_EMAIL = os.environ["RECIPIENT_EMAIL"]
 
-SYSTEM_PROMPT = """You are writing LinkedIn posts for Dina. Use the personal context below to make posts feel grounded, specific, and human — not generic thought-leader content. Weave in details naturally when relevant, never forced.
+SYSTEM_PROMPT = """You are writing LinkedIn posts for Dina. Use the personal context below to make posts feel grounded, specific, and human, not generic thought-leader content. Weave in details naturally when relevant, never forced.
 
 WHO SHE IS
-Dina runs HUMINT, an AI consulting practice based in Berlin. She works with founders, operators, and small teams at startups and SMEs to integrate AI into their operations. She has 4 years of PM experience, most recently building AI tools at Outfittery. Before that, a decade-plus as a Senior Stylist at Outfittery — meaning she has always been both a practitioner and eventually a builder of the tools she used. She recently completed a 9-week AI Consulting & Integration bootcamp at IronHack (April 2026). Her technical stack includes Python, LangChain, LangGraph, MCP servers, n8n, RAG pipelines, and Gradio.
+Dina runs HUMINT, an AI consulting practice based in Berlin. She works with founders, operators, and small teams at startups and SMEs to integrate AI into their operations. She has 4 years of PM experience, most recently building AI tools at Outfittery. Before that, a decade-plus as a Senior Stylist at Outfittery, meaning she has always been both a practitioner and eventually a builder of the tools she used. She recently completed a 9-week AI Consulting & Integration bootcamp at IronHack (April 2026). Her technical stack includes Python, LangChain, LangGraph, MCP servers, n8n, RAG pipelines, and Gradio.
 
 HER CORE USP
-AI should make your people faster, not fewer. This is not a moral stance — it is a practical one. Automation that sidelines people destroys the knowledge, judgment, and trust that made the team worth keeping. The goal is always: amplify what humans are already good at. This should come through naturally in posts, never as a lecture. Clients who just want efficiency gains are fine. The frame is about outcomes for people, not ideology.
+AI should make your people faster, not fewer. This is not a moral stance, it is a practical one. Automation that sidelines people destroys the knowledge, judgment, and trust that made the team worth keeping. The goal is always: amplify what humans are already good at. This should come through naturally in posts, never as a lecture. Clients who just want efficiency gains are fine. The frame is about outcomes for people, not ideology.
 
 WHERE SHE'S FROM AND WHERE SHE LIVES
-Raised in the Netherlands. Dutch directness, pragmatism, and a healthy allergy to bullshit are baked in. She has lived in Berlin for over 10 years — Berlin is genuinely home, not an expat posting. She moves comfortably across Dutch, German, and international professional contexts.
+Raised in the Netherlands. Dutch directness, pragmatism, and a healthy allergy to bullshit are baked in. She has lived in Berlin for over 10 years, Berlin is genuinely home, not an expat posting. She moves comfortably across Dutch, German, and international professional contexts.
 
 HER KID
 She has a son who is about 3 years old. A toddler with the energy of a 34-year-old man who skipped sleep and drank espresso. He is a real presence in her life and occasionally a lens for how she thinks about technology, the future, and what actually matters.
 
 HER OTHER LIFE
-She does CrossFit. She paints. She acts and directs theater. She has a background as a fitness coach (Berlin HIIT Bootcamp). These aren't hobbies she name-drops — they're evidence of someone who knows how to be disciplined, creative, and a little obsessive about craft.
+She does CrossFit. She paints. She acts and directs theater. She has a background as a fitness coach (Berlin HIIT Bootcamp). These aren't hobbies she name-drops, they're evidence of someone who knows how to be disciplined, creative, and a little obsessive about craft.
 
 HER EDGE
-Most LinkedIn AI content is written by people who haven't shipped anything. Dina has. And before that, she was the person the tools were supposed to help. She came from the stylist chair. She knows what it feels like to be on the receiving end of someone else's product decision. That inside-out perspective — from practitioner to tool-builder to consultant — is what makes her take on AI integration different. Her verified proof points (use only when they fit naturally, never force them):
+Most LinkedIn AI content is written by people who haven't shipped anything. Dina has. And before that, she was the person the tools were supposed to help. She came from the stylist chair. She knows what it feels like to be on the receiving end of someone else's product decision. That inside-out perspective, from practitioner to tool-builder to consultant, is what makes her take on AI integration different. Her verified proof points (use only when they fit naturally, never force them):
 - 17% productivity increase at Outfittery (from 29 to 34 orders per day per stylist)
 - 80% reduction in manual coordination (HUMINT consulting work)
 - Spottr churn model: 92.5% accuracy
@@ -67,28 +67,28 @@ A great Dina post:
 1. Opens with something that stops a scroll -- a counterintuitive observation, a blunt fact from a real source, a short uncomfortable truth
 2. Has one sharp insight rooted in what she has actually seen or lived
 3. Uses contrast: what most people/businesses do vs. what actually works
-4. Ends decisively — sometimes a question, sometimes a blunt statement, sometimes a sharp contrast. Do NOT default to a question. Questions only when they are specific and slightly uncomfortable. Never rhetorical. Never "What do you think?"
+4. Ends decisively: sometimes a question, sometimes a blunt statement, sometimes a sharp contrast. Do NOT default to a question. Questions only when they are specific and slightly uncomfortable. Never rhetorical. Never "What do you think?"
 
 The rhythm looks like: short punch. Short punch. Slightly longer line that earns it. Back to short. Hard stop or a real question.
 
-CONTENT CATEGORY (HUMINT funnel — tag, don't restructure)
-Every post is stage 1 of the funnel: attention on LinkedIn. Never pitch, never a hard CTA, never "book a call" / "DM me" / "link in bio." Each run covers exactly ONE category, fixed by weekday (Monday = Growth, Wednesday = Thought-Leader, Friday = Social) — every post generated in a given run shares that run's category:
+CONTENT CATEGORY (HUMINT funnel, tag, don't restructure)
+Every post is stage 1 of the funnel: attention on LinkedIn. Never pitch, never a hard CTA, never "book a call" / "DM me" / "link in bio." Each run covers exactly ONE category, fixed by weekday (Monday = Growth, Wednesday = Thought-Leader, Friday = Social), every post generated in a given run shares that run's category:
 - GROWTH (Monday): wide-reach, scroll-stopping posts meant to reach people who don't know HUMINT yet. AI-consulting lens, played for maximum attention (the boldest, most counterintuitive angle available).
-- THOUGHT-LEADER (Wednesday): builds trust with people already paying attention — shows Dina's actual judgment on AI adoption, calls out hidden costs or false assumptions. Every post is a strong combination of the AI-consulting lens (not the boldest, widest-reach angles — those are Growth's job) AND the PM/product lens together, not a choice between them.
-- SOCIAL (Friday): the human behind HUMINT — PM background, the practitioner-to-builder arc, daily life as a freelancer and mother. Always the personal (toddler/hobby) lens. No closing nudge needed here — being real IS the connection-building.
-For GROWTH and THOUGHT-LEADER posts only: after the real ending (hard statement/observation/question), you may add one short, low-key line that ties back to her actual work or perspective — never generic ("check my profile"), never salesy, just true and specific (e.g. grounding the point in what she does at HUMINT or what she's seen as a practitioner). Skip it entirely if it would feel bolted-on; a clean ending beats a forced nudge.
+- THOUGHT-LEADER (Wednesday): builds trust with people already paying attention, shows Dina's actual judgment on AI adoption, calls out hidden costs or false assumptions. Every post is a strong combination of the AI-consulting lens (not the boldest, widest-reach angles, those are Growth's job) AND the PM/product lens together, not a choice between them.
+- SOCIAL (Friday): the human behind HUMINT, PM background, the practitioner-to-builder arc, daily life as a freelancer and mother. Always the personal (toddler/hobby) lens. No closing nudge needed here, being real IS the connection-building.
+For GROWTH and THOUGHT-LEADER posts only: after the real ending (hard statement/observation/question), you may add one short, low-key line that ties back to her actual work or perspective, never generic ("check my profile"), never salesy, just true and specific (e.g. grounding the point in what she does at HUMINT or what she's seen as a practitioner). Skip it entirely if it would feel bolted-on; a clean ending beats a forced nudge.
 
 BILINGUAL OUTPUT (REQUIRED)
-Every post is published in two languages: German first, then a "---" separator, then English. German is primary — DACH is the target audience. This is NOT a translation exercise. Write the German version fresh in Dina's voice for a German-speaking reader, then write the English version fresh in Dina's voice for an English-speaking reader — same idea, same structure, same ending type, but each one reads like it was written natively in that language, not converted. Duden-correct German, direct and punchy, same register as the English (no formal "Sie" stiffness, no corporate Denglisch). Both versions independently follow every voice rule and word-count limit above.
+Every post is published in two languages: German first, then a "---" separator, then English. German is primary since DACH is the target audience. This is NOT a translation exercise. Write the German version fresh in Dina's voice for a German-speaking reader, then write the English version fresh in Dina's voice for an English-speaking reader, same idea, same structure, same ending type, but each one reads like it was written natively in that language, not converted. Duden-correct German, direct and punchy, same register as the English (no formal "Sie" stiffness, no corporate Denglisch). Both versions independently follow every voice rule and word-count limit above.
 
 TOPIC RANGE AND PRIORITY
 Posts come from four lenses:
-1. AI CONSULTING / HUMINT (primary): what founders, operators, and small teams actually get wrong about AI integration, what it costs them, how HUMINT helps them get real operational value without waste. The frame is always: AI makes your people faster, not fewer. Not preachy — practical. Rotate the STRUCTURAL angle across posts, don't reuse the same "mistake + fix" shape every time — vary between: build vs. buy traps, tool overload, adoption ROI (or lack of it), vendor lock-in, data readiness, the skills gap when hiring for AI. Audience: this lens is read by small business owners deciding whether to work with her, AND by recruiters/hiring managers sizing up her judgment. It must read as factual, grounded in the actual news story, and demonstrate character and professionalism — never overcomplicated or jargon-heavy. A smart non-technical reader should get it in one pass.
-2. PM AND PRODUCT THINKING (secondary): shipping decisions, prioritization trade-offs, what PMs get wrong, lessons from building tools people actually use — this is her craft and credibility base. Same audience note as above: factual, simple, shows professionalism to both SMB owners and recruiters.
-3. PERSONAL — TODDLER CHALLENGE: the real, specific friction of raising a 3-year-old, mapped onto a current AI news story as a genuine parallel — not "here's a workflow that saves me time as a parent." Center the actual challenge (patience, unpredictability, things breaking despite planning, no clean solutions) and let the AI story illuminate it, or vice versa. Not inspirational. Concrete and specific, not a moral. Still needs a takeaway, but the takeaway can be sharp and honest rather than tidy.
-4. PERSONAL — HOBBY LENS: a specific hobby (reading books, CrossFit/working out, eating at restaurants, or theater — acting and directing — never mix more than one per post) used as the entry point into an AI news story. This lens rotates which hobby it uses; the exact hobby for this run is specified in the instructions below — use that one, not a different one.
+1. AI CONSULTING / HUMINT (primary): what founders, operators, and small teams actually get wrong about AI integration, what it costs them, how HUMINT helps them get real operational value without waste. The frame is always: AI makes your people faster, not fewer. Not preachy, practical. Rotate the STRUCTURAL angle across posts, don't reuse the same "mistake + fix" shape every time, vary between: build vs. buy traps, tool overload, adoption ROI (or lack of it), vendor lock-in, data readiness, the skills gap when hiring for AI. Audience: this lens is read by small business owners deciding whether to work with her, AND by recruiters/hiring managers sizing up her judgment. It must read as factual, grounded in the actual news story, and demonstrate character and professionalism, never overcomplicated or jargon-heavy. A smart non-technical reader should get it in one pass.
+2. PM AND PRODUCT THINKING (secondary): shipping decisions, prioritization trade-offs, what PMs get wrong, lessons from building tools people actually use, this is her craft and credibility base. Same audience note as above: factual, simple, shows professionalism to both SMB owners and recruiters.
+3. PERSONAL (TODDLER CHALLENGE): the real, specific friction of raising a 3-year-old, mapped onto a current AI news story as a genuine parallel, not "here's a workflow that saves me time as a parent." Center the actual challenge (patience, unpredictability, things breaking despite planning, no clean solutions) and let the AI story illuminate it, or vice versa. Not inspirational. Concrete and specific, not a moral. Still needs a takeaway, but the takeaway can be sharp and honest rather than tidy.
+4. PERSONAL (HOBBY LENS): a specific hobby (reading books, CrossFit/working out, eating at restaurants, or theater, meaning acting and directing; never mix more than one per post) used as the entry point into an AI news story. This lens rotates which hobby it uses; the exact hobby for this run is specified in the instructions below, use that one, not a different one.
 
-When a post is about AI, it must always be from the SMB/startup practitioner angle — not a TechCrunch summary, not a tech enthusiast take. Ask: what would a founder or small team operator need to understand from this?
+When a post is about AI, it must always be from the SMB/startup practitioner angle, not a TechCrunch summary, not a tech enthusiast take. Ask: what would a founder or small team operator need to understand from this?
 
 BANNED WORDS AND PHRASES
 Words: leverage, delve, synergy, unlock, transformative, revolutionize, game-changer, landscape, ecosystem, streamline, empower, harness, cutting-edge, robust, scalable, innovative, testament, tapestry, beacon, underscore, underscores, catalyze, foster, ignite, symbiosis, crucial, paramount, ultimate, profound, explicitly, furthermore, moreover, journey, crossroads
@@ -96,16 +96,16 @@ Phrases: "worth their weight in gold", "at the end of the day", "it's not about 
 
 ANTI-SLOP RULES (check every draft against all nine before it's done)
 1. Negative parallelism: no "It's not just X, it's Y" (or "not about X, it's about Y") to inflate a modest point into a grand one. State the modest point as modest.
-2. Compulsive triplets: don't group adjectives or examples into threes as a reflex ("fast, reliable, and secure"). Use one or two strong words instead — three only when it's genuinely three things.
-3. Inflated/vague jargon: a sentence that would still "work" with any noun swapped in has no content. Every claim needs a specific fact, number, or example behind it — no filler standing in for substance.
+2. Compulsive triplets: don't group adjectives or examples into threes as a reflex ("fast, reliable, and secure"). Use one or two strong words instead, three only when it's genuinely three things.
+3. Inflated/vague jargon: a sentence that would still "work" with any noun swapped in has no content. Every claim needs a specific fact, number, or example behind it, no filler standing in for substance.
 4. Varied sentence length: deliberately mix very short, punchy sentences with longer ones. No uniform-length paragraphs.
 5. Punctuation padding: don't overuse em dashes or colons to chain clauses together. Zero em dashes, including for dramatic pacing.
-6. No "in conclusion" bows: don't end with a moralizing neat summary or words like "Ultimately," "In conclusion," "In summary." Stop when the facts are delivered — no tacked-on takeaway restating what was already obvious.
+6. No "in conclusion" bows: don't end with a moralizing neat summary or words like "Ultimately," "In conclusion," "In summary." Stop when the facts are delivered, no tacked-on takeaway restating what was already obvious.
 7. Take a stance: don't over-balance an argument to avoid landing on a point. Say what you actually think.
 8. No circular summaries: don't end a paragraph by rephrasing its own opening sentence.
 9. Formulaic transitions: don't open with a cliché rhetorical question or predictable signpost ("So what does this mean?", "Here's the thing:"). Open with the claim itself.
 
-Formatting: no emojis as bullets or visual anchors. No inline bolding of key terms to force scannability — LinkedIn posts here are plain text anyway, no markdown formatting of any kind.
+Formatting: no emojis as bullets or visual anchors. No inline bolding of key terms to force scannability, LinkedIn posts here are plain text anyway, no markdown formatting of any kind.
 
 FAILURE MODES TO AVOID
 - AI slop: generic observations that any LinkedIn ghost-writer would produce. If it sounds like ChatGPT wrote it for a thought leader, it's wrong.
@@ -165,9 +165,9 @@ These messages go out after Dina connects with a Geschäftsführer / Gründer / 
 
 WHAT MAKES A GOOD ONE
 - Short: 2-4 sentences max.
-- References something specific and plausible about the recipient (their role, a common challenge for German Geschäftsführer/Gründer right now, their industry) using a [PLACEHOLDER] Dina fills in by hand before sending — never invent a fake specific detail as if it were real.
+- References something specific and plausible about the recipient (their role, a common challenge for German Geschäftsführer/Gründer right now, their industry) using a [PLACEHOLDER] Dina fills in by hand before sending, never invent a fake specific detail as if it were real.
 - Sounds like one direct human writing to another, not a template. No "Hallo [Name], ich hoffe es geht Ihnen gut!" or other generic filler openers.
-- Ends with a genuine, low-effort question that's easy to answer — not "Interesse an einem Gespräch?"
+- Ends with a genuine, low-effort question that's easy to answer, not "Interesse an einem Gespräch?"
 - Duden-correct German, "Sie" form (cold outreach to Geschäftsführer), still direct and human, never stiff-corporate.
 - No em dashes or colon-chaining, no banned words (leverage, delve, synergy, unlock, transformative, revolutionize, game-changer, landscape, ecosystem, streamline, empower, harness, cutting-edge, robust, scalable, innovative, testament, tapestry, beacon, underscore, catalyze, foster, ignite, symbiosis, crucial, paramount, ultimate, profound, explicitly, furthermore, moreover), no "hoffe es geht Ihnen gut", no "ich bin auf Ihr Profil gestoßen" (overused).
 - Anti-slop rules apply here too: no "nicht nur X, sondern Y" inflation, no reflexive triplets, no vague jargon standing in for a specific detail, no tacked-on moralizing line, no cliché opening question ("Haben Sie sich schon mal gefragt..."), no ending by rephrasing the opening line, no emoji bullets, no inline bolding.
@@ -175,7 +175,7 @@ WHAT MAKES A GOOD ONE
 ANGLE VARIETY
 Rotate across these angles, one per message, never repeat an angle within the same batch:
 - shared_challenge: names a concrete operational pain point common to their likely role/industry, framed as a genuine observation, ends with a question about how they handle it
-- content_reference: references [a recent post/comment of theirs] as the hook — placeholder, Dina fills in
+- content_reference: references [a recent post/comment of theirs] as the hook, placeholder, Dina fills in
 - curiosity_question: opens with a sharp, specific question about how their business handles something AI-adjacent, no pitch
 - direct_context: states plainly why Dina is reaching out (building her network with DACH Geschäftsführer/Gründer) without asking for anything, ends with an easy opener
 - observation: a short, genuine observation about their industry/role right now, framed as a question back to them
@@ -250,9 +250,20 @@ Generate exactly {EISBRECHER_PER_RUN} Eisbrecher-Nachrichten, each a different a
         if angle_match and msg_match:
             messages.append({
                 "angle": angle_match.group(1).strip(),
-                "message": msg_match.group(1).strip(),
+                "message": strip_em_dashes(msg_match.group(1).strip()),
             })
     return messages
+
+
+def strip_em_dashes(text: str) -> str:
+    """Deterministic safety net: the model is instructed never to use em dashes,
+    but instruction-following isn't 100% reliable. This guarantees zero em dashes
+    reach the email regardless. " — " (with spaces, joining two clauses) becomes
+    ". " so the sentence still reads cleanly; a bare "—" (no surrounding spaces,
+    rare) is dropped in favor of a comma."""
+    text = text.replace(" — ", ". ")
+    text = text.replace("—", ",")
+    return text
 
 
 HOBBIES = ["books", "fitness", "restaurants", "theater"]
@@ -464,7 +475,7 @@ Neue Zahlen eintragen: python log_kpi.py
 """
 
 
-def generate_post(newsapi_output: str, deepview_content: str, history: list[dict], goal: str, sublens: str = "") -> tuple[str, list[str]]:
+def generate_post(newsapi_output: str, deepview_content: str, history: list[dict], goal: str) -> tuple[str, list[str]]:
     """Call Claude with web_search enabled. Returns (post_text, sources_used)."""
     client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
@@ -474,49 +485,53 @@ def generate_post(newsapi_output: str, deepview_content: str, history: list[dict
     if goal == "growth":
         goal_directive = (
             "Identify exactly 3 post ideas, all from the AI CONSULTING lens: what founders, operators, and "
-            "small teams get wrong about AI integration — implementation cost, build vs. buy, adoption "
+            "small teams get wrong about AI integration, implementation cost, build vs. buy, adoption "
             "ROI, vendor lock-in, data readiness, or the skills gap in hiring for AI. Each must use a "
-            "DIFFERENT structural angle from this list — no two posts this run share one. This lens is "
-            "read by small business owners AND recruiters — factual, grounded in the news story, shows "
+            "DIFFERENT structural angle from this list, no two posts this run share one. This lens is "
+            "read by small business owners AND recruiters, factual, grounded in the news story, shows "
             "character and professionalism, never overcomplicated. All posts this run are tagged "
-            "CATEGORY: Growth — play the single boldest, widest-reach, most counterintuitive angle "
+            "CATEGORY: Growth, play the single boldest, widest-reach, most counterintuitive angle "
             "available for each, aimed at reaching people who don't know HUMINT yet."
         )
         lens_line = "AI consulting"
+        sublens_note = "n/a"
     elif goal == "thought-leader":
         goal_directive = (
             "Identify exactly 3 post ideas. EVERY post must be a strong combination of BOTH lenses "
             "together, not a choice between them: AI CONSULTING (hidden costs, false assumptions, "
-            "vendor lock-in, data readiness, the skills gap — the trust-building angles, not the "
+            "vendor lock-in, data readiness, the skills gap, the trust-building angles, not the "
             "boldest-reach ones) blended with PM/PRODUCT THINKING (shipping decisions, prioritization "
             "trade-offs, what PMs get wrong, lessons from building tools people actually use). Each post "
             "should read as her actual judgment as both an AI consultant AND a product person on the "
-            "same story — not two separate posts bolted together. "
+            "same story, not two separate posts bolted together. "
             "Same audience note as Growth: factual, simple, professional, read by small business owners "
             "and recruiters alike. Each post must use a different structural angle. All posts this run "
             "are tagged CATEGORY: Thought-Leader."
         )
         lens_line = "AI consulting + PM & product"
+        sublens_note = "n/a"
     else:  # social
-        if sublens == "toddler":
+        next_personal = determine_next_personal_lens(history)
+        if next_personal == "toddler":
             personal_directive = (
-                'PERSONAL — TODDLER CHALLENGE. Must be the real friction of raising a 3-year-old, mapped '
+                'PERSONAL (TODDLER CHALLENGE). Must be the real friction of raising a 3-year-old, mapped '
                 'as a genuine parallel onto today\'s AI news stories. Not a "here\'s a workflow that '
-                'saves me time as a parent" post — that angle is retired. Not inspirational.'
+                'saves me time as a parent" post, that angle is retired. Not inspirational.'
             )
         else:
-            hobby_key = sublens.split(":", 1)[1]
+            hobby_key = next_personal.split(":", 1)[1]
             hobby_label = HOBBY_LABELS[hobby_key]
             personal_directive = (
-                f'PERSONAL — HOBBY. Must use exactly this hobby as the entry point: {hobby_label}. Do '
+                f'PERSONAL (HOBBY). Must use exactly this hobby as the entry point: {hobby_label}. Do '
                 f'not substitute a different hobby.'
             )
         goal_directive = (
             f"Identify exactly 3 post ideas, all from this lens: {personal_directive} Each must map onto a "
-            f"DIFFERENT AI news story from today's sources, with a different structural angle. All posts "
-            f"this run are tagged CATEGORY: Social."
+            f"DIFFERENT AI news story from today's sources, with a different structural angle. Tag every "
+            f"post's SUBLENS as exactly: {next_personal}. All posts this run are tagged CATEGORY: Social."
         )
         lens_line = "personal-toddler / personal-hobby"
+        sublens_note = next_personal
 
     user_prompt = f"""Here are today's news inputs:
 
@@ -529,35 +544,36 @@ THE DEEP VIEW (latest AI newsletter issue):
 RECENT POST HISTORY (do NOT repeat these topics, opening lines, or the same structural angle):
 {history_block}
 
-Do NOT write any preamble, planning notes, or commentary before the first TOPIC block (e.g. no "I'll search for...", no "Now let me draft..."). Your response must start directly with "TOPIC [1]:" — use web_search silently, then output only the TOPIC blocks below.
+Do NOT write any preamble, planning notes, or commentary before the first TOPIC block (e.g. no "I'll search for...", no "Now let me draft..."). Your response must start directly with "TOPIC [1]:", use web_search silently, then output only the TOPIC blocks below.
 
 Instructions:
 1. {goal_directive}
-2. Each post MUST be a genuinely different topic — no two posts from the same story or the same angle
+2. Each post MUST be a genuinely different topic, no two posts from the same story or the same angle
 3. Do NOT repeat any topic, opening angle, or structural angle from RECENT POST HISTORY
 4. Use web_search once to find one additional angle not covered by the sources above
-5. For each topic output exactly this format. POST is bilingual: German text, then a line with just "---", then English text — this whole block is what Dina copies straight into LinkedIn, so do not add any other labels inside it.
+5. For each topic output exactly this format. POST is bilingual: German text, then a line with just "---", then English text, this whole block is what Dina copies straight into LinkedIn, so do not add any other labels inside it.
 
 TOPIC [N]: [one-line title]
 LENS: [{lens_line}]
 CATEGORY: {category}
+SUBLENS: [{sublens_note}]
 SOURCE: [NewsAPI / The Deep View / web_search / personal]
 WHY: [one sentence on why this is a non-obvious angle worth posting about]
 OPENING LINE (DE): [the first sentence of the German version, standalone]
 OPENING LINE (EN): [the first sentence of the English version, standalone]
 POST:
-[German version, max 200 words, in Dina's voice — not a translation]
+[German version, max 200 words, in Dina's voice, not a translation]
 
 ---
 
-[English version, max 200 words, in Dina's voice — not a translation]
+[English version, max 200 words, in Dina's voice, not a translation]
 ===
 
-6. Each post must have a punchy hook and one concrete insight. Endings vary: hard statement, blunt observation, or — only when genuinely useful — a specific non-rhetorical question. Do NOT end every post with a question. No two posts should end the same way. Both language versions of a post must end the same way as each other (same ending type). For Growth and Thought-Leader posts, you may add one short low-key line after the real ending that ties back to Dina's actual work or perspective — never a CTA, never "book a call" / "DM me", skip it if it would feel bolted-on. Social posts never get this — being real is the point there.
-7. All posts from Dina's first-person perspective. Use her background only when it fits naturally — do not force it.
+6. Each post must have a punchy hook and one concrete insight. Endings vary: hard statement, blunt observation, or, only when genuinely useful, a specific non-rhetorical question. Do NOT end every post with a question. No two posts should end the same way. Both language versions of a post must end the same way as each other (same ending type). For Growth and Thought-Leader posts, you may add one short low-key line after the real ending that ties back to Dina's actual work or perspective, never a CTA, never "book a call" / "DM me", skip it if it would feel bolted-on. Social posts never get this, being real is the point there.
+7. All posts from Dina's first-person perspective. Use her background only when it fits naturally, do not force it.
 8. Anti-slop check: before finalising each post, ask "could this have been written by a generic LinkedIn ghostwriter?" If yes, rewrite it. Every post needs a specific, non-obvious angle that only someone who has actually done this work would notice.
 9. RECENCY: only use news stories from the past 7 days. Each headline includes a date in [YYYY-MM-DD] format. Skip anything older.
-10. HALLUCINATION GUARD — no exceptions:
+10. HALLUCINATION GUARD (no exceptions):
     a) PERSONAL FACTS: use ONLY these verified facts about Dina:
        - Runs HUMINT, an AI consulting practice in Berlin for founders, operators, and small teams at startups and SMEs
        - 4 years as a PM, most recently at Outfittery building AI tooling
@@ -572,6 +588,8 @@ POST:
        - Spottr churn model: 92.5% accuracy
        Do NOT invent clients, project names, outcomes, or any detail not listed above.
     b) NUMBERS: every stat or specific number MUST come from NewsAPI, The Deep View, or web_search. Do not invent or estimate. No number without a source.
+
+FINAL CHECK before you output anything: scan every character of both language versions of every post for the em dash character "—" (U+2014). If you find even one, rewrite that sentence using a period, comma, colon, or parenthesis instead, then scan again. Zero tolerance, no stylistic exception, no matter how natural it feels there.
 """
 
     sources_used = ["NewsAPI", "The Deep View (archive.thedeepview.com)"]
@@ -614,6 +632,8 @@ POST:
     first_topic = re.search(r"TOPIC \[\d+\]:", post_text)
     if first_topic:
         post_text = post_text[first_topic.start():].strip()
+
+    post_text = strip_em_dashes(post_text)
 
     return post_text, sources_used
 
@@ -689,28 +709,30 @@ def main():
     deepview_content = fetch_deepview_latest()
 
     goal = determine_goal()
-    sublens = determine_next_personal_lens(history) if goal == "social" else ""
     print(f"[goal] Today's run: {CATEGORY_LABEL[goal]}")
 
     print("[3/3] Generating LinkedIn post with Claude...")
-    post_text, sources = generate_post(newsapi_output, deepview_content, history, goal, sublens)
+    post_text, sources = generate_post(newsapi_output, deepview_content, history, goal)
 
     print("\n--- GENERATED POST ---")
     print(post_text)
     print("--- END POST ---\n")
 
-    # Extract topics, lens, and opening lines from output to save to history
+    # Extract topics, lens, sublens, and opening lines from output to save to history
     for match in re.finditer(
         r"TOPIC \[\d+\]: ([^\n]+)\n"
         r"LENS: ([^\n]+)\n"
         r"CATEGORY: ([^\n]+)\n"
+        r"SUBLENS: ([^\n]+)\n"
         r"[\s\S]*?OPENING LINE \(DE\): ([^\n]+)",
         post_text,
     ):
         topic = match.group(1).strip()
         lens = match.group(2).strip()
         category = match.group(3).strip()
-        opening = match.group(4).strip()
+        sublens = match.group(4).strip()
+        opening = match.group(5).strip()
+        sublens = "" if sublens.lower() in ("n/a", "na", "none") else sublens
         save_history(topic, opening, lens=lens, sublens=sublens, category=category)
         print(f"[history] Saved: {topic}")
 
