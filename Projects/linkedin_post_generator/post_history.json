@@ -1,5 +1,29 @@
 [
   {
+    "date": "2026-09-09",
+    "topic": "The skills gap nobody budgets for",
+    "opening_line": "Das teuerste an KI-Integration ist nicht das Tool. Es ist das fehlende Urteilsverm\u00f6gen.",
+    "lens": "AI consulting + PM & product",
+    "sublens": "",
+    "category": "Thought-Leader"
+  },
+  {
+    "date": "2026-09-09",
+    "topic": "\"Post-prompt AI\" is a product decision, not just a UX one",
+    "opening_line": "OpenAI baut gerade an einer Welt, in der du deiner KI weniger sagst.",
+    "lens": "AI consulting + PM & product",
+    "sublens": "",
+    "category": "Thought-Leader"
+  },
+  {
+    "date": "2026-09-09",
+    "topic": "When the model can't explain itself, your PM process has a gap",
+    "opening_line": "Wenn dein KI-Modell kl\u00fcger wird, wird es auch schwerer zu lesen.",
+    "lens": "AI consulting + PM & product",
+    "sublens": "",
+    "category": "Thought-Leader"
+  },
+  {
     "date": "2026-09-08",
     "topic": "The teams getting the most from AI have the fewest tools",
     "opening_line": "Die Teams mit den besten KI-Ergebnissen haben nicht die meisten Tools \u2014 sie haben die wenigsten.",
