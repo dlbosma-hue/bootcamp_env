@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-09",
+    "topic": "Apple has been shipping AI for a decade. Nobody noticed. That's the lesson.",
+    "opening_line": "\"Apple hat zehn Jahre lang KI in die iPhone-Kamera eingebaut. Die meisten Nutzer wissen es bis heute nicht.\"",
+    "lens": "AI consulting + PM & product",
+    "sublens": "",
+    "category": "Thought-Leader"
+  },
+  {
+    "date": "2026-09-09",
+    "topic": "The pilot looked great. The production budget was a surprise.",
+    "opening_line": "\"Das Pilot-Projekt war ein Erfolg. Das Budget f\u00fcr den Roll-out war eine \u00dcberraschung.\"",
+    "lens": "AI consulting + PM & product",
+    "sublens": "",
+    "category": "Thought-Leader"
+  },
+  {
+    "date": "2026-09-09",
+    "topic": "Google's AI attack report has a PM problem buried in it",
+    "opening_line": "\"Google meldet: KI-Agenten haben tausende Zugangsdaten in unter sechs Stunden gestohlen.\"",
+    "lens": "AI consulting + PM & product",
+    "sublens": "",
+    "category": "Thought-Leader"
+  },
+  {
+    "date": "2026-09-09",
     "topic": "The skills gap nobody budgets for",
     "opening_line": "Das teuerste an KI-Integration ist nicht das Tool. Es ist das fehlende Urteilsverm\u00f6gen.",
     "lens": "AI consulting + PM & product",
