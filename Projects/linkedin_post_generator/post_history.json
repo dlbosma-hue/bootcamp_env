@@ -9,6 +9,14 @@
   },
   {
     "date": "2026-09-08",
+    "topic": "57% of companies have AI agents running in production. Most can't tell you what those agents actually decided yesterday.",
+    "opening_line": "Mehr als die H\u00e4lfte aller Unternehmen hat bereits KI-Agenten im Einsatz.",
+    "lens": "AI consulting",
+    "sublens": "",
+    "category": "Growth"
+  },
+  {
+    "date": "2026-09-08",
     "topic": "The vendor quote is not the price \u2014 the integration is",
     "opening_line": "Der Preis auf der Vendor-Website ist der kleinste Teil der Rechnung.",
     "lens": "AI consulting",
@@ -17,8 +25,24 @@
   },
   {
     "date": "2026-09-08",
+    "topic": "OpenAI's Managed Agents are coming \u2014 and the buy vs. build question just got more expensive to get wrong",
+    "opening_line": "OpenAI k\u00fcndigt Managed Agents an \u2014 fertige KI-Agenten, die du einfach einsetzt, ohne selbst zu bauen.",
+    "lens": "AI consulting",
+    "sublens": "",
+    "category": "Growth"
+  },
+  {
+    "date": "2026-09-08",
     "topic": "When the model gets smarter, you see less \u2014 and that's a problem for every team using AI",
     "opening_line": "Das neue OpenAI-Modell ist kl\u00fcger als sein Vorg\u00e4nger \u2014 und genau deshalb schwerer zu kontrollieren.",
+    "lens": "AI consulting",
+    "sublens": "",
+    "category": "Growth"
+  },
+  {
+    "date": "2026-09-08",
+    "topic": "The smarter the AI, the less you can see what it's doing \u2014 and that's a founder's problem now",
+    "opening_line": "OpenAI hat letzte Woche zugegeben, dass ihr neuestes Modell schwerer zu \u00fcberwachen ist als das vorherige.",
     "lens": "AI consulting",
     "sublens": "",
     "category": "Growth"

@@ -158,103 +158,6 @@ def format_history_for_prompt(history: list[dict]) -> str:
     return "\n".join(lines)
 
 
-EISBRECHER_SYSTEM_PROMPT = """You write LinkedIn connection-request opener messages ("Eisbrecher-Nachrichten") for Dina, who runs HUMINT, an AI consulting practice in Berlin for founders, operators, and small teams at DACH SMBs.
-
-GOAL
-These messages go out after Dina connects with a Geschäftsführer / Gründer / Inhaber on LinkedIn (found via search, not a warm lead). The ONLY goal is to start a real conversation. Never pitch. Never mention HUMINT, AI consulting, or any service in the first message. No links. No "let's hop on a call."
-
-WHAT MAKES A GOOD ONE
-- Short: 2-4 sentences max.
-- References something specific and plausible about the recipient (their role, a common challenge for German Geschäftsführer/Gründer right now, their industry) using a [PLACEHOLDER] Dina fills in by hand before sending, never invent a fake specific detail as if it were real.
-- Sounds like one direct human writing to another, not a template. No "Hallo [Name], ich hoffe es geht Ihnen gut!" or other generic filler openers.
-- Ends with a genuine, low-effort question that's easy to answer, not "Interesse an einem Gespräch?"
-- Duden-correct German, "Sie" form (cold outreach to Geschäftsführer), still direct and human, never stiff-corporate.
-- No em dashes or colon-chaining, no banned words (leverage, delve, synergy, unlock, transformative, revolutionize, game-changer, landscape, ecosystem, streamline, empower, harness, cutting-edge, robust, scalable, innovative, testament, tapestry, beacon, underscore, catalyze, foster, ignite, symbiosis, crucial, paramount, ultimate, profound, explicitly, furthermore, moreover), no "hoffe es geht Ihnen gut", no "ich bin auf Ihr Profil gestoßen" (overused).
-- Anti-slop rules apply here too: no "nicht nur X, sondern Y" inflation, no reflexive triplets, no vague jargon standing in for a specific detail, no tacked-on moralizing line, no cliché opening question ("Haben Sie sich schon mal gefragt..."), no ending by rephrasing the opening line, no emoji bullets, no inline bolding.
-
-ANGLE VARIETY
-Rotate across these angles, one per message, never repeat an angle within the same batch:
-- shared_challenge: names a concrete operational pain point common to their likely role/industry, framed as a genuine observation, ends with a question about how they handle it
-- content_reference: references [a recent post/comment of theirs] as the hook, placeholder, Dina fills in
-- curiosity_question: opens with a sharp, specific question about how their business handles something AI-adjacent, no pitch
-- direct_context: states plainly why Dina is reaching out (building her network with DACH Geschäftsführer/Gründer) without asking for anything, ends with an easy opener
-- observation: a short, genuine observation about their industry/role right now, framed as a question back to them
-
-OUTPUT FORMAT
-For each message output exactly:
-ANGLE: [one of the angle keys above]
-MESSAGE:
-[the message text, with [PLACEHOLDER] markers where Dina must personalize]
-
-Separate messages with a line containing only ===. No preamble, no numbering, no explanation. Do not repeat any angle, opening line, or exact phrasing from RECENT EISBRECHER HISTORY."""
-
-EISBRECHER_HISTORY_FILE = os.path.join(os.path.dirname(__file__), "eisbrecher_history.json")
-EISBRECHER_HISTORY_KEEP = 30
-EISBRECHER_PER_RUN = 6
-
-
-def load_eisbrecher_history() -> list[dict]:
-    if not os.path.exists(EISBRECHER_HISTORY_FILE):
-        return []
-    try:
-        with open(EISBRECHER_HISTORY_FILE) as f:
-            return json.load(f)
-    except Exception:
-        return []
-
-
-def save_eisbrecher_history(entries: list[dict]) -> None:
-    history = load_eisbrecher_history()
-    for e in entries:
-        history.insert(0, {"date": datetime.now().strftime("%Y-%m-%d"), **e})
-    history = history[:EISBRECHER_HISTORY_KEEP]
-    with open(EISBRECHER_HISTORY_FILE, "w") as f:
-        json.dump(history, f, indent=2)
-
-
-def format_eisbrecher_history_for_prompt(history: list[dict]) -> str:
-    if not history:
-        return "None yet."
-    lines = []
-    for h in history[:15]:
-        lines.append(f"- [{h['date']}] ({h.get('angle', '?')}) {h.get('message', '')[:120]}")
-    return "\n".join(lines)
-
-
-def generate_eisbrecher_messages(client: "anthropic.Anthropic") -> list[dict]:
-    """Generate a batch of connection-opener DM templates. No web_search needed."""
-    history = load_eisbrecher_history()
-    history_block = format_eisbrecher_history_for_prompt(history)
-
-    user_prompt = f"""RECENT EISBRECHER HISTORY (do not repeat angle, opening, or phrasing):
-{history_block}
-
-Generate exactly {EISBRECHER_PER_RUN} Eisbrecher-Nachrichten, each a different angle from the list in your instructions, in German, using the exact output format specified."""
-
-    try:
-        response = client.messages.create(
-            model="claude-sonnet-4-6",
-            max_tokens=2000,
-            system=EISBRECHER_SYSTEM_PROMPT,
-            messages=[{"role": "user", "content": user_prompt}],
-        )
-        text = "".join(b.text for b in response.content if hasattr(b, "text")).strip()
-    except Exception as e:
-        print(f"[WARN] Eisbrecher generation failed: {e}")
-        return []
-
-    messages = []
-    for block in text.split("==="):
-        angle_match = re.search(r"ANGLE:\s*([^\n]+)", block)
-        msg_match = re.search(r"MESSAGE:\s*\n(.+)", block, re.DOTALL)
-        if angle_match and msg_match:
-            messages.append({
-                "angle": angle_match.group(1).strip(),
-                "message": strip_em_dashes(msg_match.group(1).strip()),
-            })
-    return messages
-
-
 def strip_em_dashes(text: str) -> str:
     """Deterministic safety net: the model is instructed never to use em dashes,
     but instruction-following isn't 100% reliable. This guarantees zero em dashes
@@ -638,25 +541,9 @@ FINAL CHECK before you output anything: scan every character of both language ve
     return post_text, sources_used
 
 
-def format_eisbrecher_for_email(messages: list[dict]) -> str:
-    if not messages:
-        return ""
-    blocks = []
-    for i, m in enumerate(messages, 1):
-        blocks.append(f"[{i}] ({m['angle']})\n{m['message']}")
-    joined = "\n\n".join(blocks)
-    return f"""
-EISBRECHER-NACHRICHTEN DIESE RUNDE (Vernetzungsanfragen ohne Notiz > dann diese als erste Nachricht)
-Personalisiere jede [PLACEHOLDER]-Markierung, bevor du sendest.
-
-{joined}
-"""
-
-
 def send_email(
     post_text: str,
     sources: list[str],
-    eisbrecher_messages: list[dict] | None = None,
     include_network_block: bool = False,
     include_kpi_block: bool = False,
 ) -> None:
@@ -667,7 +554,6 @@ def send_email(
     extra_sections = ""
     if include_network_block:
         extra_sections += network_block()
-    extra_sections += format_eisbrecher_for_email(eisbrecher_messages or [])
     if include_kpi_block:
         extra_sections += kpi_status_block()
 
@@ -736,15 +622,6 @@ def main():
         save_history(topic, opening, lens=lens, sublens=sublens, category=category)
         print(f"[history] Saved: {topic}")
 
-    print("[4/4] Generating Eisbrecher-Nachrichten...")
-    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
-    eisbrecher_messages = generate_eisbrecher_messages(client)
-    if eisbrecher_messages:
-        save_eisbrecher_history(eisbrecher_messages)
-        print(f"[eisbrecher] Generated {len(eisbrecher_messages)} messages.")
-    else:
-        print("[eisbrecher] None generated (check warnings above).")
-
     include_network = goal == "growth"       # Monday: Wochenstart
     include_kpi = goal == "social"           # Friday: Wochenabschluss
 
@@ -752,7 +629,6 @@ def main():
     send_email(
         post_text,
         sources,
-        eisbrecher_messages=eisbrecher_messages,
         include_network_block=include_network,
         include_kpi_block=include_kpi,
     )

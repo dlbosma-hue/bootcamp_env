@@ -4,10 +4,22 @@ Fetches fresh AI news, generates a LinkedIn post in your voice via Claude, and e
 
 ## What it does
 
-1. Pulls AI news from Perplexity (sonar-small-online)
-2. Fetches TLDR AI and AI Report NL via Jina.ai reader (no API key needed)
-3. Calls Claude Sonnet with `web_search` enabled to generate the post
-4. Emails the result to you every Monday, Wednesday, and Friday at ~8-9 AM Berlin time — each run covers exactly one goal: Monday = Growth, Wednesday = Thought-Leader, Friday = Social
+1. Pulls AI news from NewsAPI and The Deep View (via Jina.ai reader, no API key needed)
+2. Calls Claude Sonnet with `web_search` enabled to generate the LinkedIn post
+3. Generates 6 Eisbrecher-Nachrichten (connection-opener DM templates) every run — 3 runs/week ≈ 18/week, in range with the 15-25/week target
+4. On Monday's run, adds a Netzwerkaufbau reminder: this week's rotating LinkedIn search term + connection target
+5. On Friday's run, adds a KPI status block (impressions projection, Eisbrecher/week, Termine/week, closing rate) — pulled from `kpi_log.json`, which you update weekly with `python log_kpi.py`
+6. Emails everything to you every Monday, Wednesday, and Friday at ~8-9 AM Berlin time — each run covers exactly one content goal: Monday = Growth, Wednesday = Thought-Leader, Friday = Social
+
+## Weekly KPI logging
+
+Once a week (Friday evening works well, right after the KPI email lands), run:
+
+```bash
+python log_kpi.py
+```
+
+It asks for 4 numbers — impressions, Eisbrecher sent, Termine booked, Abschlüsse — and appends them to `kpi_log.json`. The next Friday email shows your trend against the webinar targets (100k impressions/90 days, 15-25 Eisbrecher/week, 3+ Termine/week, >50% closing rate).
 
 ---
 
