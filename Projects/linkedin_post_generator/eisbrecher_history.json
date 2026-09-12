@@ -1,0 +1,32 @@
+[
+  {
+    "date": "2026-09-08",
+    "angle": "curiosity_question",
+    "message": "Eine Frage, die mich gerade ehrlich interessiert: Wenn Sie an Ihr Team bei [PLACEHOLDER: Unternehmensname] denken \u2014 wo verlieren Sie aktuell am meisten Zeit auf Prozesse, bei denen Sie das Gef\u00fchl haben, das m\u00fcsste eigentlich nicht so aufwendig sein?"
+  },
+  {
+    "date": "2026-09-08",
+    "angle": "direct_context",
+    "message": "Ich baue mein Netzwerk mit Gr\u00fcnderinnen und Gesch\u00e4ftsf\u00fchrern aus dem DACH-Raum gezielt aus \u2014 vor allem in Branchen, in denen KI gerade mehr Fragen aufwirft als Antworten liefert. [PLACEHOLDER: Branche oder konkreter Anlass f\u00fcr die Anfrage] hat mich auf Ihr Profil gebracht. Was besch\u00e4ftigt Sie da gerade am meisten?"
+  },
+  {
+    "date": "2026-09-08",
+    "angle": "observation",
+    "message": "In der [PLACEHOLDER: Branche / Branchenbereich]-Branche beobachte ich gerade, dass der Druck, irgendwas mit KI zu machen, oft schneller w\u00e4chst als das interne Bild davon, was eigentlich sinnvoll w\u00e4re. Sehen Sie das von Ihrer Position aus \u00e4hnlich \u2014 oder ist das bei Ihnen anders gelagert?"
+  },
+  {
+    "date": "2026-09-08",
+    "angle": "curiosity_question",
+    "message": "Wie handhaben Sie das bei [PLACEHOLDER: Unternehmensname oder Branche] eigentlich \u2014 wenn Mitarbeitende anfangen, KI-Tools auf eigene Faust einzusetzen, ohne dass es eine klare Linie daf\u00fcr gibt? Frage ich, weil die Antworten da gerade sehr unterschiedlich ausfallen."
+  },
+  {
+    "date": "2026-09-08",
+    "angle": "content_reference",
+    "message": "Ihr [PLACEHOLDER: Beitrag / Kommentar zu Thema X] ist mir aufgefallen \u2014 besonders [PLACEHOLDER: konkrete Aussage oder Beobachtung daraus]. Das hat mich neugierig gemacht: Wie entwickelt sich das bei Ihnen gerade in der Praxis?"
+  },
+  {
+    "date": "2026-09-08",
+    "angle": "shared_challenge",
+    "message": "Viele Gesch\u00e4ftsf\u00fchrer, mit denen ich gerade spreche, sagen dasselbe: Der gr\u00f6\u00dfte Engpass ist nicht fehlendes Wissen \u00fcber KI, sondern die Zeit, irgendetwas davon ernsthaft anzugehen. Kennen Sie das aus Ihrem Alltag auch so \u2014 oder haben Sie da einen anderen Knackpunkt?"
+  }
+]
