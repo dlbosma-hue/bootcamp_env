@@ -33,7 +33,12 @@ _HEADERS = {
 _TITLE_PATTERNS = [
     r"\bproduct\s+manager\b",
     r"\bproduct\s+owner\b",
-    r"\bproduktmanager\b",
+    r"\bproduktmanager",
+    r"\bproduktverantwortlich",
+    r"\bproduct\s+lead\b",
+    r"\b(?:project|delivery)\s+(?:manager|lead|owner)\b",
+    r"\bprojekt(?:manager|leiter|leitung|koordinator)",
+    r"\bprogramm?(?:e)?\s+(?:manager|lead)\b",
     r"\bprogramm?(?:e)?\s+manager\b",
     r"\bhead\s+of\s+product\b",
     r"\blead\b.{0,20}\bproduct\b|\bproduct\b.{0,20}\blead\b",
