@@ -41,6 +41,28 @@ SEARCH_TERMS = [
     "Projektmanager",
     "Projektmanager KI",
     "Projektleiter",
+    "Customer Success Manager",
+    "Customer Success Specialist",
+    "Customer Care Manager",
+    "Customer Support Specialist",
+    "Technical Customer Support",
+    "SaaS Support",
+    "Customer Operations Specialist",
+    "Operations Coordinator",
+    "Service Delivery Coordinator",
+    "Implementation Specialist",
+    "Onboarding Specialist",
+    "Customer Training Specialist",
+    "E-commerce Operations",
+    "After-Sales Manager",
+    "Fashion Customer Experience",
+    "Account Manager SaaS",
+    "Client Success Associate",
+    "Partner Support",
+    "Kundenbetreuung",
+    "Kundenservice",
+    "Kundenerfolg",
+    "Kundensupport",
 ]
 
 SECONDARY_TERMS = [
@@ -66,6 +88,13 @@ SECONDARY_TERMS = [
     "Prompt Engineering",
     "LLM Product Manager",
     "EU AI Act",
+    "Customer Success Associate",
+    "Client Success Manager",
+    "Customer Experience Specialist",
+    "Support Specialist remote",
+    "AI trainer language",
+    "Data Annotation German Dutch",
+    "Language Evaluator remote",
 ]
 
 EXCLUDE_TERMS = [

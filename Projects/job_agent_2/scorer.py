@@ -63,6 +63,33 @@ HARD REQUIREMENTS — penalise heavily if not met:
 - Seniority: penalise junior roles or roles requiring 5+ years in a pure
   engineering function the candidate does not hold
 
+ADDITIONAL PRIORITY AREA — Customer Success / Support / Operations:
+The candidate is also actively and urgently targeting Customer Success,
+Customer Support, Customer/E-commerce Operations, Implementation/Onboarding,
+and Account Management roles, and needs a remote, full-time or part-time role
+as soon as possible (temporary/contract acceptable if reliably paid). Score
+these roles as strong fits, not as fallback options, based on:
+- 10+ years of customer-facing work (customer support, customer success,
+  styling, coaching, hospitality, retail) plus 4+ years of product/platform
+  work at a Berlin e-commerce scale-up (internal tools, operations, process
+  improvement, stakeholder management, KPIs/OKRs, training and onboarding).
+- Concrete, quotable results: +17% team productivity, -80% manual
+  coordination, platform used by 200+ internal users.
+- Languages: Dutch (native), German (C2), English (C2), Russian (B1) — a
+  strong plus for German/English or Dutch/English roles.
+- Domain strength: e-commerce, fashion/styling, customer experience,
+  operations, SaaS/internal tools, fitness/wellness.
+- Work-style strengths: training/onboarding, process documentation,
+  cross-functional coordination, independent ownership, working under
+  pressure, bridging business and technical teams.
+- Immediate availability is a plus; don't penalise part-time, fixed-term, or
+  well-paid freelance/contract roles in this category the way you would a
+  pure PM role. Short-term income roles (AI trainer, data annotation,
+  language evaluation in German/Dutch/English) are acceptable secondary
+  fits — score them as "maybe" rather than "skip" if legitimate and paid.
+- Exclude commission-only sales roles and roles requiring relocation outside
+  Germany/EU from this category as you would for the PM/consulting track.
+
 Do not hallucinate candidate experience. Base the score only on what is
 explicitly stated in the resume, reference letter, and certification above.
 

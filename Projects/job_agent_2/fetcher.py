@@ -55,6 +55,29 @@ _TITLE_PATTERNS = [
     r"\bprompt\s+engin",
     r"\bagentic\b",
     r"\bllm\b.{0,30}(?:manager|product|lead|consultant)",
+
+    # Customer Success / Support / Operations / Implementation — added for
+    # broader CS/ops/support job search alongside PM/AI roles.
+    r"\bcustomer\s+(?:success|care|experience|operations?)\b",
+    r"\bcustomer\s+support\b",
+    r"\b(?:technical|saas|customer)\s+support\b",
+    r"\bsupport\s+specialist\b",
+    r"\boperations?\s+(?:coordinator|specialist|manager)\b",
+    r"\bservice\s+delivery\s+(?:coordinator|manager)\b",
+    r"\bimplementation\s+(?:specialist|manager|consultant)\b",
+    r"\bonboarding\s+specialist\b",
+    r"\btraining\s+specialist\b",
+    r"\bafter[\s-]sales\b",
+    r"\baccount\s+manager\b",
+    r"\bclient\s+success\b",
+    r"\bpartner\s+support\b",
+    r"\bkundenbetreu",
+    r"\bkundenservice\b",
+    r"\bkundenerfolg\b",
+    r"\bkundensupport\b",
+    r"\bai\s+trainer\b",
+    r"\bdata\s+annotat",
+    r"\blanguage\s+evaluat",
 ]
 
 _COMPILED = [re.compile(p, re.IGNORECASE) for p in _TITLE_PATTERNS]
