@@ -2,7 +2,12 @@ name: Daily Job Digest (AI PM)
 
 on:
   schedule:
-    - cron: '0 7 * * *'   # Daily 07:00 UTC = 09:00 CEST / 08:00 CET
+    # Two UTC triggers so the run always lands at 09:00 Berlin time,
+    # regardless of EU daylight saving: 07:00 UTC = 09:00 CEST (summer),
+    # 08:00 UTC = 09:00 CET (winter). The "Check Berlin local time" step
+    # below skips whichever of the two fires at the wrong local hour.
+    - cron: '0 7 * * *'
+    - cron: '0 8 * * *'
   workflow_dispatch:          # allow manual trigger from GitHub UI
 
 jobs:
@@ -14,18 +19,37 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check Berlin local time
+        id: berlin_check
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+          else
+            hour=$(TZ=Europe/Berlin date +%H)
+            echo "Berlin local hour: $hour"
+            if [ "$hour" = "09" ]; then
+              echo "should_run=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "should_run=false" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
       - name: Set up Python
+        if: steps.berlin_check.outputs.should_run == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
+        if: steps.berlin_check.outputs.should_run == 'true'
         run: pip install -r Projects/job_agent_2/requirements.txt
 
       - name: Install Playwright browser
+        if: steps.berlin_check.outputs.should_run == 'true'
         run: playwright install chromium --with-deps
 
       - name: Run job pipeline
+        if: steps.berlin_check.outputs.should_run == 'true'
         working-directory: Projects/job_agent_2
         env:
           OPENAI_API_KEY:  ${{ secrets.OPENAI_API_KEY }}
@@ -37,6 +61,7 @@ jobs:
         run: python pipeline.py
 
       - name: Commit updated jobs.db
+        if: steps.berlin_check.outputs.should_run == 'true'
         working-directory: Projects/job_agent_2
         run: |
           git config user.name "github-actions[bot]"
