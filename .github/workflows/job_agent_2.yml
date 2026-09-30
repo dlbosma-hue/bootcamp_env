@@ -2,12 +2,19 @@ name: Daily Job Digest (AI PM)
 
 on:
   schedule:
-    # Two UTC triggers so the run always lands at 09:00 Berlin time,
-    # regardless of EU daylight saving: 07:00 UTC = 09:00 CEST (summer),
-    # 08:00 UTC = 09:00 CET (winter). The "Check Berlin local time" step
-    # below skips whichever of the two fires at the wrong local hour.
-    - cron: '0 7 * * *'
-    - cron: '0 8 * * *'
+    # NOTE: GitHub's scheduler has been delaying this repo's runs by 4-7
+    # hours every day (checked via the Actions API — nominal 07:00/08:00 UTC
+    # trigger, actual runs land 11:00-14:39 UTC). GitHub explicitly warns that
+    # cron jobs scheduled exactly on the hour hit the busiest queue slot and
+    # can be delayed under load; offsetting the minute (here :12) reduces
+    # that queuing delay, though it can't guarantee an exact local time.
+    # A previous version tried to hard-pin this to 09:00 Berlin with a
+    # skip-unless-exact-hour gate — given the observed multi-hour delays,
+    # that gate would have silently skipped the run almost every day, so it
+    # was removed. If exact daily timing becomes critical, trigger this via
+    # an external scheduler (e.g. cron-job.org) calling the GitHub API
+    # workflow_dispatch endpoint instead of relying on GitHub's own cron.
+    - cron: '12 7 * * *'
   workflow_dispatch:          # allow manual trigger from GitHub UI
 
 jobs:
@@ -19,37 +26,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check Berlin local time
-        id: berlin_check
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "should_run=true" >> "$GITHUB_OUTPUT"
-          else
-            hour=$(TZ=Europe/Berlin date +%H)
-            echo "Berlin local hour: $hour"
-            if [ "$hour" = "09" ]; then
-              echo "should_run=true" >> "$GITHUB_OUTPUT"
-            else
-              echo "should_run=false" >> "$GITHUB_OUTPUT"
-            fi
-          fi
-
       - name: Set up Python
-        if: steps.berlin_check.outputs.should_run == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
-        if: steps.berlin_check.outputs.should_run == 'true'
         run: pip install -r Projects/job_agent_2/requirements.txt
 
       - name: Install Playwright browser
-        if: steps.berlin_check.outputs.should_run == 'true'
         run: playwright install chromium --with-deps
 
       - name: Run job pipeline
-        if: steps.berlin_check.outputs.should_run == 'true'
         working-directory: Projects/job_agent_2
         env:
           OPENAI_API_KEY:  ${{ secrets.OPENAI_API_KEY }}
@@ -61,7 +49,6 @@ jobs:
         run: python pipeline.py
 
       - name: Commit updated jobs.db
-        if: steps.berlin_check.outputs.should_run == 'true'
         working-directory: Projects/job_agent_2
         run: |
           git config user.name "github-actions[bot]"
