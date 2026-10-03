@@ -1,239 +1,4 @@
 {
-  "53a032fd6a54c3511ec2bb5b010dec63": {
-    "title": "Director IT und Cybersecurity (m/w/d)",
-    "company": "DIS AG",
-    "first_seen": "2026-09-02"
-  },
-  "f3967f760dc776a462c606dad09e9008": {
-    "title": "IT Projektleiter \u00d6ffentliche Verwaltung (all genders)",
-    "company": "Accenture DACH",
-    "first_seen": "2026-09-02"
-  },
-  "3711757602e2b5adbffe36e5715b3051": {
-    "title": "IT Delivery Lead Insurance (all genders)",
-    "company": "Accenture DACH",
-    "first_seen": "2026-09-02"
-  },
-  "2ea79bdc484ea6da85ad6e3cbef67df7": {
-    "title": "IT Architect (m/w/d)",
-    "company": "BearingPoint",
-    "first_seen": "2026-09-02"
-  },
-  "371358331dd3b9089940d97777093b9d": {
-    "title": "IT Compliance Manager (m/w/d)",
-    "company": "A11",
-    "first_seen": "2026-09-02"
-  },
-  "970af7b38b92b736c86bc5b273111da0": {
-    "title": "Consultant Cloud & IT-Transformation (m/w/d)",
-    "company": "conet",
-    "first_seen": "2026-09-02"
-  },
-  "6c6a6c3360acb53b2377ed8d055c9b31": {
-    "title": "IT Business Consultant / Architekt (w|m|d) | findic",
-    "company": "zeb consulting",
-    "first_seen": "2026-09-02"
-  },
-  "bb5833637199dca7262e862804ecac7e": {
-    "title": "Senior IT-Consultant Enterprise / Solution Architektur Banking (all genders)",
-    "company": "adesso SE",
-    "first_seen": "2026-09-02"
-  },
-  "019fca9ae5fc436f2016cc4ac4359b3c": {
-    "title": "Senior Solution Architect \u2013 Cloud Transformation (m/f/d)",
-    "company": "EPAM Systems",
-    "first_seen": "2026-09-02"
-  },
-  "58355634aee02b151af6727c5fd45cab": {
-    "title": "Senior IT Consultant / IT-Architekt Public Sector | IT-Achitektur, TOGAF, OZG, Cloud, Beratung (mwd)",
-    "company": "Vesterling AG",
-    "first_seen": "2026-09-02"
-  },
-  "763b233ef827f03405c20424a430634a": {
-    "title": "Solution Architect (m/w/d) \u2013 Financial Services",
-    "company": "Capco",
-    "first_seen": "2026-09-02"
-  },
-  "274aa91138a2592b9cda03dde40cba96": {
-    "title": "IT-Administration",
-    "company": "Projektron GmbH",
-    "first_seen": "2026-09-02"
-  },
-  "9bd0f06d7f2e725d6c97bb7c8994c845": {
-    "title": "IT Consultant Business Analyse Banking (all genders)",
-    "company": "Accenture DACH",
-    "first_seen": "2026-09-02"
-  },
-  "b67f2bedfae35336a6c4e877a521fca4": {
-    "title": "Senior / Managing Consultant (w/m/d) IT-Projektleitung",
-    "company": "Campana & Schott",
-    "first_seen": "2026-09-02"
-  },
-  "b932958d0fcccf3147d0ab9b7e762614": {
-    "title": "IT Consultant Business Analyse Versicherung (all genders)",
-    "company": "Accenture DACH",
-    "first_seen": "2026-09-02"
-  },
-  "047221d9a5ebd76602a8319e8d2a1817": {
-    "title": "Cloud Transformation Manager (m/w/d)",
-    "company": "Capgemini",
-    "first_seen": "2026-09-02"
-  },
-  "02a5f0f534e99d4ecde62d5446194ffa": {
-    "title": "IT Delivery Lead Energieversorger (all genders)",
-    "company": "Accenture DACH",
-    "first_seen": "2026-09-02"
-  },
-  "60738d5cba29f74ee486674bee4ac13a": {
-    "title": "Consultant KI - IT-Service Management (all genders)",
-    "company": "adesso SE",
-    "first_seen": "2026-09-02"
-  },
-  "d402416f342d542f580d1e2206b08190": {
-    "title": "Senior IT-Projektleiter f\u00fcr Digitale Transformation im Public Sektor (m/w/d)",
-    "company": "mgm technology partners GmbH",
-    "first_seen": "2026-09-02"
-  },
-  "c4eb3afcbbc724ad9a03479b6d177813": {
-    "title": "IT-Applikation Administrator Microsoft 365 / Azure & Business Applications (m/w/d)",
-    "company": "Deutsche Investment Kapitalverwaltung AG",
-    "first_seen": "2026-09-02"
-  },
-  "95b42f9eb54f5bcf8bba6bc7babbc344": {
-    "title": "IT Service Manager (all genders)",
-    "company": "DATAGROUP SE",
-    "first_seen": "2026-09-02"
-  },
-  "5278063dc5a7d7dad5c27f96d7548630": {
-    "title": "IT Senior Consultant M&A / PMO (m/w/d)",
-    "company": "mgm technology partners GmbH",
-    "first_seen": "2026-09-02"
-  },
-  "ee7fd82b89ec6205c5f0dde56eadadd3": {
-    "title": "IT-PMO & IT-Projektmanagement Senior Consultant (m/w/d)",
-    "company": "mgm technology partners GmbH",
-    "first_seen": "2026-09-02"
-  },
-  "2ad9242f002a126004c5e4a943abe024": {
-    "title": "Solution Architect (m/w/d) \u2013 Financial Services",
-    "company": "Capco",
-    "first_seen": "2026-09-02"
-  },
-  "4a081ae7067d79e41e8a21fe9e7f52b3": {
-    "title": "IT Senior Programm Manager (gn)",
-    "company": "The Quality Group",
-    "first_seen": "2026-09-02"
-  },
-  "12aadb3c49f2b784316a1dbacc561c00": {
-    "title": "IT Senior Programm Manager (gn)",
-    "company": "The Quality Group GmbH",
-    "first_seen": "2026-09-02"
-  },
-  "41d466e11c741b10e726a25f49c59481": {
-    "title": "IT Compliance Manager (m/w/d)",
-    "company": "A11",
-    "first_seen": "2026-09-02"
-  },
-  "bb13fdbaa6c4886ac2aa9dee8e9de582": {
-    "title": "IT-Administration",
-    "company": "Projektron GmbH",
-    "first_seen": "2026-09-02"
-  },
-  "b349a7529981408e29066792bd5d6477": {
-    "title": "IT-Systemadministrator/-Netzwerkspezialist (m/w/d)",
-    "company": "CBXNET combox internet GmbH",
-    "first_seen": "2026-09-02"
-  },
-  "0b3dee8c6751eedec5ee816924b074e8": {
-    "title": "DevOps Engineering Manager (all genders)",
-    "company": "Accenture",
-    "first_seen": "2026-09-02"
-  },
-  "cb70088813d0d16d824966a5ba2f0d5f": {
-    "title": "Leiter IT | Microsoft IT-Infrastruktur, MS CRM, Steuerung eines Dienstleisters | Inhouse (mwd)",
-    "company": "Vesterling AG",
-    "first_seen": "2026-09-02"
-  },
-  "96a09952dbc1ab984f445b68590bb39b": {
-    "title": "Head of IT (m/w/d)",
-    "company": "Interlead GmbH",
-    "first_seen": "2026-09-02"
-  },
-  "6afc703d0de279a76d6e73cc3407442c": {
-    "title": "Teamleiter IT | Microsoft IT-Infrastruktur, MS CRM, Steuerung eines Dienstleisters | Inhouse (mwd)",
-    "company": "Vesterling AG",
-    "first_seen": "2026-09-02"
-  },
-  "924c5c224cac02899794cadaa635aa16": {
-    "title": "IT- Architect - Cloud Platform (m/w/d)",
-    "company": "netgo group GmbH",
-    "first_seen": "2026-09-02"
-  },
-  "6eb5b77068615e50925e7f1c1271fd98": {
-    "title": "Senior IT-Architekt | IT-Achitektur, TOGAF, OZG, Cloud, Beratung (mwd)",
-    "company": "Vesterling AG",
-    "first_seen": "2026-09-02"
-  },
-  "13ab7bcc3aeb53fcb7d1904e222fab3c": {
-    "title": "Cloud Architect (m/w/d)",
-    "company": "Konrad-Adenauer-Stiftung e.V.",
-    "first_seen": "2026-09-02"
-  },
-  "45800a238addc6836a4b8ef0d3ba8e2e": {
-    "title": "Senior IT Consultant / IT-Architekt Public Sector | IT-Achitektur, TOGAF, OZG, Cloud, Beratung (mwd)",
-    "company": "Vesterling AG",
-    "first_seen": "2026-09-02"
-  },
-  "f51365e526e163944fc6c444e5dab431": {
-    "title": "Associate IT Audit (w/m/d)",
-    "company": "KPMG",
-    "first_seen": "2026-09-02"
-  },
-  "f95aad912fa226310cbbe16c80ca5473": {
-    "title": "Senior Consultant IT Risk & Regulatory Compliance (w/m/d)- f\u00fcr internationale Unternehmensberatung",
-    "company": "Passion for People GmbH",
-    "first_seen": "2026-09-02"
-  },
-  "f368dfb377afa592ab16441f896b29c8": {
-    "title": "IT-Berater - Betriebs- & Infrastrukturkonzepte (m/w/d)",
-    "company": "univativ",
-    "first_seen": "2026-09-02"
-  },
-  "c70f87c886b531a8237277a85d08b18f": {
-    "title": "IT-Infrastrukturmanager (m/w/d)",
-    "company": "Das Radhaus Zweirad Vertriebs- und Service GmbH",
-    "first_seen": "2026-09-02"
-  },
-  "758923d550ff01fb2eae6577122be713": {
-    "title": "Abteilungsleiter*in IT-Infrastruktur Solutions (m/w/d)",
-    "company": "DIS AG Germany",
-    "first_seen": "2026-09-02"
-  },
-  "b4588efe8e46e952ab57ae3cb4dfc7e8": {
-    "title": "IT Service Manager (m/w/d) \u2013 Operations & Support",
-    "company": "PSI Software SE Grid & Energy Management",
-    "first_seen": "2026-09-02"
-  },
-  "b5387f163025df4e71dcc2e860b85cfa": {
-    "title": "IT-Infrastructure Specialist (m/w/d)",
-    "company": "USHIO Industry & Entertainment GmbH",
-    "first_seen": "2026-09-02"
-  },
-  "6299a693b0032a970442b92f24b8f38f": {
-    "title": "Teamleitung IT / ERP (m/w/d)",
-    "company": "Finetech GmbH & Co.KG",
-    "first_seen": "2026-09-02"
-  },
-  "dca850f25ad6140cb16719316470d19c": {
-    "title": "SAP Programm- und Projektleiter Business Transformation - Technology Consulting (w/m/d)",
-    "company": "EY Deutschland",
-    "first_seen": "2026-09-02"
-  },
-  "fbfcc1070edf28b1250640b99fdc8827": {
-    "title": "Data Platform Engineers (w/m/d) f\u00fcr die Massendatenverarbeitung und das Meldewesen",
-    "company": "Bundesanstalt f\u00fcr Finanzdienstleistungsaufsicht (Bafin)",
-    "first_seen": "2026-09-02"
-  },
   "a620b744c1325d3e916db9edb995160b": {
     "title": "Director of IT",
     "company": "Preply",
@@ -6248,5 +6013,130 @@
     "title": "IT Service Manager (m/w/d) ITIL / ITSM Prozesse",
     "company": "50Hertz Transmission GmbH",
     "first_seen": "2026-10-02"
+  },
+  "02334724f906a06240e6e3a5f3ae62b1": {
+    "title": "IT-Applikationsmanager (m/w/d)",
+    "company": "Amadeus Fire",
+    "first_seen": "2026-10-03"
+  },
+  "56a42bd705fefe578f71d917ed953605": {
+    "title": "Senior Enterprise Architect Capital Markets (all genders)",
+    "company": "Accenture DACH",
+    "first_seen": "2026-10-03"
+  },
+  "4460b789e2da4f6f55a1f87a9005719e": {
+    "title": "Spezialist (m/w/d) Digitalisierung und IT",
+    "company": "Amadeus Fire",
+    "first_seen": "2026-10-03"
+  },
+  "d95ce87c80cb410f33cfe10bf64e3871": {
+    "title": "IT-Systemarchitekt",
+    "company": "Sawade Berlin",
+    "first_seen": "2026-10-03"
+  },
+  "e3e6295f2254e83c688cae22cbb699aa": {
+    "title": "IT-Architekt:in",
+    "company": "FindYou Consulting GmbH",
+    "first_seen": "2026-10-03"
+  },
+  "621adbcb41a66a734919c5b201790cbf": {
+    "title": "Enterprise Architect Healthcare IT (w/m/d)",
+    "company": "Capgemini",
+    "first_seen": "2026-10-03"
+  },
+  "8aeab44e9dcb8e9a7fc7c323a1b1e71c": {
+    "title": "Senior Solution Architect Public Security & Safety (w/m/d)",
+    "company": "Capgemini",
+    "first_seen": "2026-10-03"
+  },
+  "883b1d2cb690b29e5d13765b2a5af401": {
+    "title": "Consultant IT-Compliance Financial Services (w/m/d)",
+    "company": "PwC Deutschland",
+    "first_seen": "2026-10-03"
+  },
+  "28863a6b88432c09198690141822e53e": {
+    "title": "(Senior) Consultant IT-Security, Regulatorik & Technologie \u2013 Financial Services (m/w/d)",
+    "company": "Amaranth Advisory",
+    "first_seen": "2026-10-03"
+  },
+  "aaa7b3abf8b4804704936d215f2933c1": {
+    "title": "Senior Consultant IT-Audit / Financial Services (m/w/d) in Berlin",
+    "company": "Deloitte",
+    "first_seen": "2026-10-03"
+  },
+  "9a3ebcc2e76fbecc752dc3a967e820d7": {
+    "title": "Technical IT System Owner (m/w/d)",
+    "company": "mamgo | Talente \ud83d\udd17 Jobs",
+    "first_seen": "2026-10-03"
+  },
+  "f995704bcc980540aa09cfa5c4260392": {
+    "title": "Expertin / Expert IT\u2011Produkt\u00adbetreuung mit dem Schwerpunkt ITSM (w/m/d)",
+    "company": "Bundesanstalt f\u00fcr Immobilienaufgaben",
+    "first_seen": "2026-10-03"
+  },
+  "471eec03d6c3758ea762c96fd7f9d14c": {
+    "title": "Corporate IT Technology Lead",
+    "company": "COSMO CONSULT",
+    "first_seen": "2026-10-03"
+  },
+  "ec33f8b852f16a1e406377813df16de2": {
+    "title": "Senior Solution Architect Public Security & Safety (w/m/d)",
+    "company": "Capgemini",
+    "first_seen": "2026-10-03"
+  },
+  "89bbee58c20ee2d3dcf6ccdcc9df989d": {
+    "title": "Enterprise Architect Healthcare IT (w/m/d)",
+    "company": "Capgemini",
+    "first_seen": "2026-10-03"
+  },
+  "a0428378cc5c3920af2789765fbab534": {
+    "title": "ERP Solution Architect - Industrial Manufacturing (LN) m/f/d",
+    "company": "Infor",
+    "first_seen": "2026-10-03"
+  },
+  "d872c35d362fb92228a133bc1af0bc0b": {
+    "title": "Senior Consultant Public Security & Safety - IT-Sicherheit (w/m/d)",
+    "company": "Capgemini",
+    "first_seen": "2026-10-03"
+  },
+  "54d41a3693714a82df85ec77eb9a0887": {
+    "title": "Senior Consultant Cyber Security Advisory (m/w/d)",
+    "company": "Deloitte",
+    "first_seen": "2026-10-03"
+  },
+  "7f34e002da3f190e1bb23d7fecc3c927": {
+    "title": "Senior Enterprise Architect Capital Markets (all genders)",
+    "company": "Accenture",
+    "first_seen": "2026-10-03"
+  },
+  "728e8332678508b26dbe286c2cd569f4": {
+    "title": "Projektmanager (all genders) f\u00fcr IT-Infrastruktur",
+    "company": "datagroup",
+    "first_seen": "2026-10-03"
+  },
+  "d089a588d97c59cc2424f921865d35e9": {
+    "title": "Consultant Wohnungswirtschaft mit Schwerpunkt Organisations- /Digitalisierungsberatung f\u00fcr unseren Bereich Unternehmensberatung (m/w/d)",
+    "company": "BBT GmbH",
+    "first_seen": "2026-10-03"
+  },
+  "0010be7a1237086f96879903c4bf1ce2": {
+    "title": "Teamleiter / Ausbilder (gn)*  IT-Systemintegration und Elektrotechnik",
+    "company": "Oberlinhaus Service gGmbH",
+    "first_seen": "2026-10-03"
+  },
+  "f716012bd941a4e3912427b0562f6b3a": {
+    "title": "Programmleitung Digitalisierung (w/m/d)",
+    "company": "degewo AG",
+    "first_seen": "2026-10-03"
+  },
+  "cb881ec2d5db557ff8367674156884c5": {
+    "title": "IT Asset Owner - ITAO (f/m/x) - Core Trading Technology",
+    "company": "Deutsche Bank AG",
+    "first_seen": "2026-10-03"
+  },
+  "46499dd3bde74d9dbdacd22be635afc3": {
+    "title": "IT-Projektmanager (Digitalisierung- / KHZG) (m/w/d)",
+    "company": "Evangelisches Krankenhaus K\u00f6nigin Elisabeth Herzberge gGmbH",
+    "first_seen": "2026-10-03"
   }
 }
