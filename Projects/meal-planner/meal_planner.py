@@ -1,5 +1,6 @@
 import json
 import random
+import re
 from openai import OpenAI
 from config import OPENAI_API_KEY, SYSTEM_PROMPT
 
@@ -45,8 +46,41 @@ def _summarise(recipes: list[dict]) -> list[dict]:
     ]
 
 
+_STOPWORDS = {"mit", "und", "aus", "dem", "der", "die", "das", "dazu", "auf", "in", "vom", "von", "rezept", "einfach", "schnell"}
+
+
 def _key(name: str) -> str:
     return " ".join(str(name).lower().split())
+
+
+def _tokens(name: str) -> frozenset:
+    """Word set of a recipe name; ignores case, hyphens, punctuation and filler words."""
+    words = re.findall(r"[a-zäöüß]+", str(name).lower())
+    return frozenset(w for w in words if w not in _STOPWORDS)
+
+
+def _same_recipe(a: dict | str, b: dict | str) -> bool:
+    """True if two recipes are the same dish: same name/URL, or nearly the same words in the name."""
+    name_a, name_b = (x if isinstance(x, str) else x.get("name", "") for x in (a, b))
+    ta, tb = _tokens(name_a), _tokens(name_b)
+    if not ta or not tb:
+        return _key(name_a) == _key(name_b)
+    if ta == tb:
+        return True
+    if not isinstance(a, str) and not isinstance(b, str):
+        url_a, url_b = a.get("source_url", "#"), b.get("source_url", "#")
+        if url_a == url_b and url_a not in ("", "#"):
+            return True
+    return len(ta & tb) / len(ta | tb) >= 0.8
+
+
+def _unique_pool(recipes: list[dict]) -> list[dict]:
+    """Drop duplicates inside the pool itself, so the AI never sees the same dish twice."""
+    unique: list[dict] = []
+    for r in recipes:
+        if isinstance(r, dict) and r.get("name") and not any(_same_recipe(r, u) for u in unique):
+            unique.append(r)
+    return unique
 
 
 def _deduplicate_plan(plan_data: dict, all_recipes: list[dict]) -> dict:
@@ -69,25 +103,30 @@ def _deduplicate_plan(plan_data: dict, all_recipes: list[dict]) -> dict:
         else:
             extras[i] = name
 
-    seen: set[str] = set()
+    accepted: list[str] = []
     bad_slots = []
     for kind, i in slots:
         name = get(kind, i)
-        # Empty, repeated, or invented (not in the pool) names are all replaced
-        if not name or _key(name) in seen or name not in pool_names:
+        # Empty, repeated (even near-identical), or invented (not in the pool) names are replaced
+        if not name or name not in pool_names or any(_same_recipe(name, a) for a in accepted):
             bad_slots.append((kind, i))
         else:
-            seen.add(_key(name))
+            accepted.append(name)
 
-    unused = [r for r in pool if _key(r["name"]) not in seen]
+    unused = [r for r in pool if not any(_same_recipe(r, a) for a in accepted)]
     random.shuffle(unused)
     for kind, i in bad_slots:
+        # Take the next unused recipe that is not a near-duplicate of anything already chosen
+        while unused and any(_same_recipe(unused[-1], a) for a in accepted):
+            unused.pop()
         if not unused:
-            print(f"  ! Kein unbenutztes Rezept mehr fuer Slot {kind} {i + 1}.")
-            break
+            raise RuntimeError(
+                f"Nicht genug verschiedene Rezepte im Pool fuer Slot {kind} {i + 1}; "
+                "kein Plan mit Duplikaten versenden."
+            )
         replacement = unused.pop()
         put(kind, i, replacement["name"])
-        seen.add(_key(replacement["name"]))
+        accepted.append(replacement["name"])
 
     # Rebuild recipes in plan order: the AI's version (with its estimates) if present, else the pool's
     ai_by_key = {_key(r.get("name", "")): r for r in plan_data.get("recipes", []) if isinstance(r, dict)}
@@ -99,6 +138,12 @@ def _deduplicate_plan(plan_data: dict, all_recipes: list[dict]) -> dict:
         if recipe:
             final_recipes.append(recipe)
 
+    final_names = [get(kind, i) for kind, i in slots]
+    if len(final_recipes) != len(slots) or any(
+        _same_recipe(a, b) for n, a in enumerate(final_names) for b in final_names[n + 1:]
+    ):
+        raise RuntimeError(f"Plan enthaelt Duplikate oder fehlende Rezepte: {final_names}")
+
     plan_data["meal_plan"] = meal_plan
     plan_data["extras"] = [e for e in extras if e]
     plan_data["recipes"] = final_recipes
@@ -106,6 +151,9 @@ def _deduplicate_plan(plan_data: dict, all_recipes: list[dict]) -> dict:
 
 
 def build_meal_plan(recipes: list[dict]) -> dict:
+    recipes = _unique_pool(recipes)
+    if len(recipes) < 7 + EXTRAS_PER_WEEK:
+        raise RuntimeError(f"Nur {len(recipes)} verschiedene Rezepte im Pool, benoetigt: {7 + EXTRAS_PER_WEEK}.")
     summarised = _summarise(recipes)
     recipes_json = json.dumps(summarised, ensure_ascii=False, indent=2)
 
