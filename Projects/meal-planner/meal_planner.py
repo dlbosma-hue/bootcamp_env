@@ -1,15 +1,18 @@
 import json
+import random
 from openai import OpenAI
 from config import OPENAI_API_KEY, SYSTEM_PROMPT
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
+EXTRAS_PER_WEEK = 2
+
 SHOPPING_LIST_PROMPT = """
-Du erhältst einen Wochenplan (7 Tage, je 1 Mittagessen "lunch" und 1 Abendessen "dinner") und die Rezepte dazu.
+Du erhältst einen Wochenplan (7 Tage, je 1 Abendessen "dinner") und die Rezepte dazu.
 
 Erstelle 2 Einkaufslisten:
-- shopping_list_1: alle Zutaten der Rezepte von Montag, Dienstag, Mittwoch, Donnerstag (lunch + dinner)
-- shopping_list_2: alle Zutaten der Rezepte von Freitag, Samstag, Sonntag (lunch + dinner)
+- shopping_list_1: alle Zutaten der Abendessen von Montag, Dienstag, Mittwoch, Donnerstag
+- shopping_list_2: alle Zutaten der Abendessen von Freitag, Samstag, Sonntag
 
 Regeln:
 - Gruppiere nach: Gemüse & Obst / Proteine / Milch & Eier / Trockenwaren & Vorräte / Tiefkühl
@@ -26,7 +29,7 @@ Ausgabe als JSON:
 def _summarise(recipes: list[dict]) -> list[dict]:
     # Only send recipes that fit the 35-min rule
     quick = [r for r in recipes if r.get("prep_time_minutes", 99) <= 35]
-    if len(quick) < 30:
+    if len(quick) < 15:
         quick = recipes  # fallback if not enough
     return [
         {
@@ -42,45 +45,63 @@ def _summarise(recipes: list[dict]) -> list[dict]:
     ]
 
 
+def _key(name: str) -> str:
+    return " ".join(str(name).lower().split())
+
+
 def _deduplicate_plan(plan_data: dict, all_recipes: list[dict]) -> dict:
-    """Replace any repeated recipes in the meal plan with unused ones from the pool."""
+    """Make the 7 dinners + 2 extras unique and valid; fill bad slots from the unused pool."""
     meal_plan = plan_data.get("meal_plan", [])
-    pool_by_name = {r["name"]: r for r in all_recipes if isinstance(r, dict)}
+    extras = list(plan_data.get("extras", []))[:EXTRAS_PER_WEEK]
+    extras += [""] * (EXTRAS_PER_WEEK - len(extras))
+    pool = [r for r in all_recipes if isinstance(r, dict) and r.get("name")]
+    pool_names = {r["name"] for r in pool}
 
-    seen_names: set[str] = set()
-    duplicate_slots: list[tuple[int, str]] = []
-    for i, day in enumerate(meal_plan):
-        for slot in ("lunch", "dinner"):
-            name = day.get(slot, "")
-            if name in seen_names:
-                duplicate_slots.append((i, slot))
-            else:
-                seen_names.add(name)
+    # Every slot is (kind, index): a dinner of a day, or an extra
+    slots = [("dinner", i) for i in range(len(meal_plan))] + [("extra", i) for i in range(len(extras))]
 
-    if not duplicate_slots:
-        return plan_data
+    def get(kind, i):
+        return meal_plan[i].get("dinner", "") if kind == "dinner" else extras[i]
 
-    unused = [r for r in all_recipes if isinstance(r, dict) and r["name"] not in seen_names]
+    def put(kind, i, name):
+        if kind == "dinner":
+            meal_plan[i]["dinner"] = name
+        else:
+            extras[i] = name
 
-    for idx, (day_idx, slot) in enumerate(duplicate_slots):
-        if idx >= len(unused):
+    seen: set[str] = set()
+    bad_slots = []
+    for kind, i in slots:
+        name = get(kind, i)
+        # Empty, repeated, or invented (not in the pool) names are all replaced
+        if not name or _key(name) in seen or name not in pool_names:
+            bad_slots.append((kind, i))
+        else:
+            seen.add(_key(name))
+
+    unused = [r for r in pool if _key(r["name"]) not in seen]
+    random.shuffle(unused)
+    for kind, i in bad_slots:
+        if not unused:
+            print(f"  ! Kein unbenutztes Rezept mehr fuer Slot {kind} {i + 1}.")
             break
-        replacement = unused[idx]
-        meal_plan[day_idx][slot] = replacement["name"]
-        seen_names.add(replacement["name"])
+        replacement = unused.pop()
+        put(kind, i, replacement["name"])
+        seen.add(_key(replacement["name"]))
 
-    # Rebuild recipes list from final meal_plan names
-    final_names = []
-    for day in meal_plan:
-        for slot in ("lunch", "dinner"):
-            name = day.get(slot, "")
-            if name and name not in final_names:
-                final_names.append(name)
+    # Rebuild recipes in plan order: the AI's version (with its estimates) if present, else the pool's
+    ai_by_key = {_key(r.get("name", "")): r for r in plan_data.get("recipes", []) if isinstance(r, dict)}
+    pool_by_key = {_key(r["name"]): r for r in pool}
+    final_recipes = []
+    for kind, i in slots:
+        name = get(kind, i)
+        recipe = ai_by_key.get(_key(name)) or pool_by_key.get(_key(name))
+        if recipe:
+            final_recipes.append(recipe)
 
-    recipes_by_name = {r.get("name"): r for r in plan_data.get("recipes", []) if isinstance(r, dict)}
-    recipes_by_name.update(pool_by_name)
     plan_data["meal_plan"] = meal_plan
-    plan_data["recipes"] = [recipes_by_name[n] for n in final_names if n in recipes_by_name]
+    plan_data["extras"] = [e for e in extras if e]
+    plan_data["recipes"] = final_recipes
     return plan_data
 
 
