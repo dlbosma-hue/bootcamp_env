@@ -72,7 +72,6 @@ def _weekly_overview_html(meal_plan: list[dict]) -> str:
         rows += f"""
 <tr>
   <td><strong>{day.get('day','')}</strong></td>
-  <td>{day.get('lunch','')}</td>
   <td>{day.get('dinner','')}</td>
 </tr>"""
 
@@ -82,7 +81,6 @@ def _weekly_overview_html(meal_plan: list[dict]) -> str:
   <thead>
     <tr style="background:#f5f5f5;">
       <th style="padding:8px;text-align:left;border:1px solid #ddd;">Tag</th>
-      <th style="padding:8px;text-align:left;border:1px solid #ddd;">Mittagessen</th>
       <th style="padding:8px;text-align:left;border:1px solid #ddd;">Abendessen</th>
     </tr>
   </thead>
@@ -108,7 +106,15 @@ def render_email(plan_data: dict) -> str:
     sl1 = plan_data.get("shopping_list_1", {})
     sl2 = plan_data.get("shopping_list_2", {})
 
-    recipe_cards = "".join(_recipe_card_html(r) for r in recipes if isinstance(r, dict))
+    extra_names = {" ".join(str(n).lower().split()) for n in plan_data.get("extras", [])}
+    is_extra = lambda r: " ".join(str(r.get("name", "")).lower().split()) in extra_names
+    dinner_cards = "".join(_recipe_card_html(r) for r in recipes if isinstance(r, dict) and not is_extra(r))
+    extra_cards = "".join(_recipe_card_html(r) for r in recipes if isinstance(r, dict) and is_extra(r))
+    extras_html = (
+        "<h2>✨ Zur Abwechslung</h2>"
+        "<p>Zwei zusätzliche Ideen, falls du einen Tag tauschen möchtest "
+        "(nicht in den Einkaufslisten enthalten).</p>" + extra_cards
+    ) if extra_cards else ""
 
     html = f"""<!DOCTYPE html>
 <html lang="de">
@@ -131,10 +137,12 @@ def render_email(plan_data: dict) -> str:
   {_weekly_overview_html(meal_plan)}
 
   <h2>📖 Rezeptkarten</h2>
-  {recipe_cards}
+  {dinner_cards}
 
-  {_shopping_list_html(sl1, "Montag – Mittwoch")}
-  {_shopping_list_html(sl2, "Donnerstag – Sonntag")}
+  {extras_html}
+
+  {_shopping_list_html(sl1, "Montag – Donnerstag")}
+  {_shopping_list_html(sl2, "Freitag – Sonntag")}
 
   <footer>Erstellt von deinem Familien-Mahlzeitenplaner 🥦</footer>
 </body>
