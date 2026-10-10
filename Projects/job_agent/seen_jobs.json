@@ -1,129 +1,4 @@
 {
-  "8441bf8a7d4c0e622e3ef43e4b5184b3": {
-    "title": "CTO (m/w/d) \u2013 Tech-Lead mit strategischem Weitblick & Hands-on-Mentalit\u00e4t - Jobbird.com",
-    "company": "Jobster",
-    "first_seen": "2026-09-09"
-  },
-  "2546ffdd834e67ff1f0bf0bc09ec2233": {
-    "title": "SVP IT Strategy, Governance & Culture (m/f/d)",
-    "company": "SEFE Securing Energy for Europe GmbH",
-    "first_seen": "2026-09-09"
-  },
-  "71e88ad51590795aabf199d604479bf5": {
-    "title": "IT-Produktportfoliomanager/in (w/m/d)",
-    "company": "German Aerospace Center (DLR)",
-    "first_seen": "2026-09-09"
-  },
-  "0c7bcdb10e4d6b4421fa52b9ea556b60": {
-    "title": "IT Infrastructure Solution Architect (d/f/m)",
-    "company": "Ottobock",
-    "first_seen": "2026-09-09"
-  },
-  "6817baaf39ba54ce5b8c7d227ae17edd": {
-    "title": "ITSM Solution Architect (d/w/m)",
-    "company": "Charit\u00e9 - Universit\u00e4tsmedizin Berlin",
-    "first_seen": "2026-09-09"
-  },
-  "96a8eb37566a929090e179947849b1fb": {
-    "title": "Senior Cloud Architect",
-    "company": "Ringhals AB",
-    "first_seen": "2026-09-09"
-  },
-  "fc1336a92a3df0d145ec28fa3a16dcdb": {
-    "title": "Lead IT-Architect Active Directory (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-09-09"
-  },
-  "ebcd08a110ffc70061705bb0f77855ea": {
-    "title": "Lead IT Architect - Modularchitektur Hardware / Out of Band (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-09-09"
-  },
-  "78506cfca04a8038ec6a2c8d4663279e": {
-    "title": "Founding CTO",
-    "company": "TrioTech Recruitment",
-    "first_seen": "2026-09-09"
-  },
-  "aa3ef630f56913beff6f026a08679728": {
-    "title": "Information Technology Audit Manager",
-    "company": "HEADMATCH",
-    "first_seen": "2026-09-09"
-  },
-  "02fa142cdde0d808717dc416efe08dd8": {
-    "title": "Referent:in IT-Projektportfoliomanagement (befristet)",
-    "company": "Deutsche Bahn",
-    "first_seen": "2026-09-09"
-  },
-  "b5255ffd63419d546a8ff49dcfba5dc1": {
-    "title": "Senior Consultant / Manager SAP HR Solution Architect f\u00fcr moderne HR-IT-Transformationen (w/m/d)",
-    "company": "EY",
-    "first_seen": "2026-09-09"
-  },
-  "d55392a771edb52baae1fed55d133a7f": {
-    "title": "Expert HR Tech Solution Architect (m/f/d)",
-    "company": "Flix SE",
-    "first_seen": "2026-09-09"
-  },
-  "3f5c110b19feeae6c8e18a0377f5557f": {
-    "title": "IT Service Manager und Co-Teamlead TFS (all genders)",
-    "company": "DATAGROUP SE",
-    "first_seen": "2026-09-09"
-  },
-  "cd606dc702b1b9f537e0789f78a3f7b4": {
-    "title": "Projektleiter/Anwendungsberater/Anforderungsmanager f\u00fcr Softwarel\u00f6sungen \u2013 (m/w/d)",
-    "company": "GAI NOVACON GmbH",
-    "first_seen": "2026-09-09"
-  },
-  "eca38595611015983368ba7f8c30322a": {
-    "title": "ITSM Solution Architect (d/w/m)",
-    "company": "Charit\u00e9 - Universit\u00e4tsmedizin Berlin",
-    "first_seen": "2026-09-09"
-  },
-  "9fd6dee9ca3c989ac1ebb4437595d73f": {
-    "title": "Senior Legal Counsel Technology & AI / IT Law (m/w/d)",
-    "company": "BearingPoint",
-    "first_seen": "2026-09-09"
-  },
-  "cb0ecb737390043b11365c9ec09e29d1": {
-    "title": "Senior Consultant Cyber Security (m/w/d)",
-    "company": "Materna",
-    "first_seen": "2026-09-09"
-  },
-  "033290e34c4bbcb7440d14430b7fb4df": {
-    "title": "Digitalisation Risk VP \u2013 Operational Risk Management (f/m/x) Berlin",
-    "company": "Deutsche Bank",
-    "first_seen": "2026-09-09"
-  },
-  "9958dbbc01bf4e0e4d8654308a4dfb6f": {
-    "title": "(Senior) Consultant Energiewirtschaft \u2013 IT/OT Transformation (all genders)",
-    "company": "Detecon",
-    "first_seen": "2026-09-09"
-  },
-  "a4e13ac1fa2a624e1bce8ef3df22d132": {
-    "title": "IT-Consultant Business Analyse Versicherung (m/w/d)",
-    "company": "PTA GmbH",
-    "first_seen": "2026-09-09"
-  },
-  "d9a76282cb64328a516d7d0d3cd7c79a": {
-    "title": "Leitung IT-Infrastruktur Compute Services (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-09"
-  },
-  "99717e0766d33ee6577958c80c3ad933": {
-    "title": "Kapazit\u00e4tsmarkt Service Owner ITIL Betrieb (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-09"
-  },
-  "1a560a698951273c56e50101381c943c": {
-    "title": "Service Owner IT-Plattform Kapazit\u00e4tsmarkt (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-09"
-  },
-  "05e6e3bcb28a51067a42fb706298f8db": {
-    "title": "Service Owner Kapazit\u00e4tsmarkt mit ITIL (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-09"
-  },
   "330a42b440fad83d492af5aa4b659d0e": {
     "title": "Team Lead IT Infrastructure & IT Operations (all genders)",
     "company": "GIATA",
@@ -5823,5 +5698,130 @@
     "title": "Wirtschaftsinformatikerin als Operations Engineer - IT Betrieb & Service Management (w/m/d)",
     "company": "50Hertz Transmission GmbH",
     "first_seen": "2026-10-09"
+  },
+  "6c2f9c8bd93fed0e2334e12a1e45264a": {
+    "title": "IT-Teamleiter Infrastruktur",
+    "company": "HeyJobs",
+    "first_seen": "2026-10-10"
+  },
+  "edf08667600784617506f182fde3d611": {
+    "title": "IT-Teamleiter    Business Solutions",
+    "company": "HeyJobs",
+    "first_seen": "2026-10-10"
+  },
+  "f2ed0256ff021071ca8bb3768ce58aec": {
+    "title": "Dezernatskoordinator*in Klinik-IT",
+    "company": "Deutsche Rentenversicherung Bund",
+    "first_seen": "2026-10-10"
+  },
+  "5534e832cdb000d40e477cbf4c522d40": {
+    "title": "Global Director IT (m/f/d)",
+    "company": "Orise",
+    "first_seen": "2026-10-10"
+  },
+  "2bb626b592c8250d0a83dee5c6712cda": {
+    "title": "IT Organisation & CIO Advisory Senior / Principal Consultant (m/w/d)",
+    "company": "mgm technology partners",
+    "first_seen": "2026-10-10"
+  },
+  "1e3c3a9e89b00d1d3ac1eaf39e118978": {
+    "title": "IT Organisation & CIO Advisory Senior / Principal Consultant (m/w/d)",
+    "company": "mgm technology partners Vietnam",
+    "first_seen": "2026-10-10"
+  },
+  "bad459a699bb376e156cb8aa3bfa6cd7": {
+    "title": "Lead IT Architect - GDC-A Architektur (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-10-10"
+  },
+  "9b53e1745a67c739f09eb8809a549deb": {
+    "title": "Enterprise Architect",
+    "company": "Solaris SE",
+    "first_seen": "2026-10-10"
+  },
+  "c8191c90b856b67761e85f36a20d4bb9": {
+    "title": "IT Business Consultant / Projekt Manager f\u00fcr E-Government und Digitalisierung (m/w/d)",
+    "company": "CGI",
+    "first_seen": "2026-10-10"
+  },
+  "0e23adc4bb69e9b2f0b6e0a2022baf7d": {
+    "title": "ITSM Consultant (wdm) ServiceNow",
+    "company": "Michael Page",
+    "first_seen": "2026-10-10"
+  },
+  "8b06bb247308701e0be05c235c4bafc6": {
+    "title": "ServiceNow Experte mit ITSM Fokus (m/w/d)",
+    "company": "immowelt",
+    "first_seen": "2026-10-10"
+  },
+  "8803bfece04937e2eb721dd1f9ca0580": {
+    "title": "Technische Spezialistinnen und Spezialisten (m/w/d) f\u00fcr das IT-Operationsmanagement",
+    "company": "Bundesamt f\u00fcr Verfassungsschutz (BfV)",
+    "first_seen": "2026-10-10"
+  },
+  "30e268c67ad531a93eceefc32e8dc593": {
+    "title": "IT Support Spezialist (m/w/d)",
+    "company": "Str\u00f6er Content Group Sales GmbH",
+    "first_seen": "2026-10-10"
+  },
+  "0cd97519e71dc09872a301e6de3fc567": {
+    "title": "Senior Solution Architect",
+    "company": "Centric Software",
+    "first_seen": "2026-10-10"
+  },
+  "a2e462ba8a85f79d84bc1ec39b1d8c09": {
+    "title": "IT System Administrator (m/f/d)",
+    "company": "BUENA",
+    "first_seen": "2026-10-10"
+  },
+  "142c9fdd8e5c55e9a816398f19d3f59f": {
+    "title": "Senior Science IT Systems Manager (m/f/d)",
+    "company": "Cheplapharm Arzneimittel GmbH",
+    "first_seen": "2026-10-10"
+  },
+  "852acfa469e0c0b89272a0dbeba8fd63": {
+    "title": "Senior Legal Counsel \u2013 Cybersecurity & Data Protection",
+    "company": "PayPal",
+    "first_seen": "2026-10-10"
+  },
+  "30aff5bcdbe87673b5cb54ff13196a44": {
+    "title": "2nd Line IT Support Specialist",
+    "company": "Vantage",
+    "first_seen": "2026-10-10"
+  },
+  "09f793370234c3ec121a8e6413e7c3e5": {
+    "title": "IT Support Spezialist (m/w/d)",
+    "company": "Str\u00f6er SE & Co. KGaA",
+    "first_seen": "2026-10-10"
+  },
+  "7f9bbcd4c0df9471caa72517bfef6e28": {
+    "title": "Operational IT Lead (m/w/d)",
+    "company": "iris-GmbH infrared & intelligent sensors",
+    "first_seen": "2026-10-10"
+  },
+  "c98beb223b871f30d9f861f4e9de4449": {
+    "title": "Wirtschaftsinformatiker als IT-Architekt (m/w/d)",
+    "company": "Deutsche Rentenversicherung Bund (DRV Bund)",
+    "first_seen": "2026-10-10"
+  },
+  "d7fc55a8a2394c17cfb559a9d7ca74f4": {
+    "title": "Dezernatskoordinator*in Klinik-IT",
+    "company": "Deutsche Rentenversicherung Bund",
+    "first_seen": "2026-10-10"
+  },
+  "c0b7696a211a99a5e3b578d3dd89feab": {
+    "title": "Senior Consultant IT Risk & Regulatory Compliance (w/m/d)- f\u00fcr internationale Unternehmensberatung",
+    "company": "Passion for People GmbH",
+    "first_seen": "2026-10-10"
+  },
+  "9a426444584ce366b171461ae1995c6a": {
+    "title": "Cybersecurity Consultant - IT-Sicherheit / Cloud Security (m/w/d)",
+    "company": "Workwise GmbH",
+    "first_seen": "2026-10-10"
+  },
+  "99974bf12b9b4dda73e75ba22758e3a2": {
+    "title": "IT Consultant Business Analyse \u00d6ffentliche Verwaltung (all genders)",
+    "company": "Accenture Dienstleistungen GmbH",
+    "first_seen": "2026-10-10"
   }
 }
