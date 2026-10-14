@@ -1,84 +1,4 @@
 {
-  "c7bac32bc44cf66e1a63b1b63af8d0df": {
-    "title": "Functional Solution Architect \u2013 Oracle Fusion Cloud (m/w/d)",
-    "company": "Hach",
-    "first_seen": "2026-09-13"
-  },
-  "6be1e2b76a514adc3b1bb4b8a97d99ee": {
-    "title": "SAP Solution Architect (m/f/d) [Full-time / part-time] - Tieto Tech Consulting",
-    "company": "Tieto",
-    "first_seen": "2026-09-13"
-  },
-  "23ee34a19a25d7b489c7dce32161b190": {
-    "title": "Solution Architect SAP SuccessFactors (m/w/d)",
-    "company": "Telekom MMS",
-    "first_seen": "2026-09-13"
-  },
-  "d6b847ff6b744958dce7cdc4b69a94ac": {
-    "title": "Consultant - Digitale Transformation und IT-Strategie (w|m|d)",
-    "company": "zeb consulting",
-    "first_seen": "2026-09-13"
-  },
-  "3b8b59e1d1e09c3b2653b028f619291a": {
-    "title": "IT Consultant \u2013 IAM / IGA (m/w/d)",
-    "company": "Instaffo",
-    "first_seen": "2026-09-13"
-  },
-  "14ce462d9a1f15afa0d013a97ff9d3d5": {
-    "title": "Senior IT-Servicetechniker (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-09-13"
-  },
-  "754a37afc9b2514859344a9f8949de89": {
-    "title": "IT-Auditor (m/w/d) in der Wirtschaftspr\u00fcfung in Berlin",
-    "company": "Becker B\u00fcttner Held Rechtsanw\u00e4lte Steuerberater Unternehmensberater PartGmbB",
-    "first_seen": "2026-09-13"
-  },
-  "b220f5cb01bb6c93d9b174205540a656": {
-    "title": "IT- Consultant - Cloud Services / PreSales (m/w/d)",
-    "company": "netgo group GmbH",
-    "first_seen": "2026-09-13"
-  },
-  "f81c7f70e0ea84de59044a884a5d86b5": {
-    "title": "PMO /Strategischer Projektmanager (m/w/d)",
-    "company": "Mercuri Urval GmbH",
-    "first_seen": "2026-09-13"
-  },
-  "b02dd7e83723fc89dbaa1710f1c99a9a": {
-    "title": "IT-Projektmanager (m/w/d)",
-    "company": "Michael Page",
-    "first_seen": "2026-09-13"
-  },
-  "50e0f85520014e09dc79de59d4e8214c": {
-    "title": "Informatiker als IT Service Manager - Problem Management & ITSCM (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-13"
-  },
-  "c3ffb8d6691cf3abd6159d4693ed7dc0": {
-    "title": "IT Service Manager (m/w/d) - ITIL / ITSM Prozesse",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-13"
-  },
-  "00388f6bc160d8627aa95d90166ab626": {
-    "title": "Wirtschaftsinformatikerin - IT Service Management & ITSM-Prozesse (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-13"
-  },
-  "28a07a8ddaa10ab5a83edf97a8d3b259": {
-    "title": "IT Process Manager - Evaluation & Analyse ITSM / ITIL (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-13"
-  },
-  "4e47cb1e19515306e1863d0123393789": {
-    "title": "IT Manager - Second-Level Operations / IT Infrastruktur (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-13"
-  },
-  "206faa83aba83e2720d91177076f207d": {
-    "title": "IT Service Manager und Co-Teamlead TFS (all genders)",
-    "company": "DATAGROUP Berlin GmbH (i.Gr.), Siegburg",
-    "first_seen": "2026-09-13"
-  },
   "42d971a9bd79cb82f768eb1f052245bd": {
     "title": "IT-Applikationsmanager (m/w/d)",
     "company": "Klug Personalmanagement",
@@ -6383,5 +6303,155 @@
     "title": "IT Projektmanager (m/w/d)",
     "company": "Sollers Consulting GmbH",
     "first_seen": "2026-10-13"
+  },
+  "4c399de227b8721dfb41bf501eb0cb00": {
+    "title": "IT-Manager:in",
+    "company": "DELTACON Executive Search",
+    "first_seen": "2026-10-14"
+  },
+  "0f0f5d04b4d856a955504759cad6ad46": {
+    "title": "Senior IT Service Manager Collaboration Plattform (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-10-14"
+  },
+  "a3e24ae37577c8f83d52f13dd17de59d": {
+    "title": "Head of IT (m/w/d) im Gesundheitswesen",
+    "company": "Amadeus Fire",
+    "first_seen": "2026-10-14"
+  },
+  "e79a44735918e46adbf2fd15b2b5e1d0": {
+    "title": "Head (f/m/d) of Cybersecurity for TI",
+    "company": "Siemens Energy",
+    "first_seen": "2026-10-14"
+  },
+  "7389eed3e1ef3914c56d1020ad3af199": {
+    "title": "Senior IT System Administrator (m/f/d)",
+    "company": "Factworks",
+    "first_seen": "2026-10-14"
+  },
+  "c57d7137e998f856e452183837617f0a": {
+    "title": "Data Center Manager, Data Center Operations, IT, & Support Engineering",
+    "company": "Amazon Web Services (AWS)",
+    "first_seen": "2026-10-14"
+  },
+  "6bd32f26b93645667e7ede9b5b5f187a": {
+    "title": "IT Service Manager Netzwerk (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-10-14"
+  },
+  "07a90a9eba3a6defe0967e859d28bde0": {
+    "title": "IT Consultant Business Analyse Versicherung (all genders)",
+    "company": "Accenture DACH",
+    "first_seen": "2026-10-14"
+  },
+  "cee042364370b26b7495182e8823e1f7": {
+    "title": "Expertin / Expert IT\u2011Produkt\u00adbetreuung mit dem Schwerpunkt ITSM (w/m/d)",
+    "company": "Bundesanstalt f\u00fcr Immobilienaufgaben",
+    "first_seen": "2026-10-14"
+  },
+  "cba72bb4828c6a2c3c570da72685f146": {
+    "title": "Head (f/m/d) of Cybersecurity for TI",
+    "company": "Siemens Energy",
+    "first_seen": "2026-10-14"
+  },
+  "ba32a70dc22da90df99ef05e030cc220": {
+    "title": "IT-Security Architect (w/m/d)",
+    "company": "KPMG",
+    "first_seen": "2026-10-14"
+  },
+  "72dca94b5cd4036d11a8a56a928d4a18": {
+    "title": "Solution Architect (gn) ServiceNow ITSM / ITOM / ITAM",
+    "company": "SoftwareONE Deutschland GmbH",
+    "first_seen": "2026-10-14"
+  },
+  "5a13c085c6392b7d8d20f785c074fbf7": {
+    "title": "Senior Solution Architect / Lead Automation Engineer (m/w/d) - GreenTech/Recycling (Teilzeit 32h, Remote m\u00f6glich)",
+    "company": "ecosistant",
+    "first_seen": "2026-10-14"
+  },
+  "4c6925a3d330369f0aaf08e3aaa0140b": {
+    "title": "Senior Logistics IT Project Manager (all genders)",
+    "company": "Flaconi GmbH",
+    "first_seen": "2026-10-14"
+  },
+  "e54f5d91d5d76321bfc64775329fbbfd": {
+    "title": "Operational IT Lead (m/w/d)",
+    "company": "iris-GmbH infrared & intelligent sensors",
+    "first_seen": "2026-10-14"
+  },
+  "4c9d8900cb80314950fbf554db67c9a2": {
+    "title": "Head of IT (m/w/d) im Gesundheitswesen",
+    "company": "Amadeus Fire AG",
+    "first_seen": "2026-10-14"
+  },
+  "ec7dd94c4721d72128ff29ad65fa7430": {
+    "title": "Solution Architect (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-10-14"
+  },
+  "7639d3fed2789b6581b2d95851944603": {
+    "title": "Senior IT Architect DMZ (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-10-14"
+  },
+  "355cb9d29c3bd3bb498bcafea80c879c": {
+    "title": "Senior Solution Architect Lagef\u00fchrungssystem (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-10-14"
+  },
+  "ac4e6ec457da1b53c372d63d42b2462b": {
+    "title": "Field CTO (m/w/d)",
+    "company": "Jobriver IT Jobb\u00f6rse",
+    "first_seen": "2026-10-14"
+  },
+  "3f99d3d2cf64a34d9c7877d0bcf2c52e": {
+    "title": "IT-Plattform- & Infrastruktur-Manager (m/w/d) Cloud",
+    "company": "Helios IT Service GmbH",
+    "first_seen": "2026-10-14"
+  },
+  "93b4876fc99c775cc61711e4f424ce9a": {
+    "title": "IT Operations Manager",
+    "company": "Jobriver IT Jobb\u00f6rse",
+    "first_seen": "2026-10-14"
+  },
+  "e5abbe96f73687a2c56de809f779ba7d": {
+    "title": "IT-Consultant (m|w|d)",
+    "company": "Jobriver IT Jobb\u00f6rse",
+    "first_seen": "2026-10-14"
+  },
+  "b78a226b0b83a9f930c6da760c52e1bb": {
+    "title": "IT Consultant (m/w/d) - IT Berater",
+    "company": "Jobriver IT Jobb\u00f6rse",
+    "first_seen": "2026-10-14"
+  },
+  "56b82c96b972489c6f08bbda8faf4fc7": {
+    "title": "Senior Consultant IT-Projekte / Banking (all genders)",
+    "company": "msg for banking ag",
+    "first_seen": "2026-10-14"
+  },
+  "c5c3a90692b110bc5d0f2314e55c1434": {
+    "title": "IT-Consultant Core Banking (m/w/d)",
+    "company": "Jobriver IT Jobb\u00f6rse",
+    "first_seen": "2026-10-14"
+  },
+  "5e898692925dd330c977a0bc985e4aaa": {
+    "title": "Referent Digitale Transformation / Projektleiter Liferay (m/w/d)",
+    "company": "Konrad-Adenauer-Stiftung e.V.",
+    "first_seen": "2026-10-14"
+  },
+  "52bc6c6fea237cc78d10d8bf6ce7eb45": {
+    "title": "Senior Manager im Bereich der Digitalisierung (m/w/d)",
+    "company": "Amadeus Fire AG",
+    "first_seen": "2026-10-14"
+  },
+  "4f1cb9f82dde052f25ae539ea4e6b227": {
+    "title": "IT-Projektmanager (m/w/d) Digitale Transformation",
+    "company": "Amadeus Fire AG",
+    "first_seen": "2026-10-14"
+  },
+  "5a7d99f007936acdbbf4c8b87b59085d": {
+    "title": "IT Value Contribution Manager (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-10-14"
   }
 }
