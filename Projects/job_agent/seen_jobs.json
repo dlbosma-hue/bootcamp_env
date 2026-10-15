@@ -1,144 +1,4 @@
 {
-  "42d971a9bd79cb82f768eb1f052245bd": {
-    "title": "IT-Applikationsmanager (m/w/d)",
-    "company": "Klug Personalmanagement",
-    "first_seen": "2026-09-14"
-  },
-  "ec7189a9130ebad59fbb803173e246db": {
-    "title": "Manager mit Fokus auf Enterprise Architecture (all genders)",
-    "company": "MHP \u2013 A Porsche Company",
-    "first_seen": "2026-09-14"
-  },
-  "0eec1ecb57beafaa720eabad52812e55": {
-    "title": "Senior Manager*in KI und Digitalisierung",
-    "company": "Vivantes \u2013 Netzwerk f\u00fcr Gesundheit GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "f38f79c746d3a3c919792728deb403b9": {
-    "title": "Senior Consultant Cyber Security Strategy & Transformation (m/w/d)",
-    "company": "Deloitte",
-    "first_seen": "2026-09-14"
-  },
-  "a4afba2471adb089c729c3a910394c1c": {
-    "title": "Senior IT Architecture Consultant (w/m/x)",
-    "company": "IBM iX DACH",
-    "first_seen": "2026-09-14"
-  },
-  "d5c048971494ce09308e80f683bea812": {
-    "title": "Cloud Strategy & Architecture Manager (m/w/d)",
-    "company": "Deloitte",
-    "first_seen": "2026-09-14"
-  },
-  "340bf5940e483ec57af3a1415742c42b": {
-    "title": "Lead IT Architect - Modularchitektur Observability (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "04f949852da6033ff068fa56217d4016": {
-    "title": "Product Solution Architect, Connectivity Solutions (all genders)",
-    "company": "Distribusion Technologies",
-    "first_seen": "2026-09-14"
-  },
-  "5f2fa1fc9fba20c86c7c4ac92891c4b4": {
-    "title": "Senior Consultant ServiceNow IT-Asset Management (m/w/d)",
-    "company": "Deloitte",
-    "first_seen": "2026-09-14"
-  },
-  "2c7a16cc2ce9ed3cf4a3379c58a8de7f": {
-    "title": "(Senior) ITSM Process Owner (m/w/d)",
-    "company": "Axel Springer",
-    "first_seen": "2026-09-14"
-  },
-  "6b8879ada419703d8cdb19474e7ff4b5": {
-    "title": "ServiceNow Experte mit ITSM Fokus (m/w/d)",
-    "company": "Axel Springer",
-    "first_seen": "2026-09-14"
-  },
-  "c183dc62bf08ea0afdfdd6d2feccfe6d": {
-    "title": "Product Solution Architect, Connectivity Solutions (all genders)",
-    "company": "Distribusion Technologies GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "9297b2ca3b597e23c62b573ea52a3219": {
-    "title": "Business Unit Manager Ceramic Bodies",
-    "company": "SIBELCO",
-    "first_seen": "2026-09-14"
-  },
-  "e5c46ce1527f24a62f147f6efb834ffa": {
-    "title": "Leiter IT | Microsoft IT-Infrastruktur, MS CRM, Steuerung eines Dienstleisters | Inhouse (mwd)",
-    "company": "Vesterling AG",
-    "first_seen": "2026-09-14"
-  },
-  "ac4ef799ff3775ed6fe73e34265808d7": {
-    "title": "Teamleiter IT | Microsoft IT-Infrastruktur, MS CRM, Steuerung eines Dienstleisters | Inhouse (mwd)",
-    "company": "Vesterling AG",
-    "first_seen": "2026-09-14"
-  },
-  "b7e0f49e7c7df0dc3609baa210c6d6d7": {
-    "title": "Technischer Leiter IT & Leitstelle (m/w/d)",
-    "company": "Stadtritter GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "5a3cfe7f3544ffbed806ed97d1239f7c": {
-    "title": "IT-Infrastruktur Lead (m/w/d)",
-    "company": "REF Berlin GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "31bc0a72dab0a4dcdc1b06c43d18f6e9": {
-    "title": "IT- Architect - Cloud Platform (m/w/d)",
-    "company": "netgo group GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "9e9cf60c50c83650693479f45e0ac07b": {
-    "title": "IT-Architekt*in (d/m/w) \u2013 Schnittstellendesign & Anforderungsanalyse",
-    "company": "Toll Collect GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "cac8b405763dc8b8b37a713f5d8d5579": {
-    "title": "Lead Solution Architect Cloud Infrastructure (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "a57b584e1a840b94bb89b04b2309ab00": {
-    "title": "IT Architect Software Management (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "a366a622bc4989e1f6f2097311486df2": {
-    "title": "Senior IT Architect (m/w/d) Remote 50%",
-    "company": "EICS PD GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "ee18f37f2b9d77baa13cdb58f5407ce1": {
-    "title": "IT-Solution Architect f\u00fcr Einsatzleitsysteme (m/w/d)",
-    "company": "Passion for People GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "7c74f0e847f1aebc8aea1d3d90716766": {
-    "title": "Senior Enterprise Architect FS (all genders)",
-    "company": "Accenture Dienstleistungen GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "3395bc3cf1793c97a9a698c609a3200f": {
-    "title": "Referent (m/w/d) der IT-Leitung f\u00fcr KI & Digitalisierung / KI-Beauftragter (m/w/d)",
-    "company": "Arbeits- und Servicestelle f\u00fcr Internationale Studienbewerbungen (uni-assist) e.V.",
-    "first_seen": "2026-09-14"
-  },
-  "1ca3c1820692e9d20da49ace3417a71f": {
-    "title": "IT-Consultant Infrastruktur (m/w/d)",
-    "company": "REF Berlin GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "dcb2c6d3de44ab45ee2518747bc4616d": {
-    "title": "IT Infrastructure & Operations",
-    "company": "vireq software solutions GmbH",
-    "first_seen": "2026-09-14"
-  },
-  "b488e65320cd87bd52cac4c6d3f76eac": {
-    "title": "TeamleiterIn (m/w/d) Digitalisierung und Infrastruktur",
-    "company": "TERRE DES FEMMES Menschenrechte f\u00fcr die Frau e. V.",
-    "first_seen": "2026-09-14"
-  },
   "3333a348b335d39ec9758b4412859f54": {
     "title": "Manager \u2013 Informationssicherheit & Cyber Security Advisory (all genders)",
     "company": "Forvis Mazars in Germany",
@@ -6453,5 +6313,240 @@
     "title": "IT Value Contribution Manager (w/m/d)",
     "company": "50Hertz Transmission GmbH",
     "first_seen": "2026-10-14"
+  },
+  "27a26f23b2b70674de1e03620ad2cffc": {
+    "title": "Teamleitung IT (m/w/d)",
+    "company": "Deutsches Institut f\u00fcr Urbanistik (Difu)",
+    "first_seen": "2026-10-15"
+  },
+  "d10d5ea6d500cf21b0fb0489596c9330": {
+    "title": "Operational IT Lead (m/w/d)",
+    "company": "iris-GmbH infrared & intelligent sensors",
+    "first_seen": "2026-10-15"
+  },
+  "386fcd5241ff32faab1089466b6c7fb5": {
+    "title": "Senior IT Service Manager Application Management (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "cfa21d9ca79e4ba79556aba6603fbcc6": {
+    "title": "Director of Cloud infrastructure and security",
+    "company": "Vestiaire Collective",
+    "first_seen": "2026-10-15"
+  },
+  "54c5793a36de6a5132a43decd83a9395": {
+    "title": "CTO (m/w/d) - FinTech",
+    "company": "FELSEN Steuerberatung GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "77cf5b2bfde0bf8f5d2ed2796d714869": {
+    "title": "IT-Direktor:in (CTO)",
+    "company": "42matches GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "8f706547b0e07ea627bc950552030c22": {
+    "title": "Leitung Programmsteuerung & PMO (all genders) - 2 Jahre befristet",
+    "company": "gematik GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "bb5833637199dca7262e862804ecac7e": {
+    "title": "Senior IT-Consultant Enterprise / Solution Architektur Banking (all genders)",
+    "company": "adesso SE",
+    "first_seen": "2026-10-15"
+  },
+  "05901d80290f425736503ac0615f06f6": {
+    "title": "Lead IT Architect Modularchitektur IaaS - Virtualisierung und Hardware (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "5b7c91fe59dd8cb191df83457337bb5f": {
+    "title": "IT Business Consultant / Architekt (w|m|d) | findic",
+    "company": "zeb consulting",
+    "first_seen": "2026-10-15"
+  },
+  "d7d99a25bcd401ffa8c8e0dbc83562bc": {
+    "title": "ERP Solution Architect (f/m/x) \u2013 Microsoft Dynamics 365 Finance & SCM",
+    "company": "Avanade",
+    "first_seen": "2026-10-15"
+  },
+  "c91443e69e2cc50dd392d0c69cd968aa": {
+    "title": "Senior Consultant / Manager IT Transformation & Strategy (w|m|d)",
+    "company": "zeb consulting",
+    "first_seen": "2026-10-15"
+  },
+  "83838fbe97eb257d1e51794a1c208dc0": {
+    "title": "Manager IT Transformation & Strategy - Insurance (w|m|d)",
+    "company": "zeb consulting",
+    "first_seen": "2026-10-15"
+  },
+  "6b148cba4c6813443fb441eb02064c58": {
+    "title": "IT-Berater (m/w/d)",
+    "company": "WG-DATA GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "1306bc347be664cd033d726808a0ab01": {
+    "title": "Senior Consultant / Manager Cybersecurity & GRC (w|m|d)",
+    "company": "zeb consulting",
+    "first_seen": "2026-10-15"
+  },
+  "8ea8519f4211154d345944764153c3d2": {
+    "title": "Consultant - Digitale Transformation und IT-Strategie (w|m|d)",
+    "company": "zeb consulting",
+    "first_seen": "2026-10-15"
+  },
+  "edce02472931cd35e16a86d7d922620f": {
+    "title": "Lead Finance Solution Architect - MS Dynamics 365",
+    "company": "Emma \u2013 The Sleep Company",
+    "first_seen": "2026-10-15"
+  },
+  "f398479ebe07c9e4cca12036ad21b463": {
+    "title": "IT-Projektmanager (m/w/d) Digitale Transformation",
+    "company": "Amadeus Fire",
+    "first_seen": "2026-10-15"
+  },
+  "edd93c909e20b1dd52de2cc2ce4ebbf7": {
+    "title": "Strategischer Lead IT Service Portfolio Planer (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "60738d5cba29f74ee486674bee4ac13a": {
+    "title": "Consultant KI - IT-Service Management (all genders)",
+    "company": "adesso SE",
+    "first_seen": "2026-10-15"
+  },
+  "45684d176207000bbc4e39d60755a3b3": {
+    "title": "IT-Projektmanager (m/w/d)",
+    "company": "DARCBLUE AG",
+    "first_seen": "2026-10-15"
+  },
+  "1c2581cc9f8b7ec74c0c0f7ddbba0c09": {
+    "title": "IT Systemadministrator (w/m/d)",
+    "company": "VINCI Energies Deutschland Telecom Infrastructure GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "9187b715790620e1556594c88854128b": {
+    "title": "IT-Spezialistin/Spezialist (w/m/d) Leitstellen und BOS-Digitalfunk - Berlin",
+    "company": "Bundespolizei",
+    "first_seen": "2026-10-15"
+  },
+  "b785653b0c3892b09f8229a2ff7d6b56": {
+    "title": "Mitarbeiter:in (w/m/d) IT-Support & IT-Projektmanagement",
+    "company": "PD - Berater der \u00f6ffentlichen Hand GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "00516cfcd7119bf9de87df7d52a5f76e": {
+    "title": "Operational IT Lead (m/w/d)",
+    "company": "iris-GmbH infrared & intelligent sensors",
+    "first_seen": "2026-10-15"
+  },
+  "6b44e244bfd0f969d4e55d322f892ed2": {
+    "title": "Leiter IT Operations | IT-Betrieb, MS 365, Netzwerk, Security, ITSM | 100% remote m\u00f6glich (mwd)",
+    "company": "Vesterling AG",
+    "first_seen": "2026-10-15"
+  },
+  "b7e0f49e7c7df0dc3609baa210c6d6d7": {
+    "title": "Technischer Leiter IT & Leitstelle (m/w/d)",
+    "company": "Stadtritter GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "842dd5d127c9a725bceff6913436386a": {
+    "title": "IT Value Contribution Manager (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "80d523304882befdec6dc9fee61aaf69": {
+    "title": "IT-L\u00f6sungsdesignerin/IT-L\u00f6sungsdesigner mit dem Schwerpunkt Vorhabensverantwortung (w/m/d)",
+    "company": "Bundesanstalt f\u00fcr Immobilienaufgaben",
+    "first_seen": "2026-10-15"
+  },
+  "67dac9cb4ab2ce6b11518000e7e58e01": {
+    "title": "Solution Architect (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "32b76fec284717303691cf60fdb5c815": {
+    "title": "Senior IT Architect DMZ (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "9e9cf60c50c83650693479f45e0ac07b": {
+    "title": "IT-Architekt*in (d/m/w) \u2013 Schnittstellendesign & Anforderungsanalyse",
+    "company": "Toll Collect GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "a366a622bc4989e1f6f2097311486df2": {
+    "title": "Senior IT Architect (m/w/d) Remote 50%",
+    "company": "EICS PD GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "ee18f37f2b9d77baa13cdb58f5407ce1": {
+    "title": "IT-Solution Architect f\u00fcr Einsatzleitsysteme (m/w/d)",
+    "company": "Passion for People GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "5c25799119150d0ec8ec83c11fc0c9bd": {
+    "title": "Inhouse Business Consultant \u2013 Enterprise Architect (Unternehmensarchitekt:in)",
+    "company": "IAV GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "7bc6e557aed745522e2ded703a0fdfa2": {
+    "title": "Consultant IT-Audit / IT-Pr\u00fcfung mit Schwerpunkt Financial Services Banken / Finanzdienstleister (m/w/d)",
+    "company": "Ebner Stolz M\u00f6nning Bachem Wirtschaftspr\u00fcfer Steuerberater Rechtsanw\u00e4lte Partnerschaft mbB",
+    "first_seen": "2026-10-15"
+  },
+  "f2ab71052996b424eb3502900a5d80fa": {
+    "title": "Referent Digitale Transformation / Projektleiter Liferay (m/w/d)",
+    "company": "Konrad-Adenauer-Stiftung e.V.",
+    "first_seen": "2026-10-15"
+  },
+  "54bd1756b75dbcb583f02293687e2c60": {
+    "title": "IT Account Manager Public Sector | Marktanalyse, Portfolioentwicklung | bis 110.000\u20ac, remote (mwd)",
+    "company": "Vesterling AG",
+    "first_seen": "2026-10-15"
+  },
+  "3ca064e4ed093cc5690d7bd7d1e45042": {
+    "title": "Informatiker als IT Service Manager - Problem Management & ITSCM (m/w/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "7c98330393f773f26394e145f01f8b67": {
+    "title": "IT Service Manager (m/w/d) - ITIL / ITSM Prozesse",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "6f1a28c69874ebd02c2c4c65bd5f8696": {
+    "title": "Wirtschaftsinformatikerin - IT Service Management & ITSM-Prozesse (m/w/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "fa435803892d89887670b55b9d6bf585": {
+    "title": "IT Process Manager - Evaluation & Analyse ITSM / ITIL (m/w/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-10-15"
+  },
+  "b13346276609c625fdf682530e6a7aa9": {
+    "title": "IT Service Manager \u2013 User Experience & IT Communication (m/w/d)",
+    "company": "Jobriver IT Jobb\u00f6rse",
+    "first_seen": "2026-10-15"
+  },
+  "18ce9290134f5449320430652630f3b6": {
+    "title": "Sach\u00adge\u00adbiets\u00adlei\u00adtung IT-Ser\u00advice (w/m/d)",
+    "company": "Bun\u00addes\u00adkri\u00admi\u00adnal\u00adamt",
+    "first_seen": "2026-10-15"
+  },
+  "22dec4ada7a97d5973cb071d8ba3c3f1": {
+    "title": "Process Owner IT Service Management (w/m/d)",
+    "company": "Jobriver IT Jobb\u00f6rse",
+    "first_seen": "2026-10-15"
+  },
+  "206faa83aba83e2720d91177076f207d": {
+    "title": "IT Service Manager und Co-Teamlead TFS (all genders)",
+    "company": "DATAGROUP Berlin GmbH (i.Gr.), Siegburg",
+    "first_seen": "2026-10-15"
+  },
+  "a32046fc49ab50b28929a8faf66674aa": {
+    "title": "Senior IT Service Manager Application Management (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-10-15"
   }
 }
