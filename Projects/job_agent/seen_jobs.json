@@ -1,49 +1,4 @@
 {
-  "419c9a67e2e8f40fd8960bd369163cf2": {
-    "title": "IT Solution & Application Manager (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-19"
-  },
-  "5a8d553f576ede0fb2bd16f9686c6fab": {
-    "title": "IT-Service Manager (m/w/d)",
-    "company": "Michael Page",
-    "first_seen": "2026-09-19"
-  },
-  "6f9265c22ec86e4bcff1a188f8ca31cc": {
-    "title": "Lead Solution Architect - Healthcare (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-09-19"
-  },
-  "861d3f484911fee377b19479009dbdcf": {
-    "title": "IT Infrastructure Architect \u2013 Cloud Focus (m/w/d)",
-    "company": "Shopware",
-    "first_seen": "2026-09-19"
-  },
-  "dc1952ef3913966635ea1f556aeac5b8": {
-    "title": "IT-Consultant Security Regulatory (all genders)",
-    "company": "adesso SE",
-    "first_seen": "2026-09-19"
-  },
-  "c2d224472aa362a2939dda640a94bb19": {
-    "title": "Senior IT-Consultant IAM Technologien (m/w/d) in Berlin",
-    "company": "Deloitte",
-    "first_seen": "2026-09-19"
-  },
-  "8ab8652f9abfd6ce0350fa1835f6ee1e": {
-    "title": "Abteilungsleiterin IT Core Infrastructure Services (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-19"
-  },
-  "e9cd7f672a6c35e69a50c6d9d84047a2": {
-    "title": "IT-Projektmanager (Digitalisierung- / KHZG) (m/w/d)",
-    "company": "Evangelisches Krankenhaus K\u00f6nigin Elisabeth Herzberge gGmbH",
-    "first_seen": "2026-09-19"
-  },
-  "645a3cd4447dc353246093694d5a05aa": {
-    "title": "IT-Projektleiter:in (all genders)",
-    "company": "gematik GmbH",
-    "first_seen": "2026-09-19"
-  },
   "34e619e5499b15935dd8fb276f7ecba0": {
     "title": "Lead Expert Military IT - verlegef\u00e4hige Rechenzentren (m/w/d)",
     "company": "BWI GmbH",
@@ -6903,5 +6858,245 @@
     "title": "IT Incident & Problem Manager - Tier2 Operations (w/m/d)",
     "company": "50Hertz Transmission GmbH",
     "first_seen": "2026-10-19"
+  },
+  "1bc60237a1a68721d09b5e460b91aef5": {
+    "title": "Head of IT /(m/w/d)",
+    "company": "Myndshift.AI",
+    "first_seen": "2026-10-20"
+  },
+  "6922042f7689be3f7f1e2bcbcbc6308a": {
+    "title": "Teamleitung (w/m/d) IT-Sicherheit / Security Operations Center (SOC)",
+    "company": "Helmholtz-Zentrum Berlin",
+    "first_seen": "2026-10-20"
+  },
+  "05acb428388efbe44f8625ed7fccd8d0": {
+    "title": "IT - Helpdesk",
+    "company": "FERCON GROUP | \ud83c\udde9\ud83c\uddea",
+    "first_seen": "2026-10-20"
+  },
+  "20eb4470e6a137ab2b064c9329544bb8": {
+    "title": "Head of IT & Software Engineering / IT-Gesamtleiter (m/w/d)",
+    "company": "primaholding GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "e66fa48a93444d8bfa2b8298f61f3883": {
+    "title": "Full Stack IT Administrator (m/w/d)",
+    "company": "The Yellow SiC Holding GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "15f04381480f7c5c7cd518a9a4344eda": {
+    "title": "Enterprise IT Architect (m/w/d) \u2013 Industrie & Fertigung",
+    "company": "Strategy & Transformation Consulting GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "172ab77badaca33f192d3155604f9ba6": {
+    "title": "Data Domain Manager (m/w/d) Project Excellence Digitalization",
+    "company": "Siemens Energy",
+    "first_seen": "2026-10-20"
+  },
+  "b8319e1c070ea2d9bf981c0f255c30f8": {
+    "title": "IT- Servicetechniker (m/w/d) im Au\u00dfendienst",
+    "company": "Hemmersbach",
+    "first_seen": "2026-10-20"
+  },
+  "fda804f129810141efde4963afccdfd5": {
+    "title": "IT-Produktmanagerin / IT-Produktmanager (w/m/d)",
+    "company": "Bundeskriminalamt",
+    "first_seen": "2026-10-20"
+  },
+  "de42a1c6ef20906bd8d2d61c4d3f0621": {
+    "title": "Operational IT Lead (m/w/d)",
+    "company": "iris-GmbH infrared & intelligent sensors",
+    "first_seen": "2026-10-20"
+  },
+  "9cbc10b626a80345c0dfb6f2b60e1571": {
+    "title": "Dezernatskoordinator*in Klinik-IT",
+    "company": "Deutsche Rentenversicherung Bund",
+    "first_seen": "2026-10-20"
+  },
+  "e9e2daab785c80736a0be0cdf4fdad28": {
+    "title": "IT Manager Digital Workplace Collaboration (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "8536f0e4fe35a5b04fe39b0c9d75d948": {
+    "title": "Referent Digitale Transformation / Projektleiter Liferay (m/w/d)",
+    "company": "Konrad-Adenauer-Stiftung e.V.",
+    "first_seen": "2026-10-20"
+  },
+  "5578e2aeb22c4c5a70f6a2fe7e3d2916": {
+    "title": "IT Manager - Second-Level Operations / IT Infrastruktur (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "3017d77fb8af6f87059096063ad5feea": {
+    "title": "Wirtschaftsinformatikerin - Incident- & Problem-Management / IT- Infrastruktur (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "7018cb539565344408bcc08069c56815": {
+    "title": "IT Incident & Problem Manager - Tier2 Operations (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "639c01216b5de69e6fdc02ec3c2b74f7": {
+    "title": "Abteilungsleiter IT Komposit Vertrag (all genders) D\u00fcsseldorf, M\u00fcnster",
+    "company": "Provinzial Versicherung AG",
+    "first_seen": "2026-10-20"
+  },
+  "b4834f744e6e2343fdeda373cf3f4922": {
+    "title": "Teamleiter* IT-Infrastruktur",
+    "company": "Schmidt + Clemens GmbH + Co. KG",
+    "first_seen": "2026-10-20"
+  },
+  "42ecbe8ac81f1f61840b0923e8870776": {
+    "title": "Head of Global IT Business Services & Applications (m/w/d)",
+    "company": "KROHNE Messtechnik GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "9e7e9b491315470d13c36d7fb42b9d1e": {
+    "title": "Director Transformation (m/w/d) Schwerpunkt: ERP-Implementation & Digital Transformation",
+    "company": "coffee perfect GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "e552276ce31274200b1253ec7415f721": {
+    "title": "Assoc Director, IT",
+    "company": "Gilead Sciences GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "5e13d7169882dfc6d74fc40480ed5937": {
+    "title": "Director, IT Business Relationship Manager (EMEA)",
+    "company": "CooperVision GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "219031c6543db6d8611bbfd4c239240b": {
+    "title": "IT Infrastructure Manager",
+    "company": "ATL Autotransport- und Logistik GmbH Chemnitz Sitz W\u00fcstenbrand",
+    "first_seen": "2026-10-20"
+  },
+  "5c94a802033eb2bf79e9a3bb9d79ff8f": {
+    "title": "Referent/-in (m/w/d) IT-Architekt \u2013 Digitaler Arbeitsplatz in der Abteilung IN",
+    "company": "Goethe-Institut e.V.",
+    "first_seen": "2026-10-20"
+  },
+  "9bffebe1b3c3960029f8576633711327": {
+    "title": "Senior Consultant / Manager IT Audit & Compliance - Insurance (all genders)",
+    "company": "Forvis Mazars GmbH & Co. KG",
+    "first_seen": "2026-10-20"
+  },
+  "ce352f7e5e32908752b1ffc39fcdbded": {
+    "title": "Consultant (w/m/d) IT Projekt- und Programmmanagement",
+    "company": "Campana & Schott Unternehmensgruppe",
+    "first_seen": "2026-10-20"
+  },
+  "503da9553c1d1503181abfb15d1a91a4": {
+    "title": "IT-Service Manager (m/w/d)",
+    "company": "meinestadt.de",
+    "first_seen": "2026-10-20"
+  },
+  "532f1c178c494200e9229c23fceb3f91": {
+    "title": "Key Account Manager - \u00d6ffentlicher Sektor / IT-Infrastruktur (m/w/d)",
+    "company": "GFAD Gruppe",
+    "first_seen": "2026-10-20"
+  },
+  "21192f3ac4da7a5ae0864a4a703b907b": {
+    "title": "Team Lead IT-Operations (m/w/d)",
+    "company": "bonprix Handelsgesellschaft mbH",
+    "first_seen": "2026-10-20"
+  },
+  "4516eb1c832d3634c644f5b32b257bd3": {
+    "title": "Praktikant (w/m/d) Real Estate IT- Consulting",
+    "company": "Drees & Sommer SE",
+    "first_seen": "2026-10-20"
+  },
+  "babc1c5fcb82d767c07857fd0c6d302a": {
+    "title": "IT Consultant Microsoft Services (f/m/d)",
+    "company": "Plansee Group Functions Austria GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "85563845b7c2d305f17e44f3c743797a": {
+    "title": "IT Consultant, SAP & Digitalisierung \u2013 Quereinstieg mit Qualifizierung und Festanstellung (m/w/d)",
+    "company": "gotoitcareer GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "7cd916a1d46f4d25b6575215a20b4976": {
+    "title": "Senior IT Consultant (Inhouse) AI Automation & Copilot Agent (a*)",
+    "company": "Hamburger Energienetze GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "f7c7de23603d5545679f25d1efe9d6f1": {
+    "title": "IT-Consultant (m/w/d) - Personaldienstleistung",
+    "company": "Unique Personalservice GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "fce3f1bbc9ef604650869e405eda70c1": {
+    "title": "Senior IT Consultant Digital Transformation (m/w/d)",
+    "company": "Xenium AG",
+    "first_seen": "2026-10-20"
+  },
+  "ca2c8db5a8586648f465a4c9f27c6638": {
+    "title": "IT-Consultant SAP MM/FI (m/w/d)",
+    "company": "ALDI Einkauf SE & Co. oHG",
+    "first_seen": "2026-10-20"
+  },
+  "d0ae21447d1c66ea0d5f55464bcb4537": {
+    "title": "Senior Projektleiter Digitalisierung (a)",
+    "company": "Meondi GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "230e7618510c65673e680d4f4c8b7f73": {
+    "title": "Senior IT-Projektmanager (m/w/d)",
+    "company": "CompuGroup Medical SE & Co. KGaA",
+    "first_seen": "2026-10-20"
+  },
+  "737af936262fcb2f3be9a27be74d53e7": {
+    "title": "IT Service Manager (m/w/d)",
+    "company": "ORBIT Gesellschaft f\u00fcr Applikations- und Informationssysteme mbH",
+    "first_seen": "2026-10-20"
+  },
+  "98433cb0ce945dede2befb216268cd6a": {
+    "title": "IT-Projektkoordinator (m/w/d)",
+    "company": "ILF CONSULTING ENGINEERS GERMANY GMBH",
+    "first_seen": "2026-10-20"
+  },
+  "e36f364ab1be9b4d7e252b9332b4ff89": {
+    "title": "PROJEKTMANAGER IT (m/w/d)",
+    "company": "Raumtechnik Messebau & Event Services  GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "bb7ed6921ac0c0092f1d270f24e6f591": {
+    "title": "IT-Projektleiter (m/w/d) E-Commerce & API",
+    "company": "Rent.Group Frankfurt GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "ecbb1679b54d77dffd9daeffd550c86f": {
+    "title": "Senior Projektmanager (w/m/d) Produkt & IT",
+    "company": "IONOS",
+    "first_seen": "2026-10-20"
+  },
+  "7fa17cced7405674ef57bc6cf279c1a5": {
+    "title": "Projektmanager (all genders) f\u00fcr IT-Infrastruktur",
+    "company": "DATAGROUP",
+    "first_seen": "2026-10-20"
+  },
+  "e106c1dd54b01e289103b394d2d325f1": {
+    "title": "Digital System Owner IT-Servicemanagement Tool (SMAX)",
+    "company": "Dortmunder Energie- und Wasserversorgung GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "bd2cf29e16fb8425b8f2860ad8b110f6": {
+    "title": "Teamleitung (m/w/d) IT-Service- und Solutionmanagement",
+    "company": "Messe Berlin GmbH",
+    "first_seen": "2026-10-20"
+  },
+  "1c6aa9e4771b97c746fa34154c1d3123": {
+    "title": "Senior Consultant IT-Service Management (all genders)",
+    "company": "adesso SE",
+    "first_seen": "2026-10-20"
+  },
+  "935c49ae8687b232162122a49b2dc690": {
+    "title": "IT-Service Manager (w/m/d)",
+    "company": "inasys GmbH",
+    "first_seen": "2026-10-20"
   }
 }
