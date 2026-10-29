@@ -1,184 +1,4 @@
 {
-  "0b4682808ee002fe321876fc303a795a": {
-    "title": "Senior IT-Projektmanager (all genders) mit Schwerpunkt RZ-Infrastruktur",
-    "company": "Instaffo",
-    "first_seen": "2026-09-28"
-  },
-  "81235fbd6d1947726b4b6343ae8d69bd": {
-    "title": "(Senior) Manager IT-Audit/ -Pr\u00fcfung - Technology Risk - Voll/Teilzeit (w/m/d)",
-    "company": "EY",
-    "first_seen": "2026-09-28"
-  },
-  "619fbd354316a71ffabbe180e87ddfd1": {
-    "title": "Berater Cybersecurity Strategy (w/m/d)",
-    "company": "EY",
-    "first_seen": "2026-09-28"
-  },
-  "1116563379165082293c4d123e4b30f5": {
-    "title": "IT Architekt (m/w/d)",
-    "company": "HEADMATCH",
-    "first_seen": "2026-09-28"
-  },
-  "55000fa1ecdc57ac5b495e4cdfb5048c": {
-    "title": "(Senior) CRM Solution Architect (m/w/d)",
-    "company": "Houses of KaDeWe",
-    "first_seen": "2026-09-28"
-  },
-  "b24c448588503ef708f98fed190be111": {
-    "title": "Solution Architect - Payments & Commerce (m/f/d)",
-    "company": "Hays",
-    "first_seen": "2026-09-28"
-  },
-  "2bef3bbe38ab21182ab5db80ff8626af": {
-    "title": "EY-Parthenon Manager Cybersecurity M&A - Strategy and Transactions (w/m/d)",
-    "company": "EY-Parthenon",
-    "first_seen": "2026-09-28"
-  },
-  "1e3706f07185fa14ab546118e3e9b35a": {
-    "title": "(Senior) Berater Datenschutz - Cyber Security (w/m/d)",
-    "company": "EY",
-    "first_seen": "2026-09-28"
-  },
-  "8a713c81a95c129b341afac5884bb3f4": {
-    "title": "(Senior) Cyber Security Consultant(w/m/d)",
-    "company": "Westernacher Solutions",
-    "first_seen": "2026-09-28"
-  },
-  "6136aade006858ac1297eaaa29e18c30": {
-    "title": "Senior IT Adminstrator (m/w/d)",
-    "company": "Eberlein Kunz",
-    "first_seen": "2026-09-28"
-  },
-  "8be1194d3279ad03493ae608864056d6": {
-    "title": "Berater IAM - Cyber Security (w/m/d)",
-    "company": "EY",
-    "first_seen": "2026-09-28"
-  },
-  "25e57c372ba63e42930518e5d5d39cb8": {
-    "title": "Business Relationship Manager*in mit Leitung eines Politik- bzw. Gesch\u00e4ftsfeldes",
-    "company": "IT-Dienstleistungszentrum Berlin",
-    "first_seen": "2026-09-28"
-  },
-  "80bb3fada3b571ee2145bf2671fe99c2": {
-    "title": "IT-Service- und Produktmanager (mwd) - MS Dynamics 365 / Berlin-Ostkreuz",
-    "company": "NORSAN GmbH",
-    "first_seen": "2026-09-28"
-  },
-  "c5f3db2b713040e8baee72aa461cf850": {
-    "title": "Business Relationship Manager*in mit Leitung eines Politik- bzw. Gesch\u00e4ftsfeldes",
-    "company": "IT-Dienstleistungszentrum Berlin",
-    "first_seen": "2026-09-28"
-  },
-  "a8afe30a3a6f6fee3b9a19d03147cdf4": {
-    "title": "IT-Plattform Architekt/ Cloud Architect (m/w/d) - freiberuflich",
-    "company": "ML Gruppe",
-    "first_seen": "2026-09-28"
-  },
-  "a63620fc7815772657b4122a52741f25": {
-    "title": "IT Change Manager *in | 80% Remote",
-    "company": "Johannesstift Diakonie",
-    "first_seen": "2026-09-28"
-  },
-  "d0cfdafd248f207283aaf22e2283c8bd": {
-    "title": "Senior IT Security Engineer (m/f/d)",
-    "company": "EMnify",
-    "first_seen": "2026-09-28"
-  },
-  "64991a2a6078e5e269087745eb7cdf35": {
-    "title": "IT Business Support (d/w/m) - Patientenmanagement",
-    "company": "Charit\u00e9 - Universit\u00e4tsmedizin Berlin",
-    "first_seen": "2026-09-28"
-  },
-  "565a45a786411e28a1f152272f02c89a": {
-    "title": "Head of IT Governance (*)",
-    "company": "Stolzberger GmbH",
-    "first_seen": "2026-09-28"
-  },
-  "d09cc72a0952884c599aa96a725a2325": {
-    "title": "Cloud Strategy & Infrastructure Advisory Manager (all genders)",
-    "company": "Accenture Dienstleistungen GmbH",
-    "first_seen": "2026-09-28"
-  },
-  "5ffb6f4158e3797f709f5da9ba1c1e1d": {
-    "title": "Senior Consultant IT-Architektur (w/m/d)",
-    "company": "Berliner Stadtreinigungsbetriebe A\u00f6R (BSR)",
-    "first_seen": "2026-09-28"
-  },
-  "8ea560c12d20cf042496b69841b7dda4": {
-    "title": "Wirtschaftsinformatiker als IT-Architekt (m/w/d)",
-    "company": "Deutsche Rentenversicherung Bund (DRV Bund)",
-    "first_seen": "2026-09-28"
-  },
-  "3523ed7b7eea915dc529e5dc7c8a72ac": {
-    "title": "Senior IT Architect DMZ (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-09-28"
-  },
-  "17bef95a10583a783ecef8bf9f4511c7": {
-    "title": "Lead IT-Architect Active Directory (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-09-28"
-  },
-  "a28835ea95418c2eaf9d4b7fdde38108": {
-    "title": "IT Teamleiter Infrastruktur (m/w/d)",
-    "company": "Kaiser Personalberatung GmbH",
-    "first_seen": "2026-09-28"
-  },
-  "e59b62582894d99058487c2c3faf60f2": {
-    "title": "IT-Projektleiter/Teamleiter Infrastruktur (m/w/d)",
-    "company": "Amadeus Fire AG",
-    "first_seen": "2026-09-28"
-  },
-  "b7023c52347f6667b374a0354b671863": {
-    "title": "IT Teamleiter IaaS (m/w/d) gesucht",
-    "company": "Kaiser Personalberatung GmbH",
-    "first_seen": "2026-09-28"
-  },
-  "4644806b823b36072c05dc57d166b764": {
-    "title": "IT-Portfoliomanager (m/w/d)",
-    "company": "Deutsche Energie-Agentur GmbH (dena)",
-    "first_seen": "2026-09-28"
-  },
-  "ad1f11b8f958e913cae45f87fd07f1f1": {
-    "title": "IT Business Partner*in (m/w/d)",
-    "company": "USHIO Industry & Entertainment GmbH",
-    "first_seen": "2026-09-28"
-  },
-  "0bcb5db6984c7630cf0d2ced71dfaf9d": {
-    "title": "Account Manager IT Public Sector | Marktanalyse, Portfolioentwicklung | bis 100.000\u20ac, remote (mwd)",
-    "company": "Vesterling AG",
-    "first_seen": "2026-09-28"
-  },
-  "1932f6d1e9af2e4cdd59a70bfc8a8147": {
-    "title": "IT Asset- & Configuration Manager | 80% Remote",
-    "company": "Johannesstift Diakonie gAG",
-    "first_seen": "2026-09-28"
-  },
-  "29a68743dca013f47b2594deebad9a72": {
-    "title": "Informatiker als IT Service Manager - Problem Management & ITSCM (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-28"
-  },
-  "fb2a957115dd3a53eaee50381b5cd0e0": {
-    "title": "IT Service Manager (m/w/d) - ITIL / ITSM Prozesse",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-28"
-  },
-  "e73714a35291d15612497197b5f42834": {
-    "title": "Wirtschaftsinformatikerin - IT Service Management & ITSM-Prozesse (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-28"
-  },
-  "0188f07c71d24a00604305c1decfab21": {
-    "title": "IT Service Manager im S\u00fcdwesten Berlins (*)",
-    "company": "Stolzberger GmbH",
-    "first_seen": "2026-09-28"
-  },
-  "459e2f3452e59b094ce9c08d7250b94c": {
-    "title": "IT Process Manager - Evaluation & Analyse ITSM / ITIL (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-09-28"
-  },
   "99b44332a96b1c5de4f087cf6f237a64": {
     "title": "IT-Security-Manager (m/w/d) - Karriere bei der MEAB",
     "company": "MEAB",
@@ -6823,5 +6643,145 @@
     "title": "IT Service Manager (w/m/d)",
     "company": "digatus personal GmbH",
     "first_seen": "2026-10-28"
+  },
+  "98c0fc5d038ee3ce1cc3cbc78d4f05b5": {
+    "title": "(Senior) IT-Manager Digitale Transformation ServiceNow (m/w/d) in Berlin",
+    "company": "Deloitte",
+    "first_seen": "2026-10-29"
+  },
+  "65e7a78fb1eb9a8116f2022ca5c1221c": {
+    "title": "Lead IT Engineer",
+    "company": "Helsing",
+    "first_seen": "2026-10-29"
+  },
+  "d10e2fe798f8c5af481e9895bcb3396d": {
+    "title": "Senior SAP Solution Architect \u2013 EAM, Logistics & Digital Platforms",
+    "company": "Vattenfall",
+    "first_seen": "2026-10-29"
+  },
+  "8271b118f910fe1af1ed608461dfe427": {
+    "title": "Lead Enterprise Architect (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-10-29"
+  },
+  "638358f4e74a1c1bc9756116a48e630f": {
+    "title": "Consultant IT-Assurance, Risk & Compliance - Financial Services (m/w/d)",
+    "company": "Deloitte",
+    "first_seen": "2026-10-29"
+  },
+  "e0aa121a7c5418957628adfc89354ac3": {
+    "title": "Senior IT-Consultant KI-Systeme (all genders)",
+    "company": "adesso SE",
+    "first_seen": "2026-10-29"
+  },
+  "098eb872a8ed07d25d02e2f9ad4cfc32": {
+    "title": "Onsite IT Support Technician (m/f/d) Munich/Berlin",
+    "company": "DXC Technology",
+    "first_seen": "2026-10-29"
+  },
+  "dd5f657ad2341b3038c6b2040e10ea34": {
+    "title": "IT Operations Engineer Cloud Applications (m/w/d) in Berlin",
+    "company": "Deloitte",
+    "first_seen": "2026-10-29"
+  },
+  "b82b812c1045f4bc5940399655ce5a47": {
+    "title": "Mitarbeiter IT-Portfolio- & Vertragsmanagement (m/w/d)",
+    "company": "Randstad Deutschland",
+    "first_seen": "2026-10-29"
+  },
+  "6e35d5dfbd3cf83d4c66a56aae40f1ce": {
+    "title": "Projektleiter *in Stellv. Projektleiter*in als Elternzeitvertretung",
+    "company": "Johannesstift Diakonie",
+    "first_seen": "2026-10-29"
+  },
+  "9bc83e2fa8244abf8a4e6f868183a0d4": {
+    "title": "Head of Digital Operations",
+    "company": "Marriott International",
+    "first_seen": "2026-10-29"
+  },
+  "5eafb2bf868701f29edff2a44fc07c22": {
+    "title": "Head of Digital Operations, Germany",
+    "company": "Clutter",
+    "first_seen": "2026-10-29"
+  },
+  "d861f87b58bb62c73c4bf6feab94eefe": {
+    "title": "Senior SAP Solution Architect \u2013 EAM, Logistics & Digital Platforms",
+    "company": "Vattenfall",
+    "first_seen": "2026-10-29"
+  },
+  "584db93bc859ccd98415115ade99d43d": {
+    "title": "Microsoft Fabric Solution Architect (m/f/d)",
+    "company": "EPAM Systems",
+    "first_seen": "2026-10-29"
+  },
+  "421f2c30e5f3caffffca1d648a5f17e2": {
+    "title": "Mitarbeiter*in Procurement Excellence & Digitalisierung Einkauf",
+    "company": "Stromnetz Berlin GmbH",
+    "first_seen": "2026-10-29"
+  },
+  "cc4c7d3efe15b7778ccb54b5e0afa101": {
+    "title": "Operations Manager (m/w/d) \u2013 IT-Asset-Finanzierung, IT-Leasing, Device-as-a-Service (DaaS)",
+    "company": "CTRL-UP GmbH",
+    "first_seen": "2026-10-29"
+  },
+  "74267cf33e051c69beb791a5c6aeb0fe": {
+    "title": "Sales Delivery Consultant (m/w/d) \u2013 IT-Projektgesch\u00e4ft | 100 % Remote",
+    "company": "Auralis Group",
+    "first_seen": "2026-10-29"
+  },
+  "df20ca76bf564d5d4dc1c01111aafad0": {
+    "title": "Leiter IT Infrastruktur & Digitalisierung (m/w/d)",
+    "company": "DIS AG Germany",
+    "first_seen": "2026-10-29"
+  },
+  "ce5330171af20aa7a903ec368b1e1d60": {
+    "title": "Operational IT Lead (m/w/d)",
+    "company": "iris-GmbH infrared & intelligent sensors",
+    "first_seen": "2026-10-29"
+  },
+  "eba709902172b0d35329716a831e6f18": {
+    "title": "Leitung IT-Infrastruktur & Cloud (m/w/d) I Berlin",
+    "company": "ADVERGY GmbH",
+    "first_seen": "2026-10-29"
+  },
+  "d09cc72a0952884c599aa96a725a2325": {
+    "title": "Cloud Strategy & Infrastructure Advisory Manager (all genders)",
+    "company": "Accenture Dienstleistungen GmbH",
+    "first_seen": "2026-10-29"
+  },
+  "592333300d70f702160dd99596bbfb85": {
+    "title": "Referentin / Referent IT-Strategiemanagement mit Schwerpunkt IT \u2013 Data Product Management (w/m/d)",
+    "company": "Bundesanstalt f\u00fcr Immobilienaufgaben",
+    "first_seen": "2026-10-29"
+  },
+  "9a05ffa8a1d70b87becded9404aca8db": {
+    "title": "Wirtschaftsingenieur - IT-L\u00f6sungsdesign (m/w/d)",
+    "company": "Bundesanstalt f\u00fcr Immobilienaufgaben",
+    "first_seen": "2026-10-29"
+  },
+  "33815074cc385e3c309846a30251ec94": {
+    "title": "Information Security Manager - ISO 27001 / Cyber Security (m/w/d)",
+    "company": "Workwise GmbH",
+    "first_seen": "2026-10-29"
+  },
+  "0a374daf80f76497560243662f3aa2aa": {
+    "title": "Mitarbeiter/in (m/w/d) f\u00fcr die IT-Organisation",
+    "company": "Die Pr\u00e4sidentin des Kammergerichts",
+    "first_seen": "2026-10-29"
+  },
+  "86b3756b3443600aa9041c66985ed460": {
+    "title": "Senior IT-Projektleitung (m/w/d), Berlin - ID: 15702",
+    "company": "Dussmann Group",
+    "first_seen": "2026-10-29"
+  },
+  "5e8b330c313a18c3f6419233428586f6": {
+    "title": "Senior IT-Projektleitung (m/w/d), Berlin - ID: 15702",
+    "company": "Konzernzentrale",
+    "first_seen": "2026-10-29"
+  },
+  "98593c0e7345936748bda0ffe0c98c05": {
+    "title": "Senior IT Project Manager (m/w/d)",
+    "company": "Natuvion GmbH",
+    "first_seen": "2026-10-29"
   }
 }
