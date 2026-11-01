@@ -1,294 +1,4 @@
 {
-  "fa4f734efe6f0a2ba37c271c61e0e032": {
-    "title": "IT Leitung Data Center/Rechenzentrumsbetrieb  (m/w/d)",
-    "company": "Bundesdruckerei-Gruppe",
-    "first_seen": "2026-10-01"
-  },
-  "3b24a8fdb811560fb97d750af9e15fd7": {
-    "title": "Stellvertretender Leiter IT | Schwerpunkt Infrastruktur, 7 Mitarbeiter | Inhouse (mwd)",
-    "company": "Vesterling AG",
-    "first_seen": "2026-10-01"
-  },
-  "eeff40fc03572f91a9dedefc96642618": {
-    "title": "Bereichsleitung (m/w/d) IT Services",
-    "company": "IHK Berlin",
-    "first_seen": "2026-10-01"
-  },
-  "4de917adc6a5a8cb7b82662d0bc7166c": {
-    "title": "IT-Manager:in (m/w/d) \u2013 Der/ Die Generalist:in f\u00fcr unsere digitale Zukunft",
-    "company": "Capital Baustoffe GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "2dc5c3c06ecf071e50e8e1375e99b1de": {
-    "title": "Abteilungsleiterin IT Core Infrastructure Services (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "0f6958f887268bcaf66f15e11f43150d": {
-    "title": "IT Value Contribution Manager (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "815fddbce429c2f168e90a159210a0f1": {
-    "title": "Referentin / Referent IT-Strategiemanagement mit Schwerpunkt IT \u2013 Data Product Management (w/m/d)",
-    "company": "Bundesanstalt f\u00fcr Immobilienaufgaben",
-    "first_seen": "2026-10-01"
-  },
-  "8cb9f08f62030996412086c7031cbbf5": {
-    "title": "Senior IT System Architect (m/w/d)",
-    "company": "Bundesdruckerei-Gruppe",
-    "first_seen": "2026-10-01"
-  },
-  "5dfae01c728f5c494ba8991659623eb0": {
-    "title": "Solution Architect - Telematikinfrastruktur & Identit\u00e4tsl\u00f6sungen (m/w/d)",
-    "company": "Bundesdruckerei-Gruppe",
-    "first_seen": "2026-10-01"
-  },
-  "e27f65a0fa80b957fd0bf6a56142bce6": {
-    "title": "Azure Cloud Architect (Frankfurt - Kronberg, D\u00fcsseldorf,  Stuttgart, Berlin, Munich)",
-    "company": "Avanade",
-    "first_seen": "2026-10-01"
-  },
-  "28930ea199566b3c84f670b6d48af8d7": {
-    "title": "Softwarearchitekt:in (w/d/m) Referat IT-Anwendungen und Datenmanagement",
-    "company": "Stiftung Preu\u00dfischer Kulturbesitz",
-    "first_seen": "2026-10-01"
-  },
-  "a7d951b8eb9e9866ae4273b9ebc812f0": {
-    "title": "Senior/Expert HR Tech Solution Architect (m/f/d)",
-    "company": "Flix",
-    "first_seen": "2026-10-01"
-  },
-  "6a2c6dadb9ee6cd53aab0e110f02d732": {
-    "title": "IT Asset Owner - ITAO (f/m/x) - Core Trading Technology",
-    "company": "Deutsche Bank",
-    "first_seen": "2026-10-01"
-  },
-  "8e07e7394c7e142dbff55691c1aacc93": {
-    "title": "(Senior) Consultant Risk / IT Asset Management (w/m/d)",
-    "company": "EY",
-    "first_seen": "2026-10-01"
-  },
-  "44f80d23a9d151bbb9f432afae8eb23a": {
-    "title": "IT Audit Manger / ICT Service Auditor",
-    "company": "N26",
-    "first_seen": "2026-10-01"
-  },
-  "cd6d053a74eb8ffec5a4c3013d6bdedb": {
-    "title": "Senior Consultant M&A IT - Post-Merger-Integration & Carve-out (m/w/d)",
-    "company": "Deloitte",
-    "first_seen": "2026-10-01"
-  },
-  "bc2fa88f98cbebfc132dc2c02627c6c4": {
-    "title": "Teamleitung IT Projektmanagement (m/w/d)",
-    "company": "Bundesdruckerei-Gruppe",
-    "first_seen": "2026-10-01"
-  },
-  "339371623ea53802ac54aa9ecb6958b9": {
-    "title": "Lead Cyber Security Manager \u2013 SIEM Anbindung (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "6e2b76c39cba412db92c4a48a3d7dea1": {
-    "title": "(Senior) ITSM Process Owner (m/w/d)",
-    "company": "immowelt",
-    "first_seen": "2026-10-01"
-  },
-  "a13d0cffe163e7485348a853275200a7": {
-    "title": "IT Incident & Problem Manager \u2013 Tier2 Operations (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "a561295bee3ed4a4d860dcd489fdbc35": {
-    "title": "Professional IT Support Engineer (all genders)",
-    "company": "]init[ - Services for the eSociety",
-    "first_seen": "2026-10-01"
-  },
-  "aeffe255186b34a1a8e12288a8826492": {
-    "title": "ServiceNow Experte mit ITSM Fokus (m/w/d)",
-    "company": "immowelt",
-    "first_seen": "2026-10-01"
-  },
-  "30369db6efcaae37f5599a7d1a4df072": {
-    "title": "IT Service Continuity Manager (w/m/d)",
-    "company": "Die Autobahn GmbH des Bundes",
-    "first_seen": "2026-10-01"
-  },
-  "890f03fecfd80d71c7562f13616df488": {
-    "title": "Senior Consultant IT-Service Management Strategy (all genders)",
-    "company": "MHP \u2013 A Porsche Company",
-    "first_seen": "2026-10-01"
-  },
-  "96004995d27391b11a30c360a99582fd": {
-    "title": "Engineering Manager - Platform and IT & Compliance",
-    "company": "Future Energy Services GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "1cdb028e0865a5f1c97a1e5405059ddb": {
-    "title": "Head of IT & Infrastructure (m/w/d)",
-    "company": "Allround Autovermietung Herman Weisner",
-    "first_seen": "2026-10-01"
-  },
-  "8f680e91ba3963e90c3c535ddb740b0f": {
-    "title": "Senior Projektleiter (m/w/d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "3f450787e37e3828bf2a67c0b85bdb58": {
-    "title": "Solution Architect - Telematikinfrastruktur & Identit\u00e4tsl\u00f6sungen (m/w/d)",
-    "company": "Bundesdruckerei-Gruppe",
-    "first_seen": "2026-10-01"
-  },
-  "77200e0e613000d50680c6d4a6c4f542": {
-    "title": "Senior IT System Architect (m/w/d)",
-    "company": "Bundesdruckerei-Gruppe",
-    "first_seen": "2026-10-01"
-  },
-  "9b27e07746cd39b2d653f35dd55d1ac7": {
-    "title": "Senior Solution Architect - Public Trust PKI (TLS & S/MIME) (m/w/d)",
-    "company": "Bundesdruckerei-Gruppe",
-    "first_seen": "2026-10-01"
-  },
-  "d5d2f90023d2f1fc47a5ff0d61c0e18f": {
-    "title": "IT Business Architect & Requirements Engineer (m/w/d)",
-    "company": "Bundesdruckerei-Gruppe",
-    "first_seen": "2026-10-01"
-  },
-  "15495c884ec7f31963fd5013d1c8d85f": {
-    "title": "Senior IT System Architect (m/w/d)",
-    "company": "Bundesdruckerei-Gruppe",
-    "first_seen": "2026-10-01"
-  },
-  "d9718ad10ec147c593f9087058545e79": {
-    "title": "Senior Solution Architect im Bereich kritischer Infrastruktur (m/w/d)",
-    "company": "Bundesdruckerei-Gruppe",
-    "first_seen": "2026-10-01"
-  },
-  "3777c8370e20bebbf09d42b20a17ce8a": {
-    "title": "IT Audit Manger / ICT Service Auditor",
-    "company": "N26",
-    "first_seen": "2026-10-01"
-  },
-  "2c58493efd7a4a3403ac2df617e4da60": {
-    "title": "IT Asset Owner - ITAO (f/m/x) - Core Trading Technology",
-    "company": "Deutsche Bank",
-    "first_seen": "2026-10-01"
-  },
-  "6e1db8b5ea85b159d1aed757a13d1b05": {
-    "title": "Senior Consultant Technology Strategy / Digital Transformation (m/w/d)",
-    "company": "Deloitte",
-    "first_seen": "2026-10-01"
-  },
-  "0fd884cb80a05739d041106c699bfaaa": {
-    "title": "(Senior) IT Project Manager (d/f/m)",
-    "company": "Ottobock",
-    "first_seen": "2026-10-01"
-  },
-  "76d0388f07ed6f0f9e63c6151c587f76": {
-    "title": "Field CTO Industrials (f/m/x)",
-    "company": "Avenga",
-    "first_seen": "2026-10-01"
-  },
-  "a1e5e27d9b1e33950a6020b6d41c0325": {
-    "title": "Senior IT Security System Manager (m/w/d)",
-    "company": "Bundesdruckerei-Gruppe",
-    "first_seen": "2026-10-01"
-  },
-  "c00a73c56efc6228e6cf5e1ffda1ca0c": {
-    "title": "Senior Technical Project Manager - IT Innovations (m/w/d)",
-    "company": "Bundesdruckerei-Gruppe",
-    "first_seen": "2026-10-01"
-  },
-  "fa5558bce9bae868f672bb3be53ca435": {
-    "title": "Business Audit Manager",
-    "company": "N26",
-    "first_seen": "2026-10-01"
-  },
-  "f10a6c7a7370ce7742f62d6bef99b140": {
-    "title": "Mitarbeiter/in (m/w/d) f\u00fcr die IT-Organisation",
-    "company": "Die Pr\u00e4sidentin des Kammergerichts",
-    "first_seen": "2026-10-01"
-  },
-  "4e8c5974df4dd9854b6d6892f6c36948": {
-    "title": "IT Value Contribution Manager (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "7b0915422959d4bfaa304c554078cd41": {
-    "title": "Senior IT-Consultant (m/w/d) Remote 80%",
-    "company": "EICS PD GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "dfc31678676d8a79158455a7d77012ed": {
-    "title": "IT-Systemarchitekt*in mit Schwerpunkt Datenbanken",
-    "company": "Stromnetz Berlin GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "8007151847ac06ceafadc9ce92cd44d5": {
-    "title": "Senior IT Architect - Network Automation (m/w/d)",
-    "company": "BWI GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "d2f81a61bb5781905431a1be21324fe0": {
-    "title": "Enterprise IT Architect - SAP (w/m/d)",
-    "company": "NTT DATA Business Solutions",
-    "first_seen": "2026-10-01"
-  },
-  "93e8bc22d5ee0bf1fe4c4f332430fb14": {
-    "title": "IT Governance Managerin (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "b00f7f98250333e097ead5c592f1e664": {
-    "title": "IT Governance Framework Managerin (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "5d1fb81e1bed2aba033acb3329311f57": {
-    "title": "IT Governance Richtlinien Managerin (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "6aa6950296918d9a0e452e8a3c9fbfc5": {
-    "title": "IT Governance Standards Managerin (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "d61dd118cb2ce20b14b7a1b2d21a3c53": {
-    "title": "IT Governance Security Managerin (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "b0b826ee46854ebcd0fae194c4f05b1d": {
-    "title": "IT Governance Compliance Managerin (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "3ce0834f6c2cdfdcf11f85a3e186114a": {
-    "title": "Wirtschaftsinformatiker als IT-Architekt (m/w/d)",
-    "company": "Deutsche Rentenversicherung Bund (DRV Bund)",
-    "first_seen": "2026-10-01"
-  },
-  "e825b51b31d145e9637a8e786cec6d6a": {
-    "title": "Senior System Engineer - IT-Infrastruktur / Projektmanagement / Windows (m/w/d)",
-    "company": "Workwise GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "41d3c9a47a710b5e72e731f69fcf970f": {
-    "title": "IT Manager - Second-Level Operations / IT Infrastruktur (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-01"
-  },
-  "8729b6411827877bd1a9364fc1a09225": {
-    "title": "IT Consultant Enterprise Planning & Board Solutions (m/w/d)",
-    "company": "H&Z",
-    "first_seen": "2026-10-01"
-  },
-  "8497c960d441f4bbdb4d91937cba9b84": {
-    "title": "IT-Consultant Digitalisierung Schienenverkehr (m/w/d)",
-    "company": "quo connect management consulting GmbH",
-    "first_seen": "2026-10-01"
-  },
   "e7287cf859bade71e65d284659d7cf03": {
     "title": "Teamleitung IT (m/w/d)",
     "company": "mamgo | Talente \ud83d\udd17 Jobs",
@@ -6688,5 +6398,155 @@
     "title": "IT Site Services Professional (all genders)",
     "company": "RHI Magnesita GmbH",
     "first_seen": "2026-10-31"
+  },
+  "80e0b7c35dc3ee958111911203c45ba7": {
+    "title": "Teamleitung IT (m/w/d)",
+    "company": "mamgo | Talente \ud83d\udd17 Jobs",
+    "first_seen": "2026-11-01"
+  },
+  "419c9a67e2e8f40fd8960bd369163cf2": {
+    "title": "IT Solution & Application Manager (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-11-01"
+  },
+  "028e9261bde9fcefab6f5955b3945c43": {
+    "title": "(Senior) Manager IT- und Risikomanagement / Financial Services (m/w/d)",
+    "company": "Deloitte",
+    "first_seen": "2026-11-01"
+  },
+  "6a2c6dadb9ee6cd53aab0e110f02d732": {
+    "title": "IT Asset Owner - ITAO (f/m/x) - Core Trading Technology",
+    "company": "Deutsche Bank",
+    "first_seen": "2026-11-01"
+  },
+  "8d2229ea8184f3606455bf296cfee218": {
+    "title": "IT-Berater (m/w/d)",
+    "company": "WG-DATA GmbH",
+    "first_seen": "2026-11-01"
+  },
+  "ba2a7b3be5616674195d789c5a5eed85": {
+    "title": "(Senior) SAP Projektmanager - Enterprise Transformation & AI (m/w/d)",
+    "company": "Deloitte",
+    "first_seen": "2026-11-01"
+  },
+  "589b6de4b8e76f6f227ad04c3e7836b7": {
+    "title": "Teamleitung / Senior Manager Consulting - Digitalisierung Chemieindustrie (all genders)",
+    "company": "adesso SE",
+    "first_seen": "2026-11-01"
+  },
+  "0e8946c9ab62a100cd86c9510ee32790": {
+    "title": "Bereichsleitung IT und Verwaltung \u00b7 Head of IT & Administration (m/w/d) im Ehrenamt",
+    "company": "Bundesverbraucherhilfe e.V.",
+    "first_seen": "2026-11-01"
+  },
+  "626c6a59f252ccea43fb849bc550816a": {
+    "title": "Operational IT Lead (m/w/d)",
+    "company": "iris-GmbH infrared & intelligent sensors",
+    "first_seen": "2026-11-01"
+  },
+  "eb8454abbbc649735b0dd2711412af5d": {
+    "title": "Bereichsleitung IT und Verwaltung \u00b7 Head of IT & Administration (m/w/d) im Ehrenamt",
+    "company": "Bundesverbraucherhilfe e.V.",
+    "first_seen": "2026-11-01"
+  },
+  "7c0395e34c1c980686094f698ab22bab": {
+    "title": "Senior IT-Eink\u00e4ufer - Hardware / Data Center (m/w/d)",
+    "company": "Workwise GmbH",
+    "first_seen": "2026-11-01"
+  },
+  "ab44358b9f0f048b60d7f733d3b8902e": {
+    "title": "Senior IT Architect (m/w/d) Remote 50%",
+    "company": "EICS PD GmbH",
+    "first_seen": "2026-11-01"
+  },
+  "d2f81a61bb5781905431a1be21324fe0": {
+    "title": "Enterprise IT Architect - SAP (w/m/d)",
+    "company": "NTT DATA Business Solutions",
+    "first_seen": "2026-11-01"
+  },
+  "09cbb603cd8791e305941a3dc2df2b55": {
+    "title": "Senior IT Expert - IT Infrastrukturarchitektur (m/w/d)",
+    "company": "BWI GmbH",
+    "first_seen": "2026-11-01"
+  },
+  "8bc134afccc3e686e8782e6da288c0fe": {
+    "title": "Bereichsmanager IT-Services & Compliance (m/w/d)",
+    "company": "Hays AG",
+    "first_seen": "2026-11-01"
+  },
+  "97a3b66b2751b85c2ae62ea5e265bb61": {
+    "title": "Teamleiter / Ausbilder (gn)* IT-Systemintegration und Elektrotechnik",
+    "company": "Oberlinhaus",
+    "first_seen": "2026-11-01"
+  },
+  "e5d6b06e69d5608c9dd81954e30469c6": {
+    "title": "IT-Consultant (m|w|d)",
+    "company": "Assecor GmbH",
+    "first_seen": "2026-11-01"
+  },
+  "8497c960d441f4bbdb4d91937cba9b84": {
+    "title": "IT-Consultant Digitalisierung Schienenverkehr (m/w/d)",
+    "company": "quo connect management consulting GmbH",
+    "first_seen": "2026-11-01"
+  },
+  "ebd788a9613217ee0cd7cf4fdc9eb435": {
+    "title": "IT Consultant (m/w/d)",
+    "company": "secunet Security Networks AG Jobportal",
+    "first_seen": "2026-11-01"
+  },
+  "92ee81636f2b3718a30466a2b005d953": {
+    "title": "Bereichsleitung Digitalisierung und Recht (w/m/d)",
+    "company": "ZVEI e.V. \u2013 Verband der Elektro- und Digitalindustrie",
+    "first_seen": "2026-11-01"
+  },
+  "8a4ba7ccd69f5f8c6d0a3bfade299589": {
+    "title": "Pro\u00adjekt\u00adlei\u00adter*in Stra\u00adte\u00adgi\u00adsche IT-Pro\u00adjek\u00adte",
+    "company": "IT-Dienst\u00adleis\u00adtungs\u00adzen\u00adtrum Ber\u00adlin",
+    "first_seen": "2026-11-01"
+  },
+  "a1f7ebf375991a1620b1485d5e99a0b7": {
+    "title": "Senior Projektleiter (m/w/d) Softwaredevelopment // REMOTE",
+    "company": "Pont Connects e.K.",
+    "first_seen": "2026-11-01"
+  },
+  "a960d0a88d2ecd3a14c925789a09842e": {
+    "title": "Projektmanager/in (m/w/d) f\u00fcr technische Zukunftsbranchen",
+    "company": "psX Technology GmbH",
+    "first_seen": "2026-11-01"
+  },
+  "3ce0eca85e7f99434ab508d9e9bf8099": {
+    "title": "Director Global HR (m/f/d) - Technology and Digital Transformation",
+    "company": "Nexperia Germany GmbH",
+    "first_seen": "2026-11-01"
+  },
+  "b2bb1b79da12c3485b0db68bb25c6b38": {
+    "title": "IT/OT Architect Produktionssysteme (all genders)",
+    "company": "adesso SE",
+    "first_seen": "2026-11-01"
+  },
+  "b2c24932b823b9acb7b657c9c6666ec9": {
+    "title": "IT-Architekt (m/w/d)",
+    "company": "qards GmbH",
+    "first_seen": "2026-11-01"
+  },
+  "e4def583cf3185d778ec17041622eaa2": {
+    "title": "IT-Architekt (m/w/d) Anwendungsentwicklung Komposit",
+    "company": "ivv GmbH",
+    "first_seen": "2026-11-01"
+  },
+  "e1b5081b654581fdf08692cf97bc730e": {
+    "title": "Business IT Consultant | Technical Consultant (m/w/d)",
+    "company": "Senacor Technologies AG",
+    "first_seen": "2026-11-01"
+  },
+  "f552847adee193b771116af823144266": {
+    "title": "Senior Projektleiter (m/w/d) Entwicklung & Applikation",
+    "company": "MILEI GMBH",
+    "first_seen": "2026-11-01"
+  },
+  "ca5a79b216ad8c70f0c1773fd03a85c0": {
+    "title": "Hauptabteilungsleitung (m/w/d) IT- Infrastruktur",
+    "company": "KNDS",
+    "first_seen": "2026-11-01"
   }
 }
