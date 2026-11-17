@@ -1,144 +1,4 @@
 {
-  "ce3434d03a68b1f3a4eb8d89113bff04": {
-    "title": "Head of Business Systems & IT",
-    "company": "GlobalDots",
-    "first_seen": "2026-10-17"
-  },
-  "7cdc526a1c71f1e874aa9661ccbdbf34": {
-    "title": "Teamleitung (m/w/d) IT-Service- und Solutionmanagement",
-    "company": "Messe Berlin",
-    "first_seen": "2026-10-17"
-  },
-  "16890831bc6d2b869bcab4082ed2c275": {
-    "title": "IT Incident & Problem Manager - Tier2 Operations (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-17"
-  },
-  "f1d7e2625c31562ff362acde045e97c3": {
-    "title": "Senior Cloud Architect (m/f/d)",
-    "company": "Zoi TechCon",
-    "first_seen": "2026-10-17"
-  },
-  "9785757ae8533bb0005a582fbac944f0": {
-    "title": "Solution Architect \u2013 Cloud-Native & DevOps (m/f/d)",
-    "company": "T-Mobile",
-    "first_seen": "2026-10-17"
-  },
-  "4224819a4297ec7a012e340da58d26b9": {
-    "title": "Senior SAP HCM & SuccessFactors Solution Architect (m/f/d/x)",
-    "company": "T-Mobile",
-    "first_seen": "2026-10-17"
-  },
-  "2bb8a2082d2be62690a67345897f9798": {
-    "title": "Senior Solution Architect ServiceNow (m/w/d/x)",
-    "company": "T-Mobile",
-    "first_seen": "2026-10-17"
-  },
-  "ae668eb09638a6ba79ca4c2a40ad0f7d": {
-    "title": "Senior PMO Manager Projektmanagement-Framework (m/w/d)",
-    "company": "ROHDE & SCHWARZ GmbH & Co. KG",
-    "first_seen": "2026-10-17"
-  },
-  "1b288df9ce15b92613fb95621972b3a3": {
-    "title": "(Senior) Consultant Cyber Security: Cloud Security (all genders)",
-    "company": "Wavestone",
-    "first_seen": "2026-10-17"
-  },
-  "9888384ae99ada0d06394f7afe434305": {
-    "title": "(Senior) Consultant Cyber Security: Infrastructure & Network Security (all genders)",
-    "company": "Wavestone",
-    "first_seen": "2026-10-17"
-  },
-  "d7130dd371c40ec1eaa2812755a8ed04": {
-    "title": "Apprenticeship Commercial Specialist for IT System Management (m/f/d)",
-    "company": "T-Mobile",
-    "first_seen": "2026-10-17"
-  },
-  "d9788a0d0f1cc2ce4450a77896c4aa46": {
-    "title": "Principal IT Project Manager (m/w/d)",
-    "company": "T-Mobile",
-    "first_seen": "2026-10-17"
-  },
-  "d7a2b77d4125b2512a071c46d4be6df3": {
-    "title": "Vertriebsmitarbeiter IT / Account Manager (m/w/d)",
-    "company": "SSP Informationssysteme GmbH",
-    "first_seen": "2026-10-17"
-  },
-  "d93ea0e42972bd5b8427f3a2fc40e778": {
-    "title": "(Senior) Consultant Cyber Security: Identity & Access Management (all genders)",
-    "company": "Wavestone",
-    "first_seen": "2026-10-17"
-  },
-  "cbd9c3554419d2b3c4e0c768dc49c0fd": {
-    "title": "(Senior) Consultant Cyber Security SIEM & SOC (all genders)",
-    "company": "Wavestone",
-    "first_seen": "2026-10-17"
-  },
-  "7936bcbe6612df6f0b8dbe462aad0a42": {
-    "title": "IT Lizenz- und Vertragsmanagement (d/w/m)",
-    "company": "Charit\u00e9 - Universit\u00e4tsmedizin Berlin",
-    "first_seen": "2026-10-17"
-  },
-  "5582c03e27ffdf00ac9965c3492df8e0": {
-    "title": "IT-Support/-Administrator (m/w/d) 1st Level | ID0050",
-    "company": "Exchange AG Deutschland",
-    "first_seen": "2026-10-17"
-  },
-  "b9ded2d6ab6a86f0e9876dbfb27d881f": {
-    "title": "Fachkraft (w/m/d) Produktcenter Personalgewinnung I Admin, Services & IT in der Agentur f\u00fcr Arbeit Berlin-Mitte (Arbeitsort: Berlin), befristet bis 31.12.2027",
-    "company": "Bundesagentur f\u00fcr Arbeit",
-    "first_seen": "2026-10-17"
-  },
-  "044abb1e043837c757b49478943aa5a8": {
-    "title": "IT Administrator*in f\u00fcr Microsoft 365 (m/w/d)",
-    "company": "Transdev",
-    "first_seen": "2026-10-17"
-  },
-  "eb26e5acc593a21f11fcd1bc8721c311": {
-    "title": "IT-Consultant (m/w/d)",
-    "company": "Inwerken AG",
-    "first_seen": "2026-10-17"
-  },
-  "6ad0df7d872a1f3cf1ab5ae8572f6df3": {
-    "title": "IT-Security Consultant (m/w/d)",
-    "company": "Inwerken AG",
-    "first_seen": "2026-10-17"
-  },
-  "e9f695a5c8285113cca5f5242ca1b864": {
-    "title": "Associate Consultant Cyber Security (all genders)",
-    "company": "Wavestone",
-    "first_seen": "2026-10-17"
-  },
-  "bed41a37403e93bc284874b129e7b807": {
-    "title": "Operational IT Lead (m/w/d)",
-    "company": "iris-GmbH infrared & intelligent sensors",
-    "first_seen": "2026-10-17"
-  },
-  "4792e18832e1c609c82177da0bfc186d": {
-    "title": "Team\u00adlei\u00adtung IT (m/w/d)",
-    "company": "Deut\u00adsches In\u00adsti\u00adtut f\u00fcr Ur\u00adba\u00adnis\u00adtik (Di\u00adfu) gGmbH",
-    "first_seen": "2026-10-17"
-  },
-  "d361d5884d74103411c1b48ec91b9bb2": {
-    "title": "Leiter IT Betrieb | MS 365, Netzwerk, Security, ITSM | 100% remote m\u00f6glich (mwd)",
-    "company": "Vesterling AG",
-    "first_seen": "2026-10-17"
-  },
-  "de51110ba320722bd447ee5127e8a680": {
-    "title": "Solution Architect (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-17"
-  },
-  "709470cf2a086035e4465bd15aa65180": {
-    "title": "Expertin / Experte IT-L\u00f6sungsdesign mit dem Schwerpunkt Innovation Lab (w/m/d)",
-    "company": "Bundesanstalt f\u00fcr Immobilienaufgaben",
-    "first_seen": "2026-10-17"
-  },
-  "e9f07b62a357f78743a05045b471d62f": {
-    "title": "Leitung Programmsteuerung & PMO (all genders) - 2 Jahre befristet",
-    "company": "gematik GmbH",
-    "first_seen": "2026-10-17"
-  },
   "63c0e595364decaaffb50c36461d3888": {
     "title": "Director IT-Consulting Public \u2013 mit Teamverantwortung (m/w/d)",
     "company": "CGI",
@@ -5838,5 +5698,125 @@
     "title": "IT Project Lead Integration & M&A (m/w/d)",
     "company": "Zeppelin GmbH",
     "first_seen": "2026-11-16"
+  },
+  "b7d31c792b798b43320b7f0803309f05": {
+    "title": "Teamleitung IT (m/w/d)",
+    "company": "mamgo | Talente \ud83d\udd17 Jobs",
+    "first_seen": "2026-11-17"
+  },
+  "8fa292117270761829bea82ea47ad603": {
+    "title": "Lead of Office-IT (m/w/x)",
+    "company": "metiundo GmbH",
+    "first_seen": "2026-11-17"
+  },
+  "fbcd7733d561f01bbaa6a94523bada0d": {
+    "title": "IT-Projektleiter (m/w/d) Energiewirtschaft",
+    "company": "Randstad Deutschland",
+    "first_seen": "2026-11-17"
+  },
+  "8338af934e2949d9c7575e4f7ffcd43c": {
+    "title": "Senior Consultant - Enterprise Architecture & Emerging Technologies (m/w/d) in Berlin",
+    "company": "Deloitte",
+    "first_seen": "2026-11-17"
+  },
+  "9a670886f7637bd371cce69c6366e7e2": {
+    "title": "Enterprise Architect (m/w/d) \u2013 Gestalte die IT-Landschaft von morgen!",
+    "company": "NXT Hero",
+    "first_seen": "2026-11-17"
+  },
+  "a9f36a06fcd681994baecf1012576194": {
+    "title": "Lead IT-Architekt Open Source Cloud (m/w/d)",
+    "company": "T-Systems International",
+    "first_seen": "2026-11-17"
+  },
+  "e4bc61d216a62fd50b08d73db072c9b2": {
+    "title": "Solution Architect (m/w/d) \u2013 Financial Services",
+    "company": "Jobs via eFinancialCareers",
+    "first_seen": "2026-11-17"
+  },
+  "359f2fa8c9c7db34a9fb9997c574a39d": {
+    "title": "IT-Berater (m/w/d)",
+    "company": "WG-DATA GmbH",
+    "first_seen": "2026-11-17"
+  },
+  "34d0a5bf1d96f84565b102d652fbb5ef": {
+    "title": "Senior Consultant IT-Beratung / Pr\u00fcfung (Financial Services) (w/m/d)",
+    "company": "EY",
+    "first_seen": "2026-11-17"
+  },
+  "2413692b088edc065f74e6b5a5191d8d": {
+    "title": "Senior IT-Auslagerungs- / Providermanager (m/f/d)",
+    "company": "Halian | Managed Services, Recruitment Agency & Contract Staffing",
+    "first_seen": "2026-11-17"
+  },
+  "6b8879ada419703d8cdb19474e7ff4b5": {
+    "title": "ServiceNow Experte mit ITSM Fokus (m/w/d)",
+    "company": "Axel Springer",
+    "first_seen": "2026-11-17"
+  },
+  "1ccaab7f8662389b3627a4914aad243a": {
+    "title": "Head of Business Applications and Inhouse IT",
+    "company": "bettermarks GmbH",
+    "first_seen": "2026-11-17"
+  },
+  "a954e18ea673e0fca975d103201412af": {
+    "title": "Head of IT, AI & Security (m/w/d)",
+    "company": "Xu",
+    "first_seen": "2026-11-17"
+  },
+  "152a67302959e707ca7bf7dfd19252ba": {
+    "title": "Senior Solution Architect* / AI Workplace #11328",
+    "company": "Cegeka",
+    "first_seen": "2026-11-17"
+  },
+  "9d955534aa979230919a87bef8e1f687": {
+    "title": "Senior Consultant - Enterprise Architecture & Emerging Technologies (m/w/d)",
+    "company": "Deloitte",
+    "first_seen": "2026-11-17"
+  },
+  "ca8819bd5c9f5eb1880176178ed2aa6d": {
+    "title": "Sachbearbeitung ( m/w/d ) im Bereich IT - Support",
+    "company": "Bundesverwaltungsamt (BVA)",
+    "first_seen": "2026-11-17"
+  },
+  "1211f651b9dc4f1bde3e639cd6438836": {
+    "title": "Spezialist IT-Service Desk und IT-Support (m/w/d)",
+    "company": "BT Berlin Transport GmbH",
+    "first_seen": "2026-11-17"
+  },
+  "04e82191ede1c0dc45f1a7158c22b9f8": {
+    "title": "Working Student IT Operations \u2013 First Level Support (f/m/x)",
+    "company": "Bonial International GmbH",
+    "first_seen": "2026-11-17"
+  },
+  "e48a3c9037c8d2033f252cd1b33a91cb": {
+    "title": "IT-Consultant Business Analyse Energiewirtschaft (m/w/d)",
+    "company": "PTA GmbH",
+    "first_seen": "2026-11-17"
+  },
+  "9d6b043f2fb97538c1973d173d0884a4": {
+    "title": "Operational IT Lead (m/w/d)",
+    "company": "iris-GmbH infrared & intelligent sensors",
+    "first_seen": "2026-11-17"
+  },
+  "35ba412a22b9f78213fcc20e3bb1cb40": {
+    "title": "Head of IT & Software Engineering (m/w/d) Internationale IT-Gesamtleitung",
+    "company": "Majori GmbH",
+    "first_seen": "2026-11-17"
+  },
+  "6181b3ea760031690f87f3e7e685c79e": {
+    "title": "Referent IT und Digitalisierung (m/w/d)",
+    "company": "Bundesverband \u00d6ffentlicher Banken Deutschlands, V\u00d6B, e.V.",
+    "first_seen": "2026-11-17"
+  },
+  "372c99e23388d6cc4d0dea4ae0b74aa1": {
+    "title": "Head of Cloud & Infrastructure (m/w/d)",
+    "company": "Sonic Healthcare Germany GmbH & Co. KG",
+    "first_seen": "2026-11-17"
+  },
+  "428bb3ab3dbcf1c1df63516537e41afd": {
+    "title": "Service & Product Owner ITSM / Matrix42 (m/w/d)",
+    "company": "CompuGroup Medical",
+    "first_seen": "2026-11-17"
   }
 }
