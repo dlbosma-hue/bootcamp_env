@@ -1,174 +1,4 @@
 {
-  "893ce99d63f43f594617de38821948f4": {
-    "title": "IT Leiter (m/w/d)",
-    "company": "QFM Fernmelde- und Elektromontagen GmbH",
-    "first_seen": "2026-10-19"
-  },
-  "44b15653eb045923995b2cc2f176e456": {
-    "title": "IT-Niederlassungsleiter (m/w/d) \u2013 Personaldienstleistung - Jobbird.com",
-    "company": "Jobster",
-    "first_seen": "2026-10-19"
-  },
-  "430ed5895913011463dbebb482e17404": {
-    "title": "(Senior) Manager Insurance Process Digitalization (Financial Services) (w/m/d)",
-    "company": "EY",
-    "first_seen": "2026-10-19"
-  },
-  "767b695ea653cb7b8144fd19f7812165": {
-    "title": "(Senior) Manager IT Solution Architect SAP S/4HANA (m/w/d)",
-    "company": "Deloitte",
-    "first_seen": "2026-10-19"
-  },
-  "b37a7ec157c778956d1deb68e2976a69": {
-    "title": "Software Architekt - Digital Health Excellence Center (w/m/d)",
-    "company": "EY",
-    "first_seen": "2026-10-19"
-  },
-  "a8549eb13e8be032425fdd3274f321ed": {
-    "title": "Senior Enterprise Architect (w/m/d/x) Insurance",
-    "company": "EMIL Group",
-    "first_seen": "2026-10-19"
-  },
-  "1d9ace259cb3cd9f00e4fa7e7b2eed1a": {
-    "title": "(Senior) Manager Data Platforms Solution Architect - Insurance (Financial Services) (w/m/d)",
-    "company": "EY",
-    "first_seen": "2026-10-19"
-  },
-  "39b7e1a1947e3837d0899a2544357c7f": {
-    "title": "IT Project & Portfolio Manager (m/w/d) -  Erfahrungen in Gro\u00dfkonzernen",
-    "company": "Randstad Deutschland",
-    "first_seen": "2026-10-19"
-  },
-  "273d668b9b0c760c332d6c7236676575": {
-    "title": "IT Security Specialist \u2013 Security Operations & Compliance (m/w/d)",
-    "company": "Epikur Software GmbH & Co. KG",
-    "first_seen": "2026-10-19"
-  },
-  "09a1b1d07a496295b47014ba6e252188": {
-    "title": "(Senior) Berater Business Continuity Management - Cyber Security (w/m/d)",
-    "company": "EY",
-    "first_seen": "2026-10-19"
-  },
-  "1115bce278a66fe863aea048d174316d": {
-    "title": "Senior Projektleiter (m/w/d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-10-19"
-  },
-  "ec295b81f3e52de3cc066e847e395646": {
-    "title": "Senior Consultant IT (m/w/d)",
-    "company": "CANCOM",
-    "first_seen": "2026-10-19"
-  },
-  "29cdda0661ffaec1fec4ea075a2284ff": {
-    "title": "IT-Consultant (m|w|d)",
-    "company": "Assecor GmbH",
-    "first_seen": "2026-10-19"
-  },
-  "ef11e715c186b7b6b551d1055f5968bd": {
-    "title": "Senior IT Security Consultant - Public Key Infrastructure w/m/d",
-    "company": "Computacenter",
-    "first_seen": "2026-10-19"
-  },
-  "a29930d8473986ec9e55feacb1e446be": {
-    "title": "IT Consultant (m/w/d) Public Sector (Intrexx)",
-    "company": "Dataciders SE",
-    "first_seen": "2026-10-19"
-  },
-  "4ba707ce485bb53ceceaa6b1a7cf82e7": {
-    "title": "Senior Consultant IT Quality & CSV / Life Sciences (m/w/d)",
-    "company": "Deloitte",
-    "first_seen": "2026-10-19"
-  },
-  "aa0d2f5c1a1067f257f722227ed49a3d": {
-    "title": "(Senior) IT Project Manager (d/f/m)",
-    "company": "Ottobock",
-    "first_seen": "2026-10-19"
-  },
-  "6a30b4cb83e03fa07b18e53243a7fbb8": {
-    "title": "Senior IT Project Manager - Core Banking Platform",
-    "company": "Avaloq",
-    "first_seen": "2026-10-19"
-  },
-  "806e9a43d70aaab76c0142cc76bf99a7": {
-    "title": "T\u00fcrkischsprachiger Mitarbeiter IT-Service Desk (w/m/div.)",
-    "company": "Bosch",
-    "first_seen": "2026-10-19"
-  },
-  "40ce1aac33eadf9ecb7f5a7996d25511": {
-    "title": "IT Support Specialist",
-    "company": "sennder",
-    "first_seen": "2026-10-19"
-  },
-  "3078e7e2f06e0adf6983c2e18da84b29": {
-    "title": "IT Service Mitarbeiter (m/w/d)",
-    "company": "Phorms Education",
-    "first_seen": "2026-10-19"
-  },
-  "8c6e18dcf7de8405df39a0c711aec244": {
-    "title": "IT Administrator (m/f/d)",
-    "company": "HomeToGo",
-    "first_seen": "2026-10-19"
-  },
-  "c23e6a732867d76c9f65949d17160e45": {
-    "title": "IT Service Continuity Manager (w/m/d)",
-    "company": "Die Autobahn GmbH des Bundes",
-    "first_seen": "2026-10-19"
-  },
-  "5175d488123fe3ef0aa80589bd0821f7": {
-    "title": "Lead Consultant Cyber Security (m/w/d)",
-    "company": "Jamorie Consulting GmbH",
-    "first_seen": "2026-10-19"
-  },
-  "c4cf011c5182a457005c2080be40b205": {
-    "title": "T\u00fcrkischsprachiger Mitarbeiter IT-Service Desk (w/m/div.)",
-    "company": "Bosch",
-    "first_seen": "2026-10-19"
-  },
-  "d7b161d7e4223a6ca1bf696ae97ef563": {
-    "title": "IT Provider Manager (w/m/d)",
-    "company": "Die Autobahn GmbH des Bundes",
-    "first_seen": "2026-10-19"
-  },
-  "d0c60b746dca60c5747be99ab06098db": {
-    "title": "IT / AI Consultant (mwd) - Quereinstieg f\u00fcr Mathematiker & Physiker",
-    "company": "HMS Analytical Software GmbH",
-    "first_seen": "2026-10-19"
-  },
-  "92d9e99bf1ce845c3256a8b612bf3243": {
-    "title": "Operational IT Lead (m/w/d)",
-    "company": "iris-GmbH infrared & intelligent sensors",
-    "first_seen": "2026-10-19"
-  },
-  "92fa6bea4b88d2c1bcb6ebfbde207584": {
-    "title": "Consultant Digitalisierung - Schwerpunkt Cloud-Transformation der \u00f6ffentlichen Verwaltung (m/w/d)",
-    "company": "govdigital eG",
-    "first_seen": "2026-10-19"
-  },
-  "1ba3fa3cd7d8a4ef6f4ec5d3b6576fdf": {
-    "title": "Dezernatskoordinator*in Klinik-IT",
-    "company": "Deutsche Rentenversicherung Bund",
-    "first_seen": "2026-10-19"
-  },
-  "959c226f1dc0673fef2aa20904b3512d": {
-    "title": "IT Manager - Second-Level Operations / IT Infrastruktur (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-19"
-  },
-  "9b37c139359672c991946e517019e85e": {
-    "title": "IT-Service-Manager:in Digitale Identit\u00e4ten (m/w/d)",
-    "company": "Verein zur F\u00f6rderung eines Deutschen Forschungsnetzes - DFN-Verein -",
-    "first_seen": "2026-10-19"
-  },
-  "0092f4c668a5aa3d11d15cf02e0c9281": {
-    "title": "Wirtschaftsinformatikerin - Incident- & Problem-Management / IT- Infrastruktur (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-19"
-  },
-  "64bf30542ebd89b420acca08dd76e97c": {
-    "title": "IT Incident & Problem Manager - Tier2 Operations (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-19"
-  },
   "1bc60237a1a68721d09b5e460b91aef5": {
     "title": "Head of IT /(m/w/d)",
     "company": "Myndshift.AI",
@@ -6003,5 +5833,125 @@
     "title": "Projektmanager Industrial Integration (m/w/d)",
     "company": "Rheinmetall Landsysteme GmbH",
     "first_seen": "2026-11-18"
+  },
+  "399f6bf018da9beda729bcf88e1cce18": {
+    "title": "Teamleitung IT (m/w/d)",
+    "company": "mamgo | Talente \ud83d\udd17 Jobs",
+    "first_seen": "2026-11-19"
+  },
+  "bfaf39d5ffbdc4a3497a81d1056a3a50": {
+    "title": "IT-Leiter (m/w/d) SAP & IT-Transformation",
+    "company": "Amadeus Fire",
+    "first_seen": "2026-11-19"
+  },
+  "cc7c137033604de48a4dda45b387a78e": {
+    "title": "Gesch\u00e4ftsbereichsleiter (m/w/d) Interne Services / IT",
+    "company": "AOK-Bundesverband",
+    "first_seen": "2026-11-19"
+  },
+  "d7e0a8b2c71504afccad8fc5172afc29": {
+    "title": "CTO / Head of Technology & Product (m/w/d)",
+    "company": "HEADMATCH",
+    "first_seen": "2026-11-19"
+  },
+  "b25782f44385bb0b4b4a23538cdeddf1": {
+    "title": "Head of IT & Software Engineering / IT-Gesamtleiter (m/w/d) Internationale IT-F\u00fchrung, Softwarearchitektur, Plattformentwicklung, Projektmanagement",
+    "company": "primaholding GmbH",
+    "first_seen": "2026-11-19"
+  },
+  "1d14ecf81b3439a8c3e06e7d2c375226": {
+    "title": "Lead, IT Operations, Cyber Security and Compliance - All Genders",
+    "company": "Doodle",
+    "first_seen": "2026-11-19"
+  },
+  "9fb5ea8665426cbf8b41806bc8003001": {
+    "title": "Leitung der Gruppe IT-Strategie / Schwerpunkt Anforderungs\u00admanagement (w/m/d)",
+    "company": "Polizei Berlin",
+    "first_seen": "2026-11-19"
+  },
+  "c3b8e5c17482c4f54fa550b87183f375": {
+    "title": "IT Organisation & CIO Advisory Senior / Principal Consultant (m/w/d)",
+    "company": "mgm consulting partners",
+    "first_seen": "2026-11-19"
+  },
+  "50033af2c924f2150574777937a36f36": {
+    "title": "Consultant - Digitale Transformation und IT-Strategie (w|m|d)",
+    "company": "zeb",
+    "first_seen": "2026-11-19"
+  },
+  "6a6c2450cc3341d3f32311a25b2556d0": {
+    "title": "IT-Multiprojektmanager (m/w/d)",
+    "company": "BLG LOGISTICS GROUP AG & Co. KG",
+    "first_seen": "2026-11-19"
+  },
+  "890f03fecfd80d71c7562f13616df488": {
+    "title": "Senior Consultant IT-Service Management Strategy (all genders)",
+    "company": "MHP \u2013 A Porsche Company",
+    "first_seen": "2026-11-19"
+  },
+  "42dee30b2cf5811373ba53e6006f06bc": {
+    "title": "Leiter / Head of IT Tools & Operations (m/w/d/x)",
+    "company": "T-Mobile",
+    "first_seen": "2026-11-19"
+  },
+  "86a01717b20a5e23630d9ea1d19ba517": {
+    "title": "Head of IT (m/f/x)",
+    "company": "Skeleton Technologies",
+    "first_seen": "2026-11-19"
+  },
+  "73c85a9b9a5c8ea4cf7605d6b78cb794": {
+    "title": "Sr. Solution Architect Health Care and Life Sciences, SA Field AGS HCLS",
+    "company": "Amazon Web Services",
+    "first_seen": "2026-11-19"
+  },
+  "36e4e9fcd20a19269f22647faf4cb855": {
+    "title": "IT-Architect mit Fokus Netzwerk & Security m/w/d",
+    "company": "CANCOM SE",
+    "first_seen": "2026-11-19"
+  },
+  "3808721af91e9dd5e76b91b362cac813": {
+    "title": "Technischer Projektmanager (m/w/d) SAP S/4HANA",
+    "company": "Deutsche Energie-Agentur GmbH",
+    "first_seen": "2026-11-19"
+  },
+  "ca9685f80e6fd3df110602d22b7ab39e": {
+    "title": "IT Support Spezialist - Telematikinfrastruktur & Healthcare IT/APIs(x/f/m)",
+    "company": "Doctolib",
+    "first_seen": "2026-11-19"
+  },
+  "6b1181d2b9f53a87f0368a8cbce6ec53": {
+    "title": "Team Lead IT-Betrieb (w/m/d)",
+    "company": "msg",
+    "first_seen": "2026-11-19"
+  },
+  "81819f8f4d2672d81d76c3361641c2bb": {
+    "title": "Lead of Office IT - Fokus Linux (m/w/x)",
+    "company": "metiundo GmbH",
+    "first_seen": "2026-11-19"
+  },
+  "aaf1c8919f30189b3785ee20e577bfcd": {
+    "title": "IT Administrator: 1st Level Support (f/m/d)",
+    "company": "Berlin Metropolitan School",
+    "first_seen": "2026-11-19"
+  },
+  "fe52c0eb0898727b7f5d56c244ea32f6": {
+    "title": "Operational IT Lead (m/w/d)",
+    "company": "iris-GmbH infrared & intelligent sensors",
+    "first_seen": "2026-11-19"
+  },
+  "f34fdba001a01679828778e767cfa3b3": {
+    "title": "IT-Leiter (m/w/d) SAP & IT-Transformation",
+    "company": "Amadeus Fire AG",
+    "first_seen": "2026-11-19"
+  },
+  "ff96f0e6cf975c29b6b54d389ec74d32": {
+    "title": "IT-Vertrieb Public Sector Consultant (m/w/d)",
+    "company": "netgo group GmbH",
+    "first_seen": "2026-11-19"
+  },
+  "330865eaf6671faf04ab8a4dacef8f12": {
+    "title": "Wirtschaftsingenieur als Projektmanager (m/w/d)",
+    "company": "nexnet GmbH",
+    "first_seen": "2026-11-19"
   }
 }
