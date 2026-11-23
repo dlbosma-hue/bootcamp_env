@@ -2,8 +2,8 @@ name: Daily Job Digest
 
 on:
   schedule:
-    - cron: '0 7 * * *'   # 07:00 UTC = 08:00 Berlin (CET) / 09:00 CEST
-  workflow_dispatch:        # allow manual trigger from GitHub UI
+    - cron: '0 7 * * 1,3,5'   # Mon/Wed/Fri 07:00 UTC = 08:00 Berlin (CET) / 09:00 CEST
+  workflow_dispatch:          # allow manual trigger from GitHub UI
 
 jobs:
   scrape-and-notify:
