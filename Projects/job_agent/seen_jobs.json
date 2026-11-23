@@ -1,139 +1,4 @@
 {
-  "936298a9d9058756824b955298846921": {
-    "title": "Abteilungsleiter (m/w/d) IT und Organisation",
-    "company": "AOK-Bundesverband",
-    "first_seen": "2026-10-23"
-  },
-  "f6eaa8afa9b8ff0aed2ba4fbfabbda4c": {
-    "title": "Operational IT Lead (m/w/d)",
-    "company": "iris-GmbH infrared & intelligent sensors",
-    "first_seen": "2026-10-23"
-  },
-  "497457205ff959e5314964a3f56c30cc": {
-    "title": "Infrastructure & Internal IT Lead (all genders)",
-    "company": "DigitalService",
-    "first_seen": "2026-10-23"
-  },
-  "17c0ec8c1549dd94379763abc220c64b": {
-    "title": "IT Solution & Application Manager (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-23"
-  },
-  "78e6e8bafb3b1fd7aa80a8efc7b7979a": {
-    "title": "Consultant (m/w/d) Enterprise Architecture Management",
-    "company": "DACHSER",
-    "first_seen": "2026-10-23"
-  },
-  "4218f310d720df9e5a9d18a258ed8d55": {
-    "title": "Lead Cloud Native Architekt (m/w/d)",
-    "company": "T-Systems International",
-    "first_seen": "2026-10-23"
-  },
-  "4c910a7c64e55c266cc8948d8bea7129": {
-    "title": "(Senior) Technical Consultant (m/w/d) \u2013 Sovereign Cloud & Multi Cloud Architecture",
-    "company": "Reply",
-    "first_seen": "2026-10-23"
-  },
-  "52dce076f15a137304c97a8c6d8bceb6": {
-    "title": "Senior SAP Industry Cloud Architect Retail (f/m/x)",
-    "company": "Netconomy",
-    "first_seen": "2026-10-23"
-  },
-  "76cf6e4791d60efdead1dd9846b704ef": {
-    "title": "Operational IT Lead (m/w/d)",
-    "company": "iris-GmbH infrared & intelligent sensors",
-    "first_seen": "2026-10-23"
-  },
-  "fc110eeb997d2c81f7aa1877188e7319": {
-    "title": "Senior Consultant / Manager Enterprise Architecture & Cloud Transformation Energiewirtschaft (w/m/d)",
-    "company": "PwC Deutschland",
-    "first_seen": "2026-10-23"
-  },
-  "95f04e73897da5cc6454d82049cbd914": {
-    "title": "Corporate IT Engineer",
-    "company": "COSMO CONSULT",
-    "first_seen": "2026-10-23"
-  },
-  "8149c066b5d2c1cc407780ab5c2488a2": {
-    "title": "IT Security Engineer (all genders)",
-    "company": "getolo GmbH",
-    "first_seen": "2026-10-23"
-  },
-  "8e77c449f247806c85a496354a5fb80a": {
-    "title": "IT Coordinator (w/m/d)",
-    "company": "BKW Management AG",
-    "first_seen": "2026-10-23"
-  },
-  "c0d6fdeffc0da6611c9840d77395ba0b": {
-    "title": "SENIOR CONSULTANT CYBER SECURITY \u2013 ZERO TRUST STRATEGY & ARCHITECTURE (M/W/D)",
-    "company": "REPLY",
-    "first_seen": "2026-10-23"
-  },
-  "08d2401de3eaa85ee7a5d2594c0773db": {
-    "title": "Operational IT Lead (m/w/d)",
-    "company": "iris-GmbH infrared & intelligent sensors",
-    "first_seen": "2026-10-23"
-  },
-  "e4db92f6d85064b7f2901f9bc28facf7": {
-    "title": "Referatsleitung - Medizinische Fachsysteme - IT",
-    "company": "Vivantes Netzwerk f\u00fcr Gesundheit GmbH",
-    "first_seen": "2026-10-23"
-  },
-  "4f953b4750303c7ddda8144aae077d32": {
-    "title": "Leiter IT-Infrastruktur | Stellvertretung IT-Leiter, 7 Mitarbeiter | Inhouse (mwd)",
-    "company": "Vesterling AG",
-    "first_seen": "2026-10-23"
-  },
-  "9f5f5e4e33201d4a04a7503888390466": {
-    "title": "Solution Architect (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-23"
-  },
-  "89fcb21e711bc3181cd7b6f1052d6771": {
-    "title": "Solution Architekt Data Center & IT Infrastruktur (m/w/d) (remote)",
-    "company": "DIGIT4U Business Solutions GmbH",
-    "first_seen": "2026-10-23"
-  },
-  "3bcc02c1aab90d1bd6def0fb1ef34f9b": {
-    "title": "Stellvertretender Leiter IT | Schwerpunkt Infrastruktur, 7 Mitarbeiter | Inhouse (mwd)",
-    "company": "Vesterling AG",
-    "first_seen": "2026-10-23"
-  },
-  "b653b0d7928a8e87dc6f3e383d6d3e04": {
-    "title": "Abteilungsleiter Technik & IT (m/w/d) - Berlin oder Chemnitz",
-    "company": "Syben Consulting",
-    "first_seen": "2026-10-23"
-  },
-  "82cb1054963bd3913161bf2a0083207e": {
-    "title": "IT Value Contribution Manager (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-23"
-  },
-  "6a56dfa95cd1b7a3a59a2610fc348bbd": {
-    "title": "(Senior) Berater IT Performance - Technology Strategy & Transformation (w/m/d)",
-    "company": "EY Deutschland",
-    "first_seen": "2026-10-23"
-  },
-  "bdbcb31f88ef2650c56cd8a6409ded4c": {
-    "title": "Informatiker als IT Service Manager - Problem Management & ITSCM (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-23"
-  },
-  "02fb7c96a2c398959eda482930e1c8e4": {
-    "title": "IT Service Manager (m/w/d) - ITIL / ITSM Prozesse",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-23"
-  },
-  "f49f7b06254eab61b45dceec801e5974": {
-    "title": "Wirtschaftsinformatikerin - IT Service Management & ITSM-Prozesse (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-23"
-  },
-  "babe7343e8f93d66dc1804b6e3baa1b4": {
-    "title": "IT Process Manager - Evaluation & Analyse ITSM / ITIL (m/w/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-23"
-  },
   "c716075234e064ae85e49907ff916787": {
     "title": "Teamleitung IT (m/w/d)",
     "company": "mamgo | Talente \ud83d\udd17 Jobs",
@@ -5683,5 +5548,110 @@
     "title": "Teamleitung (d/w/m) - IT-Helpdesk & IT-Service-Desk",
     "company": "Charit\u00e9 Universit\u00e4tsmedizin Berlin Kd\u00f6R",
     "first_seen": "2026-11-22"
+  },
+  "d351ccbd7f75332ac3b2f208eb93ba99": {
+    "title": "Teamleitung IT (m/w/d)",
+    "company": "mamgo | Talente \ud83d\udd17 Jobs",
+    "first_seen": "2026-11-23"
+  },
+  "2dc622dd2aea2790760f5b94790a81b7": {
+    "title": "Abteilungsleiter:in Technik & IT",
+    "company": "Syben Consulting",
+    "first_seen": "2026-11-23"
+  },
+  "04287f4d8e5274ec679354d1ad1bd4b9": {
+    "title": "Bereichsleitung IT (m/w/d)",
+    "company": "Kienbaum",
+    "first_seen": "2026-11-23"
+  },
+  "2eca8769651af656df596b231f503d04": {
+    "title": "IT Transformation Manager Insurance (w/m/d)",
+    "company": "Capgemini",
+    "first_seen": "2026-11-23"
+  },
+  "4a7e146f698f76722d84fa28ef06261a": {
+    "title": "Senior Consultant Cybersecurity (all genders) - BCG Platinion",
+    "company": "BCG Platinion",
+    "first_seen": "2026-11-23"
+  },
+  "ab0786c23e0fdf43f6de2484084ffeb0": {
+    "title": "Senior Projektleiter (m/w/d)",
+    "company": "Assecor GmbH",
+    "first_seen": "2026-11-23"
+  },
+  "8df591c5bb222780c1f3843e5bb513b8": {
+    "title": "Stellvertretender Projektmanager - WAN / Virtualisierung / \u00dc2 | bis 31.10.2027 | 95% remote (m/w/d)",
+    "company": "Randstad Deutschland",
+    "first_seen": "2026-11-23"
+  },
+  "ab3b86014360162998b4a2589610ba1a": {
+    "title": "Technischer Projektmanager Leit-und Sicherungstechnik (m/w/d)",
+    "company": "Hitachi Energy",
+    "first_seen": "2026-11-23"
+  },
+  "936b818cd3688273ffc8977a2e212f18": {
+    "title": "Senior Projektleiter (m/w/d)",
+    "company": "Assecor GmbH",
+    "first_seen": "2026-11-23"
+  },
+  "45e95ff346935eca64250911473cc7be": {
+    "title": "IT-Systemadministrator (m/w/d)",
+    "company": "Seeger Gesundheitshaus GmbH & Co KG",
+    "first_seen": "2026-11-23"
+  },
+  "643198273ddba116b6974a6747435d0f": {
+    "title": "Head of Cloud Growth (m/w/d)",
+    "company": "secunet Security Networks AG",
+    "first_seen": "2026-11-23"
+  },
+  "8e08171f48519d8dc7258fa5d1843a6c": {
+    "title": "IT Transformation Manager Insurance (w/m/d)",
+    "company": "Capgemini",
+    "first_seen": "2026-11-23"
+  },
+  "3b98b50e27b8177133d1e1040c9232a5": {
+    "title": "Consultant (w/m/d) - Prozess- und IT-Planung Logistik (WMS)",
+    "company": "Miebach",
+    "first_seen": "2026-11-23"
+  },
+  "b953a6dc0589929cf15a747b9030a541": {
+    "title": "Senior Consultant IT, Digitalisierung und KI im Gesundheitswesen (m/w/d)",
+    "company": "G\u00d6K Consulting GmbH",
+    "first_seen": "2026-11-23"
+  },
+  "a09dca875302876cc24626fd75966707": {
+    "title": "Business Unit Manager Ceramic Bodies",
+    "company": "SIBELCO",
+    "first_seen": "2026-11-23"
+  },
+  "74e4f92c4c43d6a882b9500ca417d689": {
+    "title": "IT-Berater (m/w/d)",
+    "company": "uve GmbH f\u00fcr Managementberatung",
+    "first_seen": "2026-11-23"
+  },
+  "1cac11bb373d4895455c6bd67af751fb": {
+    "title": "Elektroingenieur als IT-Architekt (m/w/d)",
+    "company": "Polizei Berlin",
+    "first_seen": "2026-11-23"
+  },
+  "38b4fa35a7fc47680b93a576318e74b7": {
+    "title": "Solution Architect - Grid Construction (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-11-23"
+  },
+  "3faa9201ee560f71b05e01fdaa45b3bf": {
+    "title": "Solution Architect - Market Sourcing & System Planning (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-11-23"
+  },
+  "5e04790322a49569fbd8cfddb4de297a": {
+    "title": "Solution Architect - Remedial Action & Capacity Management (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-11-23"
+  },
+  "6a56dfa95cd1b7a3a59a2610fc348bbd": {
+    "title": "(Senior) Berater IT Performance - Technology Strategy & Transformation (w/m/d)",
+    "company": "EY Deutschland",
+    "first_seen": "2026-11-23"
   }
 }
