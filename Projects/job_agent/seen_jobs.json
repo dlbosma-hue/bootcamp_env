@@ -1,114 +1,4 @@
 {
-  "c716075234e064ae85e49907ff916787": {
-    "title": "Teamleitung IT (m/w/d)",
-    "company": "mamgo | Talente \ud83d\udd17 Jobs",
-    "first_seen": "2026-10-24"
-  },
-  "1285ec48421972d83ad6b18c28da9109": {
-    "title": "IT Manager am Standort Berlin (m/w/d)",
-    "company": "Greenberg Traurig Germany, LLP",
-    "first_seen": "2026-10-24"
-  },
-  "4210820ce3f9f886e15d8c67e3d48a09": {
-    "title": "Senior IT Consultant / Teamleiter \u2013 IAM / IGA (m/w/d)",
-    "company": "Instaffo",
-    "first_seen": "2026-10-24"
-  },
-  "62e9ee72dbae8682d15d4cf1dc8411ef": {
-    "title": "IT-Projektleiter SharePoint & OneDrive (m/w/d)",
-    "company": "emagine",
-    "first_seen": "2026-10-24"
-  },
-  "0134b01db72624e2a1eeb65409eac628": {
-    "title": "Senior IT Consultant / Teamleiter \u2013 CIAM (m/w/d)",
-    "company": "Instaffo",
-    "first_seen": "2026-10-24"
-  },
-  "a42f3e209e135cde58d97b9dae8ef554": {
-    "title": "EU Cybersecurity Governance, Risk and Compliance Lead (m/w/d)",
-    "company": "Emerson",
-    "first_seen": "2026-10-24"
-  },
-  "49129487b37e909d0a487403c060db67": {
-    "title": "IT Security & Compliance Lead | HealthTech (w/m/d)",
-    "company": "Right Search",
-    "first_seen": "2026-10-24"
-  },
-  "f691ab963166716ea48c6ee2a3f1c956": {
-    "title": "Projektleitung IT-\u00dcberf\u00fchrung (m/w/d)",
-    "company": "Landesbetrieb Forst Brandenburg Betriebszentrale",
-    "first_seen": "2026-10-24"
-  },
-  "9941b55dc843a6589bb038629b2c7bb1": {
-    "title": "IT-Security Manager (m/w/d)",
-    "company": "Die Techhunter e.K.",
-    "first_seen": "2026-10-24"
-  },
-  "0dc8cf2f5f73b4dd96f911a44eb8f193": {
-    "title": "PMO Manager (w/m/d) Customer Services",
-    "company": "Siemens",
-    "first_seen": "2026-10-24"
-  },
-  "b1168fa5d463ac18f10f33184759af55": {
-    "title": "IT Support Spezialist (m/w/d)",
-    "company": "Str\u00f6er SE & Co. KGaA",
-    "first_seen": "2026-10-24"
-  },
-  "1c23964ccfd3b1a57ea3c064c956cfd7": {
-    "title": "IT Workplace Technician - Meeting Room Technology (all genders) \u2013 Beats & Bytes \u2013 Universal Music Entertainment GmbH",
-    "company": "Universal Music Deutschland",
-    "first_seen": "2026-10-24"
-  },
-  "897884b3fa19c1eb0506647d79315685": {
-    "title": "Projektmanager (m/w/d) AI, Data & Automation Hub",
-    "company": "Wall GmbH",
-    "first_seen": "2026-10-24"
-  },
-  "23c9089de44fade741a717dc38567a47": {
-    "title": "IT Support Specialist (f/m/x)",
-    "company": "Enpal",
-    "first_seen": "2026-10-24"
-  },
-  "9456dc6e95c34fd4ea52dca962733b90": {
-    "title": "IT Service Management Consultant (m/w/d)",
-    "company": "CBRAIN",
-    "first_seen": "2026-10-24"
-  },
-  "cbfc3b22a83a33572775447cb7d5cd8c": {
-    "title": "IT Software Quality & Test Management Consultant (m/w/d)",
-    "company": "CBRAIN",
-    "first_seen": "2026-10-24"
-  },
-  "50f33fc1f845eac7272e5a429e964746": {
-    "title": "Operational IT Lead (m/w/d)",
-    "company": "iris-GmbH infrared & intelligent sensors",
-    "first_seen": "2026-10-24"
-  },
-  "d796d3d37781f71023f00af6de2ce884": {
-    "title": "Solution Architect (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-24"
-  },
-  "2e15c91e79ae6f0f011d2f1488baa22d": {
-    "title": "IT Consultant (m/w/d) Public Sector (Intrexx)",
-    "company": "Dataciders GmbH",
-    "first_seen": "2026-10-24"
-  },
-  "0a573c63ba711e5ee13385cc18714cff": {
-    "title": "IT Value Contribution Manager (w/m/d)",
-    "company": "50Hertz Transmission GmbH",
-    "first_seen": "2026-10-24"
-  },
-  "e29fb582a04d45be05a39542831d8d17": {
-    "title": "IT Ser\u00advice Ow\u00adner Cloud (m/w/div) f\u00fcr Ber\u00adlin oder W\u00fcrz\u00adburg",
-    "company": "Deut\u00adsche Ren\u00adten\u00adver\u00adsi\u00adche\u00adrung Bund",
-    "first_seen": "2026-10-24"
-  },
-  "ea858c23a01ae387c8c9ab51100f2856": {
-    "title": "(Senior) Consultant IT Service Management (all genders)",
-    "company": "Accenture Dienstleistungen GmbH",
-    "first_seen": "2026-10-24"
-  },
   "b7e83261ccdcad36723a34c56baeb27e": {
     "title": "Abteilungsleiter (m/w/d) IT und Organisation",
     "company": "AOK-Bundesverband",
@@ -5653,5 +5543,120 @@
     "title": "(Senior) Berater IT Performance - Technology Strategy & Transformation (w/m/d)",
     "company": "EY Deutschland",
     "first_seen": "2026-11-23"
+  },
+  "aef29f63273be92057d01b42d81a1b3a": {
+    "title": "Infrastructure & Internal IT Lead (all genders)",
+    "company": "DigitalService",
+    "first_seen": "2026-11-24"
+  },
+  "6258c22c0ba0eb985fcc65145860a225": {
+    "title": "Technology Lead (Platform, Security & IT)",
+    "company": "OMRIA",
+    "first_seen": "2026-11-24"
+  },
+  "ea39afb8db08e09bd3bfde8176fdafcc": {
+    "title": "VP/Head of Infrastructure",
+    "company": "WeEngage Group | B Corp\u2122",
+    "first_seen": "2026-11-24"
+  },
+  "c5479bad821902017a6ac9f77a85b81b": {
+    "title": "Lead PMO (m/w/d) in einem sicherheitskritischen Projekt bis 31.12.27 | 50% remote/50% Berlin",
+    "company": "Randstad Deutschland",
+    "first_seen": "2026-11-24"
+  },
+  "b864b09462922f192de3c505dbd88076": {
+    "title": "(Senior) Manager M&A IT - Post-Merger-Integration & Carve-out (m/w/d)",
+    "company": "Deloitte",
+    "first_seen": "2026-11-24"
+  },
+  "c8b03cc6902862990517b7208be8e97e": {
+    "title": "Senior Consultant IT- und Risikomanagement / Financial Services (m/w/d)",
+    "company": "Deloitte",
+    "first_seen": "2026-11-24"
+  },
+  "85047d042b934d90a35cefc5b2d8b99c": {
+    "title": "ISMS Manager - IT (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-11-24"
+  },
+  "4125b9dc6e258ed8d694fe8f5f4d5781": {
+    "title": "Mitarbeiter Information & IT-Security Management (w/m/d)",
+    "company": "Jobs via eFinancialCareers",
+    "first_seen": "2026-11-24"
+  },
+  "cf989a5642592b93d9a5d3c60ac235eb": {
+    "title": "Infrastructure Manager (m/w/d) for AI Ops Implementation",
+    "company": "Jobs via eFinancialCareers",
+    "first_seen": "2026-11-24"
+  },
+  "9c43d7d165e6d652322bd686a159a086": {
+    "title": "Senior Consultant IT Project Management / Life Sciences (m/w/d)",
+    "company": "Deloitte",
+    "first_seen": "2026-11-24"
+  },
+  "9f0eb523e907194b42b83e90c3523fe3": {
+    "title": "Senior IT Security Consultant w/m/d - Access Management",
+    "company": "Computacenter",
+    "first_seen": "2026-11-24"
+  },
+  "c10c7fdb8838c417f6df30fbfc891276": {
+    "title": "(Senior) Manager IT-Sourcing & Service Management (m/w/d) in Berlin",
+    "company": "Deloitte",
+    "first_seen": "2026-11-24"
+  },
+  "a42456b10570a70b87e8f3879a10525a": {
+    "title": "Senior Consultant IT Betrieb / IT Operations (w/m/d)",
+    "company": "HiSolutions AG",
+    "first_seen": "2026-11-24"
+  },
+  "27c90cae693fb4e8c59f9df2fa1a5a8b": {
+    "title": "SAP Solution Architect (O2C/P2P) (m/w/d)",
+    "company": "EPAM Systems",
+    "first_seen": "2026-11-24"
+  },
+  "29e1d35da666e5e4237c4d83526e291c": {
+    "title": "SAP Solution Architect (SAP FI/CO) (m/w/d)",
+    "company": "EPAM Systems",
+    "first_seen": "2026-11-24"
+  },
+  "72dc6fa783ea82efa3b724fcb9cc9ac0": {
+    "title": "IT-Administration",
+    "company": "Projektron GmbH",
+    "first_seen": "2026-11-24"
+  },
+  "fbef8c5642d298b878ce7f27cf4d1e6d": {
+    "title": "Referent / Spezialist IT-Plattform \u2013 mit Schwerpunkt IT-Leistungsmanagement",
+    "company": "Sparkassen Personalberatung GmbH",
+    "first_seen": "2026-11-24"
+  },
+  "2711f8bcbf053dbf275e18dcde08d273": {
+    "title": "Elektroingenieur als IT-Architekt (m/w/d)",
+    "company": "Polizei Berlin",
+    "first_seen": "2026-11-24"
+  },
+  "51f121aaa847ff1fe1ad05cb3d9e2874": {
+    "title": "Solution Architect - Grid Construction (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-11-24"
+  },
+  "e50049ddd0ac45beb85762c0f8392e3d": {
+    "title": "Solution Architect - Market Sourcing & System Planning (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-11-24"
+  },
+  "6d1a14ddf57fb5957994a51035100560": {
+    "title": "Solution Architect - Remedial Action & Capacity Management (w/m/d)",
+    "company": "50Hertz Transmission GmbH",
+    "first_seen": "2026-11-24"
+  },
+  "07c629cf84cea056c757886f1ddd134d": {
+    "title": "Senior Manager im Bereich der Digitalisierung (m/w/d)",
+    "company": "Amadeus Fire AG",
+    "first_seen": "2026-11-24"
+  },
+  "8f86a72bd11dfccddf93e1e4bde5459d": {
+    "title": "Senior IT Project Manager (m/f/d)",
+    "company": "Michael Page",
+    "first_seen": "2026-11-24"
   }
 }
